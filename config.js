@@ -14,10 +14,10 @@ module.exports = {
   siteUrl: 'http://localhost:8000',
   social: {
     // leave the social media you do not want to appear as empty strings
-    twitter: 'FirsTziiz',
+    twitter: '@heyfirst_______',
     medium: '@heyfirst_',
     facebook: '',
-    github: '',
+    github: 'heyfirst',
     linkedin: '',
     instagram: '',
   },
