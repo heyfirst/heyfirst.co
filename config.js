@@ -7,7 +7,7 @@ module.exports = {
   // It should complete the sentence: Written by Kanisorn S. ...
   shortBio: '',
   // a longer bio showing on the landing page of the blog
-  bio: `Just a little software developer : ) thank you for follow me : ).`,
+  bio: `I'm a software developer (grad) consultant at ThoughtWorks Thailand.`,
   author: 'Kanisorn S.',
   githubUrl: 'https://github.com/heyfirst/medium-to-blog-test',
   // replace this by the url where your website will be published
