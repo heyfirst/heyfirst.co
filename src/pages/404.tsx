@@ -1,11 +1,12 @@
 import React from "react"
 import SEO from "../components/SEO"
+import Layout from "../components/Layout"
 
 const IndexPage: React.FC = () => (
-  <div>
+  <Layout>
     <SEO title={"Not found!"} />
     <h1>404 Not found!</h1>
-  </div>
+  </Layout>
 )
 
 export default IndexPage

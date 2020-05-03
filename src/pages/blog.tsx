@@ -1,11 +1,12 @@
 import React from "react"
 import SEO from "../components/SEO"
+import Layout from "../components/Layout"
 
 const BlogPage: React.FC = () => (
-  <div>
+  <Layout>
     <SEO title={"Blog"} />
     <h1>Blog</h1>
-  </div>
+  </Layout>
 )
 
 export default BlogPage
