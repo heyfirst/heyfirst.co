@@ -1,9 +1,9 @@
 import React from "react"
-import Helmet from "react-helmet"
+import SEO from "../components/SEO"
 
 const BlogPage: React.FC = () => (
   <div>
-    <Helmet title={"Blog"} defer={false} />
+    <SEO title={"Blog"} />
     <h1>Blog</h1>
   </div>
 )

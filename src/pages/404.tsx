@@ -3,8 +3,8 @@ import SEO from "../components/SEO"
 
 const IndexPage: React.FC = () => (
   <div>
-    <SEO title={"Hey!"} />
-    <h1>Index</h1>
+    <SEO title={"Not found!"} />
+    <h1>404 Not found!</h1>
   </div>
 )
 
