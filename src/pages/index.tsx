@@ -12,7 +12,7 @@ const IndexPage: React.FC = () => (
       Everyone know me as <i>Kanisorn Sutham</i>. Also, call me “First” like a
       nickname. I’m a <u>Software Developer Consultant</u> at{" "}
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         ThoughtWorks (Thailand)
@@ -26,7 +26,7 @@ const IndexPage: React.FC = () => (
     <p className="my-2">I live in Bangkok, Thailand.</p>
     <p className="my-2">
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         Read about what I’m learning on my blog.
@@ -35,7 +35,7 @@ const IndexPage: React.FC = () => (
       currently learning more about Software Engineering Practices. Also
       published in my{" "}
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         dev.to/heyfirst
@@ -44,21 +44,21 @@ const IndexPage: React.FC = () => (
     <p className="my-2">
       I’m also on{" "}
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         Twitter
       </a>
       ,{" "}
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         LinkedIn
       </a>{" "}
       and{" "}
       <a
-        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         href="#"
       >
         GitHub
