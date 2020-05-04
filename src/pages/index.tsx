@@ -9,7 +9,7 @@ const IndexPage: React.FC = () => (
     <h1 className="font-heading font-normal mt-2 text-3xl leading-8 tracking-wide text-gray-900 sm:text-4xl sm:leading-10">
       Hey! I’m First.
     </h1>
-    <p className="my-3">
+    <p className="my-3 whitespace-pre-wrap">
       Everyone know me as <i>Kanisorn Sutham</i>. Also, call me “First” like a
       nickname. I’m a{" "}
       <span className="italic underline">Software Developer Consultant</span> at{" "}
@@ -22,12 +22,12 @@ const IndexPage: React.FC = () => (
       </a>
       .
     </p>
-    <p className="my-3">
+    <p className="my-3 whitespace-pre-wrap">
       Currently <i>focused</i> on deliver a quality software and encourage
       people to become better developer. Not just writing the code.
     </p>
-    <p className="my-3">I live in Bangkok, Thailand.</p>
-    <p className="my-3">
+    <p className="my-3 whitespace-pre-wrap">I live in Bangkok, Thailand.</p>
+    <p className="my-3 whitespace-pre-wrap">
       <Link
         className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
         to="/blog"
@@ -45,7 +45,7 @@ const IndexPage: React.FC = () => (
         dev.to/heyfirst
       </a>
     </p>
-    <p className="my-3">
+    <p className="my-3 whitespace-pre-wrap">
       I’m also on{" "}
       <a
         className="bg-gray-200 px-2 py-1 text-sm font-normal cursor-pointer hover:bg-gray-300"
