@@ -5,28 +5,64 @@ import Layout from "../components/Layout"
 const IndexPage: React.FC = () => (
   <Layout>
     <SEO title={"Hey!"} />
-    <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Hey! I’m First Kanisorn Sutham
+    <h1 className="font-heading font-normal mt-2 text-3xl leading-8 tracking-wide text-gray-900 sm:text-4xl sm:leading-10">
+      Hey! I’m First.
     </h1>
-    <p className="">
-      Everyone know me as Kanisorn Sutham. Also, call me “First” like a
-      nickname. I’m a Software Developer Consultant at{" "}
-      <a href="#">ThoughtWorks (Thailand)</a>.
+    <p className="my-2">
+      Everyone know me as <i>Kanisorn Sutham</i>. Also, call me “First” like a
+      nickname. I’m a <u>Software Developer Consultant</u> at{" "}
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        ThoughtWorks (Thailand)
+      </a>
+      .
     </p>
-    <p>
-      Currently focused on deliver a quality software and encourage people to
-      become better developer. Not just writing the code.
+    <p className="my-2">
+      Currently <i>focused</i> on deliver a quality software and encourage
+      people to become better developer. Not just writing the code.
     </p>
-    <p>I live in Bangkok, Thailand.</p>
-    <p>
-      <a href="#">Read about what I’m learning on my blog.</a> It’s updated
-      every time I make a breakthrough worth mentioning. I’m currently learning
-      more about Software Engineering Practices. Also published in my
-      dev.to/heyfirst
+    <p className="my-2">I live in Bangkok, Thailand.</p>
+    <p className="my-2">
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        Read about what I’m learning on my blog.
+      </a>{" "}
+      It’s updated every time I make a breakthrough worth mentioning. I’m
+      currently learning more about Software Engineering Practices. Also
+      published in my{" "}
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        dev.to/heyfirst
+      </a>
     </p>
-    <p>
-      I’m also on <a href="#">Twitter</a>,<a href="#">LinkedIn</a> and
-      <a href="#">GitHub</a>
+    <p className="my-2">
+      I’m also on{" "}
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        Twitter
+      </a>
+      ,{" "}
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        LinkedIn
+      </a>{" "}
+      and{" "}
+      <a
+        className="bg-gray-200 rounded-lg px-3 py-1 text-sm font-normal cursor-pointer"
+        href="#"
+      >
+        GitHub
+      </a>
     </p>
   </Layout>
 )

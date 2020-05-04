@@ -7,11 +7,14 @@ const Header: React.FC = () => (
     </div>
     <div className="w-full block flex-grow md:flex md:items-center md:w-auto">
       <div className="text-sm md:flex-grow">
-        <a className="block mt-4 inline-block md:mt-0 text-teal-600 hover:text-black mr-4">
-          Resume
-        </a>
-        <a className="block mt-4 inline-block md:mt-0 text-teal-600 hover:text-black mr-4">
+        <a className="block mt-4 inline-block md:mt-0 text-gray-600 hover:text-black mr-4 cursor-pointer">
           Blog
+        </a>
+        <a className="block mt-4 inline-block md:mt-0 text-gray-600 hover:text-black mr-4 cursor-pointer">
+          Tutorials
+        </a>
+        <a className="block mt-4 inline-block md:mt-0 text-gray-600 hover:text-black mr-4 cursor-pointer">
+          Resume
         </a>
       </div>
     </div>
