@@ -2,7 +2,7 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import Layout from "../components/Layout"
 import { formatPostDate, formatReadingTime } from "../utils/dates"
 
