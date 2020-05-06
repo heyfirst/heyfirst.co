@@ -2,56 +2,57 @@
   h2,
   h3,
   p {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
+    @apply my-3;
   }
 
   h2 {
-    font-size: 1.875rem;
-    font-weight: 400;
-    margin-top: 2rem;
+    @apply mt-8;
+    @apply text-4xl;
+    @apply font-heading;
   }
 
   h3 {
-    font-size: 1.575rem;
-    font-weight: 400;
-    margin-top: 2rem;
+    @apply mt-8;
+    @apply text-2xl;
+    @apply font-heading;
   }
 
   figure {
-    white-space: nowrap;
+    @apply whitespace-no-wrap;
   }
 
   figcaption {
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: 0.75rem;
-    font-style: italic;
-    white-space: pre-wrap;
+    @apply text-xs;
+    @apply text-center;
+    @apply mt-3;
+    @apply italic;
+    @apply whitespace-pre-wrap;
   }
 
   a {
-    --bg-opacity: 1;
-    background-color: rgba(237, 242, 247, var(--bg-opacity));
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    font-size: 0.875rem;
-    cursor: pointer;
+    @apply bg-gray-200;
+    @apply mx-2;
+    @apply my-1;
+    @apply pb-1;
+    @apply text-xs;
+    @apply cursor-pointer;
 
     &:hover {
-      background-color: rgba(226, 232, 240, var(--bg-opacity));
+      @apply bg-gray-300;
     }
   }
 
   blockquote {
     box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
-    padding-left: 1rem;
-    font-style: italic;
+    @apply pl-4;
+    @apply italic;
   }
 
   strong {
-    font-weight: 600;
+    @apply font-semibold;
+  }
+
+  a svg {
+    @apply inline-block;
   }
 }

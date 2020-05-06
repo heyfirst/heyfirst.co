@@ -48,11 +48,11 @@ if date.after(SUMMER_START) and date.before(SUMMER_END):
 else:
     charge = quantity * summerRate
 
- 
+
 # -- After ------------------------------------------
 def summerCharge(quantity):
   return quantity * summerRate
-  
+
 def winterCharge(quantity):
   return quantity * winterRate + winterServiceCharge
 
@@ -86,17 +86,17 @@ def disabilityAmount():
     return 0
   if isPartTime:
     return 0
-    
-  # ... do something  
-  
+
+  # ... do something
+
 
 # -- After ------------------------------------------
 def disabilityAmount():
-  isNotEligableForDisability = (seniority < 2) or (monthsDisabled > 12) or isPartTime  
+  isNotEligableForDisability = (seniority < 2) or (monthsDisabled > 12) or isPartTime
 
   if isNotEligableForDisability:
     return 0
-  
+
   # ... do something
 
 # read more: https://refactoring.guru/consolidate-conditional-expression
@@ -116,7 +116,7 @@ if isSpecialDeal():
 else:
   total = price * 0.98
   send()
-    
+
 # -- After ------------------------------------------
 if isSpecialDeal():
   total = price * 0.95
@@ -147,20 +147,20 @@ def getPayAmount(self):
       else:
         extraPay = getExtraPay()
         result = normalPayAmount(extraPay)
-  
+
   return result
-  
+
 # -- After ------------------------------------------
 def getPayAmount(self):
   if self.isExpired:
     return expiredAmount()
-  
+
   if self.isSeparated:
     return separatedAmount()
-  
+
   if self.isRetired:
     return retiredAmount()
-  
+
   extraPay = getExtraPay()
   return normalPayAmount()
 
@@ -192,7 +192,7 @@ class Bird:
             return 0 if self.isNailed else self.getBaseSpeed(self.voltage)
         else:
             raise Exception("Should be unreachable")
-    
+
 # -- After ------------------------------------------
 class Bird:
     # ...
@@ -202,8 +202,8 @@ class Bird:
 class European(Bird):
     def getSpeed(self):
         return self.getBaseSpeed()
-    
-    
+
+
 class African(Bird):
     def getSpeed(self):
         return self.getBaseSpeed() - self.getLoadFactor() * self.numberOfCoconuts
@@ -243,7 +243,7 @@ if item.sell_in < 0:
                     item.quality = item.quality - 1
     else:
         item.quality = item.quality + 1
-    
+
 # -- After ------------------------------------------
 if item.sell_in < 0:
     if (
@@ -266,7 +266,7 @@ if not (number >= 1 and number <= 100): # ~(p v q)
   print('Out of the range')
 else:
   print('In Between 1 and 100!')
-    
+
 # -- After ------------------------------------------
 if (not number >= 1) or (not number <= 100): # ~p ^ ~q
   print('Out of the range')
@@ -371,8 +371,8 @@ class Item:
 ใครที่อ่านมาถึงตรงนี้ก็ขอขอบคุณมาก ๆ ครับ หวังว่าจะได้ความรู้หรือไอเดียอะไรใหม่ ๆ กันไปบ้างนะครับ!
 
 > ผมคิดว่าการเขียน Code ให้ทำงานได้มันไม่ได้ยากมาก .. ถ้าเทียบกับการเขียน Code ให้สะอาด อ่านง่าย คนอื่นเข้าใจได้และเข้าใจ Code โดยไม่ต้องกดหา Git Blame ว่าใครนะ แม่งเป็นคนเขียนบรรทัดนี้!
-> 
->  หยอกเล่นน่ะครับ… 😅
+>
+> หยอกเล่นน่ะครับ… 😅
 
 เอาจริง ๆ ผมหวังว่าหลังจากนี้ ทุกคนจะจัดการกับเงื่อนไข If-Else ที่ซับซ้อนได้ดีขึ้นกว่าเมื่อก่อน … เนื้อหาบล็อคนี้มันอาจจะไม่ได้ลึกมาก และหวังว่ามันไม่ได้ยากเกินไปสำหรับการเริ่มต้นทำอะไรบางอย่างดู
 
