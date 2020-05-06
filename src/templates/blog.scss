@@ -24,17 +24,17 @@
   figcaption {
     @apply text-xs;
     @apply text-center;
-    @apply mt-3;
     @apply italic;
     @apply whitespace-pre-wrap;
+    padding: 0 1.325rem;
+    line-height: 1rem;
   }
 
   a {
     @apply bg-gray-200;
-    @apply mx-2;
-    @apply my-1;
-    @apply pb-1;
-    @apply text-xs;
+    @apply px-2;
+    @apply py-1;
+    @apply text-sm;
     @apply cursor-pointer;
 
     &:hover {
