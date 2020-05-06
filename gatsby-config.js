@@ -79,5 +79,11 @@ module.exports = {
         sourceMap: true,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: `UA-46738763-10`,
+      },
+    },
   ],
 }

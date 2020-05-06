@@ -2,22 +2,18 @@ module.exports = {
   // the name of your website
   title: "heyfirst.co",
   // the description of the website (eg. what shows on Google)
-  description: "heyfirst's blog",
-  // a short bio shown at the bottom of your blog posts
-  // It should complete the sentence: Written by heyfirst ...
-  shortBio: "",
-  // a longer bio showing on the landing page of the blog
-  bio: `I'm a software developer (grad) consultant at ThoughtWorks Thailand.`,
   author: "heyfirst",
-  githubUrl: "https://github.com/heyfirst/medium-to-blog-test",
+  description:
+    "I'm a software developer (grad) consultant at ThoughtWorks Thailand.",
+  githubUrl: "https://github.com/heyfirst/",
   // replace this by the url where your website will be published
-  siteUrl: "http://localhost:8000",
+  siteUrl: "https://heyfirst.co",
   social: {
     // leave the social media you do not want to appear as empty strings
-    twitter: "FirsTziiz",
-    medium: "@heyfirst_",
+    twitter: "heyfirst_______",
+    medium: "",
     facebook: "",
-    github: "",
+    github: "heyfirst",
     linkedin: "",
     instagram: "",
   },

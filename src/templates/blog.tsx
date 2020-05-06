@@ -8,13 +8,28 @@ import { formatPostDate, formatReadingTime } from "../utils/dates"
 
 import "./blog.scss"
 
-export default function PageTemplate({ data: { mdx, site }, pageContext }) {
+type Props = {
+  data: any
+  pageContext: any
+}
+
+const PageTemplate: React.FC<Props> = ({
+  data: { mdx, site },
+  pageContext,
+}) => {
   const { previous, next } = pageContext
-  const publicUrl = `${site.siteMetadata.siteUrl}${mdx.fields.slug}`
+  const coverImgObj = mdx.frontmatter.featuredImage
+    ? mdx.frontmatter.featuredImage.childImageSharp.sizes
+    : null
 
   return (
     <Layout>
-      <SEO title={mdx.frontmatter.title} />
+      <SEO
+        title={mdx.frontmatter.title}
+        description={mdx.excerpt}
+        slug={mdx.fields.slug}
+        image={coverImgObj ? coverImgObj.src : null}
+      />
       <section className="center blog">
         <article className="container small">
           <header>
@@ -74,6 +89,8 @@ export default function PageTemplate({ data: { mdx, site }, pageContext }) {
   )
 }
 
+export default PageTemplate
+
 export const pageQuery = graphql`
   query BlogPostQuery($id: String) {
     site {
@@ -86,11 +103,19 @@ export const pageQuery = graphql`
       fields {
         slug
       }
+      excerpt(pruneLength: 160)
       timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         canonical_link
+        featuredImage {
+          childImageSharp {
+            sizes(maxWidth: 768, quality: 80) {
+              ...GatsbyImageSharpSizes_withWebp
+            }
+          }
+        }
       }
       body
     }
