@@ -1,17 +1,38 @@
 .blog {
-  a:not(.anchor-header) {
-    @apply bg-gray-200;
-    @apply px-2;
-    @apply py-1;
-    @apply text-sm;
+  a {
+    @apply underline;
+    @apply text-indigo-700;
     @apply cursor-pointer;
 
     &:hover {
-      @apply bg-gray-300;
+      @apply text-indigo-900;
     }
   }
 
   a.anchor-header {
     @apply pl-2;
+  }
+
+  header {
+    @apply pb-6;
+
+    .background {
+      margin-left: calc(-100vw / 2 + 100% / 2);
+      margin-right: calc(-100vw / 2 + 100% / 2);
+      filter: brightness(0.5);
+      > div {
+        height: 460px;
+
+        @media (max-width: 672px) {
+          height: 600px;
+        }
+      }
+    }
+
+    .info {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }

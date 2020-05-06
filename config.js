@@ -5,7 +5,7 @@ module.exports = {
   author: "heyfirst",
   description:
     "I'm a software developer (grad) consultant at ThoughtWorks Thailand.",
-  githubUrl: "https://github.com/heyfirst/",
+  githubUrl: "https://github.com/heyfirst/heyfirst.co",
   // replace this by the url where your website will be published
   siteUrl: "https://heyfirst.co",
   social: {

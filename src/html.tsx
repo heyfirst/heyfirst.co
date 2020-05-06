@@ -1,8 +1,8 @@
 import React from "react"
-import PropTypes from "prop-types"
 
 const font =
-  "https://fonts.googleapis.com/css2?family=Lora&family=Sarabun:ital,wght@0,200;1,200&display=swap"
+  "https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Sarabun:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+// Lora 400, Sarabun 400,600
 
 const HTML: React.FC = (props: any) => (
   <html {...props.htmlAttributes}>

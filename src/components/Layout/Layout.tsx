@@ -1,14 +1,14 @@
 import React from "react"
 import cx from "classnames"
-import styles from "./Layout.module.scss"
 
 import Canvas from "../MouseTrail"
 import Header from "../Header"
+import "./Layout.scss"
 
 const Layout: React.FC = ({ children }) => (
   <React.Fragment>
     <Canvas />
-    <div className={cx("container", styles.root)}>
+    <div className={cx("container mx-auto")}>
       <Header />
       <div>{children}</div>
     </div>

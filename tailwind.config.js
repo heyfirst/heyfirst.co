@@ -244,12 +244,6 @@ module.exports = {
         "serif",
       ],
       sans: [
-        // "system-ui",
-        // "-apple-system",
-        // "BlinkMacSystemFont",
-        // '"Segoe UI"',
-        // "Roboto",
-        // '"Helvetica Neue"',
         "Sarabun",
         "Arial",
         '"Noto Sans"',

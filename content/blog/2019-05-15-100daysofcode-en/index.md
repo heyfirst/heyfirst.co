@@ -89,6 +89,6 @@ Now, I will leave it from here, I am going to practice writing the configuration
 
 Thanks all.
 
-![](./asset-4.png)
+![🌹](./asset-4.png)
 
 Special thanks for word proofing and sentence checking. — [Kunanan Tassuwan](https://medium.com/u/781de67f03c2), [Arnon Puitrakul](https://arnondora.in.th)✌🏻

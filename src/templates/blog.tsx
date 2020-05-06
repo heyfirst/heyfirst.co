@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import Img from "gatsby-image"
 
 import SEO from "../components/SEO"
 import Layout from "../components/Layout"
@@ -32,14 +33,21 @@ const PageTemplate: React.FC<Props> = ({
       />
       <section className="center blog">
         <article className="container small">
-          <header>
-            <h1 className="font-heading font-normal mt-2 text-3xl leading-8 text-gray-900 sm:text-4xl sm:leading-10">
-              {mdx.frontmatter.title}
-            </h1>
-            <p className="text-sm">
-              {formatPostDate(mdx.frontmatter.date)}
-              {` • ${formatReadingTime(mdx.timeToRead)}`}
-            </p>
+          <header className="relative">
+            <div className="background">
+              <Img
+                fluid={mdx.frontmatter.featuredImage.childImageSharp.sizes}
+              />
+            </div>
+            <div className="info text-white text-center w-full">
+              <h1 className="font-heading font-bold mt-2 text-3xl leading-8 sm:text-4xl sm:leading-10">
+                {mdx.frontmatter.title}
+              </h1>
+              <p className="text-sm">
+                {formatPostDate(mdx.frontmatter.date)}
+                {` • ${formatReadingTime(mdx.timeToRead)}`}
+              </p>
+            </div>
           </header>
 
           <MDXRenderer>{mdx.body}</MDXRenderer>
@@ -111,7 +119,7 @@ export const pageQuery = graphql`
         canonical_link
         featuredImage {
           childImageSharp {
-            sizes(maxWidth: 768, quality: 80) {
+            sizes(quality: 80) {
               ...GatsbyImageSharpSizes_withWebp
             }
           }

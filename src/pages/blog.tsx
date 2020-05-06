@@ -39,7 +39,7 @@ const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
             />
           </div>
           <div className="absolute top-0 text-white">
-            <h3 className="mt-4 mb-0">{post.frontmatter.title}</h3>
+            <h3 className="mt-4 mb-0 underline">{post.frontmatter.title}</h3>
             <div className="text-sm leading-6 italic">{post.excerpt}</div>
             <div className="text-sm leading-6 italic">
               {formatPostDate(post.frontmatter.date)}
