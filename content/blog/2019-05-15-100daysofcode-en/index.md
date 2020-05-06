@@ -11,7 +11,7 @@ redirect_from:
 
 This is the English version of \[[สิ่งที่ผมได้เรียนรู้จาก #100DaysofCode](https://blog.ks.in.th/%E0%B8%AA%E0%B8%B4%E0%B9%88%E0%B8%87%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9C%E0%B8%A1%E0%B9%84%E0%B8%94%E0%B9%89%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%88%E0%B8%B2%E0%B8%81-100daysofcode-fba6028af493)\]. It’s happening because I wish to practice my English-writing skill.
 
-![Paul Gilmore ([@paulgilmore\_](https://unsplash.com/photos/8kDOOrs608I)) — Jump!](./asset-1.jpeg)
+![Paul Gilmore ([@paulgilmore_](https://unsplash.com/photos/8kDOOrs608I)) — Jump!](./asset-1.jpeg)
 
 Hello there, I am a senior student at the School of Information Technology, King Mongkut’s University of Technology Thonburi (**KMUTT**). Bangkok, Thailand.
 
@@ -61,7 +61,7 @@ One thing that I got from doing this challenge is **“Habit”**. I think it ve
 
 In the first week, there is nothing changed much. But almost a month passed, I listed what I have learned so far. **OMG**! There are a lot!!! I am so proud of myself.
 
-Another thing that I am thinking of is I did this challenge together with people from around the world, everyone is **_“learning from each othe_r”**. They are telling what they have learned, so the knowledge will be accumulated and being an ingredient for building a better future. _I think it awesome!_
+Another thing that I am thinking of is I did this challenge together with people from around the world, everyone is **\_“learning from each othe_r”**. They are telling what they have learned, so the knowledge will be accumulated and being an ingredient for building a better future. _I think it awesome!_
 
 This challenge made me see many people that doing HTML, CSS, Javascript — made me to celebrity in software developer society will be breaking out their skill limit.
 
