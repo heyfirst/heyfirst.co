@@ -2,5 +2,94 @@
 @tailwind base;
 @tailwind components;
 
+h1,
+h2,
+h3,
+p {
+  @apply my-3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mt-8;
+  @apply font-heading;
+}
+
+h1 {
+  @apply text-5xl;
+  @apply leading-tight;
+}
+
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+.blog-feature-image,
+figure {
+  @apply whitespace-no-wrap;
+  @apply -mx-4;
+
+  .gatsby-image-wrapper,
+  .gatsby-resp-image-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+
+    @media (max-width: 672px) {
+      border-radius: 0;
+    }
+  }
+
+  .gatsby-image-wrapper {
+    max-height: 300px;
+    filter: brightness(0.5);
+  }
+}
+
+figcaption {
+  @apply text-xs;
+  @apply text-center;
+  @apply italic;
+  @apply whitespace-pre-wrap;
+  padding: 0 1.325rem;
+  line-height: 1rem;
+}
+
+blockquote {
+  box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
+  @apply pl-4;
+  @apply italic;
+}
+
+strong {
+  @apply font-semibold;
+}
+
+a svg {
+  @apply inline-block;
+}
+
+hr {
+  @apply my-8;
+  border-style: dotted;
+}
+
+ol {
+  @apply list-decimal;
+  @apply pl-4;
+}
+
+ul {
+  @apply list-disc;
+  @apply pl-4;
+}
+
 /*! purgecss end ignore */
 @tailwind utilities;

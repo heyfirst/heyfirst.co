@@ -1,36 +1,5 @@
 .blog {
-  h2,
-  h3,
-  p {
-    @apply my-3;
-  }
-
-  h2 {
-    @apply mt-8;
-    @apply text-4xl;
-    @apply font-heading;
-  }
-
-  h3 {
-    @apply mt-8;
-    @apply text-2xl;
-    @apply font-heading;
-  }
-
-  figure {
-    @apply whitespace-no-wrap;
-  }
-
-  figcaption {
-    @apply text-xs;
-    @apply text-center;
-    @apply italic;
-    @apply whitespace-pre-wrap;
-    padding: 0 1.325rem;
-    line-height: 1rem;
-  }
-
-  a {
+  a:not(.anchor-header) {
     @apply bg-gray-200;
     @apply px-2;
     @apply py-1;
@@ -42,17 +11,7 @@
     }
   }
 
-  blockquote {
-    box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
-    @apply pl-4;
-    @apply italic;
-  }
-
-  strong {
-    @apply font-semibold;
-  }
-
-  a svg {
-    @apply inline-block;
+  a.anchor-header {
+    @apply pl-2;
   }
 }

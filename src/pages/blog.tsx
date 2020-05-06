@@ -11,6 +11,7 @@ type Post = {
     slug: string
   }
   timeToRead: number
+  excerpt: string
   frontmatter: {
     title: string
     date: Date
@@ -25,16 +26,26 @@ type Props = {
 const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
   <Layout>
     <SEO title={"Blog"} />
-    <h1>Blog</h1>
     {allMdx.nodes.map((post: Post) => (
       <div key={post.fields.slug}>
-        <Link to={post.fields.slug} className="blog-listing">
-          <Img fluid={post.frontmatter.featuredImage.childImageSharp.fluid} />
-          <h1>{post.frontmatter.title}</h1>
-          <p>
-            {formatPostDate(post.frontmatter.date)}
-            {` • ${formatReadingTime(post.timeToRead)}`}
-          </p>
+        <Link
+          to={post.fields.slug}
+          className="blog-listing mb-4 block relative"
+        >
+          <div className="blog-feature-image">
+            <Img
+              className="h-64"
+              fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
+            />
+          </div>
+          <div className="absolute top-0 text-white">
+            <h3 className="mt-4 mb-0">{post.frontmatter.title}</h3>
+            <div className="text-sm leading-6 italic">{post.excerpt}</div>
+            <div className="text-sm leading-6 italic">
+              {formatPostDate(post.frontmatter.date)}
+              {` • ${formatReadingTime(post.timeToRead)}`}
+            </div>
+          </div>
         </Link>
       </div>
     ))}
@@ -53,6 +64,7 @@ export const query = graphql`
         fields {
           slug
         }
+        excerpt(pruneLength: 160)
         timeToRead
         frontmatter {
           title
