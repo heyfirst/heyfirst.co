@@ -40,7 +40,7 @@ function Canvas() {
 
     const animatePoints = () => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-      const duration = (0.7 * (1 * 1000)) / 60 // Last 80% of a frame per point
+      const duration = (0.399 * 1000) / 60 // Last 80% of a frame per point
 
       for (let i = 0; i < points.length; ++i) {
         const point = points[i]
@@ -66,9 +66,9 @@ function Canvas() {
           ctx.lineWidth = spreadRate
 
           // As time increases decrease r and b, increase g to go from purple to green.
-          const red = Math.floor(127 - (127 * lifePercent) / 2)
-          const green = Math.floor(127 - (127 * lifePercent) / 2)
-          const blue = Math.floor(127 - (127 * lifePercent) / 2)
+          const red = Math.floor(77 - (77 * lifePercent) / 2)
+          const green = Math.floor(77 - (77 * lifePercent) / 2)
+          const blue = Math.floor(77 - (77 * lifePercent) / 2)
           ctx.strokeStyle = `rgb(${red},${green},${blue}`
 
           ctx.beginPath()
