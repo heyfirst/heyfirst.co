@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "cm": "yarn git-cz",
+    "commit": "git-cz",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
@@ -52,6 +52,7 @@
     "autoprefixer": "^9.7.6",
     "commitizen": "^4.1.2",
     "cssnano": "^4.1.10",
+    "cz-conventional-changelog": "3.2.0",
     "node-sass": "^4.14.0",
     "prettier": "2.0.5",
     "tailwindcss": "^1.4.4"
@@ -62,5 +63,10 @@
   },
   "bugs": {
     "url": "https://github.com/heyfirst/heyfirst.co/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
