@@ -31,15 +31,7 @@ const IndexPage: React.FC = () => (
         Read about what I’m learning on my blog.
       </Link>{" "}
       It’s updated every time I make a breakthrough worth mentioning. I’m
-      currently learning more about Software Engineering Practices. Also
-      published in my{" "}
-      <a
-        className="font-heading"
-        href="https://dev.to/heyfirst"
-        target="_blank"
-      >
-        dev.to/heyfirst
-      </a>
+      currently learning more about Software Engineering Practices.
     </p>
     <p className="my-4 whitespace-pre-wrap">
       I’m also on{" "}
