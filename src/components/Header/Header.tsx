@@ -6,7 +6,7 @@ const Header: React.FC = () => (
     <div className="flex items-center flex-shrink-0 mr-6">
       <Link
         to="/"
-        className="text-xl tracking-wide font-normal font-heading text-black"
+        className="text-xl tracking-wide font-normal font-heading text-black no-underline"
       >
         heyfirst.co
       </Link>

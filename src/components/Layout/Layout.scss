@@ -42,17 +42,12 @@ figure {
 
   .gatsby-image-wrapper,
   .gatsby-resp-image-wrapper {
-    border-radius: 10px;
     overflow: hidden;
-
-    @media (max-width: 672px) {
-      border-radius: 0;
-    }
   }
 
   .gatsby-image-wrapper {
     max-height: 300px;
-    filter: brightness(0.5);
+    filter: brightness(0.9);
   }
 }
 

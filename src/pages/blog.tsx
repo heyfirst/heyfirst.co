@@ -25,12 +25,13 @@ type Props = {
 
 const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
   <Layout>
-    <SEO title={"Blog"} />
+    <SEO title={"Posts"} />
+    <h1 className="text-center mt-4">Here's My Posts.</h1>
     {allMdx.nodes.map((post: Post) => (
       <div key={post.fields.slug}>
         <Link
           to={post.fields.slug}
-          className="blog-listing mb-4 block relative"
+          className="blog-listing mb-4 block relative no-underline"
         >
           <div className="blog-feature-image">
             <Img
@@ -38,8 +39,8 @@ const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
               fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
             />
           </div>
-          <div className="absolute top-0 text-white">
-            <h3 className="mt-4 mb-0 underline">{post.frontmatter.title}</h3>
+          <div className="-mt-16 bg-white text-black px-4 py-2 relative lg:rounded-lg">
+            <h3 className="my-0 underline">{post.frontmatter.title}</h3>
             <div className="text-sm leading-6 italic">{post.excerpt}</div>
             <div className="text-sm leading-6 italic">
               {formatPostDate(post.frontmatter.date)}
