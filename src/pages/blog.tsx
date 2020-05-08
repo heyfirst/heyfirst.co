@@ -39,7 +39,7 @@ const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
               fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
             />
           </div>
-          <div className="-mt-16 bg-white text-black px-4 py-2 relative lg:rounded-lg">
+          <div className="-mt-16 bg-white text-black px-4 py-2 relative">
             <h3 className="my-0 underline">{post.frontmatter.title}</h3>
             <div className="text-sm leading-6 italic">{post.excerpt}</div>
             <div className="text-sm leading-6 italic">
