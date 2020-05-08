@@ -89,6 +89,10 @@ ul {
   @apply pl-4;
 }
 
+li {
+  @apply my-3;
+}
+
 a {
   @apply underline;
   @apply text-indigo-700;
