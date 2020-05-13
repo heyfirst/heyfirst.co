@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "commit": "git-cz",
-    "build": "gatsby build",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "start": "npm run develop",
