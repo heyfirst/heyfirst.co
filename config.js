@@ -3,8 +3,7 @@ module.exports = {
   title: "heyfirst.co",
   // the description of the website (eg. what shows on Google)
   author: "heyfirst",
-  description:
-    "I'm a software developer (grad) consultant at ThoughtWorks Thailand.",
+  description: "I'm a software developer consultant at ThoughtWorks Thailand.",
   githubUrl: "https://github.com/heyfirst/heyfirst.co",
   // replace this by the url where your website will be published
   siteUrl: "https://heyfirst.co",
