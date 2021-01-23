@@ -37,6 +37,14 @@ const IndexPage: React.FC = () => (
       I’m also on{" "}
       <a
         className="font-heading"
+        href="https://www.facebook.com/kanisorn.sutham/"
+        target="_blank"
+      >
+        Facebook
+      </a>
+      {", "}
+      <a
+        className="font-heading"
         href="https://www.linkedin.com/in/kanisorn-sutham/"
         target="_blank"
       >
