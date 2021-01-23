@@ -6,10 +6,10 @@ featuredImage: "./asset-1.jpg"
 published: true
 ---
 
-ช่วงนี้มีโอกาศกลับไปอ่านหนังสือเล่มเก่า ๆ บนตู้หนังสืออย่าง [Refactoring: Improving the Design of Existing Code](https://www.oreilly.com/library/view/refactoring-improving-the/9780134757681/)
+ช่วงนี้มีโอกาสกลับไปอ่านหนังสือเล่มเก่า ๆ บนตู้หนังสืออย่าง [Refactoring: Improving the Design of Existing Code](https://www.oreilly.com/library/view/refactoring-improving-the/9780134757681/)
  ของ Martin Fowler
  
-มันเป็นหนังสือหนึ่งที่หยิบมาอ่านเมื่อไหร่ ก็มักจะได้เห็นมุมมองใหม่ ๆ เสมอ อ่านปีที่แล้ว ก็เห็นอีกแบบ พอทำงานมาปีหนึ่งแล้วหยิบมาอ่าน เราก็จะเห็นอีกแบบ 
+มันเป็นหนังสือนึงที่หยิบมาอ่านเมื่อไหร่ ก็มักจะได้เห็นมุมมองใหม่ ๆ เสมอ อ่านปีที่แล้ว ก็เห็นอีกแบบ พอทำงานมาปีหนึ่งแล้วหยิบมาอ่าน เราก็จะเห็นอีกแบบ 
 
 ไหนๆ หยิบมาอ่านแล้ว เลยถือโอกาศเล่าให้ฟังกันในหัวข้อเล็ก ๆ เบา ๆ อย่าง [The Rule of Three](https://en.wikipedia.org/wiki/Rule_of_three_(computer_programming)) กันครับ
 
