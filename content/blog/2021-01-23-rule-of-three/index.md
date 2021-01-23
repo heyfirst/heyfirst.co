@@ -52,6 +52,6 @@ published: true
 
 > “Duplication is far cheaper than the wrong abstraction”
 >
-> – Sandi Metz, All the little things
+> – Sandi Metz, [All the little things](https://www.youtube.com/watch?v=8bZh5LMaSmE&feature=youtu.be)
 
 ![Good! (https://unsplash.com/photos/3KEFp35FVB0)](./asset-2.jpg)
