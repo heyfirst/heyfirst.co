@@ -27,6 +27,19 @@ const HTML: React.FC = (props: any) => (
           `,
         }}
       />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N4TTYLEVB"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-2N4TTYLEVB');
+        </script>`,
+        }}
+      />
       {props.headComponents}
     </head>
     <body {...props.bodyAttributes}>

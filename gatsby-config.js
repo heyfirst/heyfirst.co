@@ -81,11 +81,5 @@ module.exports = {
         sourceMap: true,
       },
     },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: `G-2N4TTYLEVB`,
-      },
-    },
   ],
 }
