@@ -1,8 +1,4 @@
 ---
-TODO: Finish the article
-TODO: Add images (featuredImage)
-TODO: Publish on heyfirst.co
-TODO: Publish on dev.to
 title: "How I organize Tailwind CSS in React"
 date: "2021-01-22T00:00:00.000Z"
 tags: ["tailwind","react","component","productivity","webdev"]
