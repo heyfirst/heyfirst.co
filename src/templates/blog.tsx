@@ -39,8 +39,8 @@ const PageTemplate: React.FC<Props> = ({
                 fluid={mdx.frontmatter.featuredImage.childImageSharp.sizes}
               />
             </div>
-            <div className="info text-white text-center w-full">
-              <h1 className="font-heading font-bold mt-2 text-3xl leading-8 sm:text-4xl sm:leading-10">
+            <div className="w-full text-center text-white info">
+              <h1 className="mt-2 text-3xl font-bold leading-8 font-heading sm:text-4xl sm:leading-10">
                 {mdx.frontmatter.title}
               </h1>
               <p className="text-sm">

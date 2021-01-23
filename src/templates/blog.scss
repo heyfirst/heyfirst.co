@@ -1,16 +1,32 @@
 .blog {
-  a {
-    @apply underline;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply text-indigo-700;
-    @apply cursor-pointer;
+  }
+  .info h1 {
+    @apply text-white;
+  }
+
+  a {
+    @apply no-underline text-indigo-700 cursor-pointer;
+    box-shadow: rgba(76, 81, 191, 1) 0px -2px 0px inset;
+    background: 0px 0px;
+    transition: box-shadow 0.2s ease 0s, color 0.2s ease 0s;
 
     &:hover {
-      @apply text-indigo-900;
+      @apply text-indigo-700;
+      box-shadow: rgba(76, 81, 191, 0.25) 0px -1.3em 0px inset;
     }
   }
 
   a.anchor-header {
     @apply pl-2;
+    transition: none;
+    box-shadow: none;
   }
 
   header {

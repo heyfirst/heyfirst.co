@@ -26,12 +26,12 @@ type Props = {
 const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
   <Layout>
     <SEO title={"Posts"} />
-    <h1 className="text-center mt-4">Here's My Posts.</h1>
+    <h1 className="mt-4 text-center">Here's My Posts.</h1>
     {allMdx.nodes.map((post: Post) => (
       <div key={post.fields.slug}>
         <Link
           to={post.fields.slug}
-          className="blog-listing mb-4 block relative no-underline"
+          className="relative block mb-4 no-underline blog-listing"
         >
           <div className="blog-feature-image">
             <Img
@@ -39,10 +39,10 @@ const BlogPage: React.FC<Props> = ({ data: { allMdx } }) => (
               fluid={post.frontmatter.featuredImage.childImageSharp.fluid}
             />
           </div>
-          <div className="-mt-16 bg-white text-black px-4 py-2 relative">
+          <div className="relative px-4 py-2 -mt-16 text-black bg-white">
             <h3 className="my-0 underline">{post.frontmatter.title}</h3>
-            <div className="text-sm leading-6 italic">{post.excerpt}</div>
-            <div className="text-sm leading-6 italic">
+            <div className="text-sm italic leading-6">{post.excerpt}</div>
+            <div className="text-sm italic leading-6">
               {formatPostDate(post.frontmatter.date)}
               {` • ${formatReadingTime(post.timeToRead)}`}
             </div>
