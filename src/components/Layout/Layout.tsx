@@ -8,7 +8,7 @@ const Layout: React.FC = ({ children }) => (
   <React.Fragment>
     <div className={cx("container mx-auto")}>
       <Header />
-      <div>{children}</div>
+      <div className="content">{children}</div>
     </div>
   </React.Fragment>
 )

@@ -2,25 +2,38 @@ import React from "react"
 import { Link } from "gatsby"
 
 const Header: React.FC = () => (
-  <nav className="flex items-baseline justify-between flex-wrap py-4">
+  <nav className="flex flex-wrap items-center justify-between py-4">
     <div className="flex items-center flex-shrink-0 mr-6">
       <Link
         to="/"
-        className="text-xl tracking-wide font-normal font-heading text-black no-underline"
+        className="text-xl font-normal tracking-wide text-black no-underline font-heading"
       >
         heyfirst.co
       </Link>
     </div>
-    <div className="block flex-grow md:flex md:items-center md:w-auto">
+    <div className="flex-grow block md:flex md:items-center md:w-auto">
       <div className="text-sm md:flex-grow">
         <Link
           to="/blog"
-          className="block mt-4 inline-block md:mt-0 text-indigo-600 mr-4 hover:text-indigo-700 cursor-pointer"
+          className="inline-block mt-4 mr-4 text-indigo-600 cursor-pointer md:mt-0 hover:text-indigo-700"
           activeClassName="text-indigo-700 italic"
         >
           Blog
         </Link>
       </div>
+    </div>
+    <div className="w-4 mr-auto text-sm">
+      <a
+        href="https://webring.wonderful.software#YOUR.DOMAIN"
+        title="วงแหวนเว็บ"
+      >
+        <img
+          alt="วงแหวนเว็บ"
+          width="32"
+          height="32"
+          src="https://webring.wonderful.software/webring.black.svg"
+        />
+      </a>
     </div>
   </nav>
 )
