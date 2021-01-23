@@ -24,7 +24,7 @@ const Header: React.FC = () => (
     </div>
     <div className="w-4 mr-auto text-sm">
       <a
-        href="https://webring.wonderful.software#YOUR.DOMAIN"
+        href="https://webring.wonderful.software#heyfirst.co"
         title="วงแหวนเว็บ"
       >
         <img
