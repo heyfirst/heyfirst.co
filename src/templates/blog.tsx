@@ -53,15 +53,6 @@ const PageTemplate: React.FC<Props> = ({
           <MDXRenderer>{mdx.body}</MDXRenderer>
         </article>
         <footer className="container small">
-          <small>
-            <a
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              href={`${site.siteMetadata.githubUrl}/edit/master/content${mdx.fields.slug}index.md`}
-            >
-              Edit this post on GitHub
-            </a>
-          </small>
           <hr
             style={{
               margin: `24px 0`,
