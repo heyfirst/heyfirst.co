@@ -2,7 +2,7 @@ import React from "react"
 import cx from "classnames"
 
 import Header from "../Header"
-import "./Layout.scss"
+import "./Layout.css"
 
 const Layout: React.FC = ({ children }) => (
   <React.Fragment>

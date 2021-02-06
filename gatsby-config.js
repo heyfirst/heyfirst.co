@@ -63,23 +63,11 @@ module.exports = {
         name: `heyfirst.co`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: fullConfig.theme.colors.white,
-        theme_color: fullConfig.theme.colors.teal["400"],
+        background_color: "#ff0000",
+        theme_color: "#4338CA",
         display: `minimal-ui`,
       },
     },
-    {
-      resolve: `gatsby-plugin-sass`,
-      options: {
-        postCssPlugins: [
-          require(`tailwindcss`)(tailwindConfig),
-          require(`autoprefixer`),
-          ...(process.env.NODE_ENV === `production`
-            ? [require(`cssnano`)]
-            : []),
-        ],
-        sourceMap: true,
-      },
-    },
+    "gatsby-plugin-postcss",
   ],
 }

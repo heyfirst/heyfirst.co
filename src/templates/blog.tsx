@@ -7,7 +7,7 @@ import SEO from "../components/SEO"
 import Layout from "../components/Layout"
 import { formatPostDate, formatReadingTime } from "../utils/dates"
 
-import "./blog.scss"
+import "./blog.css"
 
 type Props = {
   data: any
@@ -58,30 +58,22 @@ const PageTemplate: React.FC<Props> = ({
               margin: `24px 0`,
             }}
           />
-          <ul
-            style={{
-              display: `flex`,
-              flexWrap: `wrap`,
-              justifyContent: `space-between`,
-              listStyle: `none`,
-              padding: 0,
-            }}
-          >
-            <li>
+          <div className="p-0">
+            <div className="mb-4">
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
-            </li>
-            <li>
+            </div>
+            <div className="text-right">
               {next && (
                 <Link to={next.fields.slug} rel="next">
                   {next.frontmatter.title} →
                 </Link>
               )}
-            </li>
-          </ul>
+            </div>
+          </div>
         </footer>
       </section>
     </Layout>

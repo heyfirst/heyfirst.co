@@ -15,7 +15,7 @@ const Header: React.FC = () => (
       <div className="text-sm md:flex-grow">
         <Link
           to="/blog"
-          className="inline-block mt-4 mr-4 text-indigo-600 cursor-pointer md:mt-0 hover:text-indigo-700"
+          className="flex items-center mr-4 italic text-indigo-600 text-indigo-700 cursor-pointer md:mt-0 hover:text-indigo-700"
           activeClassName="text-indigo-700 italic"
         >
           Blog

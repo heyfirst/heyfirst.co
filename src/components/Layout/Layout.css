@@ -1,0 +1,87 @@
+html {
+  font-size: 18px;
+}
+body {
+  letter-spacing: 0.015em;
+  @apply px-4 font-sans antialiased leading-relaxed;
+}
+h1,
+h2,
+h3,
+p {
+  @apply my-4;
+}
+ol,
+ul {
+  @apply my-8;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mt-8 font-heading;
+}
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-3xl;
+}
+h3 {
+  @apply text-2xl;
+}
+.blog-feature-image,
+figure {
+  @apply my-8 -mx-4 whitespace-nowrap;
+}
+.blog-feature-image .gatsby-image-wrapper,
+figure .gatsby-image-wrapper,
+.blog-feature-image .gatsby-resp-image-wrapper,
+figure .gatsby-resp-image-wrapper {
+  overflow: hidden;
+}
+.blog-feature-image .gatsby-image-wrapper,
+figure .gatsby-image-wrapper {
+  max-height: 300px;
+  filter: brightness(0.9);
+}
+figcaption {
+  @apply text-xs italic text-center text-gray-700 whitespace-pre-wrap;
+  padding: 0.25rem 1.325rem;
+  line-height: 1rem;
+}
+blockquote {
+  @apply pl-4 my-8 italic text-indigo-700 font-heading;
+  box-shadow: inset 3px 0 0 0 rgba(76, 81, 191, 1);
+}
+strong {
+  @apply font-bold;
+}
+a svg {
+  @apply inline-block;
+}
+hr {
+  @apply my-8;
+  border-style: dotted;
+}
+ol {
+  @apply pl-4 list-decimal;
+}
+ul {
+  @apply pl-4 list-disc;
+}
+li {
+  @apply my-3;
+}
+.content a {
+  @apply text-indigo-700 no-underline cursor-pointer;
+  box-shadow: rgba(76, 81, 191, 1) 0px -2px 0px inset;
+  background: 0px 0px;
+  transition: box-shadow 0.2s ease 0s, color 0.2s ease 0s;
+}
+.content a:hover {
+  @apply text-indigo-700;
+  box-shadow: rgba(76, 81, 191, 0.25) 0px -1.3em 0px inset;
+}
