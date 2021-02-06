@@ -1,6 +1,6 @@
 ---
 title: "How I organize Tailwind CSS in React"
-date: "2021-01-22T00:00:00.000Z"
+date: "2000-01-22T00:00:00.000Z"
 tags: ["tailwind","react","component","productivity","webdev"]
 featuredImage: "./asset-1.jpeg"
 published: false

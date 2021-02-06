@@ -1,6 +1,6 @@
 ---
 title: "เมื่อเราถูกให้ Feedback บางครั้งมันมักมาพร้อมกับความคาดหวัง (Expectation)"
-date: "2021-01-30T00:00:00.000Z"
+date: "2000-01-30T00:00:00.000Z"
 tags: ["feedback", "culture",]
 featuredImage: "./asset-1.jpg"
 published: false
