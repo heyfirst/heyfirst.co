@@ -17,7 +17,7 @@ const IndexPage: React.FC = () => (
         href="https://www.thoughtworks.com/"
         target="_blank"
       >
-        ThoughtWorks (Thailand)
+        ThoughtWorks (Thailand) Co., Ltd
       </a>
       .
     </p>
