@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: http://heyfirst.co/sitemap.xml
