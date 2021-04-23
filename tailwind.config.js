@@ -1,10 +1,17 @@
-const { spacing, fontFamily } = require("tailwindcss/defaultTheme");
+const { spacing, fontFamily, fontSize } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        sm: "720px",
+        md: "720px",
+        lg: "720px",
+        xl: "720px",
+        "2xl": "720px",
+      },
       colors: {
         "blue-opaque": "rgb(13 42 148 / 18%)",
       },
