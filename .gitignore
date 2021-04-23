@@ -32,3 +32,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# generated sitemap
+public/sitemap.xml
+
+
+
+
+
+
