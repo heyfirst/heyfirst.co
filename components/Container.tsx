@@ -4,24 +4,30 @@ import { useRouter } from "next/router";
 import React from "react";
 import Footer from "./Footer";
 
-type CustomMetaType = {
+type Meta = {
+  title?: string;
+  description?: string;
+  type?: string;
+  site?: string;
+  name?: string;
+  twitter_id?: string;
   date?: string;
   image?: string;
 };
 
-const Container: React.FC<React.PropsWithChildren<CustomMetaType>> = ({
+const Container: React.FC<React.PropsWithChildren<Meta>> = ({
   children,
-  ...customMeta
+  ...props
 }) => {
   const router = useRouter();
-  const meta = {
-    title: "Kanisorn Sutham - Developer | heyfirst.co",
+  const meta: Meta = {
+    title: "Kanisorn Sutham - A Developer | heyfirst.co",
     description: `Front-end developer, JavaScript enthusiast, and course creator.`,
     type: "website",
     site: "https://heyfirst.co",
     name: "Kanisorn Sutham",
     twitter_id: "@heyfirst_",
-    ...customMeta,
+    ...props,
   };
 
   return (
