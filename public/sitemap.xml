@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://leerob.io/blog/1-2-refactor</loc>
+    <loc>https://heyfirst.co/about</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/1-2-refactor</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/make-it-work-make-it-right-make-it-fast</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/refactor-if-else</loc>
   </url>
 </urlset>
