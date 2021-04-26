@@ -70,6 +70,19 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
             </a>
           </NextLink>
         </div>
+        <div className="w-4 mr-3 text-sm">
+          <a
+            href="https://webring.wonderful.software#heyfirst.co"
+            title="วงแหวนเว็บ"
+          >
+            <img
+              alt="วงแหวนเว็บ"
+              width="32"
+              height="32"
+              src="https://webring.wonderful.software/webring.black.svg"
+            />
+          </a>
+        </div>
       </nav>
       <main className="container flex flex-col justify-center p-3 mx-auto bg-white ">
         {children}
