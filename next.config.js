@@ -38,7 +38,9 @@ const ContentSecurityPolicy = `
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
-  font-src 'self';
+  font-src 'self' 'unsafe-eval' fonts.gstatic.com fonts.googleapis.com;
+
+
 `;
 
 const securityHeaders = [

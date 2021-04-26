@@ -20,11 +20,11 @@ export default function BlogLayout({ children, frontMatter }) {
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
     >
-      <article className="flex flex-col items-start justify-center w-full mx-auto mb-16">
+      <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           {frontMatter.title}
         </h1>
-        <div className="flex flex-col items-start justify-between w-full mt-2 mb-2 md:flex-row md:items-center">
+        <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
             <Image
               alt="Kanisorn Sutham"
@@ -44,7 +44,7 @@ export default function BlogLayout({ children, frontMatter }) {
           </p>
         </div>
         <div className="w-full prose max-w-none">{children}</div>
-        <div className="text-sm text-gray-700">
+        <div className="mt-8 text-sm text-gray-700">
           <a
             href={discussUrl(frontMatter.slug)}
             target="_blank"

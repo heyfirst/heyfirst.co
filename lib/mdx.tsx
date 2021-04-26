@@ -31,12 +31,8 @@ export async function getFileBySlug(type, slug) {
     },
   });
 
-  const tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-  const tweetIDs = tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]);
-
   return {
     mdxSource,
-    tweetIDs: tweetIDs || [],
     frontMatter: {
       wordCount: content.split(/\s+/gu).length,
       readingTime: readingTime(content),
@@ -49,19 +45,22 @@ export async function getFileBySlug(type, slug) {
 export async function getAllFilesFrontMatter(type) {
   const files = fs.readdirSync(path.join(root, "data", type));
 
-  return files.reduce((allPosts, postSlug) => {
-    const source = fs.readFileSync(
-      path.join(root, "data", type, postSlug),
-      "utf8"
-    );
-    const { data } = matter(source);
+  const posts = files
+    .reduce((allPosts, postSlug) => {
+      const source = fs.readFileSync(
+        path.join(root, "data", type, postSlug),
+        "utf8"
+      );
+      const { data } = matter(source);
+      return [
+        {
+          ...data,
+          slug: postSlug.replace(".mdx", ""),
+        },
+        ...allPosts,
+      ];
+    }, [])
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
-    return [
-      {
-        ...data,
-        slug: postSlug.replace(".mdx", ""),
-      },
-      ...allPosts,
-    ];
-  }, []);
+  return posts;
 }

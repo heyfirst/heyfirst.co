@@ -3,7 +3,7 @@ import Container from "@/components/Container";
 export default function Home() {
   return (
     <Container>
-      <main className="prose">
+      <main className="mb-16 prose">
         {/* TODO: Change this to Good Morning, Afternoon, Evening depends on browser time */}
         <h1>Hello! I’m Kanisorn Sutham 👋🏻</h1>
         <p>
