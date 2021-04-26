@@ -59,11 +59,11 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
               heyfirst.co
             </a>
           </NextLink>
-          <NextLink href="/about">
+          {/* <NextLink href="/about">
             <a className="p-3 text-gray-500 transition hover:text-gray-600">
               about
             </a>
-          </NextLink>
+          </NextLink> */}
           <NextLink href="/blog">
             <a className="p-3 text-gray-500 transition hover:text-gray-600">
               blog
