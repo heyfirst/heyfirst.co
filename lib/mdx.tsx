@@ -13,7 +13,7 @@ export async function getFiles(type) {
   return fs.readdirSync(path.join(root, "data", type));
 }
 
-export async function getFileBySlug(type, slug) {
+export async function getFileBySlug(type, slug?) {
   const source = slug
     ? fs.readFileSync(path.join(root, "data", type, `${slug}.mdx`), "utf8")
     : fs.readFileSync(path.join(root, "data", `${type}.mdx`), "utf8");

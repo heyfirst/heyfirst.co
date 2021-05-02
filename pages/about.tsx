@@ -1,24 +1,28 @@
 import React from "react";
 import Container from "@/components/Container";
+import MDXComponents from "@/components/MDXComponents";
+import hydrate from "next-mdx-remote/hydrate";
+import { getFileBySlug } from "@/lib/mdx";
 
-export default function About() {
+export default function About({ mdxSource }) {
+  const content = hydrate(mdxSource, {
+    components: MDXComponents,
+  });
+
   return (
     <Container>
-      <main className="mb-16 prose">
-        <h1>About Me</h1>
-        <p>
-          A.k.a "First", I am a Thailand-based developer who specializes in
-          building quality software and aims at making software more exciting
-          and fun!
-        </p>
-        <p>
-          Currently, I am working at{" "}
-          <a href="https://www.thoughtworks.com/" target="_blank">
-            ThoughtWorks Thailand
-          </a>{" "}
-          as a Developer Consultant.
-        </p>
+      <main className="mb-16">
+        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+          About
+        </h1>
+        <div className="mb-4 prose">{content}</div>
       </main>
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  const about = await getFileBySlug("about");
+
+  return { props: about };
 }

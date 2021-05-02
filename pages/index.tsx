@@ -1,34 +1,29 @@
 import React from "react";
 import Container from "@/components/Container";
+import { getFileBySlug } from "@/lib/mdx";
+import hydrate from "next-mdx-remote/hydrate";
+import MDXComponents from "@/components/MDXComponents";
 
-export default function Home() {
+export default function Home({ mdxSource }) {
+  const content = hydrate(mdxSource, {
+    components: MDXComponents,
+  });
+
   return (
     <Container>
       <main className="mb-16">
-        {/* TODO: Change this to Good Morning, Afternoon, Evening depends on browser time */}
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           Hey! 👋🏻 <br />
           I'm Kanisorn Sutham
         </h1>
-        <div className="prose">
-          <p>
-            A.k.a "First", I am a Thailand-based developer who specializes in
-            building quality software and aims at making software more exciting
-            and fun!
-          </p>
-          <p>
-            Currently, I am working at{" "}
-            <a
-              href="https://www.thoughtworks.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ThoughtWorks Thailand
-            </a>{" "}
-            as a Developer Consultant.
-          </p>
-        </div>
+        <div className="prose">{content}</div>
       </main>
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  const index = await getFileBySlug("index");
+
+  return { props: index };
 }
