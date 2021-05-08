@@ -2,6 +2,7 @@ import Image from "next/image";
 import { parseISO, format } from "date-fns";
 
 import Container from "@/components/Container";
+import ConvertKitSignup from "@/components/ConvertKitSignUp";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
@@ -43,7 +44,8 @@ export default function BlogLayout({ children, frontMatter }) {
             {frontMatter.readingTime.text}
           </p>
         </div>
-        <div className="w-full prose max-w-none">{children}</div>
+        <div className="w-full mb-8 prose max-w-none">{children}</div>
+        <ConvertKitSignup />
         <div className="mt-8 text-sm text-gray-700">
           <a
             href={discussUrl(frontMatter.slug)}

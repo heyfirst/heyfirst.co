@@ -20,19 +20,16 @@ export default function Footer() {
           <Link href="/">
             <a className="text-gray-500 transition hover:text-gray-600">Home</a>
           </Link>
-          {/* <Link href="/About">
+          <Link href="/about">
             <a className="text-gray-500 transition hover:text-gray-600">
               About
             </a>
-          </Link> */}
+          </Link>
           <Link href="/blog">
             <a className="text-gray-500 transition hover:text-gray-600">Blog</a>
           </Link>
-          {/* <Link href="/snippets">
-            <a className="text-gray-500 transition hover:text-gray-600">
-              Snippets
-            </a>
-          </Link> */}
+        </div>
+        <div className="flex flex-col space-y-4">
           <ExternalLink href="https://twitter.com/heyfirst_">
             Twitter
           </ExternalLink>
