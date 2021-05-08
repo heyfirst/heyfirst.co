@@ -28,15 +28,13 @@ export default function BlogLayout({ children, frontMatter }) {
         </h1>
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
-            <div>
-              <img
-                alt="Kanisorn Sutham"
-                height={24}
-                width={24}
-                src="/avatar.jpeg"
-                className="rounded-full"
-              />
-            </div>
+            <img
+              alt="Kanisorn Sutham"
+              height={24}
+              width={24}
+              src="/avatar.jpeg"
+              className="rounded-full"
+            />
             <p className="ml-2 text-sm text-gray-700">
               {frontMatter.by}
               {"Kanisorn Sutham | "}
