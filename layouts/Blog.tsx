@@ -3,6 +3,7 @@ import { parseISO, format } from "date-fns";
 
 import Container from "@/components/Container";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import PageViewCounter from "@/components/PageViewCounter";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
@@ -27,21 +28,24 @@ export default function BlogLayout({ children, frontMatter }) {
         </h1>
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
-            <Image
-              alt="Kanisorn Sutham"
-              height={24}
-              width={24}
-              src="/avatar.jpeg"
-              className="rounded-full"
-            />
+            <div>
+              <img
+                alt="Kanisorn Sutham"
+                height={24}
+                width={24}
+                src="/avatar.jpeg"
+                className="rounded-full"
+              />
+            </div>
             <p className="ml-2 text-sm text-gray-700">
               {frontMatter.by}
-              {"Kanisorn Sutham / "}
+              {"Kanisorn Sutham | "}
               {format(parseISO(frontMatter.publishedAt), "MMMM dd, yyyy")}
             </p>
           </div>
           <p className="mt-2 text-sm text-gray-500 min-w-32 md:mt-0">
-            {frontMatter.readingTime.text}
+            {frontMatter.readingTime.text} |{" "}
+            <PageViewCounter slug={frontMatter.slug} />
           </p>
         </div>
         <div className="w-full mb-8 prose max-w-none">{children}</div>
