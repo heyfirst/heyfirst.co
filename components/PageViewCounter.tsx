@@ -1,9 +1,7 @@
+import numberWithCommas from "@/lib/numberWithCommas";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 const PageViewCounter = ({ slug }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
     const res = await fetch(`/api/views/${slug}`);
@@ -20,6 +18,6 @@ const PageViewCounter = ({ slug }) => {
     registerView();
   }, [slug]);
 
-  return <span>{views ? numberWithCommas(views) : "–––"} views</span>;
+  return <span>{views ? numberWithCommas(views) : "———"} views</span>;
 };
 export default PageViewCounter;
