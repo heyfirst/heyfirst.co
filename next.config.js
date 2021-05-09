@@ -27,6 +27,20 @@ module.exports = {
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/blog/2021-01-23-rule-of-three",
+        destination: "/blog/1-2-refactor",
+        permanent: true,
+      },
+      {
+        source: "/blog/2021-02-05-make-it-work-right-and-fast",
+        destination: "/blog/make-it-work-make-it-right-make-it-fast",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 // https://securityheaders.com
