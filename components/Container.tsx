@@ -27,6 +27,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
     site: "https://heyfirst.co",
     name: "Kanisorn Sutham",
     twitter_id: "@heyfirst_",
+    image: "/static/kanisorn_sutham.jpg",
     ...props,
   };
 
