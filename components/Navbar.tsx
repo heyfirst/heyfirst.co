@@ -2,7 +2,7 @@ import React from "react";
 import NextLink from "next/link";
 
 const Navbar = () => (
-  <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 bg-white sticky-nav md:my-6 bg-opacity-60">
+  <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:my-6">
     <div>
       <NextLink href="/">
         <a className="p-3 text-gray-700 transition hover:text-gray-900">

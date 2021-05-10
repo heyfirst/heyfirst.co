@@ -3,6 +3,7 @@ import Container from "@/components/Container";
 import MDXComponents from "@/components/MDXComponents";
 import hydrate from "next-mdx-remote/hydrate";
 import { getFileBySlug } from "@/lib/mdx";
+import ConvertKitSignup from "@/components/ConvertKitSignUp";
 
 export default function About({ mdxSource }) {
   const content = hydrate(mdxSource, {
@@ -16,6 +17,7 @@ export default function About({ mdxSource }) {
           About
         </h1>
         <div className="mb-4 prose">{content}</div>
+        <ConvertKitSignup />
       </main>
     </Container>
   );

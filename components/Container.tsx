@@ -32,7 +32,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
   };
 
   return (
-    <div className="bg-white ">
+    <div className="">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -54,7 +54,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
         )}
       </Head>
       <Navbar />
-      <main className="container flex flex-col justify-center p-3 mx-auto bg-white ">
+      <main className="container flex flex-col justify-center p-3 mx-auto ">
         {children}
         <Footer />
       </main>

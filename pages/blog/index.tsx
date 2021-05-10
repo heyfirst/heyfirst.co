@@ -2,6 +2,7 @@ import React from "react";
 import Container from "@/components/Container";
 import BlogPost from "@/components/BlogPost";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
+import ConvertKitSignup from "@/components/ConvertKitSignUp";
 
 export default function Blog({ posts }) {
   return (
@@ -35,6 +36,7 @@ export default function Blog({ posts }) {
         {posts.map((frontMatter) => (
           <BlogPost key={frontMatter.title} {...frontMatter} />
         ))}
+        <ConvertKitSignup />
       </div>
     </Container>
   );
