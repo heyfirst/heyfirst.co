@@ -30,7 +30,10 @@ const ConvertKitSignup = () => (
           className="mb-5 text-gray-500 formkit-subheader"
           data-element="subheader"
         >
-          <p>Subscribe to get my latest content by email !</p>
+          <p>
+            ถ้าชอบก็แชร์ลง facebook และกดติดตามบล็อคผมด้วยการกรอกอีเมลข้าง ๆ
+            นี่เล้ย!
+          </p>
         </div>
       </div>
       <div data-element="column" className="formkit-column">
@@ -43,10 +46,10 @@ const ConvertKitSignup = () => (
           <div className="formkit-field">
             <input
               className="border-gray-200 rounded formkit-input"
-              aria-label="First Name"
+              aria-label="ชื่อจริง"
               name="fields[first_name]"
               required
-              placeholder="First Name"
+              placeholder="ชื่อจริง"
               type="text"
             />
           </div>
@@ -54,8 +57,8 @@ const ConvertKitSignup = () => (
             <input
               className="border-gray-200 rounded formkit-input"
               name="email_address"
-              aria-label="Email Address"
-              placeholder="Email Address"
+              aria-label="อีเมล"
+              placeholder="อีเมล"
               type="email"
             />
           </div>
@@ -76,11 +79,9 @@ const ConvertKitSignup = () => (
           data-element="guarantee"
         >
           <p>
-            We respect your privacy. I don't send any spam. Unsubscribe at{" "}
-            <strong>
-              <em>any</em>
-            </strong>{" "}
-            time.
+            ผมเคารพความเป็นส่วนตัวของทุกคน ทุกคนสามารถยกเลิกการติดตามได้
+            <strong>ตลอดเวลา</strong>
+            ฮะ
           </p>
         </div>
         <div className="formkit-powered-by-convertkit-container">
