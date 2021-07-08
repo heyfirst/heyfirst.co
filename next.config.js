@@ -45,9 +45,9 @@ module.exports = {
 // https://securityheaders.com
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com cdn.usefathom.com heyfirst.ck.page *.convertkit.com *.googletagmanager.com *.spotify.com;
-  child-src *.youtube.com *.google.com *.twitter.com heyfirst.ck.page *.convertkit.com *.spotify.com;
-  style-src 'self' 'unsafe-inline' *.googleapis.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com cdn.usefathom.com heyfirst.ck.page *.convertkit.com *.googletagmanager.com *.spotify.com giscus.app cdnjs.cloudflare.com;
+  child-src *.youtube.com *.google.com *.twitter.com heyfirst.ck.page *.convertkit.com *.spotify.com giscus.app;
+  style-src 'self' 'unsafe-inline' *.googleapis.com giscus.app;
   img-src * blob: data:;
   media-src 'none';
   connect-src *;

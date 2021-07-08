@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Script from "next/script";
 import { parseISO, format } from "date-fns";
 
 import Container from "@/components/Container";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
 import PageViewCounter from "@/components/PageViewCounter";
+import Giscus from "@/components/Giscus";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
@@ -65,6 +66,7 @@ export default function BlogLayout({ children, frontMatter }) {
             {"Edit on GitHub"}
           </a>
         </div>
+        <Giscus />
       </article>
     </Container>
   );
