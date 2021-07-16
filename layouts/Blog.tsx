@@ -24,7 +24,7 @@ export default function BlogLayout({ children, frontMatter }) {
       type="article"
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-4xl">
           {frontMatter.title}
         </h1>
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
@@ -48,6 +48,9 @@ export default function BlogLayout({ children, frontMatter }) {
           </p>
         </div>
         <div className="w-full mb-8 prose max-w-none">{children}</div>
+        <div className="w-full pt-4 mb-8 border-t">
+          <Giscus />
+        </div>
         <ConvertKitSignup />
         <div className="mt-8 text-sm text-gray-700">
           <a
@@ -66,7 +69,6 @@ export default function BlogLayout({ children, frontMatter }) {
             {"Edit on GitHub"}
           </a>
         </div>
-        <Giscus />
       </article>
     </Container>
   );
