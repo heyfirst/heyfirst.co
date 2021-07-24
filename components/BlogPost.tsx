@@ -21,9 +21,9 @@ const BlogPost: React.FC<IBlogPost> = ({ title, slug, publishedAt, tags }) => {
   const date = format(parseISO(publishedAt), "MMMM dd, yyyy");
   return (
     <Link href={`/blog/${slug}`}>
-      <div className="relative mb-4 bg-white z-100 group">
+      <div className="relative mb-4 bg-white cursor-pointer z-100 group">
         <div className="flex flex-col justify-between md:flex-row">
-          <a className="relative w-full transition cursor-pointer hover:text-yellow-700">
+          <a className="relative w-full transition hover:text-yellow-700">
             <h4 className="w-full text-lg font-medium text-gray-900 md:text-xl group-hover:underline">
               {title}
             </h4>
