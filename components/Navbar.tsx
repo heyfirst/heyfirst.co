@@ -1,12 +1,22 @@
 import React from "react";
+import Image from "next/image";
 import NextLink from "next/link";
 
 const Navbar = () => (
-  <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:my-6">
-    <div>
+  <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:mt-6">
+    <div className="flex">
       <NextLink href="/">
-        <a className="p-3 text-gray-700 transition hover:text-gray-900">
-          heyfirst.co
+        <a className="flex p-3 text-gray-700 transition hover:text-gray-900">
+          <div className="mr-1">
+            <Image
+              alt="Kanisorn Sutham"
+              height={24}
+              width={24}
+              src="/avatar.jpeg"
+              className="rounded-full"
+            />
+          </div>
+          <h1>heyfirst.co</h1>
         </a>
       </NextLink>
       <NextLink href="/about">
