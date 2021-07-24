@@ -1,37 +1,51 @@
 import numberWithCommas from "@/lib/numberWithCommas";
-import Image from "next/image";
+import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useQuery } from "react-query";
 
-const BlogPost = ({ title, summary, slug, image }) => {
+interface IBlogPost {
+  title: string;
+  slug: string;
+  publishedAt: string;
+  tags: string[];
+}
+
+const BlogPost: React.FC<IBlogPost> = ({ title, slug, publishedAt, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
     const res = await fetch(`/api/views/${slug}`);
     return res.json();
   });
   const views = data?.total_count;
+  const viewsCount = `${views ? numberWithCommas(views) : "———"} views`;
 
+  const date = format(parseISO(publishedAt), "MMMM dd, yyyy");
   return (
     <Link href={`/blog/${slug}`}>
-      <a className="relative w-full transition hover:text-yellow-700">
-        <div className="relative h-64 sm:h-80">
-          <Image
-            src={image}
-            layout="fill"
-            className="object-cover object-right"
-          />
-        </div>
-        <div className="relative w-11/12 p-4 mx-auto mb-8 -mt-8 bg-white z-100">
-          <div className="flex flex-col justify-between md:flex-row">
-            <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl">
+      <div className="relative mb-4 bg-white z-100 group">
+        <div className="flex flex-col justify-between md:flex-row">
+          <a className="relative w-full transition cursor-pointer hover:text-yellow-700">
+            <h4 className="w-full text-lg font-medium text-gray-900 md:text-xl group-hover:underline">
               {title}
             </h4>
-          </div>
-          <p className="text-gray-600">{summary}</p>
-          <p className="text-sm text-right text-gray-600">
-            — <span>{views ? numberWithCommas(views) : "———"} views</span>
-          </p>
+          </a>
         </div>
-      </a>
+        <div className="text-sm text-gray-600">
+          {tags.sort().map((tag, i, arr) => {
+            const comma = i < arr.length - 1 ? ", " : "";
+            return (
+              <span key={tag} className="hover:text-yellow-700">
+                {tag}
+                {comma}
+              </span>
+            );
+          })}
+          {` — `}
+          {date}
+          {` — `}
+          {viewsCount}
+        </div>
+        <div className="flex tags"></div>
+      </div>
     </Link>
   );
 };
