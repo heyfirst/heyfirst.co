@@ -27,7 +27,7 @@ export default function Books({ books }) {
         </p>
         <div className="mb-4">
           {books.map((frontMatter) => (
-            <div>{frontMatter.title}</div>
+            <div key={frontMatter.title}>{frontMatter.title}</div>
           ))}
         </div>
         <ConvertKitSignup />

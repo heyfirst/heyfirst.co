@@ -20,7 +20,7 @@ export default function BlogLayout({ children, frontMatter }) {
       title={`${frontMatter.title} | heyfirst.co`}
       description={frontMatter.summary}
       image={`https://heyfirst.co${frontMatter.image}`}
-      date={new Date(frontMatter.publishedAt).toISOString()}
+      date={new Date(frontMatter.date).toISOString()}
       type="article"
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
@@ -49,7 +49,7 @@ export default function BlogLayout({ children, frontMatter }) {
             <p className="ml-2 text-sm text-gray-700">
               {frontMatter.by}
               {"Kanisorn Sutham | "}
-              {format(parseISO(frontMatter.publishedAt), "MMMM dd, yyyy")}
+              {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
             </p>
           </div>
           <p className="text-sm text-gray-500 min-w-32 md:mt-0">

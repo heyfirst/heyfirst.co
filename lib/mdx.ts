@@ -60,7 +60,7 @@ export async function getAllFilesFrontMatter(type) {
         ...allPosts,
       ];
     }, [])
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   return posts;
 }

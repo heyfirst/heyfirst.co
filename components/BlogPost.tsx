@@ -6,11 +6,11 @@ import { useQuery } from "react-query";
 interface IBlogPost {
   title: string;
   slug: string;
-  publishedAt: string;
+  date: string;
   tags: string[];
 }
 
-const BlogPost: React.FC<IBlogPost> = ({ title, slug, publishedAt, tags }) => {
+const BlogPost: React.FC<IBlogPost> = ({ title, slug, date, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
     const res = await fetch(`/api/views/${slug}`);
     return res.json();
@@ -18,7 +18,7 @@ const BlogPost: React.FC<IBlogPost> = ({ title, slug, publishedAt, tags }) => {
   const views = data?.total_count;
   const viewsCount = `${views ? numberWithCommas(views) : "———"} views`;
 
-  const date = format(parseISO(publishedAt), "MMMM dd, yyyy");
+  const readableDate = format(parseISO(date), "MMMM dd, yyyy");
   return (
     <Link href={`/blog/${slug}`}>
       <div className="relative mb-4 bg-white cursor-pointer z-100 group">
@@ -40,7 +40,7 @@ const BlogPost: React.FC<IBlogPost> = ({ title, slug, publishedAt, tags }) => {
             );
           })}
           {` — `}
-          {date}
+          {readableDate}
           {` — `}
           {viewsCount}
         </div>
