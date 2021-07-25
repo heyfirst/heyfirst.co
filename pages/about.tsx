@@ -2,10 +2,11 @@ import React from "react";
 import Container from "@/components/Container";
 import MDXComponents from "@/components/MDXComponents";
 import hydrate from "next-mdx-remote/hydrate";
-import { getFileBySlug } from "@/lib/mdx";
+import { getFileBySlug, MDXFile } from "@/lib/mdx";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import { GetStaticProps } from "next";
 
-export default function About({ mdxSource }) {
+const About: React.FC<MDXFile> = ({ mdxSource }): JSX.Element => {
   const content = hydrate(mdxSource, {
     components: MDXComponents,
   });
@@ -21,10 +22,12 @@ export default function About({ mdxSource }) {
       </main>
     </Container>
   );
-}
+};
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const about = await getFileBySlug("about");
 
   return { props: about };
-}
+};
+
+export default About;

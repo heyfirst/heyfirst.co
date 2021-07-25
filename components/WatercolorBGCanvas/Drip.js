@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vector2D from "./Vector2D";
 import Pollock from "./Pollock";
 

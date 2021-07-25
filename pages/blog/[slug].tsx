@@ -1,10 +1,11 @@
 import hydrate from "next-mdx-remote/hydrate";
 
-import { getFiles, getFileBySlug } from "@/lib/mdx";
+import { getFiles, getFileBySlug, MDXFile } from "@/lib/mdx";
 import BlogLayout from "@/layouts/BlogLayout";
 import MDXComponents from "@/components/MDXComponents";
+import { GetStaticPaths, GetStaticProps } from "next";
 
-export default function Blog({ mdxSource, frontMatter }) {
+const Blog: React.FC<MDXFile> = ({ mdxSource, frontMatter }): JSX.Element => {
   const content = hydrate(mdxSource, {
     components: {
       ...MDXComponents,
@@ -12,9 +13,9 @@ export default function Blog({ mdxSource, frontMatter }) {
   });
 
   return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getFiles("blog");
 
   return {
@@ -25,10 +26,12 @@ export async function getStaticPaths() {
     })),
     fallback: false,
   };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const post = await getFileBySlug("blog", params.slug);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = await getFileBySlug("blog", params.slug as string);
 
   return { props: post };
-}
+};
+
+export default Blog;

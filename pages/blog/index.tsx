@@ -1,10 +1,11 @@
 import React from "react";
 import Container from "@/components/Container";
 import BlogPost from "@/components/BlogPost";
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { FrontMatter, getAllFilesFrontMatter } from "@/lib/mdx";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import { GetStaticProps } from "next";
 
-export default function Blog({ posts }) {
+const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
   return (
     <Container
       title="Blog | heyfirst.co"
@@ -28,7 +29,8 @@ export default function Blog({ posts }) {
             Medium
           </a>{" "}
           and I decide to move to personal website because I can deliver better
-          experience. I've written <u>{posts.length}</u> articles on this site.
+          experience. {`I've written`} <u>{posts.length}</u> articles on this
+          site.
         </p>
         <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl">
           All Posts
@@ -42,10 +44,11 @@ export default function Blog({ posts }) {
       </div>
     </Container>
   );
-}
+};
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllFilesFrontMatter("blog");
-
   return { props: { posts } };
-}
+};
+
+export default Blog;

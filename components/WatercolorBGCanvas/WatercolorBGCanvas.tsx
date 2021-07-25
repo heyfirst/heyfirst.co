@@ -1,3 +1,4 @@
+// /* eslint-disable */
 import React, { useEffect } from "react";
 import Vector2D from "./Vector2D";
 import Pollock from "./Pollock";
@@ -5,7 +6,7 @@ import Drip from "./Drip";
 
 const WatercolorBGCanvas: React.FC = () => {
   useEffect(() => {
-    const addDrip = (scene: any, point?: any) => {
+    const addDrip = (scene: Pollock) => {
       const colors = [
         "#1abc9c",
         "#d35400",
@@ -25,11 +26,11 @@ const WatercolorBGCanvas: React.FC = () => {
         "#e67e22",
       ];
 
-      point = new Vector2D(
+      const point = new Vector2D(
         Pollock.randomInRange(0, scene.width),
         Pollock.randomInRange(0, scene.height)
       );
-      var drip = new Drip({
+      const drip = new Drip({
         lifeSpan: Pollock.randomInRange(800, 3000),
         position: point,
         velocity: new Vector2D(Math.random() * 15, Math.random() * 15),
@@ -44,7 +45,7 @@ const WatercolorBGCanvas: React.FC = () => {
     };
 
     const initPollock = () => {
-      let scene = new Pollock({
+      const scene = new Pollock({
         canvasID: "watercolor-bg-canvas",
         clear: false,
       });

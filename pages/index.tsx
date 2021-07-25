@@ -1,12 +1,12 @@
 import React from "react";
 import Container from "@/components/Container";
-import { getFileBySlug } from "@/lib/mdx";
+import { getFileBySlug, MDXFile } from "@/lib/mdx";
 import hydrate from "next-mdx-remote/hydrate";
 import MDXComponents from "@/components/MDXComponents";
 import WatercolorBGCanvas from "@/components/WatercolorBGCanvas/WatercolorBGCanvas";
-import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import { GetStaticProps } from "next";
 
-export default function Home({ mdxSource }) {
+const Home: React.FC<MDXFile> = ({ mdxSource }) => {
   const content = hydrate(mdxSource, {
     components: MDXComponents,
   });
@@ -17,7 +17,7 @@ export default function Home({ mdxSource }) {
         <WatercolorBGCanvas />
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           Hey! 👋🏻 <br />
-          I'm Kanisorn Sutham
+          {`I'm Kanisorn Sutham`}
         </h1>
         <div className="mb-4 prose">{content}</div>
       </main>
@@ -28,10 +28,12 @@ export default function Home({ mdxSource }) {
       `}</style>
     </Container>
   );
-}
+};
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const index = await getFileBySlug("index");
 
   return { props: index };
-}
+};
+
+export default Home;

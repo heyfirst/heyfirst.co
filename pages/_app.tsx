@@ -6,7 +6,7 @@ import { Hydrate } from "react-query/hydration";
 import "@/styles/global.css";
 
 export default function App({ Component, pageProps }: AppProps): ReactElement {
-  const queryClientRef = React.useRef<any>();
+  const queryClientRef = React.useRef<QueryClient>();
 
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();

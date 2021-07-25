@@ -1,14 +1,8 @@
 import React from "react";
 import Container from "@/components/Container";
-import MDXComponents from "@/components/MDXComponents";
-import hydrate from "next-mdx-remote/hydrate";
-import { getFileBySlug } from "@/lib/mdx";
+import { MDXFile } from "@/lib/mdx";
 
-export default function About({ mdxSource }) {
-  const content = hydrate(mdxSource, {
-    components: MDXComponents,
-  });
-
+const ThanksPage: React.FC<MDXFile> = () => {
   return (
     <Container>
       <main className="mb-16">
@@ -25,10 +19,6 @@ export default function About({ mdxSource }) {
       </main>
     </Container>
   );
-}
+};
 
-export async function getStaticProps() {
-  const about = await getFileBySlug("about");
-
-  return { props: about };
-}
+export default ThanksPage;

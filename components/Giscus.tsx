@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useMounted } from "lib/use-mounted";
 
-export default function Giscus() {
+const Giscus: React.FC = () => {
   const mounted = useMounted();
 
   return !mounted ? null : (
@@ -23,4 +23,6 @@ export default function Giscus() {
       <div className="giscus" />
     </>
   );
-}
+};
+
+export default Giscus;

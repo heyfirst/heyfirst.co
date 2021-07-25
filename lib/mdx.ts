@@ -6,14 +6,33 @@ import readingTime from "reading-time";
 import renderToString from "next-mdx-remote/render-to-string";
 
 import MDXComponents from "@/components/MDXComponents";
+import { MdxRemote } from "next-mdx-remote/types";
 
 const root = process.cwd();
 
-export async function getFiles(type) {
+type FileType = "blog" | "book" | "index" | "about";
+
+export interface FrontMatter {
+  wordCount: number;
+  readingTime: { text: string; time: number; words: number; minutes: number };
+  slug: string | null;
+  title: string;
+  date: string;
+  tags: string[];
+}
+export interface MDXFile {
+  mdxSource: MdxRemote.Source;
+  frontMatter: FrontMatter;
+}
+
+export async function getFiles(type: FileType): Promise<string[]> {
   return fs.readdirSync(path.join(root, "data", type));
 }
 
-export async function getFileBySlug(type, slug?) {
+export async function getFileBySlug(
+  type: FileType,
+  slug?: string
+): Promise<MDXFile> {
   const source = slug
     ? fs.readFileSync(path.join(root, "data", type, `${slug}.mdx`), "utf8")
     : fs.readFileSync(path.join(root, "data", `${type}.mdx`), "utf8");
@@ -34,16 +53,20 @@ export async function getFileBySlug(type, slug?) {
   return {
     mdxSource,
     frontMatter: {
+      title: data.title || "",
+      date: data.date || "",
+      tags: data.tags || [],
       wordCount: content.split(/\s+/gu).length,
       readingTime: readingTime(content),
       slug: slug || null,
-      ...data,
     },
   };
 }
 
-export async function getAllFilesFrontMatter(type) {
-  const files = fs.readdirSync(path.join(root, "data", type));
+export async function getAllFilesFrontMatter(
+  type: FileType
+): Promise<FrontMatter[]> {
+  const files = await getFiles(type);
 
   const posts = files
     .reduce((allPosts, postSlug) => {

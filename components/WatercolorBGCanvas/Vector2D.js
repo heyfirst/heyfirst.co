@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 Copyright (c) 2014 Mike Ferron (mikeferron.com)
 

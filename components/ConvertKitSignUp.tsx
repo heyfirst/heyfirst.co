@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConvertKitSignup = () => (
+const ConvertKitSignup: React.FC = () => (
   // <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
   <form
     action={"https://app.convertkit.com/forms/2261916/subscriptions"}

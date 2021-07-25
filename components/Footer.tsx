@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const ExternalLink = ({ href, children }) => (
+const ExternalLink: React.FC<{ href: string }> = ({ href, children }) => (
   <a
     className="text-gray-500 transition hover:text-gray-600"
     target="_blank"
@@ -11,7 +11,7 @@ const ExternalLink = ({ href, children }) => (
   </a>
 );
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer className="flex flex-col items-start justify-center w-full mx-auto mb-8">
       <hr className="w-full mb-8 border-gray-200 border-1 " />
@@ -38,4 +38,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

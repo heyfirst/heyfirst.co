@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 
-const Navbar = () => (
+const Navbar: React.FC = () => (
   <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:mt-6">
     <div className="flex">
       <NextLink href="/">
@@ -33,7 +33,7 @@ const Navbar = () => (
         href="https://webring.wonderful.software#heyfirst.co"
         title="วงแหวนเว็บ"
       >
-        <img
+        <Image
           alt="วงแหวนเว็บ"
           width="32"
           height="32"

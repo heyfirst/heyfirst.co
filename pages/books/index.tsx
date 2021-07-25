@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Container from "@/components/Container";
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { FrontMatter, getAllFilesFrontMatter } from "@/lib/mdx";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import { GetStaticProps } from "next";
 
-export default function Books({ books }) {
+const Books: React.FC<{ books: FrontMatter[] }> = ({ books }) => {
   return (
     <Container
       title="Books | heyfirst.co"
@@ -20,7 +22,7 @@ export default function Books({ books }) {
         <div className="mb-4 prose text-gray-600">
           I will share my opinion about those book here like{" "}
           <i>when you may need it, who may need it</i>. Definitely, I won't have
-          a star ⭐️ for those (cuz' its seems meaningless, LOL)
+          a star ⭐️ for those (cuz&apos; its seems meaningless, LOL)
         </div>
         <p className="mb-4 prose text-gray-600">
           I have <u>{books.length}</u> in the bookshelf.
@@ -34,10 +36,12 @@ export default function Books({ books }) {
       </div>
     </Container>
   );
-}
+};
 
-export async function getStaticProps() {
-  const books = await getAllFilesFrontMatter("books");
+export const getStaticProps: GetStaticProps = async () => {
+  const books = await getAllFilesFrontMatter("book");
 
   return { props: { books } };
-}
+};
+
+export default Books;

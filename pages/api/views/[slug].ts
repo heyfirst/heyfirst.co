@@ -1,16 +1,21 @@
 import supabase from "@/lib/supabase";
+import { NextApiRequest, NextApiResponse } from "next";
 
-type BlogPageViews = {
+interface BlogPageViewsTable {
   id: number;
   slug: string;
   total_count: number;
-};
-export default async (req, res) => {
-  const slug = req.query.slug;
+}
+
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const slug = req.query.slug as string;
 
   if (req.method === "POST") {
-    let { data, error } = await supabase
-      .from<BlogPageViews>("blog_page_views")
+    const { data, error } = await supabase
+      .from<BlogPageViewsTable>("blog_page_views")
       .select("*")
       .eq("slug", slug);
 
@@ -25,7 +30,7 @@ export default async (req, res) => {
     }
 
     const { data: updatedData } = await supabase
-      .from<BlogPageViews>("blog_page_views")
+      .from<BlogPageViewsTable>("blog_page_views")
       .update({ total_count: data[0].total_count + 1 })
       .eq("slug", slug);
 
@@ -35,8 +40,8 @@ export default async (req, res) => {
   }
 
   if (req.method === "GET") {
-    let { data, error } = await supabase
-      .from<BlogPageViews>("blog_page_views")
+    const { data, error } = await supabase
+      .from<BlogPageViewsTable>("blog_page_views")
       .select("*")
       .eq("slug", slug);
 
@@ -49,3 +54,5 @@ export default async (req, res) => {
     return res.status(200).json({ total_count: data[0].total_count });
   }
 };
+
+export default handler;
