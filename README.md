@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## heyfirst.co | My personal website
 
-## Getting Started
+My personal website has transformed over 10 years since __firstziiz.com__, __ks.in.th__ and now is [heyfirst.co](https://heyfirst.co) - from [Wordpress](http://wordpress.org/), [Ghost 0.8.0](https://ghost.org/), [Medium](https://medium.com/), [Gatsby](gatsbyjs.com) and then now [NextJS](https://nextjs.org/) with [MDX](https://mdxjs.com/getting-started/next).
 
-First, run the development server:
+My purpose for this personal website is keeping everything about my experiences, my knowledges, my thoughts, my opinions, yay! And also try to experiment **every practice** I have into this web app!
 
-```bash
-npm run dev
-# or
-yarn dev
+> This website cloned from [leerob.io](https://github.com/leerob/leerob.io), every nice portfolio website built by @leerob, Head of DevRel ▲ vercel which has many good practice and technique to maximize NextJS superpowers.
+> 
+> I have changed to my own UI + code styles, Javascript to TypeScript, adding some animation graphics, adding another sections! 
+
+
+### Overview
+* `pages/api/*` -  API routes powering `viewsCount` on every blogs by Supabase.io
+* `pages/blogs/*` - Static pre-rendered blog pages using MDX.
+* `pages/books/*` - [Upcoming] Static pre-rendered __bookshelfs__ pages using MDX.
+* `pages/*` - All other static pages, e.g. home, about, etc...
+
+### Running Locally
+```sh
+$ git clone https://github.com/heyfirst/heyfirst.co.git
+$ cd heyfirst.co
+$ npm install
+$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Personally, I prefer NPM because many times I had conflict with global packages when using yarn and npm in the same machine. So keep it simple and use NPM!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Built Using
+- [React](https://reactjs.org/)
+- [NextJS](https://nextjs.org/)
+- [MDX](https://mdxjs.com/getting-started/next)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Giscus](https://github.com/laymonage/giscus)
+- [Supabase](https://supabase.io/)
