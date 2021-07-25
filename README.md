@@ -1,12 +1,14 @@
-## heyfirst.co | My personal website
+## 👏 heyfirst.co! 
 
 My personal website has transformed over 10 years since __firstziiz.com__, __ks.in.th__ and now is [heyfirst.co](https://heyfirst.co) - from [Wordpress](http://wordpress.org/), [Ghost 0.8.0](https://ghost.org/), [Medium](https://medium.com/), [Gatsby](gatsbyjs.com) and then now [NextJS](https://nextjs.org/) with [MDX](https://mdxjs.com/getting-started/next).
 
 My purpose for this personal website is keeping everything about my experiences, my knowledges, my thoughts, my opinions, yay! And also try to experiment **every practice** I have into this web app!
 
-> This website cloned from [leerob.io](https://github.com/leerob/leerob.io), every nice portfolio website built by @leerob, Head of DevRel ▲ vercel which has many good practice and technique to maximize NextJS superpowers.
-> 
-> I have changed to my own UI + code styles, Javascript to TypeScript, adding some animation graphics, adding another sections! 
+### Disclaimer
+
+This website cloned from [leerob.io](https://github.com/leerob/leerob.io), every nice portfolio website built by [@leerob](https://github.com/leerob), Head of DevRel ▲ vercel which has many good practice and technique to maximize NextJS superpowers.
+ 
+I have changed to my own UI + code styles, Javascript to TypeScript, adding some animation graphics, adding another sections! 
 
 
 ### Overview
