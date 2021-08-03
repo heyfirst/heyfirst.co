@@ -32,7 +32,7 @@ const ConvertKitSignup: React.FC = () => (
           data-element="subheader"
         >
           <p>
-            If you like it, let's subsribe this blog <br />I will share my
+            If you like it, let&apos;s subsribe this blog <br />I will share my
             entire software development experiences there!
           </p>
         </div>
