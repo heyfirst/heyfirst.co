@@ -7,7 +7,7 @@
 }
 
 .prose code {
-  @apply text-fuchsia-500 px-1 py-0.5 border border-gray-100 rounded-md bg-gray-100;
+  @apply text-gray-500 px-1 py-0.5 border border-gray-100 rounded-md bg-gray-100;
 }
 
 .prose > :first-child {
