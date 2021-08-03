@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from "react";
 
 const ConvertKitSignup: React.FC = () => (
@@ -31,8 +32,8 @@ const ConvertKitSignup: React.FC = () => (
           data-element="subheader"
         >
           <p>
-            ถ้าชอบก็แชร์ลง facebook และกดติดตามบล็อคผมด้วยการกรอกอีเมลข้าง ๆ
-            นี่เล้ย!
+            If you like it, let's subsribe this blog <br />I will share my
+            entire software development experiences there!
           </p>
         </div>
       </div>
@@ -46,10 +47,10 @@ const ConvertKitSignup: React.FC = () => (
           <div className="formkit-field">
             <input
               className="border-gray-200 rounded formkit-input"
-              aria-label="ชื่อจริง"
+              aria-label="First name"
               name="fields[first_name]"
               required
-              placeholder="ชื่อจริง"
+              placeholder="First name"
               type="text"
             />
           </div>
@@ -57,8 +58,8 @@ const ConvertKitSignup: React.FC = () => (
             <input
               className="border-gray-200 rounded formkit-input"
               name="email_address"
-              aria-label="อีเมล"
-              placeholder="อีเมล"
+              aria-label="Email"
+              placeholder="Email"
               type="email"
             />
           </div>
@@ -79,9 +80,9 @@ const ConvertKitSignup: React.FC = () => (
           data-element="guarantee"
         >
           <p>
-            ผมเคารพความเป็นส่วนตัวของทุกคน ทุกคนสามารถยกเลิกการติดตามได้
-            <strong>ตลอดเวลา</strong>
-            ฮะ
+            I respect your privacy as a first priority, You are able to
+            unsubscribe
+            <strong> any time</strong>
           </p>
         </div>
         <div className="formkit-powered-by-convertkit-container">
