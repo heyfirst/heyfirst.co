@@ -20,6 +20,7 @@ export interface FrontMatter {
   summary: string;
   date: string;
   tags: string[];
+  image: string;
 }
 export interface MDXFile {
   mdxSource: MdxRemote.Source;
@@ -56,6 +57,7 @@ export async function getFileBySlug(
     frontMatter: {
       title: data.title || "",
       summary: data.summary || "",
+      image: data.image || "",
       date: data.date || "",
       tags: data.tags || [],
       wordCount: content.split(/\s+/gu).length,
