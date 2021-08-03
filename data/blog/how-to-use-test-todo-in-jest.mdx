@@ -22,6 +22,8 @@ describe("Add to wishlist button", () => {
   test("should clickable when user logged in");
   test("should show tooltip with success message when added to wishlist");
   test("should show tooltip with error message when can not add");
+  // I know this's impractical cuz' button component should be pure.
+  // let's me explain further.
   test("should throw exception when can not add to wishlist", () => {}); // 🤯 pass but for what?
 });
 ```
@@ -60,8 +62,8 @@ So! Let's talk about the `test.todo()` now.
 
 ## What is `test.todo()` 💡
 
-Actually, this is **not a new thing**. the [`test.todo()` PR](https://github.com/facebook/jest/pull/6996) merged since Sep,
-2018 and release at [Jest 24](https://jestjs.io/blog/2019/01/25/jest-24-refreshing-polished-typescript-friendly#testtodo).
+Actually, this is **not a new thing**. the [`test.todo()` #6996 PR](https://github.com/facebook/jest/pull/6996) merged since Sep,
+2018 and release at [Jest 24 Announcement](https://jestjs.io/blog/2019/01/25/jest-24-refreshing-polished-typescript-friendly#testtodo).
 The idea came from [AVA](https://github.com/avajs/ava/blob/main/docs/01-writing-tests.md#test-placeholders-todo). But fews people knows this awesome thing.
 
 I also know this since I use a lot of `test.skip()` for many years.
@@ -106,12 +108,30 @@ Lets me tell you some usecases in my daily work.
 2. When I do **pair-programming with my teammate**, We are going to discuss about what we are going to solve today and we write down the `test.todo()` first before we start do pairing.
 3. When I do not sure how to write the test at that time and I will figure out it in the future, I will use `test.todo()` rather than `test.skip()` because skipped tests were hard to discover and hard to track down. Sometimes, it was swallowed with others skipped tests.
 
+For example, when I have to do **Add to wishlist** button component. When I pair programming or solo, I will write these testcases first, So I have a direction to go.
+
+In case that, I am not sure how to `throw exception` in the component but I know this is a must have logic.
+
+So I leave the `test.todo()` in testsuite and have a discussion with the team ASAP. Maybe? the team may suggest to move this test to container level, not in pure component.
+
+🎉
+
+Another real example, We need to test the component that appear difference between desktop and mobile, all testcases passed except the responsive because `react-testing-library` is not support `@media query` ([#113](https://github.com/testing-library/jest-dom/issues/113)). So we add `test.todo()` with TODO comment
+and said that
+
+```js
+// TODO: As we know, RTL doesn't support media query, We may consider another way to test it or move it to E2E test on Cypress instead
+// ref: #113 https://github.com/testing-library/jest-dom/issues/113
+test.todo("should show 3 bullet in mobile");
+test.todo("should show 3 bullet with description in desktop & tablet");
+```
+
 ## Tips & Suggestion ✨
 
 There have fews tips I use in the project. You may or may not know but I guess it's worth to share!
 
 1. Install [`eslint-plugin-jest`](https://github.com/jest-community/eslint-plugin-jest/) because this plugin provide you a [`prefer-todo`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-todo.md) rule that will help you refactor your test easier.
-2. There are still some issue that `beforeAll` and `afterAll` get executed if `test.todo()` is present in `describe.skip` ([https://github.com/facebook/jest/issues/11006](https://github.com/facebook/jest/issues/11006))
+2. There are still some issue that `beforeAll` and `afterAll` get executed if `test.todo()` is present in `describe.skip` ([#11006](https://github.com/facebook/jest/issues/11006))
 
 ## Conclusion
 
