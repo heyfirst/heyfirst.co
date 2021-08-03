@@ -26,6 +26,7 @@ module.exports = {
         red: colors.red,
         blue: colors.lightBlue,
         yellow: colors.amber,
+        fuchsia: colors.fuchsia,
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -41,7 +42,7 @@ module.exports = {
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],
             },
-            code: { color: theme("colors.pink.500") },
+            code: { color: theme("colors.pink.600") },
             blockquote: {
               color: theme("colors.gray.500"),
               fontWeight: 400,
