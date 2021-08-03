@@ -17,6 +17,7 @@ export interface FrontMatter {
   readingTime: { text: string; time: number; words: number; minutes: number };
   slug: string | null;
   title: string;
+  summary: string;
   date: string;
   tags: string[];
 }
@@ -54,6 +55,7 @@ export async function getFileBySlug(
     mdxSource,
     frontMatter: {
       title: data.title || "",
+      summary: data.summary || "",
       date: data.date || "",
       tags: data.tags || [],
       wordCount: content.split(/\s+/gu).length,

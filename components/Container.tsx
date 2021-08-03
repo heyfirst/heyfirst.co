@@ -13,6 +13,7 @@ type Meta = {
   twitter_id?: string;
   date?: string;
   image?: string;
+  tags?: string[];
 };
 
 const Container: React.FC<React.PropsWithChildren<Meta>> = ({
@@ -28,6 +29,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
     name: "Kanisorn Sutham",
     twitter_id: "@heyfirst_",
     image: "/static/kanisorn_sutham.jpg",
+    tags: ["software", "tech", "developer"],
     ...props,
   };
 
@@ -37,6 +39,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
+        <meta name="keywords" content={meta.tags.join(", ")} />
         <meta property="og:url" content={`${meta.site}${router.asPath}`} />
         <link rel="canonical" href={`${meta.site}${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
@@ -49,6 +52,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
+
         {meta.date && (
           <meta property="article:published_time" content={meta.date} />
         )}

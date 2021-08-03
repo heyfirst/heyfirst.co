@@ -12,8 +12,5 @@
     "window": "readonly",
     "JSX": "readonly"
   },
-  "ignorePatterns": ["*.js"],
-  "rules": {
-    "max-len": ["error", { "code": 120 }]
-  }
+  "ignorePatterns": ["*.js"]
 }

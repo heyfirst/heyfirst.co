@@ -5,6 +5,7 @@ import Container from "@/components/Container";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
 import PageViewCounter from "@/components/PageViewCounter";
 import Giscus from "@/components/Giscus";
+import { FrontMatter } from "@/lib/mdx";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
@@ -14,7 +15,10 @@ const discussUrl = (slug) =>
     `https://heyfirst.co/blog/${slug}`
   )}`;
 
-export default function BlogLayout({ children, frontMatter }) {
+const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
+  children,
+  frontMatter,
+}) => {
   return (
     <Container
       title={`${frontMatter.title} | heyfirst.co`}
@@ -22,6 +26,7 @@ export default function BlogLayout({ children, frontMatter }) {
       image={`https://heyfirst.co${frontMatter.image}`}
       date={new Date(frontMatter.date).toISOString()}
       type="article"
+      tags={frontMatter.tags}
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-4xl">
@@ -82,4 +87,5 @@ export default function BlogLayout({ children, frontMatter }) {
       </article>
     </Container>
   );
-}
+};
+export default BlogLayout;

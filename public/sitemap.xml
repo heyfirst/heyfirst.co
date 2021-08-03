@@ -21,26 +21,6 @@
   </url>
 
   <url>
-    <loc>https://heyfirst.co/blog/1-2-refactor</loc>
-  </url>
-
-  <url>
-    <loc>https://heyfirst.co/blog/best-practice-might-be-wrong</loc>
-  </url>
-
-  <url>
-    <loc>https://heyfirst.co/blog/introducing-giscus</loc>
-  </url>
-
-  <url>
-    <loc>https://heyfirst.co/blog/make-it-work-make-it-right-make-it-fast</loc>
-  </url>
-
-  <url>
-    <loc>https://heyfirst.co/blog/refactor-if-else</loc>
-  </url>
-
-  <url>
     <loc>https://heyfirst.co/book/ai-superpowers</loc>
   </url>
 
@@ -58,5 +38,29 @@
 
   <url>
     <loc>https://heyfirst.co/book/the-way-cafe</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/1-2-refactor</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/best-practice-might-be-wrong</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/how-to-use-test-todo-in-jest</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/introducing-giscus</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/make-it-work-make-it-right-make-it-fast</loc>
+  </url>
+
+  <url>
+    <loc>https://heyfirst.co/blog/refactor-if-else</loc>
   </url>
 </urlset>
