@@ -21,6 +21,7 @@ export interface FrontMatter {
   date: string;
   tags: string[];
   image: string;
+  by: string;
 }
 export interface MDXFile {
   mdxSource: MdxRemote.Source;
@@ -60,6 +61,7 @@ export async function getFileBySlug(
       image: data.image || "",
       date: data.date || "",
       tags: data.tags || [],
+      by: data.by || "",
       wordCount: content.split(/\s+/gu).length,
       readingTime: readingTime(content),
       slug: slug || null,
