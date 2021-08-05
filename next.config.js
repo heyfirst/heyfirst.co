@@ -41,7 +41,7 @@ module.exports = {
     ];
   },
   images: {
-    domains: ['webring.wonderful.software'],
+    domains: ["webring.wonderful.software"],
   },
 };
 
@@ -55,8 +55,6 @@ const ContentSecurityPolicy = `
   media-src 'none';
   connect-src *;
   font-src 'self' 'unsafe-eval' fonts.gstatic.com fonts.googleapis.com;
-
-
 `;
 
 const securityHeaders = [
