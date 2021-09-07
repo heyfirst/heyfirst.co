@@ -33,11 +33,11 @@ module.exports = {
           css: {
             color: theme("colors.gray.700"),
             a: {
-              color: theme("colors.yellow.500"),
+              color: theme("colors.yellow.600"),
               "&:hover": {
-                color: theme("colors.yellow.700"),
+                color: theme("colors.yellow.800"),
               },
-              code: { color: theme("colors.yellow.400") },
+              code: { color: theme("colors.yellow.600") },
             },
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],

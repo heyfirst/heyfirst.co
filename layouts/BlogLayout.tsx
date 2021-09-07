@@ -42,8 +42,8 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
             </span>
           ))}
         </p>
-        <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center">
-          <div className="flex items-center mb-2">
+        <div className="flex flex-row items-start justify-between w-full md:items-center text-sm text-gray-700">
+          <div className="flex items-center">
             <Image
               alt="Kanisorn Sutham"
               height={24}
@@ -51,16 +51,15 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
               src="/avatar.jpeg"
               className="rounded-full"
             />
-            <p className="ml-2 text-sm text-gray-700">
+            <p className="ml-2">
               {frontMatter.by}
-              {"Kanisorn Sutham | "}
               {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
             </p>
           </div>
-          <p className="text-sm text-gray-500 min-w-32 md:mt-0">
+          <div className="min-w-32 md:mt-0">
             {frontMatter.readingTime.text} |{" "}
             <PageViewCounter slug={frontMatter.slug} />
-          </p>
+          </div>
         </div>
         <div className="w-full mb-8 prose max-w-none">{children}</div>
         <div className="w-full pt-4 mb-8 border-t">

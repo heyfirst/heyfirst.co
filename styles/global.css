@@ -2,12 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+.prose * {
+  @apply transition-all;
+}
+
 .prose img {
   @apply m-0;
 }
 
+.prose code::before,
+.prose code::after {
+  content: "";
+}
 .prose code {
-  @apply text-gray-500 px-1 py-0.5 border border-gray-100 rounded-md bg-gray-100;
+  @apply text-gray-900 px-1 py-0.5 border border-gray-100 rounded-md bg-gray-200 font-normal;
+}
+
+.prose strong {
+  @apply bg-yellow-100 font-normal p-0.5 -m-0.5;
+}
+
+.prose a {
+  @apply no-underline font-normal;
 }
 
 .prose > :first-child {
