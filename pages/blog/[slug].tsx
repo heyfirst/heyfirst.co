@@ -1,7 +1,7 @@
 import hydrate from "next-mdx-remote/hydrate";
 
 import { getFiles, getFileBySlug, MDXFile } from "@/lib/mdx";
-import BlogLayout from "@/layouts/BlogLayout";
+import BlogLayout from "@/components/layouts/BlogLayout";
 import MDXComponents from "@/components/MDXComponents";
 import { GetStaticPaths, GetStaticProps } from "next";
 

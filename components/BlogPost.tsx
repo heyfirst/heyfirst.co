@@ -5,13 +5,7 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import EyeIcon from "./EyeIcon";
 
-const BlogPost: React.FC<FrontMatter> = ({
-  title,
-  summary,
-  slug,
-  date,
-  tags,
-}) => {
+const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
     const res = await fetch(`/api/views/${slug}`);
     return res.json();
@@ -30,9 +24,9 @@ const BlogPost: React.FC<FrontMatter> = ({
               {viewsCount} <EyeIcon />
             </div>
           </div>
-          <div className="flex flex-col justify-between md:flex-row mb-2">
+          <div className="flex flex-col justify-between md:flex-row">
             <a className="relative w-full transition hover:text-yellow-700">
-              <h2 className="w-full text-lg font-medium text-gray-900 md:text-2xl group-hover:underline">
+              <h2 className="w-full text-lg font-medium text-gray-900 md:text-xl group-hover:underline">
                 {title}
               </h2>
             </a>
@@ -41,7 +35,7 @@ const BlogPost: React.FC<FrontMatter> = ({
             {tags.sort().map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 mr-2 transition-all border rounded-md cursor-not-allowed hover:text-yellow-700 hover:border-yellow-700"
+                className="inline-block px-2 py-1 mr-2 transition-all border rounded-md cursor-not-allowed hover:text-yellow-700 hover:border-yellow-700"
               >
                 {tag}
               </span>

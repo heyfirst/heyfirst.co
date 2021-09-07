@@ -29,20 +29,7 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
       tags={frontMatter.tags}
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-4xl">
-          {frontMatter.title}
-        </h1>
-        <p className="mb-4 text-sm text-gray-500">
-          {frontMatter.tags.sort().map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-1 mr-2 transition-all border rounded-md cursor-not-allowed hover:text-yellow-700 hover:border-yellow-700"
-            >
-              {tag}
-            </span>
-          ))}
-        </p>
-        <div className="flex flex-row items-start justify-between w-full md:items-center text-sm text-gray-700">
+        <div className="mb-2 flex flex-row items-start justify-between w-full md:items-center text-sm text-gray-700">
           <div className="flex items-center">
             {frontMatter.by}
             {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
@@ -52,6 +39,20 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
             <PageViewCounter slug={frontMatter.slug} />
           </div>
         </div>
+        <h1 className="mb-2 text-3xl font-bold tracking-tight text-black md:text-4xl">
+          {frontMatter.title}
+        </h1>
+        <p className="mb-2 text-sm text-gray-500">
+          {frontMatter.tags.sort().map((tag) => (
+            <span
+              key={tag}
+              className="inline-block px-2 py-1 mr-2 transition-all border rounded-md cursor-not-allowed hover:text-yellow-700 hover:border-yellow-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </p>
+
         <div className="w-full mb-8 prose max-w-none">{children}</div>
         <div className="w-full pt-4 mb-8 border-t">
           <Giscus />
