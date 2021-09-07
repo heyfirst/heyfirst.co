@@ -44,17 +44,8 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
         </p>
         <div className="flex flex-row items-start justify-between w-full md:items-center text-sm text-gray-700">
           <div className="flex items-center">
-            <Image
-              alt="Kanisorn Sutham"
-              height={24}
-              width={24}
-              src="/avatar.jpeg"
-              className="rounded-full"
-            />
-            <p className="ml-2">
-              {frontMatter.by}
-              {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
-            </p>
+            {frontMatter.by}
+            {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
           </div>
           <div className="min-w-32 md:mt-0">
             {frontMatter.readingTime.text} |{" "}
