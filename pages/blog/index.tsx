@@ -11,7 +11,7 @@ const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
       title="Blog | heyfirst.co"
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
     >
-      <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-8">
+      <div className="max-w-2xl mx-auto mb-8">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           Blog
         </h1>
@@ -32,10 +32,8 @@ const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
           experience. {`I've written`} <u>{posts.length}</u> articles on this
           site.
         </p>
-        <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl">
-          All Posts
-        </h3>
-        <div className="mb-4">
+        <hr className="my-4" />
+        <div className="mb-4 w-full">
           {posts.map((frontMatter) => (
             <BlogPost key={frontMatter.title} {...frontMatter} />
           ))}
