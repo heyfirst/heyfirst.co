@@ -1,11 +1,40 @@
 import React from "react";
+import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
+import Fuse from "fuse.js";
+
 import Container from "@/components/Container";
 import BlogPost from "@/components/BlogPost";
 import { FrontMatter, getAllFilesFrontMatter } from "@/lib/mdx";
 import ConvertKitSignup from "@/components/ConvertKitSignUp";
-import { GetStaticProps } from "next";
 
-const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
+const options = {
+  includeScore: true,
+  keys: ["title", "tags"],
+};
+
+const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
+  posts,
+  tags,
+}) => {
+  const router = useRouter();
+  const { search } = router.query;
+  const searchStr: string =
+    (typeof search === "undefined"
+      ? ""
+      : typeof search === "string"
+      ? search
+      : search.join("")) || "";
+
+  const onClickTag = (tag: string) => {
+    router.push(`?search=${tag.split(" ").join("+")}`);
+  };
+
+  const fuse = new Fuse(posts, options);
+  const result = fuse.search(searchStr);
+  const filteredPosts =
+    searchStr === "" ? posts : result.map((post) => post.item);
+
   return (
     <Container
       title="Blog | heyfirst.co"
@@ -33,8 +62,40 @@ const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
           site.
         </p>
         <hr className="my-4" />
-        <div className="mb-4 w-full">
-          {posts.map((frontMatter) => (
+        <div className="my-4 text-xs text-center text-gray-600">
+          <a
+            className={`
+              inline-block px-2 py-1 mb-2 mr-2
+              transition-all
+              border rounded-md
+              cursor-pointer
+              hover:text-yellow-700 hover:border-yellow-700
+              ${search === "" ? "text-yellow-700 border-yellow-700" : ""}
+            `}
+            onClick={() => onClickTag("")}
+          >
+            all blogs
+          </a>
+          {tags.sort().map((tag) => (
+            <a
+              key={tag}
+              className={`
+                inline-block px-2 py-1 mb-2 mr-2
+                transition-all
+                border rounded-md
+                cursor-pointer
+                hover:text-yellow-700 hover:border-yellow-700
+                ${search === tag ? "text-yellow-700 border-yellow-700" : ""}
+              `}
+              onClick={() => onClickTag(tag)}
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+        <hr className="my-4" />
+        <div className="w-full mb-4">
+          {filteredPosts.map((frontMatter) => (
             <BlogPost key={frontMatter.title} {...frontMatter} />
           ))}
         </div>
@@ -45,8 +106,8 @@ const Blog: React.FC<{ posts: FrontMatter[] }> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
-  return { props: { posts } };
+  const [posts, tags] = await getAllFilesFrontMatter("blog");
+  return { props: { posts, tags } };
 };
 
-export default Blog;
+export default BlogPage;

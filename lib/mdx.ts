@@ -69,10 +69,14 @@ export async function getFileBySlug(
   };
 }
 
+export type FilesFrontMatter = [FrontMatter[], string[]];
+
 export async function getAllFilesFrontMatter(
   type: FileType
-): Promise<FrontMatter[]> {
+): Promise<FilesFrontMatter> {
   const files = await getFiles(type);
+
+  const tags = new Set<string>();
 
   const posts = files
     .reduce((allPosts, postSlug) => {
@@ -81,6 +85,9 @@ export async function getAllFilesFrontMatter(
         "utf8"
       );
       const { data } = matter(source);
+
+      data.tags.forEach((tag) => tags.add(tag));
+
       return [
         {
           ...data,
@@ -91,5 +98,5 @@ export async function getAllFilesFrontMatter(
     }, [])
     .sort((a, b) => b.date.localeCompare(a.date));
 
-  return posts;
+  return [posts, Array.from(tags)];
 }
