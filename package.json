@@ -12,6 +12,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^1.11.10",
     "date-fns": "^2.21.1",
+    "fuse.js": "^6.4.6",
     "gray-matter": "^4.0.2",
     "mdx-prism": "^0.3.3",
     "next": "^11.0.1",
