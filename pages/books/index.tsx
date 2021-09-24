@@ -39,9 +39,9 @@ const Books: React.FC<{ books: FrontMatter[] }> = ({ books }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const books = await getAllFilesFrontMatter("book");
+  const [books, tags] = await getAllFilesFrontMatter("book");
 
-  return { props: { books } };
+  return { props: { books, tags } };
 };
 
 export default Books;
