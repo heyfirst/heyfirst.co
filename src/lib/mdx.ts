@@ -3,10 +3,8 @@ import matter from "gray-matter";
 import mdxPrism from "mdx-prism";
 import path from "path";
 import readingTime from "reading-time";
-import renderToString from "next-mdx-remote/render-to-string";
-
-import MDXComponents from "src/components/MDXComponents";
-import { MdxRemote } from "next-mdx-remote/types";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 const root = process.cwd();
 
@@ -24,7 +22,7 @@ export interface FrontMatter {
   by: string;
 }
 export interface MDXFile {
-  mdxSource: MdxRemote.Source;
+  mdxSource: MDXRemoteSerializeResult;
   frontMatter: FrontMatter;
 }
 
@@ -41,8 +39,7 @@ export async function getFileBySlug(
     : fs.readFileSync(path.join(root, "data", `${type}.mdx`), "utf8");
 
   const { data, content } = matter(source);
-  const mdxSource = await renderToString(content, {
-    components: MDXComponents,
+  const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [
         require("remark-autolink-headings"),

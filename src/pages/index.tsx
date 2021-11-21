@@ -1,15 +1,13 @@
 import React from "react";
 import Container from "src/components/Container";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
-import hydrate from "next-mdx-remote/hydrate";
+import { MDXRemote } from "next-mdx-remote";
 import MDXComponents from "src/components/MDXComponents";
 import WatercolorBGCanvas from "src/components/watercolor-bg-canvas/WatercolorBGCanvas";
 import { GetStaticProps } from "next";
 
 const Home: React.FC<MDXFile> = ({ mdxSource }) => {
-  const content = hydrate(mdxSource, {
-    components: MDXComponents,
-  });
+  const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
 
   return (
     <Container>
@@ -32,7 +30,6 @@ const Home: React.FC<MDXFile> = ({ mdxSource }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const index = await getFileBySlug("index");
-
   return { props: index };
 };
 

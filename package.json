@@ -16,9 +16,9 @@
     "gray-matter": "^4.0.2",
     "mdx-prism": "^0.3.3",
     "next": "^12.0.4",
-    "next-mdx-remote": "^2.1.4",
+    "next-mdx-remote": "^3.0.7",
     "preact": "^10.5.13",
-    "prismjs": "^1.24.0",
+    "prismjs": "^1.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.16.0",
@@ -27,7 +27,7 @@
     "remark-autolink-headings": "^6.0.1",
     "remark-code-titles": "^0.1.1",
     "remark-frontmatter": "3.0.0",
-    "remark-parse": "9.0.0",
+    "remark-parse": "^10.0.1",
     "remark-slug": "^6.0.0",
     "remark-stringify": "9.0.1"
   },
@@ -36,19 +36,16 @@
     "@types/react": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
-    "autoprefixer": "^10.2.5",
-    "cz-conventional-changelog": "^3.3.0",
+    "autoprefixer": "^10.4.0",
+    "cz-conventional-changelog": "^3.0.1",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
     "globby": "^11.0.3",
-    "postcss": "^8.2.13",
+    "postcss": "^8.3.11",
     "prettier": "^2.2.1",
-    "tailwindcss": "^2.1.2",
+    "tailwindcss": "^2.2.19",
     "typescript": "^4.3.5"
-  },
-  "resolutions": {
-    "**/merge": ">=2.1.1"
   },
   "config": {
     "commitizen": {

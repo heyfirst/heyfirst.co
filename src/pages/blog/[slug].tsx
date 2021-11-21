@@ -1,4 +1,4 @@
-import hydrate from "next-mdx-remote/hydrate";
+import { MDXRemote } from "next-mdx-remote";
 
 import { getFiles, getFileBySlug, MDXFile } from "src/lib/mdx";
 import BlogLayout from "src/components/layouts/BlogLayout";
@@ -6,11 +6,7 @@ import MDXComponents from "src/components/MDXComponents";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 const Blog: React.FC<MDXFile> = ({ mdxSource, frontMatter }): JSX.Element => {
-  const content = hydrate(mdxSource, {
-    components: {
-      ...MDXComponents,
-    },
-  });
+  const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
 
   return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
 };

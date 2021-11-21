@@ -1,15 +1,13 @@
 import React from "react";
 import Container from "src/components/Container";
 import MDXComponents from "src/components/MDXComponents";
-import hydrate from "next-mdx-remote/hydrate";
+import { MDXRemote } from "next-mdx-remote";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
 import ConvertKitSignup from "src/components/ConvertKitSignUp";
 import { GetStaticProps } from "next";
 
 const About: React.FC<MDXFile> = ({ mdxSource }): JSX.Element => {
-  const content = hydrate(mdxSource, {
-    components: MDXComponents,
-  });
+  const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
 
   return (
     <Container>

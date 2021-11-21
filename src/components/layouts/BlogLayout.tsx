@@ -1,6 +1,4 @@
-import Image from "next/image";
 import { parseISO, format } from "date-fns";
-
 import Container from "src/components/Container";
 import ConvertKitSignup from "src/components/ConvertKitSignUp";
 import PageViewCounter from "src/components/PageViewCounter";
