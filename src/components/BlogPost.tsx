@@ -1,5 +1,5 @@
-import { FrontMatter } from "@/lib/mdx";
-import numberWithCommas from "@/lib/numberWithCommas";
+import { FrontMatter } from "src/lib/mdx";
+import numberWithCommas from "src/lib/numberWithCommas";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useQuery } from "react-query";

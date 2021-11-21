@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
+import { Hydrate } from "react-query/hydration";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Hydrate } from "react-query/hydration";
 
 import "@/styles/global.css";
 

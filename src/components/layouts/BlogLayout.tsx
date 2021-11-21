@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { parseISO, format } from "date-fns";
 
-import Container from "@/components/Container";
-import ConvertKitSignup from "@/components/ConvertKitSignUp";
-import PageViewCounter from "@/components/PageViewCounter";
-import Giscus from "@/components/Giscus";
-import { FrontMatter } from "@/lib/mdx";
+import Container from "src/components/Container";
+import ConvertKitSignup from "src/components/ConvertKitSignUp";
+import PageViewCounter from "src/components/PageViewCounter";
+import Giscus from "src/components/Giscus";
+import { FrontMatter } from "src/lib/mdx";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
@@ -29,7 +29,7 @@ const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
       tags={frontMatter.tags}
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
-        <div className="mb-2 flex flex-row items-start justify-between w-full md:items-center text-sm text-gray-700">
+        <div className="flex flex-row items-start justify-between w-full mb-2 text-sm text-gray-700 md:items-center">
           <div className="flex items-center">
             {frontMatter.by}
             {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}

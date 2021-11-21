@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import Container from "@/components/Container";
-import { FrontMatter, getAllFilesFrontMatter } from "@/lib/mdx";
-import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import Container from "src/components/Container";
+import { FrontMatter, getAllFilesFrontMatter } from "src/lib/mdx";
+import ConvertKitSignup from "src/components/ConvertKitSignUp";
 import { GetStaticProps } from "next";
 
 const Books: React.FC<{ books: FrontMatter[] }> = ({ books }) => {

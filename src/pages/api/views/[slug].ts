@@ -1,4 +1,4 @@
-import supabase from "@/lib/supabase";
+import supabase from "src/lib/supabase";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface BlogPageViewsTable {

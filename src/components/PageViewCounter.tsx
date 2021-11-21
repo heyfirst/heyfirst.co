@@ -1,4 +1,4 @@
-import numberWithCommas from "@/lib/numberWithCommas";
+import numberWithCommas from "src/lib/numberWithCommas";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 import EyeIcon from "./EyeIcon";

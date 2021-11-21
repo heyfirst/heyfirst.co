@@ -3,10 +3,10 @@ import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import Fuse from "fuse.js";
 
-import Container from "@/components/Container";
-import BlogPost from "@/components/BlogPost";
-import { FrontMatter, getAllFilesFrontMatter } from "@/lib/mdx";
-import ConvertKitSignup from "@/components/ConvertKitSignUp";
+import Container from "src/components/Container";
+import BlogPost from "src/components/BlogPost";
+import { FrontMatter, getAllFilesFrontMatter } from "src/lib/mdx";
+import ConvertKitSignup from "src/components/ConvertKitSignUp";
 
 const options = {
   includeScore: true,

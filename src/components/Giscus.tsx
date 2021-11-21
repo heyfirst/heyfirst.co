@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useMounted } from "lib/use-mounted";
+import { useMounted } from "src/lib/use-mounted";
 
 const Giscus: React.FC = () => {
   const mounted = useMounted();
