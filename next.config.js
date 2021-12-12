@@ -1,4 +1,5 @@
 module.exports = {
+  swcMinify: true,
   future: {
     strictPostcssConfiguration: true,
   },
