@@ -6,7 +6,7 @@ import { getFileBySlug, MDXFile } from "src/lib/mdx";
 import ConvertKitSignup from "src/components/ConvertKitSignUp";
 import { GetStaticProps } from "next";
 
-const About: React.FC<MDXFile> = ({ mdxSource }): JSX.Element => {
+const About: React.FC<MDXFile> = ({ mdxSource }) => {
   const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
 
   return (
