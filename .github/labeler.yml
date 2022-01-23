@@ -1,0 +1,14 @@
+heyfirst-co:
+  - app/heyfirst-co/*
+  - app/heyfirst-co/**/*
+
+heyplants:
+  - app/heyplants/*
+  - app/heyplants/**/*
+
+packages:
+  - packages/*
+  - packages/**/*
+
+repo:
+  - ./*
