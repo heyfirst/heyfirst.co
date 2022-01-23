@@ -83,26 +83,26 @@ importers:
 
   apps/heyplants:
     specifiers:
+      '@heyfirst/config': '*'
+      '@heyfirst/tsconfig': '*'
+      '@heyfirst/ui': '*'
       '@types/react': 17.0.37
-      config: '*'
       eslint: 7.32.0
-      hey-tsconfig: '*'
       next: 12.0.7
       next-transpile-modules: 9.0.0
       react: 17.0.2
       react-dom: 17.0.2
       typescript: ^4.5.3
-      ui: '*'
     dependencies:
+      '@heyfirst/ui': link:../../packages/ui
       next: 12.0.7_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      ui: 0.2.4
     devDependencies:
+      '@heyfirst/config': link:../../packages/config
+      '@heyfirst/tsconfig': link:../../packages/tsconfig
       '@types/react': 17.0.37
-      config: 3.3.7
       eslint: 7.32.0
-      hey-tsconfig: link:../../packages/hey-tsconfig
       next-transpile-modules: 9.0.0
       typescript: 4.5.5
 
@@ -114,21 +114,21 @@ importers:
       eslint-config-next: 12.0.8
       eslint-config-prettier: 8.3.0
 
-  packages/hey-tsconfig:
+  packages/tsconfig:
     specifiers: {}
 
   packages/ui:
     specifiers:
+      '@heyfirst/config': '*'
+      '@heyfirst/tsconfig': '*'
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.11
-      config: '*'
-      hey-tsconfig: '*'
       typescript: ^4.5.3
     devDependencies:
+      '@heyfirst/config': link:../config
+      '@heyfirst/tsconfig': link:../tsconfig
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
-      config: 3.3.7
-      hey-tsconfig: link:../hey-tsconfig
       typescript: 4.5.5
 
 packages:
@@ -1623,13 +1623,6 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
-
-  /config/3.3.7:
-    resolution: {integrity: sha512-mX/n7GKDYZMqvvkY6e6oBY49W8wxdmQt+ho/5lhwFDXqQW9gI+Ahp8EKp8VAbISPnmf2+Bv5uZK7lKXZ6pf1aA==}
-    engines: {node: '>= 10.0.0'}
-    dependencies:
-      json5: 2.2.0
-    dev: true
 
   /constants-browserify/1.0.0:
     resolution: {integrity: sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=}
@@ -3215,6 +3208,7 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.5
+    dev: false
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
@@ -4818,10 +4812,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /std/0.1.40:
-    resolution: {integrity: sha1-Nnil9lCU2eG2teJu2/wCErg0K3E=}
-    dev: false
-
   /stream-browserify/3.0.0:
     resolution: {integrity: sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==}
     dependencies:
@@ -5310,12 +5300,6 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
-
-  /ui/0.2.4:
-    resolution: {integrity: sha1-ObfICGsrG2SnLGQ3w43cfE5Og20=}
-    dependencies:
-      std: 0.1.40
-    dev: false
 
   /unbox-primitive/1.0.1:
     resolution: {integrity: sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw==}

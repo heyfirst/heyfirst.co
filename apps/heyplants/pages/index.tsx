@@ -1,4 +1,4 @@
-import { Button } from "ui";
+import { Button } from "@heyfirst/ui";
 
 export default function App() {
   return (
