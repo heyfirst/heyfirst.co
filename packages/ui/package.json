@@ -7,8 +7,8 @@
   "devDependencies": {
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
-    "@heyfirst/tsconfig": "*",
-    "@heyfirst/config": "*",
+    "@heyfirst/tsconfig": "workspace:*",
+    "@heyfirst/config": "workspace:*",
     "typescript": "^4.5.3"
   }
 }

@@ -12,14 +12,14 @@
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "@heyfirst/ui": "*"
+    "@heyfirst/ui": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "17.0.37",
-    "@heyfirst/config": "*",
+    "@heyfirst/config": "workspace:*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
-    "@heyfirst/tsconfig": "*",
+    "@heyfirst/tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }
