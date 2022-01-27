@@ -2,18 +2,32 @@
   "name": "@heyfirst/monorepo",
   "version": "0.0.1",
   "private": true,
+  "author": "First Kanisorn Sutham",
+  "license": "ISC",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
+    "pre-commit": "lint-staged",
+    "build": "turbo run build postbuild",
+    "build:ci": "turbo run build test lint postbuild",
     "clean": "rm -rf node_modules && pnpm -r exec -- rm -rf .turbo node_modules .next dist",
-    "build": "turbo run build",
+    "format:index": "prettier --write \"*.{js,ts,json,md}\"",
+    "format:src": "prettier --write",
+    "format": "pnpm run format:index && pnpm run format:src",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,css,md,mdx,json}": [
+      "pnpm run format"
+    ]
   },
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.2",
     "prettier": "2.5.1",
     "turbo": "latest"
   },
