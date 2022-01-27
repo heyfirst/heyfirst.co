@@ -37,8 +37,5 @@ yarn-error.log*
 # generated sitemap
 public/sitemap.xml
 
-
-
-
-
-
+# generated rss
+public/rss.xml

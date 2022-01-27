@@ -6,12 +6,14 @@
     "commit": "cz",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node ./scripts/generate-rss.js && node ./scripts/generate-sitemap.js",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "1.11.10",
     "date-fns": "2.21.1",
+    "feed": "^4.2.2",
     "fuse.js": "6.4.6",
     "gray-matter": "4.0.2",
     "mdx-prism": "0.3.3",
