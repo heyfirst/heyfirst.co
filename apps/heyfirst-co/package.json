@@ -8,7 +8,8 @@
     "build": "next build",
     "postbuild": "node ./scripts/generate-rss.js && node ./scripts/generate-sitemap.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,mdx,json}'"
   },
   "dependencies": {
     "@supabase/supabase-js": "1.11.10",

@@ -1,13 +1,18 @@
 {
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "postbuild": {
+      "dependsOn": ["build"],
+      "outputs": ["public/sitemap.xml", "public/robots.txt"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "deploy": {
+      "dependsOn": ["build", "postbuild", "test", "lint"]
     },
     "lint": {
       "outputs": []
