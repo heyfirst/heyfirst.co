@@ -8,12 +8,16 @@ const CustomLink: React.FC<{ href: string }> = (props) => {
   if (isInternalLink) {
     return (
       <Link href={href}>
-        <a {...props} />
+        <a {...props}>{props.children}</a>
       </Link>
     );
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return (
+    <a target="_blank" rel="noopener noreferrer" {...props}>
+      {props.children}
+    </a>
+  );
 };
 
 const MDXComponents = {

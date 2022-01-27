@@ -63,7 +63,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
         </p>
         <hr className="my-4" />
         <div className="my-4 text-xs text-center text-gray-600">
-          <a
+          <span
             className={`
               inline-block px-2 py-1 mb-2 mr-2
               transition-all
@@ -75,9 +75,9 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
             onClick={() => onClickTag("")}
           >
             all blogs
-          </a>
+          </span>
           {tags.sort().map((tag) => (
-            <a
+            <span
               key={tag}
               className={`
                 inline-block px-2 py-1 mb-2 mr-2
@@ -90,7 +90,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
               onClick={() => onClickTag(tag)}
             >
               {tag}
-            </a>
+            </span>
           ))}
         </div>
         <hr className="my-4" />

@@ -19,7 +19,7 @@ const handler = async (
       .select("*")
       .eq("slug", slug);
 
-    if (error || data.length == 0) {
+    if (error || data.length === 0) {
       const { data } = await supabase
         .from("blog_page_views")
         .insert([{ slug, total_count: 1 }]);
@@ -45,7 +45,7 @@ const handler = async (
       .select("*")
       .eq("slug", slug);
 
-    if (error || data.length == 0) {
+    if (error || data.length === 0) {
       return res.status(200).json({
         total_count: 1,
       });
