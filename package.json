@@ -17,15 +17,17 @@
     "format:src": "prettier --write",
     "format": "pnpm run format:index && pnpm run format:src",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
+    "lint": "TIMING=1 eslint --fix",
     "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,css,md,mdx,json}": [
-      "pnpm run format"
+      "pnpm run format",
+      "pnpm run lint"
     ]
   },
   "devDependencies": {
+    "eslint": "^8.7.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.2",
     "prettier": "2.5.1",
