@@ -29,7 +29,7 @@
     "remark-frontmatter": "3.0.0",
     "remark-parse": "10.0.1",
     "remark-slug": "6.0.0",
-    "remark-stringify": "9.0.1"
+    "remark-stringify": "10.0.2"
   },
   "devDependencies": {
     "@babel/core": "7.16.12",
