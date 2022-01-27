@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/core": "7.16.12",
     "@types/react": "17.0.37",
-    "@heyfirst/config": "workspace:*",
+    "@heyfirst/eslint-config": "workspace:*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
     "@heyfirst/tsconfig": "workspace:*",
