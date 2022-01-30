@@ -3,6 +3,8 @@ const { Feed } = require("feed");
 const { join } = require("path");
 const matter = require("gray-matter");
 
+const DOMAIN_NAME = "https://heyfirst.co";
+
 async function generate() {
   const feed = new Feed({
     title: "First Kanisorn Sutham",
@@ -33,9 +35,11 @@ async function generate() {
 
     feed.addItem({
       title,
-      url: "https://heyfirst.co/blog/" + name.replace(/\.mdx?/, ""),
+      id: DOMAIN_NAME + "/blog" + name.replace(/\.mdx?/, ""),
+      link: DOMAIN_NAME + "/blog" + name.replace(/\.mdx?/, ""),
       date: new Date(date),
       description: summary,
+      image: DOMAIN_NAME + "/" + image,
     });
   });
 
