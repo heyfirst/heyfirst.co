@@ -30,16 +30,16 @@ async function generate() {
   posts.map((name) => {
     const content = readFileSync(join(process.cwd(), "data", "blog", name));
     const {
-      data: { title, date, summary },
+      data: { title, date, summary, image },
     } = matter(content);
 
     feed.addItem({
       title,
-      id: DOMAIN_NAME + "/blog" + name.replace(/\.mdx?/, ""),
-      link: DOMAIN_NAME + "/blog" + name.replace(/\.mdx?/, ""),
+      id: DOMAIN_NAME + "/blog/" + name.replace(/\.mdx?/, ""),
+      link: DOMAIN_NAME + "/blog/" + name.replace(/\.mdx?/, ""),
       date: new Date(date),
       description: summary,
-      image: DOMAIN_NAME + "/" + image,
+      image: DOMAIN_NAME + image,
     });
   });
 
