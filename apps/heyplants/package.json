@@ -18,7 +18,7 @@
     "@babel/core": "7.16.12",
     "@types/react": "17.0.38",
     "@heyfirst/eslint-config": "workspace:*",
-    "eslint": "7.32.0",
+    "eslint": "8.9.0",
     "next-transpile-modules": "9.0.0",
     "@heyfirst/tsconfig": "workspace:*",
     "typescript": "4.5.5"
