@@ -40,7 +40,7 @@
     "@tailwindcss/typography": "0.4.0",
     "@types/react": "17.0.38",
     "autoprefixer": "10.4.2",
-    "eslint": "7.31.0",
+    "eslint": "8.10.0",
     "globby": "11.0.3",
     "postcss": "8.4.5",
     "prettier": "2.2.1",
