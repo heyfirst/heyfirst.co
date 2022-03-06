@@ -6,7 +6,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react": "17.0.38",
-    "@types/react-dom": "17.0.11",
+    "@types/react-dom": "17.0.13",
     "@heyfirst/tsconfig": "workspace:*",
     "@heyfirst/eslint-config": "workspace:*",
     "typescript": "4.5.5"
