@@ -18,13 +18,12 @@
     "format": "pnpm run format:index && pnpm run format:src",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "lint:src": "TIMING=1 eslint --fix",
     "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,css,md,mdx,json}": [
       "pnpm run format",
-      "pnpm run lint:src"
+      "pnpm run lint"
     ]
   },
   "devDependencies": {
