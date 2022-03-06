@@ -92,7 +92,7 @@ importers:
       feed: 4.2.2
       fuse.js: 6.5.3
       globby: 11.0.3
-      gray-matter: 4.0.2
+      gray-matter: 4.0.3
       mdx-prism: 0.3.3
       next: 12.0.9
       next-mdx-remote: 3.0.7
@@ -118,7 +118,7 @@ importers:
       date-fns: 2.21.1
       feed: 4.2.2
       fuse.js: 6.5.3
-      gray-matter: 4.0.2
+      gray-matter: 4.0.3
       mdx-prism: 0.3.3
       next: 12.0.9_11ff11544d2bce3b43fc9d53812dafa4
       next-mdx-remote: 3.0.7_react-dom@17.0.2+react@17.0.2
@@ -5573,8 +5573,8 @@ packages:
   /graceful-fs/4.2.9:
     resolution: {integrity: sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==}
 
-  /gray-matter/4.0.2:
-    resolution: {integrity: sha512-7hB/+LxrOjq/dd8APlK0r24uL/67w7SkYnfwhNFwg/VDIGWGmduTDYf3WNstLW2fbbmRwrDGCVSJ2isuf2+4Hw==}
+  /gray-matter/4.0.3:
+    resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
     dependencies:
       js-yaml: 3.14.1
