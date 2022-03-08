@@ -95,7 +95,7 @@ importers:
       gray-matter: 4.0.3
       mdx-prism: 0.3.3
       next: 12.0.9
-      next-mdx-remote: 3.0.7
+      next-mdx-remote: 3.0.8
       postcss: 8.4.8
       preact: 10.5.13
       prettier: 2.2.1
@@ -121,7 +121,7 @@ importers:
       gray-matter: 4.0.3
       mdx-prism: 0.3.3
       next: 12.0.9_11ff11544d2bce3b43fc9d53812dafa4
-      next-mdx-remote: 3.0.7_react-dom@17.0.2+react@17.0.2
+      next-mdx-remote: 3.0.8_react-dom@17.0.2+react@17.0.2
       preact: 10.5.13
       prismjs: 1.26.0
       react: 17.0.2
@@ -7443,8 +7443,8 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  /next-mdx-remote/3.0.7_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-qLHf9nJHozhnntasYWUD+Y3xGAitMaG4dcS0qy+AxjS4pN241qwH6Rbik53ZqOA6ZCFWBCB/Y1HEQKDFnq1rew==}
+  /next-mdx-remote/3.0.8_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-WFSxt0crxG5PN/0WvaunzxzqV3wh3dPBZyhkclxwyQfLSRKzsNSArzot/4gYTOOZ/GtyRfNjbI/HtDsW2S4fqQ==}
     peerDependencies:
       react: '>=16.x <=17.x'
       react-dom: '>=16.x <=17.x'
