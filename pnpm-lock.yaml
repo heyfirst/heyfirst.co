@@ -85,7 +85,7 @@ importers:
       '@heyfirst/eslint-config': workspace:*
       '@supabase/supabase-js': 1.11.10
       '@tailwindcss/typography': 0.4.0
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
       autoprefixer: 10.4.2
       date-fns: 2.21.1
       eslint: 7.31.0
@@ -139,7 +139,7 @@ importers:
       '@babel/core': 7.16.12
       '@heyfirst/eslint-config': link:../../packages/eslint-config
       '@tailwindcss/typography': 0.4.0_tailwindcss@2.2.19
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
       autoprefixer: 10.4.2_postcss@8.4.8
       eslint: 7.31.0
       globby: 11.0.3
@@ -179,13 +179,13 @@ importers:
     specifiers:
       '@heyfirst/eslint-config': workspace:*
       '@heyfirst/tsconfig': workspace:*
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
       '@types/react-dom': 17.0.13
       typescript: 4.5.5
     devDependencies:
       '@heyfirst/eslint-config': link:../eslint-config
       '@heyfirst/tsconfig': link:../tsconfig
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
       '@types/react-dom': 17.0.13
       typescript: 4.5.5
 
@@ -2581,11 +2581,11 @@ packages:
   /@types/react-dom/17.0.13:
     resolution: {integrity: sha512-wEP+B8hzvy6ORDv1QBhcQia4j6ea4SFIBttHYpXKPFZRviBvknq0FRh3VrIxeXUmsPkwuXVZrVGG7KUVONmXCQ==}
     dependencies:
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
     dev: true
 
-  /@types/react/17.0.38:
-    resolution: {integrity: sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==}
+  /@types/react/17.0.39:
+    resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
