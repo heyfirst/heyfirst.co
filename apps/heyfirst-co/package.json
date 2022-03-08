@@ -19,7 +19,7 @@
     "gray-matter": "4.0.3",
     "mdx-prism": "0.3.3",
     "next": "12.0.9",
-    "next-mdx-remote": "3.0.7",
+    "next-mdx-remote": "3.0.8",
     "preact": "10.5.13",
     "prismjs": "1.26.0",
     "react": "17.0.2",
