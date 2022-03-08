@@ -5,7 +5,7 @@
   "types": "./index.tsx",
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "17.0.38",
+    "@types/react": "17.0.39",
     "@types/react-dom": "17.0.13",
     "@heyfirst/tsconfig": "workspace:*",
     "@heyfirst/eslint-config": "workspace:*",
