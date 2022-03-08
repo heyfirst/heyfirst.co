@@ -106,7 +106,7 @@ importers:
       reading-time: 1.5.0
       rehype: 11.0.0
       remark-autolink-headings: 6.0.1
-      remark-code-titles: 0.1.1
+      remark-code-titles: 0.1.2
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.1
       remark-slug: 6.0.0
@@ -130,7 +130,7 @@ importers:
       reading-time: 1.5.0
       rehype: 11.0.0
       remark-autolink-headings: 6.0.1
-      remark-code-titles: 0.1.1
+      remark-code-titles: 0.1.2
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.1
       remark-slug: 6.0.0
@@ -8310,8 +8310,8 @@ packages:
       unist-util-visit: 2.0.3
     dev: false
 
-  /remark-code-titles/0.1.1:
-    resolution: {integrity: sha512-awum0jvd3JA6lewaVSeuX1wBwDH6Ro7iWre41ughhRBaADczSq2u3TxFVsxcqsKaNIqEpqY6QJpLhGPpvUE3Ag==}
+  /remark-code-titles/0.1.2:
+    resolution: {integrity: sha512-KsHQbaI4FX8Ozxqk7YErxwmBiveUqloKuVqyPG2YPLHojpgomodWgRfG4B+bOtmn/5bfJ8khw4rR0lvgVFl2Uw==}
     dependencies:
       unist-util-visit: 1.4.1
     dev: false
