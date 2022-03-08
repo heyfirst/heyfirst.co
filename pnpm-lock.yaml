@@ -88,7 +88,7 @@ importers:
       '@types/react': 17.0.39
       autoprefixer: 10.4.2
       date-fns: 2.21.1
-      eslint: 7.31.0
+      eslint: 7.32.0
       feed: 4.2.2
       fuse.js: 6.5.3
       globby: 11.0.3
@@ -141,7 +141,7 @@ importers:
       '@tailwindcss/typography': 0.4.0_tailwindcss@2.2.19
       '@types/react': 17.0.39
       autoprefixer: 10.4.2_postcss@8.4.8
-      eslint: 7.31.0
+      eslint: 7.32.0
       globby: 11.0.3
       postcss: 8.4.8
       prettier: 2.2.1
@@ -4854,8 +4854,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /eslint/7.31.0:
-    resolution: {integrity: sha512-vafgJpSh2ia8tnTkNUkwxGmnumgckLh5aAbLa1xRmIn9+owi8qBNGKL+B881kNKNTy7FFqTEkpNkUvmw0n6PkA==}
+  /eslint/7.32.0:
+    resolution: {integrity: sha512-VHZ8gX+EDfz+97jGcgyGCyRia/dPOd6Xh9yPv8Bl1+SoaIwD+a/vlrOmGRUyOYu7MwUhc7CxqeaDZU13S4+EpA==}
     engines: {node: ^10.12.0 || >=12.0.0}
     hasBin: true
     dependencies:
