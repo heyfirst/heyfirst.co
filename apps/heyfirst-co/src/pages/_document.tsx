@@ -27,20 +27,6 @@ class MyDocument extends Document {
           <meta name="robots" content="index, follow" />
           <meta content="#ffffff" name="theme-color" />
           <meta content="#ffffff" name="msapplication-TileColor" />
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-3TZ47KP0Q7"
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', 'G-3TZ47KP0Q7');`,
-            }}
-          />
         </Head>
         <body>
           <Main />

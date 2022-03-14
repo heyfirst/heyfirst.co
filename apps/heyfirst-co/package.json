@@ -35,22 +35,21 @@
     "remark-stringify": "10.0.2"
   },
   "devDependencies": {
+    "@babel/core": "7.16.12",
+    "@babel/plugin-syntax-flow": "7.16.7",
+    "@babel/plugin-transform-react-jsx": "7.16.7",
     "@tailwindcss/typography": "0.4.0",
     "@types/react": "17.0.39",
+    "@typescript-eslint/eslint-plugin": "5.10.1",
+    "@typescript-eslint/parser": "5.10.1",
     "autoprefixer": "10.4.2",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "8.3.0",
     "globby": "11.0.3",
     "postcss": "8.4.8",
     "prettier": "2.2.1",
     "tailwindcss": "2.2.19",
-    "typescript": "4.6.2",
-    "@babel/core": "7.16.12",
-    "@babel/plugin-syntax-flow": "7.16.7",
-    "@babel/plugin-transform-react-jsx": "7.16.7",
-    "@typescript-eslint/eslint-plugin": "5.10.1",
-    "@typescript-eslint/parser": "5.10.1",
-    "eslint": "8.7.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-config-react-app": "7.0.0",
-    "eslint-plugin-react": "7.28.0"
+    "typescript": "4.6.2"
   }
 }

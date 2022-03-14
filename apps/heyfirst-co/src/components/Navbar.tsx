@@ -6,10 +6,7 @@ const Navbar: React.FC = () => (
   <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:mt-6">
     <div className="flex">
       <NextLink href="/">
-        <a
-          href="/"
-          className="flex p-3 text-gray-700 transition hover:text-gray-900"
-        >
+        <a className="flex p-3 text-gray-700 transition hover:text-gray-900">
           <div className="mr-1">
             <Image
               alt="Kanisorn Sutham"
@@ -23,20 +20,12 @@ const Navbar: React.FC = () => (
         </a>
       </NextLink>
       <NextLink href="/about">
-        <a
-          href="/about"
-          className="p-3 text-gray-500 transition hover:text-gray-600"
-        >
+        <a className="p-3 text-gray-500 transition hover:text-gray-600">
           about
         </a>
       </NextLink>
       <NextLink href="/blog">
-        <a
-          href="/blog"
-          className="p-3 text-gray-500 transition hover:text-gray-600"
-        >
-          blog
-        </a>
+        <a className="p-3 text-gray-500 transition hover:text-gray-600">blog</a>
       </NextLink>
     </div>
     <div className="w-4 mr-3 text-sm">
