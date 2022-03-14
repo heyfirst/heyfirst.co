@@ -4,7 +4,7 @@ import { UpdateGhViewCounterDto } from './dto/update-gh-view-counter.dto';
 
 @Injectable()
 export class GhViewCounterService {
-  create(createGhViewCounterDto: CreateGhViewCounterDto) {
+  create(_createGhViewCounterDto: CreateGhViewCounterDto) {
     return 'This action adds a new ghViewCounter';
   }
 
@@ -16,7 +16,7 @@ export class GhViewCounterService {
     return `This action returns a #${id} ghViewCounter`;
   }
 
-  update(id: number, updateGhViewCounterDto: UpdateGhViewCounterDto) {
+  update(id: number, _updateGhViewCounterDto: UpdateGhViewCounterDto) {
     return `This action updates a #${id} ghViewCounter`;
   }
 

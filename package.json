@@ -9,7 +9,6 @@
     "packages/*"
   ],
   "scripts": {
-    "pre-commit": "lint-staged",
     "build": "turbo run build postbuild",
     "build:ci": "turbo run build test lint postbuild",
     "clean": "rm -rf node_modules && pnpm -r exec -- rm -rf .turbo node_modules .next dist",
@@ -20,16 +19,9 @@
     "lint": "turbo run lint",
     "prepare": "husky install"
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,css,md,mdx,json}": [
-      "pnpm run format",
-      "pnpm run lint"
-    ]
-  },
   "devDependencies": {
     "eslint": "8.10.0",
     "husky": "7.0.4",
-    "lint-staged": "12.3.5",
     "prettier": "2.5.1",
     "turbo": "latest"
   },
