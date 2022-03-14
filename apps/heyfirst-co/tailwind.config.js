@@ -22,9 +22,9 @@ module.exports = {
         // Build your palette here
         transparent: "transparent",
         current: "currentColor",
-        gray: colors.blueGray,
+        gray: colors.gray,
         red: colors.red,
-        blue: colors.lightBlue,
+        blue: colors.sky,
         yellow: colors.amber,
         fuchsia: colors.fuchsia,
       },
