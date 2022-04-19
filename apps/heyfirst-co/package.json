@@ -35,9 +35,9 @@
     "remark-stringify": "10.0.2"
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
+    "@babel/core": "7.17.9",
     "@babel/plugin-syntax-flow": "7.16.7",
-    "@babel/plugin-transform-react-jsx": "7.16.7",
+    "@babel/plugin-transform-react-jsx": "7.17.3",
     "@tailwindcss/typography": "0.4.0",
     "@types/react": "17.0.44",
     "@typescript-eslint/eslint-plugin": "5.10.1",
