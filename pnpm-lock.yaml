@@ -28,7 +28,7 @@ importers:
       date-fns: 2.21.1
       eslint: 8.7.0
       eslint-config-next: 12.1.0
-      eslint-config-prettier: 8.3.0
+      eslint-config-prettier: 8.5.0
       feed: 4.2.2
       fuse.js: 6.5.3
       globby: 11.0.3
@@ -86,7 +86,7 @@ importers:
       autoprefixer: 10.4.2_postcss@8.4.8
       eslint: 8.7.0
       eslint-config-next: 12.1.0_ebb088e7fe33d696df785903b980e47e
-      eslint-config-prettier: 8.3.0_eslint@8.7.0
+      eslint-config-prettier: 8.5.0_eslint@8.7.0
       globby: 11.0.3
       postcss: 8.4.8
       prettier: 2.2.1
@@ -1522,8 +1522,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-config-prettier/8.3.0_eslint@8.7.0:
-    resolution: {integrity: sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==}
+  /eslint-config-prettier/8.5.0_eslint@8.7.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
