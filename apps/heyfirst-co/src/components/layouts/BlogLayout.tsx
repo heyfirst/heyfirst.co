@@ -6,7 +6,7 @@ import Giscus from "src/components/Giscus";
 import { FrontMatter } from "src/lib/mdx";
 
 const editUrl = (slug) =>
-  `https://github.com/heyfirst/heyfirst.co/edit/main/data/blog/${slug}.mdx`;
+  `https://github.com/heyfirst/heyfirst.co/edit/main/content/blog/${slug}.mdx`;
 
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(

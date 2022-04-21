@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { readFileSync, readdirSync, writeFileSync } = require("fs");
 const { Feed } = require("feed");
 const { join } = require("path");
@@ -25,10 +26,10 @@ async function generate() {
 
   feed.addCategory("Technologie");
 
-  const posts = readdirSync(join(process.cwd(), "data", "blog"));
+  const posts = readdirSync(join(process.cwd(), "content", "blog"));
 
   posts.map((name) => {
-    const content = readFileSync(join(process.cwd(), "data", "blog", name));
+    const content = readFileSync(join(process.cwd(), "content", "blog", name));
     const {
       data: { title, date, summary, image },
     } = matter(content);

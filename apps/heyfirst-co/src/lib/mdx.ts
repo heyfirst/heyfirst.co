@@ -27,7 +27,7 @@ export interface MDXFile {
 }
 
 export async function getFiles(type: FileType): Promise<string[]> {
-  return fs.readdirSync(path.join(root, "data", type));
+  return fs.readdirSync(path.join(root, "content", type));
 }
 
 export async function getFileBySlug(
@@ -35,8 +35,8 @@ export async function getFileBySlug(
   slug?: string
 ): Promise<MDXFile> {
   const source = slug
-    ? fs.readFileSync(path.join(root, "data", type, `${slug}.mdx`), "utf8")
-    : fs.readFileSync(path.join(root, "data", `${type}.mdx`), "utf8");
+    ? fs.readFileSync(path.join(root, "content", type, `${slug}.mdx`), "utf8")
+    : fs.readFileSync(path.join(root, "content", `${type}.mdx`), "utf8");
 
   const { data, content } = matter(source);
   const mdxSource = await serialize(content, {
@@ -78,7 +78,7 @@ export async function getAllFilesFrontMatter(
   const posts = files
     .reduce((allPosts, postSlug) => {
       const source = fs.readFileSync(
-        path.join(root, "data", type, postSlug),
+        path.join(root, "content", type, postSlug),
         "utf8"
       );
       const { data } = matter(source);
