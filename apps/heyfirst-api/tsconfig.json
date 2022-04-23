@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "lib": ["ESNext"],
+    "strict": true,
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "outDir": "build",
+    "paths": {
+      "@/modules/*": ["modules/*"],
+      "@/services/*": ["services/*"]
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "files": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "heyfirst-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json",
+    "build": "tsc",
+    "start": "NODE_ENV=production node build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.12.0",
+    "dotenv": "^16.0.0",
+    "fastify": "^3.28.0",
+    "fastify-cookie": "^5.6.1",
+    "fastify-cors": "^6.0.3",
+    "fastify-helmet": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "4.6.2"
+  }
+}
