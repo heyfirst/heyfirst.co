@@ -7,10 +7,12 @@ import EyeIcon from "./EyeIcon";
 
 const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
-    const res = await fetch(`/api/views/${slug}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/blog/page_views/${slug}`
+    );
     return res.json();
   });
-  const views = data?.total_count;
+  const views = data?.totalCount;
   const viewsCount = `${views ? numberWithCommas(views) : "———"}`;
 
   const readableDate = format(parseISO(date), "MMMM dd, yyyy");
