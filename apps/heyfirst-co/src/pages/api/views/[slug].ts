@@ -25,7 +25,7 @@ const handler = async (
         .insert([{ slug, total_count: 1 }]);
 
       return res.status(200).json({
-        total_count: data[0].total_count,
+        totalCount: data[0].total_count,
       });
     }
 
@@ -35,7 +35,7 @@ const handler = async (
       .eq("slug", slug);
 
     return res.status(200).json({
-      total_count: updatedData[0].total_count,
+      totalCount: updatedData[0].total_count,
     });
   }
 
@@ -51,7 +51,7 @@ const handler = async (
       });
     }
 
-    return res.status(200).json({ total_count: data[0].total_count });
+    return res.status(200).json({ totalCount: data[0].total_count });
   }
 };
 
