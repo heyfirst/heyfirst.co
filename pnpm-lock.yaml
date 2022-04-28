@@ -5,12 +5,10 @@ importers:
   .:
     specifiers:
       eslint: 8.10.0
-      husky: 7.0.4
       prettier: 2.5.1
       turbo: latest
     devDependencies:
       eslint: 8.10.0
-      husky: 7.0.4
       prettier: 2.5.1
       turbo: 1.2.5
 
@@ -2820,12 +2818,6 @@ packages:
 
   /http-cache-semantics/4.1.0:
     resolution: {integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==}
-    dev: true
-
-  /husky/7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
-    hasBin: true
     dev: true
 
   /ignore-by-default/1.0.1:
