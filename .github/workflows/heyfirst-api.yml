@@ -1,4 +1,4 @@
-name: [heyfirst-api] build-push-deploy
+name: "[heyfirst-api] build-push-deploy"
 
 on:
   push:
