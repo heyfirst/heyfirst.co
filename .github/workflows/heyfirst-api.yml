@@ -1,0 +1,56 @@
+name: [heyfirst-api] build-push-deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/heyfirst-api/**"
+      - "tools/**"
+      - ".github/workflows/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout master
+        uses: actions/checkout@main
+
+      # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
+      - name: Build container image
+        run: docker build -f tools/docker/Dockerfile.heyfirst-api -t heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7)
+
+      # Deploy to DigitalOCcean Kubernetes.
+      # - name: Install doctl
+      #   uses: digitalocean/action-doctl@v2
+      #   with:
+      #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      # - name: Update deployment file
+      #   run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|heyfirst/heyfirst-api:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+
+      # - name: Save DigitalOcean kubeconfig with short-lived credentials
+      #   run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
+
+      # - name: Upload credentials of your registry to your DigitalOcean Kubernetes cluster
+      #   run: doctl registry kubernetes-manifest | kubectl apply -f -
+
+      # - name: Reference the secret you just uploaded as an imagePullSecrets
+      #   run: "kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"registry-heyfirst-docker-hub`\"}]}'"
+
+      # - name: Deploy to DigitalOcean Kubernetes
+      #   run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml
+
+      # - name: Verify deployment
+      #   run: kubectl rollout status deployment/heyfirst-api

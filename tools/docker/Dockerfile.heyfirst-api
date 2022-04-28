@@ -1,0 +1,36 @@
+FROM node:16 as builder
+
+WORKDIR /usr/app
+
+RUN npm install -g pnpm
+
+COPY package.json .
+COPY pnpm-lock.yaml .
+COPY pnpm-workspace.yaml .
+COPY turbo.json .
+
+COPY apps/heyfirst-api apps/heyfirst-api/
+
+# install dependencies
+RUN pnpm install --frozen-lockfile --filter=heyfirst-api
+
+RUN pnpm build -- --filter=heyfirst-api
+RUN pnpm run --filter=heyfirst-api prisma:generate
+
+# install only prod related dependencies
+RUN pnpm install --frozen-lockfile --prod --filter=heyfirst-api
+
+# * ====================
+FROM node:16 as main
+
+WORKDIR /usr/app/
+
+COPY --from=builder /usr/app/node_modules node_modules
+COPY --from=builder /usr/app/apps/heyfirst-api/node_modules apps/heyfirst-api/node_modules
+COPY --from=builder /usr/app/apps/heyfirst-api/dist apps/heyfirst-api/dist
+
+ENV NODE_ENV production
+
+CMD ["node", "./apps/heyfirst-api/dist/index.js"]
+
+EXPOSE 8080
