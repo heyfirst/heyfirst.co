@@ -14,7 +14,8 @@ COPY apps/heyfirst-api apps/heyfirst-api/
 # install dependencies
 RUN pnpm install --frozen-lockfile --filter=heyfirst-api
 
-RUN pnpm build -- --filter=heyfirst-api
+# TODO: update to turborepo caching
+RUN pnpm run --filter=heyfirst-api build
 RUN pnpm run --filter=heyfirst-api prisma:generate
 
 # install only prod related dependencies
