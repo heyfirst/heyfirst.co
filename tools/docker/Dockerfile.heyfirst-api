@@ -18,7 +18,8 @@ RUN pnpm install --frozen-lockfile --filter=heyfirst-api
 RUN pnpm run --filter=heyfirst-api build
 RUN pnpm run --filter=heyfirst-api prisma:generate
 
-# install only prod related dependencies
+# delete node_modules and re-install only prod related dependencies
+RUN pnpm recursive exec -- rm -rf ./node_modules
 RUN pnpm install --frozen-lockfile --prod --filter=heyfirst-api
 
 # * ====================
