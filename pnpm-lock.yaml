@@ -20,7 +20,7 @@ importers:
       '@types/node': 17.0.25
       dotenv: 16.0.0
       fastify: 3.28.0
-      fastify-cookie: 5.6.1
+      fastify-cookie: 5.7.0
       fastify-cors: 6.0.3
       fastify-helmet: 7.0.1
       nodemon: 2.0.16
@@ -31,7 +31,7 @@ importers:
       '@prisma/client': 3.13.0_prisma@3.13.0
       dotenv: 16.0.0
       fastify: 3.28.0
-      fastify-cookie: 5.6.1
+      fastify-cookie: 5.7.0
       fastify-cors: 6.0.3
       fastify-helmet: 7.0.1
       prisma: 3.13.0
@@ -2315,6 +2315,13 @@ packages:
     dependencies:
       cookie-signature: 1.2.0
       fastify-plugin: 3.0.1
+    dev: false
+
+  /fastify-cookie/5.7.0:
+    resolution: {integrity: sha512-l9UDkHysfOBdyA2rNkr1DQqe6xFdT3NuT60W+o7ramvuyyIc9kv6VmrhpLeEx29EftVJR9lRpW4Pg8T+RDNBLw==}
+    dependencies:
+      fastify-cookie-deprecated: /fastify-cookie/5.6.1
+      process-warning: 1.0.0
     dev: false
 
   /fastify-cors/6.0.3:
