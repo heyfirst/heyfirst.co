@@ -11,14 +11,19 @@ COPY turbo.json .
 
 COPY apps/heyfirst-api apps/heyfirst-api/
 
-# install only prod related dependencies
-RUN pnpm install --frozen-lockfile --prod --filter=heyfirst-api
-
-# run prisma generate
-RUN npx prisma generate
+# install dependencies
+RUN pnpm install --frozen-lockfile --filter=heyfirst-api
 
 # TODO: update to turborepo caching
 RUN pnpm run --filter=heyfirst-api build
+
+# install only prod related dependencies
+# -- noted that `pnpm prune` doesn't support monorepo yet. there still has no way to reduce image file from huge prisma module
+RUN pnpm recursive exec -- rm -rf ./node_modules
+RUN pnpm install --frozen-lockfile --prod --filter=heyfirst-api
+
+# generate prisma types
+RUN pnpm run --filter=heyfirst-api prisma:generate
 
 # * ====================
 FROM node:16-alpine3.15 as main
