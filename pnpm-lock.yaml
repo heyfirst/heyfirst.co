@@ -23,7 +23,7 @@ importers:
       fastify-cookie: 5.6.1
       fastify-cors: 6.0.3
       fastify-helmet: 7.0.1
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       prisma: 3.13.0
       ts-node: 10.7.0
       typescript: 4.6.2
@@ -39,7 +39,7 @@ importers:
       '@swc/cli': 0.1.57_@swc+core@1.2.173
       '@swc/core': 1.2.173
       '@types/node': 17.0.25
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       ts-node: 10.7.0_364e50832ce2e0716512719ce45368d9
       typescript: 4.6.2
 
@@ -3689,8 +3689,8 @@ packages:
     resolution: {integrity: sha512-gbMzqQtTtDz/00jQzZ21PQzdI9PyLYqUSvD0p3naOhX4odFji0ZxYdnVwPTxmSwkmxhcFImpozceidSG+AgoPQ==}
     dev: true
 
-  /nodemon/2.0.15:
-    resolution: {integrity: sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA==}
+  /nodemon/2.0.16:
+    resolution: {integrity: sha512-zsrcaOfTWRuUzBn3P44RDliLlp263Z/76FPoHFr3cFFkOz0lTPAcIw8dCzfdVIx/t3AtDYCZRCDkoCojJqaG3w==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     requiresBuild: true
