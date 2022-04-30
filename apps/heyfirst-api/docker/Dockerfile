@@ -14,7 +14,7 @@ COPY apps/heyfirst-api apps/heyfirst-api/
 RUN pnpm --filter "heyfirst-api" install --frozen-lockfile
 
 # generate prisma-client-js
-RUN pnpm --filter "heyfirst-api" run prisma:generate
+RUN pnpm --filter "heyfirst-api" run db:generate
 
 # compile ts to js and minify
 RUN pnpm --filter "heyfirst-api" run build
@@ -31,11 +31,11 @@ WORKDIR /usr/app/
 
 COPY --from=builder /usr/app/node_modules node_modules
 COPY --from=builder /usr/app/apps/heyfirst-api/node_modules apps/heyfirst-api/node_modules
-COPY --from=builder /usr/app/apps/heyfirst-api/prisma/generated/prisma-client-js apps/heyfirst-api/prisma/generated/prisma-client-js
+COPY --from=builder /usr/app/apps/heyfirst-api/prisma/ apps/heyfirst-api/prisma/
 COPY --from=builder /usr/app/apps/heyfirst-api/dist apps/heyfirst-api/dist
 
 ENV NODE_ENV production
 
-CMD ["node", "./apps/heyfirst-api/dist/index.js"]
+CMD ["./apps/heyfirst-api/docker/docker-entrypoint.sh"]
 
 EXPOSE 8080
