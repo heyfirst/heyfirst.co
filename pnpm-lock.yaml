@@ -22,7 +22,7 @@ importers:
       fastify: 3.28.0
       fastify-cookie: 5.6.1
       fastify-cors: 6.0.3
-      fastify-helmet: 7.0.1
+      fastify-helmet: 7.1.0
       nodemon: 2.0.16
       prisma: 3.13.0
       ts-node: 10.7.0
@@ -33,7 +33,7 @@ importers:
       fastify: 3.28.0
       fastify-cookie: 5.6.1
       fastify-cors: 6.0.3
-      fastify-helmet: 7.0.1
+      fastify-helmet: 7.1.0
     devDependencies:
       '@swc/cli': 0.1.57_@swc+core@1.2.173
       '@swc/core': 1.2.173
@@ -2333,6 +2333,13 @@ packages:
     dependencies:
       fastify-plugin: 3.0.1
       helmet: 5.0.2
+    dev: false
+
+  /fastify-helmet/7.1.0:
+    resolution: {integrity: sha512-rgSYdx42+Rq4EETbJXMCWtsvYtZdstEuaDBiwFAiNJhjjqgf2AllrdDYEUb5nUA/FXSrfP4MKnpa3ZgyLd/nRQ==}
+    dependencies:
+      fastify-helmet-deprecated: /fastify-helmet/7.0.1
+      process-warning: 1.0.0
     dev: false
 
   /fastify-plugin/3.0.1:
