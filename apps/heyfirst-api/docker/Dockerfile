@@ -33,6 +33,7 @@ COPY --from=builder /usr/app/node_modules node_modules
 COPY --from=builder /usr/app/apps/heyfirst-api/node_modules apps/heyfirst-api/node_modules
 COPY --from=builder /usr/app/apps/heyfirst-api/prisma/ apps/heyfirst-api/prisma/
 COPY --from=builder /usr/app/apps/heyfirst-api/dist apps/heyfirst-api/dist
+COPY --from=builder /usr/app/apps/heyfirst-api/docker apps/heyfirst-api/docker
 
 ENV NODE_ENV production
 
