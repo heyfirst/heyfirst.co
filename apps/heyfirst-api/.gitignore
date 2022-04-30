@@ -1,5 +1,5 @@
-.DS_Store
 node_modules
-build
-.env
+src/services/prisma/prisma-client-js
+.DS_Store
 dist
+.env

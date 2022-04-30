@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/services/prisma/prisma-client-js"
 }
 
 model BlogPageViews {

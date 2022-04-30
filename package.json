@@ -15,7 +15,7 @@
     "format:index": "prettier --write \"*.{js,ts,json,md}\"",
     "format:src": "prettier --write",
     "format": "pnpm run format:index && pnpm run format:src",
-    "dev": "turbo run dev --parallel",
+    "dev": "pnpm run -r --parallel dev",
     "lint": "turbo run lint"
   },
   "devDependencies": {
