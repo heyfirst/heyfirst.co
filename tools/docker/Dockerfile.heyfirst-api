@@ -1,7 +1,6 @@
 FROM node:16-alpine3.15 as builder
 
 WORKDIR /usr/app
-
 RUN npm install -g pnpm
 
 COPY package.json .
@@ -12,18 +11,18 @@ COPY turbo.json .
 COPY apps/heyfirst-api apps/heyfirst-api/
 
 # install dependencies
-RUN pnpm install --frozen-lockfile --filter=heyfirst-api
+RUN pnpm --filter "heyfirst-api" install --frozen-lockfile
 
 # generate prisma-client-js
-RUN pnpm run --filter=heyfirst-api prisma:generate
+RUN pnpm --filter "heyfirst-api" run prisma:generate
 
-# build
-RUN pnpm run --filter=heyfirst-api build
+# compile ts to js and minify
+RUN pnpm --filter "heyfirst-api" run build
 
 # install only prod related dependencies
-# -- noted that `pnpm prune` doesn't support monorepo yet. there still has no way to reduce image file from huge prisma module
+# https://pnpm.io/cli/prune does not work for monorepo
 RUN pnpm recursive exec -- rm -rf ./node_modules
-RUN pnpm install --frozen-lockfile --prod --filter=heyfirst-api
+RUN pnpm --filter "heyfirst-api" install --frozen-lockfile --prod
 
 # * ====================
 FROM node:16-alpine3.15 as main
@@ -32,6 +31,7 @@ WORKDIR /usr/app/
 
 COPY --from=builder /usr/app/node_modules node_modules
 COPY --from=builder /usr/app/apps/heyfirst-api/node_modules apps/heyfirst-api/node_modules
+COPY --from=builder /usr/app/apps/heyfirst-api/prisma/generated/prisma-client-js apps/heyfirst-api/prisma/generated/prisma-client-js
 COPY --from=builder /usr/app/apps/heyfirst-api/dist apps/heyfirst-api/dist
 
 ENV NODE_ENV production
