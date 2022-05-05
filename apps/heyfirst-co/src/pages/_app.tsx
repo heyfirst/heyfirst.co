@@ -23,20 +23,10 @@ export default function App({ Component, pageProps }: AppProps): ReactElement {
         <Component {...pageProps} />
       </Hydrate>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-3TZ47KP0Q7"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="gtag-dataLayer"
-        dangerouslySetInnerHTML={{
-          __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', 'G-3TZ47KP0Q7');`,
-        }}
-      />
+        defer
+        data-domain="heyfirst.co"
+        src="https://plausible-data-platform.heyfirst.co/js/plausible.js"
+      ></Script>
     </QueryClientProvider>
   );
 }
