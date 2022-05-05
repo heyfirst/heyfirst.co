@@ -3,12 +3,13 @@ import { Hydrate } from "react-query/hydration";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Script from "next/script";
 
 import "@/styles/global.css";
+import { useAnalytics } from "@/lib/analytics";
 
 export default function App({ Component, pageProps }: AppProps): ReactElement {
   const queryClientRef = React.useRef<QueryClient>();
+  useAnalytics();
 
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
