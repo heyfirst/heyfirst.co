@@ -22,11 +22,6 @@ export default function App({ Component, pageProps }: AppProps): ReactElement {
         </Head>
         <Component {...pageProps} />
       </Hydrate>
-      <Script
-        defer
-        data-domain="heyfirst.co"
-        src="https://plausible.io/js/plausible.js"
-      ></Script>
     </QueryClientProvider>
   );
 }
