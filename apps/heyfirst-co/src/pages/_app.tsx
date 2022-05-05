@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps): ReactElement {
       <Script
         defer
         data-domain="heyfirst.co"
-        src="https://plausible-data-platform.heyfirst.co/js/plausible.js"
+        src="https://plausible.io/js/plausible.js"
       ></Script>
     </QueryClientProvider>
   );
