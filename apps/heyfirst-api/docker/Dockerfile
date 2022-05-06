@@ -6,7 +6,6 @@ RUN npm install -g pnpm
 COPY package.json .
 COPY pnpm-lock.yaml .
 COPY pnpm-workspace.yaml .
-COPY turbo.json .
 
 COPY apps/heyfirst-api apps/heyfirst-api/
 

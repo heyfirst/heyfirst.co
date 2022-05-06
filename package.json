@@ -9,19 +9,15 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build postbuild",
-    "build:ci": "turbo run build test lint postbuild",
-    "clean": "rm -rf node_modules && pnpm -r exec -- rm -rf .turbo node_modules .next dist",
+    "clean": "rm -rf node_modules && pnpm -r exec -- rm -rf node_modules .next dist",
     "format:index": "prettier --write \"*.{js,ts,json,md}\"",
     "format:src": "prettier --write",
     "format": "pnpm run format:index && pnpm run format:src",
-    "dev": "pnpm run -r --parallel dev",
-    "lint": "turbo run lint"
+    "dev": "pnpm run -r --parallel dev"
   },
   "devDependencies": {
     "eslint": "8.14.0",
-    "prettier": "2.6.2",
-    "turbo": "latest"
+    "prettier": "2.6.2"
   },
   "engines": {
     "npm": ">=7.0.0",
