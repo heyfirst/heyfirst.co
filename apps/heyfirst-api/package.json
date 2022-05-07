@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "3.13.0",
+    "badge-maker": "^3.3.1",
     "dotenv": "16.0.0",
     "fastify": "3.28.0",
     "fastify-cookie": "5.6.1",

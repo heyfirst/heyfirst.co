@@ -7,6 +7,7 @@ import cookie from "fastify-cookie";
 import cors from "fastify-cors";
 
 import blog from "@/modules/blog";
+import githubViewCounter from "@/modules/gh-view-counter";
 import prisma from "@/services/prisma";
 
 const app = fastify();
@@ -26,6 +27,9 @@ const main = async () => {
     })
     .register(blog, {
       prefix: "/blog",
+    })
+    .register(githubViewCounter, {
+      prefix: "/github-view-counter",
     })
     .listen(process.env.PORT ?? 8080, "0.0.0.0", (error, address) => {
       if (error) return console.error(error);
