@@ -43,14 +43,8 @@ jobs:
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
 
-      # - name: Upload credentials of your registry to your DigitalOcean Kubernetes cluster
-      #   run: doctl registry kubernetes-manifest | kubectl apply -f -
-
-      # - name: Reference the secret you just uploaded as an imagePullSecrets
-      #   run: "kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"registry-heyfirst-docker-hub`\"}]}'"
-
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl patch deployment heyfirst-api-deployment --patch-file $GITHUB_WORKSPACE/tools/kubernetes/deployment-patch-file.yml
 
       - name: Verify deployment
-        run: kubectl rollout status deployment/heyfirst-api
+        run: kubectl rollout status deployment/heyfirst-api-deployment
