@@ -8,6 +8,12 @@ generator client {
   output   = "./generated/prisma-client-js"
 }
 
+model GitHubPageViews {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  username  String
+}
+
 model BlogPageViews {
   id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())

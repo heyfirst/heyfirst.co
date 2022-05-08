@@ -4,10 +4,22 @@ import type { FastifyPluginCallback } from "fastify";
 import { makeBadge } from "badge-maker";
 
 const base: FastifyPluginCallback = (app, _, done) => {
-  app.get("/profile", async (req, reply) => {
+  app.get("/profile", async (_req, reply) => {
+    await prisma.gitHubPageViews.create({
+      data: {
+        username: "heyfirst",
+      },
+    });
+
+    const count = await prisma.gitHubPageViews.count({
+      where: {
+        username: "heyfirst",
+      },
+    });
+
     const format = {
       label: "Profile views",
-      message: "-1-",
+      message: count.toString(),
       color: "informational",
     };
 
