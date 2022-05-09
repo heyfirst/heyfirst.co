@@ -58,7 +58,7 @@ importers:
       eslint: 8.14.0
       eslint-config-next: 12.1.0
       eslint-config-prettier: 8.5.0
-      fathom-client: ^3.4.1
+      fathom-client: 3.4.1
       feed: 4.2.2
       fuse.js: 6.5.3
       globby: 11.1.0
