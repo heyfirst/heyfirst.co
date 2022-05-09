@@ -20,7 +20,7 @@ importers:
       dotenv: 16.0.0
       fastify: 3.28.0
       fastify-cookie: 5.7.0
-      fastify-cors: 6.0.3
+      fastify-cors: 6.1.0
       fastify-helmet: 7.1.0
       nodemon: 2.0.16
       prisma: 3.13.0
@@ -32,7 +32,7 @@ importers:
       dotenv: 16.0.0
       fastify: 3.28.0
       fastify-cookie: 5.7.0
-      fastify-cors: 6.0.3
+      fastify-cors: 6.1.0
       fastify-helmet: 7.1.0
     devDependencies:
       '@swc/cli': 0.1.57_@swc+core@1.2.179
@@ -2437,6 +2437,13 @@ packages:
     dependencies:
       fastify-plugin: 3.0.1
       vary: 1.1.2
+    dev: false
+
+  /fastify-cors/6.1.0:
+    resolution: {integrity: sha512-QBKz32IoY/iuT74CunRY1XOSpjSTIOh9E3FxulXIBhd0D2vdgG0kDvy0eG6HA/88sRfWHeba43LkGEXPz0Rh8g==}
+    dependencies:
+      fastify-cors-deprecated: /fastify-cors/6.0.3
+      process-warning: 1.0.0
     dev: false
 
   /fastify-error/0.3.1:
