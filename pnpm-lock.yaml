@@ -75,11 +75,11 @@ importers:
       react-query: 3.34.16
       reading-time: 1.5.0
       rehype: 11.0.0
-      remark-autolink-headings: 6.0.1
+      remark-autolink-headings: 6.1.0
       remark-code-titles: 0.1.2
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.1
-      remark-slug: 6.0.0
+      remark-slug: 6.1.0
       remark-stringify: 10.0.2
       tailwindcss: 2.2.19
       typescript: 4.6.4
@@ -100,11 +100,11 @@ importers:
       react-query: 3.34.16_react-dom@17.0.2+react@17.0.2
       reading-time: 1.5.0
       rehype: 11.0.0
-      remark-autolink-headings: 6.0.1
+      remark-autolink-headings: 6.1.0
       remark-code-titles: 0.1.2
       remark-frontmatter: 4.0.1
       remark-parse: 10.0.1
-      remark-slug: 6.0.0
+      remark-slug: 6.1.0
       remark-stringify: 10.0.2
     devDependencies:
       '@babel/core': 7.17.10
@@ -4417,10 +4417,12 @@ packages:
       unified: 9.2.2
     dev: false
 
-  /remark-autolink-headings/6.0.1:
-    resolution: {integrity: sha512-LTV5G5NMjypHEr14tMNJ36yrP+xwT7mejJelZOPXKiF5WvRH9o36zXnr2QGqfms2yVASNpDaC9NBOwKlJJKuQw==}
+  /remark-autolink-headings/6.1.0:
+    resolution: {integrity: sha512-oeMSIfjaNboWPDVKahQAjF8iJ8hsz5aI8KFzAmmBdznir7zBvkgUjYE/BrpWvd02DCf/mSQ1IklznLkl3dVvZQ==}
     dependencies:
+      '@types/hast': 2.3.4
       extend: 3.0.2
+      unified: 9.2.2
       unist-util-visit: 2.0.3
     dev: false
 
@@ -4489,8 +4491,8 @@ packages:
       xtend: 4.0.2
     dev: false
 
-  /remark-slug/6.0.0:
-    resolution: {integrity: sha512-ln67v5BrGKHpETnm6z6adlJPhESFJwfuZZ3jrmi+lKTzeZxh2tzFzUfDD4Pm2hRGOarHLuGToO86MNMZ/hA67Q==}
+  /remark-slug/6.1.0:
+    resolution: {integrity: sha512-oGCxDF9deA8phWvxFuyr3oSJsdyUAxMFbA0mZ7Y1Sas+emILtO+e5WutF9564gDsEN4IXaQXm5pFo6MLH+YmwQ==}
     dependencies:
       github-slugger: 1.4.0
       mdast-util-to-string: 1.1.0
