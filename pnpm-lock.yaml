@@ -72,7 +72,7 @@ importers:
       prismjs: 1.28.0
       react: 17.0.2
       react-dom: 17.0.2
-      react-query: 3.34.16
+      react-query: 3.39.0
       reading-time: 1.5.0
       rehype: 11.0.0
       remark-autolink-headings: 6.0.1
@@ -97,7 +97,7 @@ importers:
       prismjs: 1.28.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-query: 3.34.16_react-dom@17.0.2+react@17.0.2
+      react-query: 3.39.0_react-dom@17.0.2+react@17.0.2
       reading-time: 1.5.0
       rehype: 11.0.0
       remark-autolink-headings: 6.0.1
@@ -4313,10 +4313,10 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react-query/3.34.16_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-7FvBvjgEM4YQ8nPfmAr+lJfbW95uyW/TVjFoi2GwCkF33/S8ajx45tuPHPFGWs4qYwPy1mzwxD4IQfpUDrefNQ==}
+  /react-query/3.39.0_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-Od0IkSuS79WJOhzWBx/ys0x13+7wFqgnn64vBqqAAnZ9whocVhl/y1padD5uuZ6EIkXbFbInax0qvY7zGM0thA==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: '*'
       react-native: '*'
     peerDependenciesMeta:
