@@ -16,7 +16,7 @@
     "date-fns": "2.21.1",
     "fathom-client": "3.4.1",
     "feed": "4.2.2",
-    "fuse.js": "6.5.3",
+    "fuse.js": "6.6.2",
     "gray-matter": "4.0.3",
     "mdx-prism": "0.3.4",
     "next": "12.1.6",
