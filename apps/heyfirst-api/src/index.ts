@@ -2,9 +2,9 @@ import env from "dotenv";
 env.config();
 
 import fastify from "fastify";
-import helmet from "fastify-helmet";
-import cookie from "fastify-cookie";
-import cors from "fastify-cors";
+import helmet from "@fastify/helmet";
+import cookie from "@fastify/cookie";
+import cors from "@fastify/cors";
 
 import blog from "@/modules/blog";
 import githubViewCounter from "@/modules/gh-view-counter";

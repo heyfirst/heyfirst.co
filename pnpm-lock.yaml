@@ -12,6 +12,9 @@ importers:
 
   apps/heyfirst-api:
     specifiers:
+      '@fastify/cookie': 6.0.0
+      '@fastify/cors': 7.0.0
+      '@fastify/helmet': 8.1.0
       '@prisma/client': 3.13.0
       '@swc/cli': 0.1.57
       '@swc/core': 1.2.181
@@ -19,21 +22,18 @@ importers:
       badge-maker: ^3.3.1
       dotenv: 16.0.0
       fastify: 3.29.0
-      fastify-cookie: 5.7.0
-      fastify-cors: 6.1.0
-      fastify-helmet: 7.1.0
       nodemon: 2.0.16
       prisma: 3.13.0
       ts-node: 10.7.0
       typescript: 4.6.4
     dependencies:
+      '@fastify/cookie': 6.0.0
+      '@fastify/cors': 7.0.0
+      '@fastify/helmet': 8.1.0
       '@prisma/client': 3.13.0_prisma@3.13.0
       badge-maker: 3.3.1
       dotenv: 16.0.0
       fastify: 3.29.0
-      fastify-cookie: 5.7.0
-      fastify-cors: 6.1.0
-      fastify-helmet: 7.1.0
     devDependencies:
       '@swc/cli': 0.1.57_@swc+core@1.2.181
       '@swc/core': 1.2.181
@@ -423,8 +423,29 @@ packages:
       ajv: 6.12.6
     dev: false
 
+  /@fastify/cookie/6.0.0:
+    resolution: {integrity: sha512-Luy3Po3dOJmqAuPCiPcWsX0tV5+C3AOnULSdlsGjNGOvyE7jqzysp8kT9ICfsUvove+TeUMgTWl1y9XS3ZPPMg==}
+    dependencies:
+      cookie-signature: 1.2.0
+      fastify-plugin: 3.0.1
+    dev: false
+
+  /@fastify/cors/7.0.0:
+    resolution: {integrity: sha512-nlo6ScwagBNJacAZD3KX90xjWLIoV0vN9QqoX1wUE9ZeZMdvkVkMZCGlxEtr00NshV0X5wDge4w5rwox7rRzSg==}
+    dependencies:
+      fastify-plugin: 3.0.1
+      vary: 1.1.2
+    dev: false
+
   /@fastify/error/2.0.0:
     resolution: {integrity: sha512-wI3fpfDT0t7p8E6dA2eTECzzOd+bZsZCJ2Hcv+Onn2b7ZwK3RwD27uW2QDaMtQhAfWQQP+WNK7nKf0twLsBf9w==}
+    dev: false
+
+  /@fastify/helmet/8.1.0:
+    resolution: {integrity: sha512-Y6bx95uKd3wYM8UE9sCfveW3nYTkbmOeAgZWqFuBd/FYgJu5SH3uMRM7NhmHFdiiqtzaLvIC6rId47l7783lTg==}
+    dependencies:
+      fastify-plugin: 3.0.1
+      helmet: 5.0.2
     dev: false
 
   /@humanwhocodes/config-array/0.9.3:
@@ -2235,48 +2256,6 @@ packages:
 
   /fast-safe-stringify/2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
-    dev: false
-
-  /fastify-cookie/5.6.1:
-    resolution: {integrity: sha512-qKFxDOLkrXn2TkxlO/+cK0tWYCTSrJDmuwty6Zl7kD5FtALwcjUHPFzOdR1Gxupb5oWhvbpSHBMx2XS+t9fbQQ==}
-    dependencies:
-      cookie-signature: 1.2.0
-      fastify-plugin: 3.0.1
-    dev: false
-
-  /fastify-cookie/5.7.0:
-    resolution: {integrity: sha512-l9UDkHysfOBdyA2rNkr1DQqe6xFdT3NuT60W+o7ramvuyyIc9kv6VmrhpLeEx29EftVJR9lRpW4Pg8T+RDNBLw==}
-    dependencies:
-      fastify-cookie-deprecated: /fastify-cookie/5.6.1
-      process-warning: 1.0.0
-    dev: false
-
-  /fastify-cors/6.0.3:
-    resolution: {integrity: sha512-fMbXubKKyBHHCfSBtsCi3+7VyVRdhJQmGes5gM+eGKkRErCdm0NaYO0ozd31BQBL1ycoTIjbqOZhJo4RTF/Vlg==}
-    dependencies:
-      fastify-plugin: 3.0.1
-      vary: 1.1.2
-    dev: false
-
-  /fastify-cors/6.1.0:
-    resolution: {integrity: sha512-QBKz32IoY/iuT74CunRY1XOSpjSTIOh9E3FxulXIBhd0D2vdgG0kDvy0eG6HA/88sRfWHeba43LkGEXPz0Rh8g==}
-    dependencies:
-      fastify-cors-deprecated: /fastify-cors/6.0.3
-      process-warning: 1.0.0
-    dev: false
-
-  /fastify-helmet/7.0.1:
-    resolution: {integrity: sha512-/PSKDJZkBhJ0ioY1swOUfYNYQRfRnXD5X2eKD9TSVBuPKbH+OYg/IYBxad33uaOGlWn28MNOd+kw5sQKSWY1yA==}
-    dependencies:
-      fastify-plugin: 3.0.1
-      helmet: 5.0.2
-    dev: false
-
-  /fastify-helmet/7.1.0:
-    resolution: {integrity: sha512-rgSYdx42+Rq4EETbJXMCWtsvYtZdstEuaDBiwFAiNJhjjqgf2AllrdDYEUb5nUA/FXSrfP4MKnpa3ZgyLd/nRQ==}
-    dependencies:
-      fastify-helmet-deprecated: /fastify-helmet/7.0.1
-      process-warning: 1.0.0
     dev: false
 
   /fastify-plugin/3.0.1:

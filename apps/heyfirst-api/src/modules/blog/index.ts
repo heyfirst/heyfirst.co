@@ -8,6 +8,8 @@ const base: FastifyPluginCallback = (app, _, done) => {
   app.get<BlogPageViewHandler>(
     "/page_views/:slug",
     async ({ params: { slug } }, res) => {
+      // TODO: info log when get blog page view
+
       const blogPageView = await prisma.blogPageViews.findFirst({
         where: {
           slug,
@@ -25,6 +27,8 @@ const base: FastifyPluginCallback = (app, _, done) => {
   app.post<BlogPageViewHandler>(
     "/page_views/:slug",
     async ({ params: { slug } }, res) => {
+      // TODO: info log when update blog page view
+
       const blogPageView = await prisma.blogPageViews.findFirst({
         where: {
           slug,
