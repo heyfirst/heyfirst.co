@@ -23,17 +23,20 @@ const ConvertKitSignup: React.FC = () => (
           <h2>
             Subscribe to
             <br />
-            the Newsletter
+            the Monthly Newsletter
           </h2>
         </div>
         <div
           className="mb-5 text-gray-600 formkit-subheader"
           data-element="subheader"
         >
-          <p>
-            If you like it, let&apos;s subsribe this blog <br />I will share my
-            entire software development experiences there!
-          </p>
+          If you like it, let&apos;s subsribe this <i>monthly newsletter</i>!{" "}
+          <br />
+          <br />I will share my thought in there and{" "}
+          <b>
+            <i>once a month</i>
+          </b>{" "}
+          will not bother you for sure!
         </div>
       </div>
       <div data-element="column" className="formkit-column">
@@ -46,10 +49,10 @@ const ConvertKitSignup: React.FC = () => (
           <div className="formkit-field">
             <input
               className="border-gray-200 rounded formkit-input"
-              aria-label="First name"
+              aria-label="Your name"
               name="fields[first_name]"
               required
-              placeholder="First name"
+              placeholder="Your name"
               type="text"
             />
           </div>
