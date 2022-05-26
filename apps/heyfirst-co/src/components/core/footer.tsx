@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="flex flex-col items-start justify-center w-full mx-auto mb-8">
       <hr className="w-full mb-8 border-gray-200 border-1 " />
-      <div className="grid w-full grid-cols-1 gap-4 pb-16 sm:grid-cols-3">
+      <div className="grid w-full grid-cols-2 gap-4 pb-16 sm:grid-cols-3">
         <div className="flex flex-col space-y-4">
           <Link href="/">
             <a className="text-gray-600 transition hover:text-gray-600">Home</a>
@@ -38,6 +38,9 @@ const Footer: React.FC = () => {
             Twitter
           </ExternalLink>
           <ExternalLink href="https://github.com/heyfirst">GitHub</ExternalLink>
+          <ExternalLink href="https://www.strava.com/athletes/heyfirst">
+            Strava 🏃
+          </ExternalLink>
         </div>
       </div>
     </footer>
