@@ -38,7 +38,7 @@
     "@babel/core": "7.17.10",
     "@babel/plugin-syntax-flow": "7.16.7",
     "@babel/plugin-transform-react-jsx": "7.17.3",
-    "@tailwindcss/typography": "0.4.0",
+    "@tailwindcss/typography": "0.5.2",
     "@types/react": "17.0.45",
     "@typescript-eslint/eslint-plugin": "5.23.0",
     "@typescript-eslint/parser": "5.23.0",
