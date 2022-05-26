@@ -5,12 +5,6 @@ import BlogLayout from "src/components/layouts/BlogLayout";
 import MDXComponents from "src/components/MDXComponents";
 import { GetStaticPaths, GetStaticProps } from "next";
 
-const Blog: React.FC<MDXFile> = ({ mdxSource, frontMatter }): JSX.Element => {
-  const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
-
-  return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
-};
-
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getFiles("blog");
 
@@ -28,6 +22,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getFileBySlug("blog", params.slug as string);
 
   return { props: post };
+};
+
+const Blog: React.FC<MDXFile> = ({ mdxSource, frontMatter }): JSX.Element => {
+  const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
+
+  return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
 };
 
 export default Blog;

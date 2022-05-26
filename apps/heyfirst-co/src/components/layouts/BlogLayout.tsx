@@ -6,13 +6,13 @@ import Giscus from "src/components/Giscus";
 import { FrontMatter } from "src/lib/mdx";
 import React from "react";
 
-const editUrl = (slug) =>
-  `https://github.com/heyfirst/heyfirst.co/edit/main/content/blog/${slug}.mdx`;
+const editUrl = (slug: string) =>
+  `https://github.com/heyfirst/heyfirst.co/edit/main/apps/heyfirst-co/content/blog/${slug}.mdx`;
 
-const discussUrl = (slug) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://heyfirst.co/blog/${slug}`
-  )}`;
+const discussUrl = (title: string) => {
+  const text = encodeURIComponent(title);
+  return `https://mobile.twitter.com/search?q=${text}&src=typed_query&f=live`;
+};
 
 const BlogLayout: React.FC<
   React.PropsWithChildren<{ frontMatter: FrontMatter }>
@@ -52,13 +52,9 @@ const BlogLayout: React.FC<
         </p>
 
         <div className="w-full mb-8 prose max-w-none">{children}</div>
-        <div className="w-full pt-4 mb-8 border-t">
-          <Giscus />
-        </div>
-        <ConvertKitSignup />
-        <div className="mt-8 text-sm text-gray-700">
+        <div className="mb-4 text-sm text-gray-700">
           <a
-            href={discussUrl(frontMatter.slug)}
+            href={discussUrl(frontMatter.title)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -73,6 +69,15 @@ const BlogLayout: React.FC<
             {"Edit on GitHub"}
           </a>
         </div>
+        <div className="w-full pt-4 mb-8 border-t">
+          <Giscus />
+        </div>
+        <div className="w-full pt-4 mb-8 text-xs italic border-t">
+          The views and opinions expressed in this article are purely mine and
+          do not necessarily reflect the positions of any companies for which I
+          have worked in the past, present, or future.
+        </div>
+        <ConvertKitSignup />
       </article>
     </Container>
   );

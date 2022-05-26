@@ -8,6 +8,11 @@ import BlogPost from "src/components/BlogPost";
 import { FrontMatter, getAllFilesFrontMatter } from "src/lib/mdx";
 import ConvertKitSignup from "src/components/ConvertKitSignUp";
 
+export const getStaticProps: GetStaticProps = async () => {
+  const [posts, tags] = await getAllFilesFrontMatter("blog");
+  return { props: { posts, tags } };
+};
+
 const options = {
   includeScore: true,
   keys: ["title", "tags"],
@@ -103,11 +108,6 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
       </div>
     </Container>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const [posts, tags] = await getAllFilesFrontMatter("blog");
-  return { props: { posts, tags } };
 };
 
 export default BlogPage;
