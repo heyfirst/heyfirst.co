@@ -14,16 +14,13 @@
 .prose code::after {
   content: "";
 }
-.prose code {
-  @apply text-gray-900 px-1 py-0.5 border border-gray-100 rounded-md bg-gray-200 font-normal;
-}
 
 .prose strong {
   @apply bg-yellow-100 font-normal p-0.5 -m-0.5;
 }
 
 .prose a {
-  @apply no-underline font-normal;
+  @apply font-normal no-underline;
 }
 
 .prose > :first-child {
@@ -36,11 +33,11 @@
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-500;
+  @apply text-gray-400;
 }
 
 .token.punctuation {
-  @apply text-gray-500;
+  @apply text-gray-400;
 }
 
 .token.property,
