@@ -4,6 +4,7 @@ import ConvertKitSignup from "src/components/ConvertKitSignUp";
 import PageViewCounter from "src/components/PageViewCounter";
 import Giscus from "src/components/Giscus";
 import { FrontMatter } from "src/lib/mdx";
+import React from "react";
 
 const editUrl = (slug) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/content/blog/${slug}.mdx`;
@@ -13,10 +14,9 @@ const discussUrl = (slug) =>
     `https://heyfirst.co/blog/${slug}`
   )}`;
 
-const BlogLayout: React.FC<{ frontMatter: FrontMatter }> = ({
-  children,
-  frontMatter,
-}) => {
+const BlogLayout: React.FC<
+  React.PropsWithChildren<{ frontMatter: FrontMatter }>
+> = ({ children, frontMatter }) => {
   return (
     <Container
       title={`${frontMatter.title} | heyfirst.co`}

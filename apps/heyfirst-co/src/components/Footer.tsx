@@ -1,6 +1,10 @@
 import Link from "next/link";
+import React from "react";
 
-const ExternalLink: React.FC<{ href: string }> = ({ href, children }) => (
+const ExternalLink: React.FC<React.PropsWithChildren<{ href: string }>> = ({
+  href,
+  children,
+}) => (
   <a
     className="text-gray-500 transition hover:text-gray-600"
     target="_blank"
