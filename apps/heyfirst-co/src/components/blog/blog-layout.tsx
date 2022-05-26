@@ -41,6 +41,11 @@ const BlogLayout: React.FC<
           {frontMatter.title}
         </h1>
         <p className="mb-2 text-sm text-gray-600">
+          {frontMatter.draft && (
+            <span className="inline-block px-2 py-1 mr-2 italic text-white transition-all bg-yellow-400 border border-yellow-400 rounded-md cursor-not-allowed">
+              draft
+            </span>
+          )}
           {frontMatter.tags.sort().map((tag) => (
             <span
               key={tag}
@@ -72,7 +77,7 @@ const BlogLayout: React.FC<
         <div className="w-full pt-4 mb-8 border-t">
           <Giscus />
         </div>
-        <div className="w-full pt-4 mb-8 text-xs italic border-t">
+        <div className="w-full pt-4 mb-8 text-xs italic text-gray-700 border-t">
           The views and opinions expressed in this article are purely mine and
           do not necessarily reflect the positions of any companies for which I
           have worked in the past, present, or future.
