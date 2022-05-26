@@ -3,10 +3,10 @@ import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import Fuse from "fuse.js";
 
-import Container from "src/components/Container";
-import BlogPost from "src/components/BlogPost";
+import Container from "@/components/core/container";
+import BlogPost from "@/components/blog/blog-post";
 import { FrontMatter, getAllFilesFrontMatter } from "src/lib/mdx";
-import ConvertKitSignup from "src/components/ConvertKitSignUp";
+import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 
 export const getStaticProps: GetStaticProps = async () => {
   const [posts, tags] = await getAllFilesFrontMatter("blog");

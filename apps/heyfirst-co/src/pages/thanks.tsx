@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "src/components/Container";
+import Container from "@/components/core/container";
 import { MDXFile } from "src/lib/mdx";
 
 const ThanksPage: React.FC<MDXFile> = () => {

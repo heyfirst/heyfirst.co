@@ -1,8 +1,8 @@
 import { parseISO, format } from "date-fns";
-import Container from "src/components/Container";
-import ConvertKitSignup from "src/components/ConvertKitSignUp";
-import PageViewCounter from "src/components/PageViewCounter";
-import Giscus from "src/components/Giscus";
+import Container from "@/components/core/container";
+import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
+import PageViewCounter from "@/components/counter/page-view-counter";
+import Giscus from "@/components/core/giscus";
 import { FrontMatter } from "src/lib/mdx";
 import React from "react";
 

@@ -1,8 +1,8 @@
 import { MDXRemote } from "next-mdx-remote";
 
 import { getFiles, getFileBySlug, MDXFile } from "src/lib/mdx";
-import BlogLayout from "src/components/layouts/BlogLayout";
-import MDXComponents from "src/components/MDXComponents";
+import BlogLayout from "@/components/blog/blog-layout";
+import MDXComponents from "@/components/core/mdx-components";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 export const getStaticPaths: GetStaticPaths = async () => {

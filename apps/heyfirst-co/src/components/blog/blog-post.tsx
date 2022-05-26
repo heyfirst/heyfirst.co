@@ -3,7 +3,7 @@ import numberWithCommas from "src/lib/numberWithCommas";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useQuery } from "react-query";
-import EyeIcon from "./EyeIcon";
+import EyeIcon from "../counter/eye-icon";
 
 const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
