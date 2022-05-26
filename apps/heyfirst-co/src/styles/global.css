@@ -23,6 +23,10 @@
   @apply font-normal no-underline;
 }
 
+.prose :where(:not(pre)) code {
+  @apply px-1 py-0.5 border border-gray-100 rounded-md bg-gray-100 font-normal;
+}
+
 .prose > :first-child {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
