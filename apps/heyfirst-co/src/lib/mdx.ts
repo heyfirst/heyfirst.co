@@ -20,6 +20,7 @@ export interface FrontMatter {
   tags: string[];
   image: string;
   by: string;
+  draft: boolean;
 }
 export interface MDXFile {
   mdxSource: MDXRemoteSerializeResult;
@@ -62,6 +63,7 @@ export async function getFileBySlug(
       wordCount: content.split(/\s+/gu).length,
       readingTime: readingTime(content),
       slug: slug || null,
+      draft: data.draft || false,
     },
   };
 }

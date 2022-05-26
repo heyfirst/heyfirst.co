@@ -10,7 +10,11 @@ import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 
 export const getStaticProps: GetStaticProps = async () => {
   const [posts, tags] = await getAllFilesFrontMatter("blog");
-  return { props: { posts, tags } };
+
+  // filter out draft
+  const filteredPosts = posts.filter((post) => !post.draft);
+
+  return { props: { posts: filteredPosts, tags } };
 };
 
 const options = {
