@@ -16,6 +16,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const options = {
   includeScore: true,
   keys: ["title", "tags"],
+  threshold: 0, // 100% match only
 };
 
 const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
@@ -23,13 +24,9 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
   tags,
 }) => {
   const router = useRouter();
-  const { search } = router.query;
+  const { search = "" } = router.query;
   const searchStr: string =
-    (typeof search === "undefined"
-      ? ""
-      : typeof search === "string"
-      ? search
-      : search.join("")) || "";
+    typeof search === "string" ? search : search.join("") || "";
 
   const onClickTag = (tag: string) => {
     router.push(`?search=${tag.split(" ").join("+")}`);
