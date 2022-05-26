@@ -3,7 +3,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 
 const Navbar: React.FC = () => (
-  <nav className="container flex items-center justify-between w-full py-6 mx-auto my-0 sticky-nav md:mt-6">
+  <nav className="container flex items-center justify-between w-full py-4 mx-auto my-0 sticky-nav md:mt-6">
     <div className="flex">
       <NextLink href="/">
         <a className="flex p-3 text-gray-700 transition hover:text-gray-900">
@@ -20,12 +20,12 @@ const Navbar: React.FC = () => (
         </a>
       </NextLink>
       <NextLink href="/about">
-        <a className="p-3 text-gray-500 transition hover:text-gray-600">
+        <a className="p-3 text-gray-600 transition hover:text-gray-600">
           about
         </a>
       </NextLink>
       <NextLink href="/blog">
-        <a className="p-3 text-gray-500 transition hover:text-gray-600">blog</a>
+        <a className="p-3 text-gray-600 transition hover:text-gray-600">blog</a>
       </NextLink>
     </div>
     <div className="w-4 mr-3 text-sm">

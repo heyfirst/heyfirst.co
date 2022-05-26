@@ -40,7 +40,7 @@ const BlogLayout: React.FC<
         <h1 className="mb-2 text-3xl font-bold tracking-tight text-black md:text-4xl">
           {frontMatter.title}
         </h1>
-        <p className="mb-2 text-sm text-gray-500">
+        <p className="mb-2 text-sm text-gray-600">
           {frontMatter.tags.sort().map((tag) => (
             <span
               key={tag}

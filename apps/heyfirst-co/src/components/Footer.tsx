@@ -6,7 +6,7 @@ const ExternalLink: React.FC<React.PropsWithChildren<{ href: string }>> = ({
   children,
 }) => (
   <a
-    className="text-gray-500 transition hover:text-gray-600"
+    className="text-gray-600 transition hover:text-gray-600"
     target="_blank"
     rel="noopener noreferrer"
     href={href}
@@ -22,15 +22,15 @@ const Footer: React.FC = () => {
       <div className="grid w-full grid-cols-1 gap-4 pb-16 sm:grid-cols-3">
         <div className="flex flex-col space-y-4">
           <Link href="/">
-            <a className="text-gray-500 transition hover:text-gray-600">Home</a>
+            <a className="text-gray-600 transition hover:text-gray-600">Home</a>
           </Link>
           <Link href="/about">
-            <a className="text-gray-500 transition hover:text-gray-600">
+            <a className="text-gray-600 transition hover:text-gray-600">
               About
             </a>
           </Link>
           <Link href="/blog">
-            <a className="text-gray-500 transition hover:text-gray-600">Blog</a>
+            <a className="text-gray-600 transition hover:text-gray-600">Blog</a>
           </Link>
         </div>
         <div className="flex flex-col space-y-4">

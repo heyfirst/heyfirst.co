@@ -28,7 +28,7 @@ const ConvertKitSignup: React.FC = () => (
           </h2>
         </div>
         <div
-          className="mb-5 text-gray-500 formkit-subheader"
+          className="mb-5 text-gray-600 formkit-subheader"
           data-element="subheader"
         >
           <p>

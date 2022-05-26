@@ -49,11 +49,11 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           Blog
         </h1>
-        <p className="mb-4 prose text-gray-600">
+        <p className="mb-4 text-sm prose text-gray-600">
           I am writing about my life journay, technology & tools, web
           development and software engineering practice I believe.
         </p>
-        <p className="mb-4 prose text-gray-600">
+        <p className="mb-4 text-sm prose text-gray-600">
           I have my old blog in{" "}
           <a
             href="https://medium.com/ks-journals"

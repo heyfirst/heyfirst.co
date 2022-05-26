@@ -19,19 +19,19 @@ const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   return (
     <Link href={`/blog/${slug}`} passHref>
       <a href={`/blog/${slug}`}>
-        <div className="relative mb-8 bg-white cursor-pointer z-100 group">
-          <div className="flex justify-between text-sm text-gray-500">
+        <div className="relative mb-4 bg-white cursor-pointer z-100 group">
+          <div className="flex justify-between text-xs text-gray-600">
             <div>{readableDate}</div>
             <div>
               {viewsCount} <EyeIcon />
             </div>
           </div>
           <div className="flex flex-col justify-between md:flex-row">
-            <h2 className="w-full text-lg font-medium text-gray-900 md:text-xl group-hover:underline">
+            <h2 className="w-full text-base font-medium text-gray-900 md:text-xl group-hover:underline">
               {title}
             </h2>
           </div>
-          <div className="mb-2 text-xs text-gray-600">
+          <div className="hidden mb-2 text-xs text-gray-600 md:block">
             {tags.sort().map((tag) => (
               <span
                 key={tag}
