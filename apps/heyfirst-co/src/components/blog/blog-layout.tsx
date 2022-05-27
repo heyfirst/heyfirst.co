@@ -27,7 +27,7 @@ const BlogLayout: React.FC<
       tags={frontMatter.tags}
     >
       <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
-        <div className="flex flex-row items-start justify-between w-full mb-2 text-sm text-gray-700 md:items-center">
+        <div className="flex flex-row items-start justify-between w-full mb-2 text-sm text-gray-600 md:items-center">
           <div className="flex items-center">
             {frontMatter.by}
             {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
@@ -57,7 +57,7 @@ const BlogLayout: React.FC<
         </p>
 
         <div className="w-full mb-8 prose max-w-none">{children}</div>
-        <div className="mb-4 text-sm text-gray-700">
+        <div className="mb-4 text-sm text-gray-600">
           <a
             href={discussUrl(frontMatter.title)}
             target="_blank"
@@ -77,7 +77,7 @@ const BlogLayout: React.FC<
         <div className="w-full pt-4 mb-8 border-t">
           <Giscus />
         </div>
-        <div className="w-full pt-4 mb-8 text-xs italic text-gray-700 border-t">
+        <div className="w-full pt-4 mb-8 text-xs italic text-gray-600 border-t">
           The views and opinions expressed in this article are purely mine and
           do not necessarily reflect the positions of any companies for which I
           have worked in the past, present, or future.

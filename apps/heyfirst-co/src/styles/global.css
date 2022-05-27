@@ -105,9 +105,6 @@ pre {
   @apply mt-0 rounded-t-none;
 }
 
-.mdx-marker {
-  @apply block px-4 -mx-4 bg-gray-700 border-l-4 border-fuchsia-600;
-}
 
 /* Remove Safari input shadow on mobile */
 input[type="text"],
