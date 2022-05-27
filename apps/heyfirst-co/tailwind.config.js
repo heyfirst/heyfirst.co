@@ -22,16 +22,12 @@ module.exports = {
         // Build your palette here
         transparent: "transparent",
         current: "currentColor",
-        gray: colors.gray,
-        red: colors.red,
-        blue: colors.sky,
         yellow: colors.amber,
-        fuchsia: colors.fuchsia,
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme("colors.gray.700"),
+            color: theme("colors.gray.600"),
             a: {
               color: theme("colors.yellow.600"),
               "&:hover": {
