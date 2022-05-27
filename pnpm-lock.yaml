@@ -53,7 +53,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.26.0
       '@typescript-eslint/parser': 5.26.0
       autoprefixer: 10.4.7
-      date-fns: 2.21.1
+      date-fns: 2.28.0
       eslint: 8.16.0
       eslint-config-next: 12.1.6
       eslint-config-prettier: 8.5.0
@@ -83,7 +83,7 @@ importers:
       tailwindcss: 3.0.24
       typescript: 4.7.2
     dependencies:
-      date-fns: 2.21.1
+      date-fns: 2.28.0
       fathom-client: 3.4.1
       feed: 4.2.2
       fuse.js: 6.6.2
@@ -1674,8 +1674,8 @@ packages:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
 
-  /date-fns/2.21.1:
-    resolution: {integrity: sha512-m1WR0xGiC6j6jNFAyW4Nvh4WxAi4JF4w9jRJwSI8nBmNcyZXPcP9VUQG+6gHQXAmqaGEKDKhOqAtENDC941UkA==}
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
     engines: {node: '>=0.11'}
     dev: false
 

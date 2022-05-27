@@ -12,7 +12,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,mdx,json}'"
   },
   "dependencies": {
-    "date-fns": "2.21.1",
+    "date-fns": "2.28.0",
     "fathom-client": "3.4.1",
     "feed": "4.2.2",
     "fuse.js": "6.6.2",
