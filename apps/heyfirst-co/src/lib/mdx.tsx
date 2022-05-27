@@ -1,11 +1,12 @@
 import fs from "fs";
 import matter from "gray-matter";
 import mdxPrism from "mdx-prism";
+import rehypeSlug from "rehype-slug";
 import path from "path";
 import readingTime from "reading-time";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-
+import remarkGFM from "remark-gfm";
 const root = process.cwd();
 
 type FileType = "blog" | "book" | "index" | "about";
@@ -42,12 +43,8 @@ export async function getFileBySlug(
   const { data, content } = matter(source);
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [
-        require("remark-autolink-headings"),
-        require("remark-slug"),
-        require("remark-code-titles"),
-      ],
-      rehypePlugins: [mdxPrism],
+      remarkPlugins: [remarkGFM],
+      rehypePlugins: [mdxPrism, rehypeSlug],
     },
   });
 
@@ -56,7 +53,7 @@ export async function getFileBySlug(
     frontMatter: {
       title: data.title || "",
       summary: data.summary || "",
-      image: data.image || "",
+      image: data.image || "/static/kanisorn_sutham.jpg",
       date: data.date || "",
       tags: data.tags || [],
       by: data.by || "",

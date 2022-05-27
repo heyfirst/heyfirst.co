@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@/components/core/container";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
 import { MDXRemote } from "next-mdx-remote";
-import MDXComponents from "@/components/core/mdx-components";
+import MDXComponents from "@/components/mdx/mdx-components";
 import WatercolorBGCanvas from "@/components/watercolor-bg-canvas/watercolor-bakcground-canvas";
 import { GetStaticProps } from "next";
 

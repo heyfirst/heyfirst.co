@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "@/components/core/container";
-import MDXComponents from "@/components/core/mdx-components";
+import MDXComponents from "@/components/mdx/mdx-components";
 import { MDXRemote } from "next-mdx-remote";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
 import ConvertKitSignup from "@/components/core/convert-kit-sign-up";

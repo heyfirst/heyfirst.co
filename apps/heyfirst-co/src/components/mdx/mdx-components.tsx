@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
+import Note from "./note";
 
 const CustomLink: React.FC<PropsWithChildren<{ href: string }>> = (props) => {
   const href = props.href;
@@ -24,6 +25,7 @@ const CustomLink: React.FC<PropsWithChildren<{ href: string }>> = (props) => {
 const MDXComponents = {
   Image,
   a: CustomLink,
+  Note,
 };
 
 export default MDXComponents;

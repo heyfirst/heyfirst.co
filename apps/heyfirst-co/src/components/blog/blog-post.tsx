@@ -3,7 +3,7 @@ import numberWithCommas from "src/lib/numberWithCommas";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useQuery } from "react-query";
-import EyeIcon from "../counter/eye-icon";
+import EyeIcon from "../icon/eye-icon";
 import Tag from "../core/tag";
 
 const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {

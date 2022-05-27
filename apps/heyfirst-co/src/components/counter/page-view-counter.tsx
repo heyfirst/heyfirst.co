@@ -1,7 +1,7 @@
 import numberWithCommas from "src/lib/numberWithCommas";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
-import EyeIcon from "./eye-icon";
+import EyeIcon from "../icon/eye-icon";
 
 const PageViewCounter: React.FC<{ slug: string }> = ({ slug }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
