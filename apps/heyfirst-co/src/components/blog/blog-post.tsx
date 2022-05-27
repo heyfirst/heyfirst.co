@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import { useQuery } from "react-query";
 import EyeIcon from "../counter/eye-icon";
+import Tag from "../core/tag";
 
 const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   const { data } = useQuery([`total_page_views_count`, slug], async () => {
@@ -33,12 +34,7 @@ const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
           </div>
           <div className="hidden mb-2 text-xs text-gray-600 md:block">
             {tags.sort().map((tag) => (
-              <span
-                key={tag}
-                className="inline-block px-2 py-1 mr-2 transition-all border rounded-md"
-              >
-                {tag}
-              </span>
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
         </div>

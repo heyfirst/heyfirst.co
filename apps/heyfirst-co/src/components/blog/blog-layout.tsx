@@ -5,6 +5,7 @@ import PageViewCounter from "@/components/counter/page-view-counter";
 import Giscus from "@/components/core/giscus";
 import { FrontMatter } from "src/lib/mdx";
 import React from "react";
+import Tag from "../core/tag";
 
 const editUrl = (slug: string) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/apps/heyfirst-co/content/blog/${slug}.mdx`;
@@ -47,15 +48,9 @@ const BlogLayout: React.FC<
             </span>
           )}
           {frontMatter.tags.sort().map((tag) => (
-            <span
-              key={tag}
-              className="inline-block px-2 py-1 mr-2 transition-all border rounded-md cursor-not-allowed hover:text-yellow-700 hover:border-yellow-700"
-            >
-              {tag}
-            </span>
+            <Tag key={tag}>{tag}</Tag>
           ))}
         </p>
-
         <div className="w-full mb-8 prose max-w-none">{children}</div>
         <div className="mb-4 text-sm text-gray-600">
           <a
