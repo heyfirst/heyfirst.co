@@ -1,4 +1,4 @@
-FROM node:16-alpine3.15 as builder
+FROM node:18-alpine3.15 as builder
 
 WORKDIR /usr/app
 RUN npm install -g pnpm
@@ -24,7 +24,7 @@ RUN pnpm recursive exec -- rm -rf ./node_modules
 RUN pnpm --filter "heyfirst-api" install --frozen-lockfile --prod
 
 # * ====================
-FROM node:16-alpine3.15 as main
+FROM node:18-alpine3.15 as main
 
 WORKDIR /usr/app/
 
