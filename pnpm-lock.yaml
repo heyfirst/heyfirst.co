@@ -69,8 +69,8 @@ importers:
       preact: 10.7.2
       prettier: 2.6.2
       prismjs: 1.28.0
-      react: '18'
-      react-dom: '18'
+      react: 18.1.0
+      react-dom: 18.1.0
       react-query: 3.39.0
       reading-time: 1.5.0
       rehype: 11.0.0
