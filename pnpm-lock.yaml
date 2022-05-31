@@ -49,7 +49,7 @@ importers:
       '@babel/plugin-syntax-flow': 7.17.12
       '@babel/plugin-transform-react-jsx': 7.17.12
       '@tailwindcss/typography': 0.5.2
-      '@types/react': 18.0.9
+      '@types/react': 18.0.10
       '@typescript-eslint/eslint-plugin': 5.27.0
       '@typescript-eslint/parser': 5.27.0
       autoprefixer: 10.4.7
@@ -107,7 +107,7 @@ importers:
       '@babel/plugin-syntax-flow': 7.17.12_@babel+core@7.18.2
       '@babel/plugin-transform-react-jsx': 7.17.12_@babel+core@7.18.2
       '@tailwindcss/typography': 0.5.2_tailwindcss@3.0.24
-      '@types/react': 18.0.9
+      '@types/react': 18.0.10
       '@typescript-eslint/eslint-plugin': 5.27.0_dszb5tb7atwkjjijmmov4qhi7i
       '@typescript-eslint/parser': 5.27.0_xztl6dhthcahlo6akmb2bmjmle
       autoprefixer: 10.4.7_postcss@8.4.14
@@ -499,7 +499,7 @@ packages:
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.2
-      '@types/react': 18.0.9
+      '@types/react': 18.0.10
       react: 18.1.0
     dev: false
 
@@ -928,8 +928,8 @@ packages:
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/react/18.0.9:
-    resolution: {integrity: sha512-9bjbg1hJHUm4De19L1cHiW0Jvx3geel6Qczhjd0qY5VKVE2X5+x77YxAepuCwVh4vrgZJdgEJw48zrhRIeF4Nw==}
+  /@types/react/18.0.10:
+    resolution: {integrity: sha512-dIugadZuIPrRzvIEevIu7A1smqOAjkSMv8qOfwPt9Ve6i6JT/FQcCHyk2qIAxwsQNKZt5/oGR0T4z9h2dXRAkg==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
