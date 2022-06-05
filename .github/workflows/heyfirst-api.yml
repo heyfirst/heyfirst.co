@@ -63,7 +63,9 @@ jobs:
 
       # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
       - name: Build container image
-        run: docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile -t heyfirst/heyfirst-api:latest -t heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7) .
+        run: |
+          docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile \
+          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo:latest .
 
       - id: "gcr-auth"
         name: "Authenticate to Google Cloud"
@@ -73,14 +75,13 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      - name: Login to GCR
+      - name: Login to GAR
         uses: docker/login-action@v2
         with:
-          registry: gcr.io
+          registry: europe-north1-docker.pkg.dev
           username: oauth2accesstoken
           password: ${{ steps.gcr-auth.outputs.access_token }}
 
-      - name: Push image to GCR
+      - name: Push image to GAR
         run: |
-          docker push heyfirst/heyfirst-api:latest
-          docker push heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7)
+          docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo:latest
