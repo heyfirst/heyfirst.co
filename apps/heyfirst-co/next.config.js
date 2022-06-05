@@ -17,16 +17,6 @@ module.exports = {
       require("./scripts/generate-rss");
     }
 
-    // TODO: uncomment once Preact stable for react18
-    // Replace React with Preact only in client production build
-    // if (!dev && !isServer) {
-    //   Object.assign(config.resolve.alias, {
-    //     react: "preact/compat",
-    //     "react-dom/test-utils": "preact/test-utils",
-    //     "react-dom": "preact/compat",
-    //   });
-    // }
-
     return config;
   },
   async redirects() {

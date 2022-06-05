@@ -66,7 +66,6 @@ importers:
       next: 12.1.6
       next-mdx-remote: 4.0.3
       postcss: 8.4.14
-      preact: 10.7.2
       prettier: 2.6.2
       prismjs: 1.28.0
       react: 18.1.0
@@ -90,7 +89,6 @@ importers:
       mdx-prism: 0.3.4
       next: 12.1.6_6j5eyi3us3liopewjenwniphpy
       next-mdx-remote: 4.0.3_ef5jwxihqo6n7gxfmzogljlgcm
-      preact: 10.7.2
       prismjs: 1.28.0
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
@@ -4144,10 +4142,6 @@ packages:
       nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
-
-  /preact/10.7.2:
-    resolution: {integrity: sha512-GLjn0I3r6ka+NvxJUppsVFqb4V0qDTEHT/QxHlidPuClGaxF/4AI2Qti4a0cv3XMh5n1+D3hLScW10LRIm5msQ==}
-    dev: false
 
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
