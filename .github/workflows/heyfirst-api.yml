@@ -28,8 +28,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push image to DigitalOcean Container Registry
-        run: docker push heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7)
+      - name: Push image to DockerHub
+        run: |
+          docker push heyfirst/heyfirst-api:latest
+          docker push heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7)
 
       # Deploy to DigitalOCcean Kubernetes.
       - name: Install doctl
