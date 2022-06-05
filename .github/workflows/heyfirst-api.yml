@@ -65,7 +65,7 @@ jobs:
       - name: Build container image
         run: |
           docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile \
-          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo:latest .
+          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest .
 
       - id: "gcr-auth"
         name: "Authenticate to Google Cloud"
@@ -84,4 +84,4 @@ jobs:
 
       - name: Push image to GAR
         run: |
-          docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo:latest
+          docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
