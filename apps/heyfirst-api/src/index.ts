@@ -7,7 +7,7 @@ import cookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 
 import blog from "@/modules/blog";
-import githubViewCounter from "@/modules/gh-view-counter";
+import githubViewCounter from "@/modules/github-view-counter";
 import prisma from "@/services/prisma";
 
 const app = fastify();
