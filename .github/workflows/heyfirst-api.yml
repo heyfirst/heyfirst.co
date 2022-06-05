@@ -65,7 +65,8 @@ jobs:
       - name: Build container image
         run: |
           docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile \
-          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest .
+          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest \
+          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:$(echo $GITHUB_SHA | head -c7) .
 
       - id: "gcr-auth"
         name: "Authenticate to Google Cloud"
@@ -82,6 +83,9 @@ jobs:
           username: oauth2accesstoken
           password: ${{ steps.gcr-auth.outputs.access_token }}
 
+      # for optimize cost, I only push the latest tag to GAR
       - name: Push image to GAR
         run: |
           docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
+
+      # TODO(developer): run prisma migration & deploy to cloudrun
