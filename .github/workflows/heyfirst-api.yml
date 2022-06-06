@@ -87,6 +87,24 @@ jobs:
         run: |
           docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
 
+  run-migration:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout master
+        uses: actions/checkout@main
+
+      - id: "gcr-auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v0"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v0"
 
@@ -96,9 +114,7 @@ jobs:
           chmod +x cloud_sql_proxy
 
       - name: Run Prisma Migration
-        run: ./cloud_sql_proxy -instances=$SQL_PROXY_INSTANCE_URL npx prisma migrate deploy --schema "$GITHUB_WORKSPACE/apps/heyfirst-api/prisma/schema.prisma"
+        run: ./cloud_sql_proxy -instances=$SQL_PROXY_INSTANCE_URL & npx prisma migrate deploy --schema "$GITHUB_WORKSPACE/apps/heyfirst-api/prisma/schema.prisma"
         env:
           SQL_PROXY_INSTANCE_URL: ${{ secrets.SQL_PROXY_INSTANCE_URL }}
           DATABASE_URL: ${{ secrets.HEYFIRST_CO_POSTGRES }}
-
-      # TODO(developer): run prisma migration & deploy to cloudrun
