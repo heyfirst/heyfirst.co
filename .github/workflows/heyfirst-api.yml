@@ -65,8 +65,7 @@ jobs:
       - name: Build container image
         run: |
           docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile \
-          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest \
-          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:$(echo $GITHUB_SHA | head -c7) .
+          -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest .
 
       - id: "gcr-auth"
         name: "Authenticate to Google Cloud"
@@ -87,5 +86,19 @@ jobs:
       - name: Push image to GAR
         run: |
           docker push europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v0"
+
+      - name: "Install Cloud SQL Proxy"
+        run: |
+          wget "https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64" -O cloud_sql_proxy
+          chmod +x cloud_sql_proxy
+
+      - name: Run Prisma Migration
+        run: ./cloud_sql_proxy -instances=$SQL_PROXY_INSTANCE_URL npx prisma migrate deploy --schema "$GITHUB_WORKSPACE/apps/heyfirst-api/prisma/schema.prisma"
+        env:
+          SQL_PROXY_INSTANCE_URL: ${{ secrets.SQL_PROXY_INSTANCE_URL }}
+          DATABASE_URL: ${{ secrets.HEYFIRST_CO_POSTGRES }}
 
       # TODO(developer): run prisma migration & deploy to cloudrun
