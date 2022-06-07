@@ -82,6 +82,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: ["build-gcr-image", "run-migration"]
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout master
+        uses: actions/checkout@main
+
       - id: "gcr-auth"
         name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v0"

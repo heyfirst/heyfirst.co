@@ -10,7 +10,9 @@ import blog from "@/modules/blog";
 import githubViewCounter from "@/modules/github-view-counter";
 import prisma from "@/services/prisma";
 
-const app = fastify();
+const app = fastify({
+  logger: true,
+});
 
 const main = async () => {
   await prisma.$connect();
