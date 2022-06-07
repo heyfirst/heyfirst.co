@@ -10,48 +10,7 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
-      - name: Checkout master
-        uses: actions/checkout@main
-
-      # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
-      - name: Build container image
-        run: docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile -t heyfirst/heyfirst-api:latest -t heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7) .
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Push image to DockerHub
-        run: |
-          docker push heyfirst/heyfirst-api:latest
-          docker push heyfirst/heyfirst-api:$(echo $GITHUB_SHA | head -c7)
-
-      # Deploy to DigitalOCcean Kubernetes.
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Update deployment file
-        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|heyfirst/heyfirst-api:'${TAG}'|' $GITHUB_WORKSPACE/tools/kubernetes/deployment-patch-file.yml
-
-      - name: Save DigitalOcean kubeconfig with short-lived credentials
-        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
-
-      - name: Deploy to DigitalOcean Kubernetes
-        run: kubectl patch deployment heyfirst-api-deployment --patch-file $GITHUB_WORKSPACE/tools/kubernetes/deployment-patch-file.yml
-
-      - name: Verify deployment
-        run: kubectl rollout status deployment/heyfirst-api-deployment
-
-  build-gcr:
+  build-gcr-image:
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
