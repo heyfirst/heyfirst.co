@@ -81,6 +81,9 @@ jobs:
   deploy-to-cloudrun:
     runs-on: ubuntu-latest
     needs: ["build-gcr-image", "run-migration"]
+    permissions:
+      contents: "read"
+      id-token: "write"
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
       - name: Checkout master
