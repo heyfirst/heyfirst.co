@@ -101,4 +101,4 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v0"
 
       - name: "Deploy to Cloud Run"
-        run: gcloud run deploy heyfirst-api --image europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
+        run: gcloud run deploy heyfirst-api --region europe-north1 --image europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest
