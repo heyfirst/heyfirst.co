@@ -12,6 +12,7 @@ import prisma from "@/services/prisma";
 
 const app = fastify({
   logger: true,
+  trustProxy: true,
 });
 
 const main = async () => {
