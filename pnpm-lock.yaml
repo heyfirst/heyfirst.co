@@ -13,7 +13,7 @@ importers:
   apps/heyfirst-api:
     specifiers:
       '@fastify/cookie': 6.0.0
-      '@fastify/cors': 7.0.0
+      '@fastify/cors': 8.0.0
       '@fastify/helmet': 8.1.0
       '@prisma/client': 3.14.0
       '@swc/cli': 0.1.57
@@ -28,7 +28,7 @@ importers:
       typescript: 4.7.3
     dependencies:
       '@fastify/cookie': 6.0.0
-      '@fastify/cors': 7.0.0
+      '@fastify/cors': 8.0.0
       '@fastify/helmet': 8.1.0
       '@prisma/client': 3.14.0_prisma@3.14.0
       badge-maker: 3.3.1
@@ -396,8 +396,8 @@ packages:
       fastify-plugin: 3.0.1
     dev: false
 
-  /@fastify/cors/7.0.0:
-    resolution: {integrity: sha512-nlo6ScwagBNJacAZD3KX90xjWLIoV0vN9QqoX1wUE9ZeZMdvkVkMZCGlxEtr00NshV0X5wDge4w5rwox7rRzSg==}
+  /@fastify/cors/8.0.0:
+    resolution: {integrity: sha512-mB2GsA7aVwq7XG6B2OM1FMpcaiXY69ZbM1h/xDJxLEVu5ITGcs5XYrBIYTMNU2dQtzO6mzXhGd2dEKaCnB7UgQ==}
     dependencies:
       fastify-plugin: 3.0.1
       vary: 1.1.2
