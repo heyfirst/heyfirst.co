@@ -6,8 +6,9 @@ import helmet from "@fastify/helmet";
 import cookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 
-import blog from "@/modules/blog";
-import githubViewCounter from "@/modules/github-view-counter";
+import blogModule from "@/modules/blog";
+import githubViewCounterModule from "@/modules/github-view-counter";
+import heymondayModule from "@/modules/heymonday";
 import prisma from "@/services/prisma";
 
 const app = fastify({
@@ -28,11 +29,14 @@ const main = async () => {
       credentials: true,
       preflight: true,
     })
-    .register(blog, {
+    .register(blogModule, {
       prefix: "/blog",
     })
-    .register(githubViewCounter, {
+    .register(githubViewCounterModule, {
       prefix: "/github-view-counter",
+    })
+    .register(heymondayModule, {
+      prefix: "/heymonday",
     })
     .listen(process.env.PORT ?? 8080, "0.0.0.0", (error, address) => {
       if (error) return console.error(error);
