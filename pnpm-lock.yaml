@@ -14,7 +14,7 @@ importers:
     specifiers:
       '@fastify/cookie': 6.0.0
       '@fastify/cors': 7.0.0
-      '@fastify/helmet': 8.1.0
+      '@fastify/helmet': 9.1.0
       '@prisma/client': 3.14.0
       '@swc/cli': 0.1.57
       '@swc/core': 1.2.197
@@ -29,7 +29,7 @@ importers:
     dependencies:
       '@fastify/cookie': 6.0.0
       '@fastify/cors': 7.0.0
-      '@fastify/helmet': 8.1.0
+      '@fastify/helmet': 9.1.0
       '@prisma/client': 3.14.0_prisma@3.14.0
       badge-maker: 3.3.1
       dotenv: 16.0.1
@@ -407,8 +407,8 @@ packages:
     resolution: {integrity: sha512-wI3fpfDT0t7p8E6dA2eTECzzOd+bZsZCJ2Hcv+Onn2b7ZwK3RwD27uW2QDaMtQhAfWQQP+WNK7nKf0twLsBf9w==}
     dev: false
 
-  /@fastify/helmet/8.1.0:
-    resolution: {integrity: sha512-Y6bx95uKd3wYM8UE9sCfveW3nYTkbmOeAgZWqFuBd/FYgJu5SH3uMRM7NhmHFdiiqtzaLvIC6rId47l7783lTg==}
+  /@fastify/helmet/9.1.0:
+    resolution: {integrity: sha512-wAtu/38t90vH46GdLM6pVi8tM1HZXb6PRdLTNBo9pudSfSw5i5Ogm8Hq1Nx337WjgSOeU6MefaTd+1avlOlCDQ==}
     dependencies:
       fastify-plugin: 3.0.1
       helmet: 5.0.2
