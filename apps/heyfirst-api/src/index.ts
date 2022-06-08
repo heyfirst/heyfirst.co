@@ -21,7 +21,7 @@ const main = async () => {
     .register(helmet)
     .register(cookie)
     .register(cors, {
-      origin: [/localhost:3000$/, /heyfirst.co$/],
+      origin: [/localhost:3000$/, /heyfirst.co$/, /(.*)heyfirst.vercel.app$/],
       methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type"],
       credentials: true,
