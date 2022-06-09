@@ -31,8 +31,10 @@ async function generate() {
   posts.map((name) => {
     const content = readFileSync(join(process.cwd(), "content", "blog", name));
     const {
-      data: { title, date, summary, image },
+      data: { title, date, summary, image, draft },
     } = matter(content);
+
+    if (draft) return;
 
     feed.addItem({
       title,
