@@ -11,6 +11,10 @@ const MANUES = [
     href: "/blog",
     label: "blog",
   },
+  {
+    href: "/uses",
+    label: "/uses",
+  },
 ];
 
 const Navbar: React.FC = () => {
