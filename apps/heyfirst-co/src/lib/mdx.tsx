@@ -9,7 +9,7 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import remarkGFM from "remark-gfm";
 const root = process.cwd();
 
-type FileType = "blog" | "book" | "index" | "about";
+type FileType = "blog" | "book" | "index" | "about" | "uses";
 
 export interface FrontMatter {
   wordCount: number;
