@@ -1,29 +1,22 @@
-import numberWithCommas from "src/lib/numberWithCommas";
 import { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useBlogPageView, useUpdateBlogPageView } from "src/entities/blog";
 import EyeIcon from "../icon/eye-icon";
 
-const PageViewCounter: React.FC<{ slug: string }> = ({ slug }) => {
-  const { data } = useQuery([`total_page_views_count`, slug], async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/blog/page_views/${slug}`
-    );
-    return res.json();
-  });
-  const views = data?.totalCount;
+type Props = { slug: string; shouldCount?: boolean };
+
+const PageViewCounter: React.FC<Props> = ({ slug, shouldCount = false }) => {
+  const { data: viewsCount } = useBlogPageView(slug);
+  const { mutate: updateBlogPageView } = useUpdateBlogPageView(slug);
 
   useEffect(() => {
-    const registerView = () =>
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog/page_views/${slug}`, {
-        method: "POST",
-      });
-
-    registerView();
-  }, [slug]);
+    if (shouldCount) {
+      updateBlogPageView();
+    }
+  }, [shouldCount, updateBlogPageView]);
 
   return (
     <span>
-      {views ? numberWithCommas(views) : "———"} <EyeIcon />
+      {viewsCount || "———"} <EyeIcon />
     </span>
   );
 };

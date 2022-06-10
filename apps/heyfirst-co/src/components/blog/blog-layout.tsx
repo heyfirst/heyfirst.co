@@ -35,7 +35,7 @@ const BlogLayout: React.FC<
           </div>
           <div className="min-w-32 md:mt-0">
             {frontMatter.readingTime.text} |{" "}
-            <PageViewCounter slug={frontMatter.slug} />
+            <PageViewCounter slug={frontMatter.slug} shouldCount />
           </div>
         </div>
         <h1 className="mb-2 text-3xl font-bold tracking-tight text-black md:text-4xl">

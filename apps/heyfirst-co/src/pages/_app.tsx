@@ -2,21 +2,19 @@ import React, { ReactElement } from "react";
 import { Hydrate } from "react-query/hydration";
 import Head from "next/head";
 import { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import "@/styles/global.css";
 import { useAnalytics } from "@/lib/analytics";
+import reactQueryClient from "@/lib/react-query";
 
 export default function App({ Component, pageProps }: AppProps): ReactElement {
-  const queryClientRef = React.useRef<QueryClient>();
   useAnalytics();
 
-  if (!queryClientRef.current) {
-    queryClientRef.current = new QueryClient();
-  }
-
   return (
-    <QueryClientProvider client={queryClientRef.current}>
+    <QueryClientProvider client={reactQueryClient}>
+      {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
       <Hydrate state={pageProps.dehydratedState}>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
