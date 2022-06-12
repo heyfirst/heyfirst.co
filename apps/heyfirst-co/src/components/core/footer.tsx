@@ -32,6 +32,11 @@ const Footer: React.FC = () => {
           <Link href="/blog">
             <a className="text-gray-600 transition hover:text-gray-600">Blog</a>
           </Link>
+          <Link href="/uses">
+            <a className="text-gray-600 transition hover:text-gray-600">
+              /uses
+            </a>
+          </Link>
         </div>
         <div className="flex flex-col space-y-4">
           <ExternalLink href="https://twitter.com/heyfirst_">

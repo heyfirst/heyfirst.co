@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import NextLink from "next/link";
+import ActiveLink from "./active-link";
 
 const MANUES = [
   {
@@ -19,8 +19,8 @@ const MANUES = [
 
 const Navbar: React.FC = () => {
   const logo = (
-    <NextLink href="/">
-      <a className="flex p-3 text-gray-600 transition hover:text-gray-900">
+    <ActiveLink href="/">
+      <a className="flex p-2 text-gray-600 transition hover:text-gray-900">
         <div className="mr-1">
           <Image
             alt="Kanisorn Sutham"
@@ -32,15 +32,19 @@ const Navbar: React.FC = () => {
         </div>
         <h1>heyfirst.co</h1>
       </a>
-    </NextLink>
+    </ActiveLink>
   );
 
   const manu = MANUES.map((manu) => (
-    <NextLink key={manu.label} href={manu.href}>
-      <a className="p-3 text-gray-600 transition hover:text-gray-600">
+    <ActiveLink
+      key={manu.label}
+      href={manu.href}
+      activeClassName="not-italic text-gray-900"
+    >
+      <a className="p-2 italic text-gray-600 transition hover:text-gray-900">
         {manu.label}
       </a>
-    </NextLink>
+    </ActiveLink>
   ));
 
   const webring = (
