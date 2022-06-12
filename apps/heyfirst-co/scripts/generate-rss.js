@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { readFileSync, readdirSync, writeFileSync } from "fs";
-import { Feed } from "feed";
-import { join } from "path";
-import matter from "gray-matter";
+const { readFileSync, readdirSync, writeFileSync } = require("fs");
+const { Feed } = require("feed");
+const { join } = require("path");
+const matter = require("gray-matter");
 
 const DOMAIN_NAME = "https://heyfirst.co";
 
