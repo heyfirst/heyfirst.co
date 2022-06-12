@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Fuse from "fuse.js";
 
 import Container from "@/components/core/container";
-import BlogPost from "@/components/blog/blog-post";
+import BlogPostItem from "@/components/blog/blog-post-item";
 import { FrontMatter } from "src/lib/mdx";
 import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 import Tag from "../core/tag";
@@ -83,7 +83,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
         <hr className="my-4" />
         <div className="w-full mb-4">
           {filteredPosts.map((frontMatter) => (
-            <BlogPost key={frontMatter.title} {...frontMatter} />
+            <BlogPostItem key={frontMatter.title} {...frontMatter} />
           ))}
         </div>
         <ConvertKitSignup />
