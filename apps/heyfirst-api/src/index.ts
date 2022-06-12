@@ -38,11 +38,14 @@ const main = async () => {
     .register(heymondayModule, {
       prefix: "/heymonday",
     })
-    .listen(process.env.PORT ?? 8080, "0.0.0.0", (error, address) => {
-      if (error) return console.error(error);
+    .listen(
+      { port: Number(process.env.PORT) || 8080, host: "0.0.0.0" },
+      (error, address) => {
+        if (error) return console.error(error);
 
-      console.log(`Running at ${address}`);
-    });
+        console.log(`Running at ${address}`);
+      }
+    );
 };
 
 main();
