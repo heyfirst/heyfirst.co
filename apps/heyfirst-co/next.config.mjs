@@ -1,4 +1,7 @@
-module.exports = {
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   swcMinify: true,
   future: {
     strictPostcssConfiguration: true,
@@ -13,8 +16,8 @@ module.exports = {
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      require("./scripts/generate-sitemap");
-      require("./scripts/generate-rss");
+      import("./scripts/generate-sitemap.mjs");
+      import("./scripts/generate-rss.mjs");
     }
 
     return config;
@@ -88,3 +91,5 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
   },
 ];
+
+export default nextConfig;

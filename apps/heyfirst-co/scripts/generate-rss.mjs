@@ -47,6 +47,7 @@ async function generate() {
   });
 
   writeFileSync("./public/rss.xml", feed.rss2());
+  console.log("---- public/rss.xml: created -----");
 }
 
 generate();

@@ -39,4 +39,5 @@ import prettier from "prettier";
 
   // eslint-disable-next-line no-sync
   fs.writeFileSync("public/sitemap.xml", formatted);
+  console.log("---- public/sitemap.xml: created -----");
 })();
