@@ -5,11 +5,18 @@ import { MDXRemote } from "next-mdx-remote";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
 import { GetStaticProps } from "next";
 
-const Uses: React.FC<MDXFile> = ({ mdxSource }) => {
+const Uses: React.FC<MDXFile> = ({ mdxSource, frontMatter }) => {
   const content = <MDXRemote {...mdxSource} components={MDXComponents} />;
 
   return (
-    <Container>
+    <Container
+      title={`${frontMatter.title} | heyfirst.co`}
+      description={frontMatter.summary}
+      image={`https://heyfirst.co${frontMatter.image}`}
+      date={new Date(frontMatter.date).toISOString()}
+      type="article"
+      tags={frontMatter.tags}
+    >
       <main className="mb-16">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           /uses
