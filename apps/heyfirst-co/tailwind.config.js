@@ -3,12 +3,7 @@ const colors = require("tailwindcss/colors");
 const { spacing } = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/layouts/**/*.{js,ts,jsx,tsx}",
-    "./content/**/*.mdx",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}", "./content/**/*.mdx"],
   theme: {
     extend: {
       screens: {
