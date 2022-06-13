@@ -21,7 +21,7 @@
     "@prisma/client": "3.15.1",
     "badge-maker": "^3.3.1",
     "dotenv": "16.0.1",
-    "fastify": "4.0.1"
+    "fastify": "4.0.2"
   },
   "devDependencies": {
     "@swc/cli": "0.1.57",
