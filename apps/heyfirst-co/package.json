@@ -6,7 +6,7 @@
     "commit": "cz",
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node ./scripts/generate-rss.js && node ./scripts/generate-sitemap.js",
+    "postbuild": "node --experimental-modules ./scripts/generate-rss.mjs && node ./scripts/generate-sitemap.mjs",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,mdx,json}'"

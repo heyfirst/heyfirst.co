@@ -1,6 +1,6 @@
-const fs = require("fs");
-const globby = require("globby");
-const prettier = require("prettier");
+import fs from "fs";
+import { globby } from "globby";
+import prettier from "prettier";
 
 (async () => {
   const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
