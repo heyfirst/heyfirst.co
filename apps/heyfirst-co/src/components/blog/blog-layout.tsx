@@ -6,14 +6,7 @@ import Giscus from "@/components/core/giscus";
 import { FrontMatter } from "src/lib/mdx";
 import React from "react";
 import Tag from "../core/tag";
-
-const editUrl = (slug: string) =>
-  `https://github.com/heyfirst/heyfirst.co/edit/main/apps/heyfirst-co/content/blog/${slug}.mdx`;
-
-const discussUrl = (title: string) => {
-  const text = encodeURIComponent(title);
-  return `https://mobile.twitter.com/search?q=${text}&src=typed_query&f=live`;
-};
+import EditOnGitHub from "../core/edit-on-github";
 
 const BlogLayout: React.FC<
   React.PropsWithChildren<{ frontMatter: FrontMatter }>
@@ -52,23 +45,7 @@ const BlogLayout: React.FC<
           ))}
         </p>
         <div className="w-full mb-8 prose max-w-none">{children}</div>
-        <div className="mb-4 text-sm text-gray-600">
-          <a
-            href={discussUrl(frontMatter.title)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {"Discuss on Twitter"}
-          </a>
-          {` | `}
-          <a
-            href={editUrl(frontMatter.slug)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {"Edit on GitHub"}
-          </a>
-        </div>
+        <EditOnGitHub frontMatter={frontMatter} />
         <div className="w-full pt-4 mb-8 border-t">
           <Giscus />
         </div>
