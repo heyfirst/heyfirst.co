@@ -37,7 +37,7 @@
     "@babel/plugin-syntax-flow": "7.17.12",
     "@babel/plugin-transform-react-jsx": "7.17.12",
     "@tailwindcss/typography": "0.5.2",
-    "@types/react": "18.0.12",
+    "@types/react": "18.0.13",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/parser": "5.28.0",
     "autoprefixer": "10.4.7",
