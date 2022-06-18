@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer {
+  html {
+    font-size: 14px
+  }
+}
+
 .prose * {
   @apply transition-all;
 }

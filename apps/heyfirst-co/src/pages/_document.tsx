@@ -27,6 +27,10 @@ class MyDocument extends Document {
           <meta name="robots" content="index, follow" />
           <meta content="#ffffff" name="theme-color" />
           <meta content="#ffffff" name="msapplication-TileColor" />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css"
+          ></link>
         </Head>
         <body>
           <Main />
