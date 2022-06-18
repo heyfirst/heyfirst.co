@@ -3,7 +3,6 @@ import Container from "@/components/core/container";
 import MDXComponents from "@/components/mdx/mdx-components";
 import { MDXRemote } from "next-mdx-remote";
 import { getFileBySlug, MDXFile } from "src/lib/mdx";
-import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 import { GetStaticProps } from "next";
 
 const About: React.FC<MDXFile> = ({ mdxSource }) => {
@@ -16,7 +15,6 @@ const About: React.FC<MDXFile> = ({ mdxSource }) => {
           About
         </h1>
         <div className="mb-4 prose">{content}</div>
-        <ConvertKitSignup />
       </main>
     </Container>
   );

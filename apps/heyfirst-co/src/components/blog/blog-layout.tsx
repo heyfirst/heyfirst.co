@@ -1,6 +1,5 @@
 import { parseISO, format } from "date-fns";
 import Container from "@/components/core/container";
-import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 import PageViewCounter from "@/components/counter/page-view-counter";
 import Giscus from "@/components/core/giscus";
 import { FrontMatter } from "src/lib/mdx";
@@ -46,15 +45,14 @@ const BlogLayout: React.FC<
         </p>
         <div className="w-full mb-8 prose max-w-none">{children}</div>
         <EditOnGitHub frontMatter={frontMatter} />
-        <div className="w-full pt-4 mb-8 border-t">
-          <Giscus />
-        </div>
-        <div className="w-full pt-4 mb-8 text-xs italic text-gray-600 border-t">
+        <div className="w-full py-4 text-xs italic text-gray-600 border-t">
           The views and opinions expressed in this article are purely mine and
           do not necessarily reflect the positions of any companies for which I
           have worked in the past, present, or future.
         </div>
-        <ConvertKitSignup />
+        <div className="w-full pt-4 mb-8 border-t">
+          <Giscus />
+        </div>
       </article>
     </Container>
   );

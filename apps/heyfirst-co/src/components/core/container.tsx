@@ -98,7 +98,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
         />
       </Head>
       <Navbar />
-      <main className="container flex flex-col justify-center p-3 pt-0 mx-auto ">
+      <main className="container flex flex-col justify-center p-3 pt-0 mx-auto tracking-tight">
         {children}
         <Footer />
       </main>

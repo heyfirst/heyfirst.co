@@ -5,7 +5,6 @@ import Fuse from "fuse.js";
 import Container from "@/components/core/container";
 import BlogPostItem from "@/components/blog/blog-post-item";
 import { FrontMatter } from "src/lib/mdx";
-import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 import Tag from "../core/tag";
 
 const options = {
@@ -41,11 +40,11 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
           Blog
         </h1>
-        <p className="mb-4 text-sm prose text-gray-600">
+        <p className="mb-4 prose text-gray-600">
           I am writing about my life journay, technology & tools, web
           development and software engineering practice I believe.
         </p>
-        <p className="mb-4 text-sm prose text-gray-600">
+        <p className="mb-4 prose text-gray-600">
           I have my old blog in{" "}
           <a
             href="https://medium.com/ks-journals"
@@ -86,7 +85,6 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
             <BlogPostItem key={frontMatter.title} {...frontMatter} />
           ))}
         </div>
-        <ConvertKitSignup />
       </div>
     </Container>
   );

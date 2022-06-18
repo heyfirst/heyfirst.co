@@ -2,7 +2,6 @@
 import React from "react";
 import Container from "@/components/core/container";
 import { FrontMatter, getAllFilesFrontMatter } from "src/lib/mdx";
-import ConvertKitSignup from "@/components/core/convert-kit-sign-up";
 import { GetStaticProps } from "next";
 
 const Books: React.FC<{ books: FrontMatter[] }> = ({ books }) => {
@@ -32,7 +31,6 @@ const Books: React.FC<{ books: FrontMatter[] }> = ({ books }) => {
             <div key={frontMatter.title}>{frontMatter.title}</div>
           ))}
         </div>
-        <ConvertKitSignup />
       </div>
     </Container>
   );
