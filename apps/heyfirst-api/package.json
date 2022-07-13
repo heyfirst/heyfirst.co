@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@swc/cli": "0.1.57",
-    "@swc/core": "1.2.212",
+    "@swc/core": "1.2.213",
     "@types/node": "17.0.25",
     "nodemon": "2.0.19",
     "prisma": "3.14.0",
