@@ -48,7 +48,7 @@ const base: FastifyPluginCallback = (app, _, done) => {
 
       log.info(body, "get message from telegram");
       axios.post(
-        `https://api.telegram.org/${TELEGRAM_SECRET_TOKEN}/sendMessage`,
+        `https://api.telegram.org/bot${TELEGRAM_SECRET_TOKEN}/sendMessage`,
         {
           chat_id: TELEGRAM_CHAT_ID,
           text: body.message.text,
