@@ -36,6 +36,6 @@ COPY --from=builder /usr/app/apps/heyfirst-api/docker apps/heyfirst-api/docker
 
 ENV NODE_ENV production
 
-CMD ["./apps/heyfirst-api/docker/docker-entrypoint.sh"]
+CMD ["./apps/heyfirst-api/script/docker-entrypoint.sh"]
 
 EXPOSE 8080

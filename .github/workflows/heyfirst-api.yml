@@ -23,7 +23,7 @@ jobs:
       # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
       - name: Build container image
         run: |
-          docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/docker/Dockerfile \
+          docker build -f $GITHUB_WORKSPACE/apps/heyfirst-api/Dockerfile \
           -t europe-north1-docker.pkg.dev/heyfirst-co/heyfirst-repo/heyfirst-api:latest .
 
       - id: "gcr-auth"
