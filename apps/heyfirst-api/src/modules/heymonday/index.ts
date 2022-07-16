@@ -1,4 +1,5 @@
 import type { FastifyPluginCallback, RouteShorthandMethod } from "fastify";
+import axios from "axios";
 
 type TelegramRequestBody = {
   update_id: number;
@@ -45,8 +46,15 @@ const base: FastifyPluginCallback = (app, _, done) => {
         return reply.send();
       }
 
-      // TODO(telegram): reply back to correct chat id with Yah!
-      log.info({ message: "Yah!" });
+      log.info(body, "get message from telegram");
+      axios.post(
+        `https://api.telegram.org/${TELEGRAM_SECRET_TOKEN}/sendMessage`,
+        {
+          chat_id: TELEGRAM_CHAT_ID,
+          text: body.message.text,
+          reply_to_message_id: body.message_id,
+        }
+      );
 
       reply.status(200);
       return reply.send();
