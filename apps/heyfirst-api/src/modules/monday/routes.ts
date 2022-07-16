@@ -1,27 +1,31 @@
 import type { FastifyPluginCallback, RouteShorthandMethod } from "fastify";
 import telegram from "@/services/telegram";
 
-type TelegramRequestBody = {
-  message: {
-    message_id: number;
-    text: string;
-    date: number;
-    chat: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      username: string;
-      type: "private";
-    };
-    from: {
-      id: number;
-      username: string;
-      first_name: string;
-      last_name: string;
-      language_code: string;
-      is_bot: boolean;
-    };
+type TelegramMessage = {
+  message_id: number;
+  text: string;
+  date: number;
+  edit_date?: number;
+  chat: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    type: "private";
   };
+  from: {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    language_code: string;
+    is_bot: boolean;
+  };
+};
+
+type TelegramRequestBody = {
+  edited_message?: TelegramMessage;
+  message?: TelegramMessage;
 };
 
 type TelegramWebhookHandler = RouteShorthandMethod & {
@@ -36,6 +40,7 @@ const base: FastifyPluginCallback = (app, _, done) => {
   app.post<TelegramWebhookHandler>(
     "/webhook/:secretToken",
     async ({ body, params, log }, reply) => {
+      // FIXME: delete after settle
       log.info(
         {
           telegramPayload: body,
@@ -43,7 +48,11 @@ const base: FastifyPluginCallback = (app, _, done) => {
         "telegram req"
       );
 
-      const isChatID = body.message.chat.id.toString() === TELEGRAM_CHAT_ID;
+      const message = body.message ? body.message : body.edited_message;
+
+      if (!message) return reply.status(200).send();
+
+      const isChatID = message.chat.id.toString() === TELEGRAM_CHAT_ID;
       const isSecretRoute = params.secretToken === TELEGRAM_ROUTE_SECRET_TOKEN;
 
       if (!isChatID || !isSecretRoute) {
@@ -52,12 +61,11 @@ const base: FastifyPluginCallback = (app, _, done) => {
       }
 
       telegram.sendTextMessage({
-        text: body.message.text,
-        replyToMessageID: body.message.message_id,
+        text: message.text,
+        replyToMessageID: message.message_id,
       });
 
-      reply.status(200);
-      return reply.send();
+      return reply.status(200).send();
     }
   );
 
