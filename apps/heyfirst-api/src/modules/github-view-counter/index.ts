@@ -1,9 +1,9 @@
 import prisma from "@/services/prisma";
 
-import type { FastifyPluginCallback } from "fastify";
+import type { FastifyInstance, FastifyPluginCallback } from "fastify";
 import { makeBadge } from "badge-maker";
 
-const base: FastifyPluginCallback = (app, _, done) => {
+const routes: FastifyPluginCallback = (app, _, done) => {
   app.get("/profile", async (req, reply) => {
     if (req.headers["user-agent"]?.indexOf("github-camo") === 0) {
       await prisma.gitHubPageViews.create({
@@ -39,4 +39,8 @@ const base: FastifyPluginCallback = (app, _, done) => {
   done();
 };
 
-export default base;
+export default (app: FastifyInstance) => {
+  app.register(routes, {
+    prefix: "/github-view-counter",
+  });
+};

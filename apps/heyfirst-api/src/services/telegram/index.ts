@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TelegramCommand } from "./telegram.type";
 
 const TELEGRAM_SECRET_TOKEN = process.env.TELEGRAM_SECRET_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -17,11 +18,6 @@ export const sendTextMessage = ({
       reply_to_message_id: replyToMessageID,
     }
   );
-
-type TelegramCommand = {
-  command: string; // if set command is 'check', it will be available as '/check'
-  description: string;
-};
 
 export const setMyChatCommands = (commands: TelegramCommand[]) => {
   return axios.post(

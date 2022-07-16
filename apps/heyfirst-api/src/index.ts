@@ -40,17 +40,8 @@ const main = async () => {
     preflight: true,
   });
 
-  app.register(blogModule, {
-    prefix: "/blog",
-  });
-
-  app.register(githubViewCounterModule, {
-    prefix: "/github-view-counter",
-  });
-
-  app.register(mondayModule, {
-    prefix: "/monday",
-  });
+  const modules = [blogModule, githubViewCounterModule, mondayModule];
+  modules.map((module) => module(app));
 
   app.listen(
     { port: Number(process.env.PORT) || 8080, host: "0.0.0.0" },

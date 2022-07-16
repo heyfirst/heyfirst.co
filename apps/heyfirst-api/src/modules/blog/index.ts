@@ -1,10 +1,14 @@
 import prisma from "@/services/prisma";
 
-import type { FastifyPluginCallback, RouteShorthandMethod } from "fastify";
+import type {
+  FastifyInstance,
+  FastifyPluginCallback,
+  RouteShorthandMethod,
+} from "fastify";
 
 type BlogPageViewHandler = RouteShorthandMethod & { Params: { slug: string } };
 
-const base: FastifyPluginCallback = (app, _, done) => {
+const routes: FastifyPluginCallback = (app, _, done) => {
   app.get<BlogPageViewHandler>(
     "/page_views/:slug",
     async ({ params: { slug } }, res) => {
@@ -62,4 +66,8 @@ const base: FastifyPluginCallback = (app, _, done) => {
   done();
 };
 
-export default base;
+export default (app: FastifyInstance) => {
+  app.register(routes, {
+    prefix: "/blog",
+  });
+};
