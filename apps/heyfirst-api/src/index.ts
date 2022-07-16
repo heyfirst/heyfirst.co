@@ -8,7 +8,7 @@ import cors from "@fastify/cors";
 
 import blogModule from "@/modules/blog";
 import githubViewCounterModule from "@/modules/github-view-counter";
-import heymondayModule from "@/modules/heymonday";
+import mondayModule from "@/modules/monday";
 import prisma from "@/services/prisma";
 
 const app = fastify({
@@ -30,33 +30,36 @@ const app = fastify({
 const main = async () => {
   await prisma.$connect();
 
-  app
-    .register(helmet)
-    .register(cookie)
-    .register(cors, {
-      origin: [/localhost:3000$/, /heyfirst.co$/, /(.*)heyfirst.vercel.app$/],
-      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type"],
-      credentials: true,
-      preflight: true,
-    })
-    .register(blogModule, {
-      prefix: "/blog",
-    })
-    .register(githubViewCounterModule, {
-      prefix: "/github-view-counter",
-    })
-    .register(heymondayModule, {
-      prefix: "/heymonday",
-    })
-    .listen(
-      { port: Number(process.env.PORT) || 8080, host: "0.0.0.0" },
-      (error, address) => {
-        if (error) return console.error(error);
+  app.register(helmet);
+  app.register(cookie);
+  app.register(cors, {
+    origin: [/localhost:3000$/, /heyfirst.co$/, /(.*)heyfirst.vercel.app$/],
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+    preflight: true,
+  });
 
-        console.log(`Running at ${address}`);
-      }
-    );
+  app.register(blogModule, {
+    prefix: "/blog",
+  });
+
+  app.register(githubViewCounterModule, {
+    prefix: "/github-view-counter",
+  });
+
+  app.register(mondayModule, {
+    prefix: "/monday",
+  });
+
+  app.listen(
+    { port: Number(process.env.PORT) || 8080, host: "0.0.0.0" },
+    (error, address) => {
+      if (error) return console.error(error);
+
+      console.log(`Running at ${address}`);
+    }
+  );
 };
 
 main();
