@@ -18,7 +18,7 @@ importers:
 
   apps/heyfirst-api:
     specifiers:
-      '@fastify/cookie': 7.0.0
+      '@fastify/cookie': 7.3.1
       '@fastify/cors': 8.0.0
       '@fastify/helmet': 9.1.0
       '@prisma/client': 3.14.0
@@ -35,7 +35,7 @@ importers:
       ts-node: 10.9.1
       typescript: 4.7.4
     dependencies:
-      '@fastify/cookie': 7.0.0
+      '@fastify/cookie': 7.3.1
       '@fastify/cors': 8.0.0
       '@fastify/helmet': 9.1.0
       '@prisma/client': 3.14.0_prisma@3.14.0
@@ -576,11 +576,12 @@ packages:
       fast-uri: 1.0.1
     dev: false
 
-  /@fastify/cookie/7.0.0:
-    resolution: {integrity: sha512-/JQcHR4bsFGRo39esT1GTxB0MsMd3loJxNfHYV0MRduXvdiDJd94okiCBlPOesRxwA5dJCqFNo80J7muHG+T+w==}
+  /@fastify/cookie/7.3.1:
+    resolution: {integrity: sha512-io16UMtIkXKvHUTm63LHPQpMm1NcQ7NT2aAeGYLzX94jJXeQnu0by8VSm3iCrfnFuF0bGTWzUtefHSjKHNxppw==}
     dependencies:
+      cookie: 0.5.0
       cookie-signature: 1.2.0
-      fastify-plugin: 3.0.1
+      fastify-plugin: 4.0.0
     dev: false
 
   /@fastify/cors/8.0.0:
@@ -2559,6 +2560,10 @@ packages:
 
   /fastify-plugin/3.0.1:
     resolution: {integrity: sha512-qKcDXmuZadJqdTm6vlCqioEbyewF60b/0LOFCcYN1B6BIZGlYJumWWOYs70SFYLDAH4YqdE1cxH/RKMG7rFxgA==}
+    dev: false
+
+  /fastify-plugin/4.0.0:
+    resolution: {integrity: sha512-ZJcXPPcqkj7HFDYqbsCuOIAgIZ/sd2b+OnBxNGyxAcUDUJfIpxp4t23CwxO2E7LZpqUrIliA4TnjxTXG8mLoqw==}
     dev: false
 
   /fastify/4.0.3:
