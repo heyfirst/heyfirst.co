@@ -1,6 +1,5 @@
 {
   "editor.formatOnSave": true,
   "css.validate": false,
-  "scss.validate": false,
-  "eslint.workingDirectories": ["apps/heyfirst-api", "apps/heyfirst-co"]
+  "scss.validate": false
 }
