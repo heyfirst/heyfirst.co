@@ -13,7 +13,6 @@ I have changed to my own UI + code styles, Javascript to TypeScript, adding some
 ### Overview
 
 - `pages/blogs/*` - Static pre-rendered blog pages using MDX.
-- `pages/books/*` - [Upcoming] Static pre-rendered **bookshelfs** pages using MDX.
 - `pages/*` - All other static pages, e.g. home, about, etc...
 
 ### Running Locally
