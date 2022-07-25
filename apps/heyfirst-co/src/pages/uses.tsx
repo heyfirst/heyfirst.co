@@ -18,7 +18,7 @@ const Uses: React.FC<MDXFile> = ({ mdxSource, frontMatter }) => {
       tags={frontMatter.tags}
     >
       <main className="mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           /uses
         </h1>
         <div className="mb-4 prose">{content}</div>

@@ -28,9 +28,9 @@ class MyDocument extends Document {
           <meta content="#ffffff" name="theme-color" />
           <meta content="#ffffff" name="msapplication-TileColor" />
           <link
+            href="http://fonts.cdnfonts.com/css/jetbrains-mono?styles=60145,60142"
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css"
-          ></link>
+          />
         </Head>
         <body>
           <Main />

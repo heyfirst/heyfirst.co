@@ -13,7 +13,7 @@ const Home: React.FC<MDXFile> = ({ mdxSource }) => {
     <Container>
       <main className="mb-16">
         <WatercolorBGCanvas />
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           Hey! 👋🏻 <br />
           {`I'm Kanisorn Sutham`}
         </h1>

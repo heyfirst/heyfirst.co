@@ -6,7 +6,7 @@ const ThanksPage: React.FC<MDXFile> = () => {
   return (
     <Container>
       <main className="mb-16">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           Thank you!
         </h1>
         <div className="mb-4 prose">

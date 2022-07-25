@@ -37,7 +37,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
     >
       <div className="max-w-2xl mx-auto mb-8">
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           Blog
         </h1>
         <p className="mb-4 prose text-gray-600">

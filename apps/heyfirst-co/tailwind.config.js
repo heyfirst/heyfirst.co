@@ -16,7 +16,7 @@ module.exports = {
         "2xl": " 640px",
       },
       fontFamily: {
-        sans: ["Fira Code", ...defaultTheme.fontFamily.sans],
+        sans: ["JetBrains Mono", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         // Build your palette here
