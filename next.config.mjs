@@ -46,7 +46,7 @@ const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com cdn.usefathom.com heyfirst.ck.page *.convertkit.com *.googletagmanager.com *.spotify.com giscus.app cdnjs.cloudflare.com *.heyfirst.co;
   child-src *.youtube.com *.google.com *.twitter.com heyfirst.ck.page *.convertkit.com *.spotify.com giscus.app giphy.com;
-  style-src 'self' 'unsafe-inline' *.googleapis.com giscus.app fonts.cdnfonts.com;
+  style-src 'self' 'unsafe-inline' *.googleapis.com giscus.app *.cdnfonts.com;
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
