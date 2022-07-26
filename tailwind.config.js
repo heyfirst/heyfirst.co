@@ -16,7 +16,7 @@ module.exports = {
         "2xl": " 640px",
       },
       fontFamily: {
-        sans: ["JetBrains Mono", ...defaultTheme.fontFamily.sans],
+        sans: [...defaultTheme.fontFamily.sans],
       },
       colors: {
         // Build your palette here
@@ -38,7 +38,9 @@ module.exports = {
             "h2,h3,h4": {
               "scroll-margin-top": spacing[32],
             },
-            code: { color: theme("colors.pink.600") },
+            code: {
+              color: theme("colors.pink.600"),
+            },
             blockquote: {
               color: theme("colors.gray.500"),
               fontWeight: 400,

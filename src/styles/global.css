@@ -4,7 +4,7 @@
 
 @layer {
   html {
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 0.2481723429112px; /* secret calculated letter spacing */
   }
 }
@@ -20,6 +20,10 @@
 .prose code::before,
 .prose code::after {
   content: "";
+}
+
+.prose code {
+  font-family: "JetBrains Mono";
 }
 
 .prose strong {
