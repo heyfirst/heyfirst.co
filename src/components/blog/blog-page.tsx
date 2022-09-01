@@ -41,11 +41,11 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
           Blog
         </h1>
         <p className="mb-4 prose text-gray-600">
-          I am writing about my life journay, technology & tools, web
-          development and software engineering practice I believe.
+          I am writing about my life journey, technology & tools, web
+          development, and software engineering practice I believe.
         </p>
         <p className="mb-4 prose text-gray-600">
-          I have my old blog in{" "}
+          I have my old blog on{" "}
           <a
             href="https://medium.com/ks-journals"
             target="_blank"
@@ -53,7 +53,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
           >
             Medium
           </a>{" "}
-          and I decide to move to personal website because I can deliver better
+          and I decide to move my personal website because I can deliver a better
           experience. {`I've written`} <u>{posts.length}</u> articles on this
           site.
         </p>
