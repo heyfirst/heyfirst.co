@@ -53,7 +53,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
           >
             Medium
           </a>{" "}
-          and I decide to move to my personal website because I can deliver a better
+          and I decided to move to my personal website because I can deliver a better
           experience. {`I've written`} <u>{posts.length}</u> articles on this
           site.
         </p>
