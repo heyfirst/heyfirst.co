@@ -29,7 +29,7 @@ specifiers:
   prismjs: 1.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-query: 3.39.1
+  react-query: 3.39.2
   reading-time: 1.5.0
   rehype: 12.0.1
   rehype-slug: 5.0.1
@@ -52,7 +52,7 @@ dependencies:
   prismjs: 1.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
+  react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   reading-time: 1.5.0
   rehype: 12.0.1
   rehype-slug: 5.0.1
@@ -3603,7 +3603,7 @@ packages:
     dev: true
 
   /nano-time/1.0.0:
-    resolution: {integrity: sha1-sFVPaa2J4i0JB/ehKwmTpdlhN+8=}
+    resolution: {integrity: sha512-flnngywOoQ0lLQOTRNexn2gGSNuM9bKj9RZAWSzhQ+UJYaAFG9bac4DW9VHjUAzrOaIcajHybCTHe/bkvozQqA==}
     dependencies:
       big-integer: 1.6.51
     dev: false
@@ -4109,8 +4109,8 @@ packages:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react-query/3.39.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-qYKT1bavdDiQZbngWZyPotlBVzcBjDYEJg5RQLBa++5Ix5jjfbEYJmHSZRZD+USVHUSvl/ey9Hu+QfF1QAK80A==}
+  /react-query/3.39.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-F6hYDKyNgDQfQOuR1Rsp3VRzJnWHx6aRnnIZHMNGGgbL3SBgpZTDg8MQwmxOgpCAoqZJA+JSNCydF1xGJqKOCA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: '*'
@@ -4327,7 +4327,7 @@ packages:
     dev: false
 
   /remove-accents/0.4.2:
-    resolution: {integrity: sha1-CkPTqq4egNuRngeuJUsoXZ4ce7U=}
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
     dev: false
 
   /require-directory/2.1.1:

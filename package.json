@@ -24,7 +24,7 @@
     "prismjs": "1.28.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "3.39.1",
+    "react-query": "3.39.2",
     "reading-time": "1.5.0",
     "rehype": "12.0.1",
     "rehype-slug": "5.0.1",
