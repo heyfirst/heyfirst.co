@@ -37,7 +37,7 @@ specifiers:
   remark-gfm: 3.0.1
   remark-parse: 10.0.1
   remark-stringify: 10.0.2
-  tailwindcss: 3.1.7
+  tailwindcss: 3.1.8
   typescript: 4.8.3
 
 dependencies:
@@ -67,7 +67,7 @@ devDependencies:
   '@babel/plugin-transform-react-jsx': 7.18.6_@babel+core@7.18.9
   '@commitlint/cli': 17.1.2
   '@commitlint/config-conventional': 17.1.0
-  '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.7
+  '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
   '@types/react': 18.0.20
   '@typescript-eslint/eslint-plugin': 5.31.0_rks6jocalp2vvpxdtsqskzaheq
   '@typescript-eslint/parser': 5.31.0_3untclzmr2qxcnxpjiv6c4zk3u
@@ -79,7 +79,7 @@ devDependencies:
   husky: 8.0.1
   postcss: 8.4.16
   prettier: 2.7.1
-  tailwindcss: 3.1.7_postcss@8.4.16
+  tailwindcss: 3.1.8_postcss@8.4.16
   typescript: 4.8.3
 
 packages:
@@ -722,7 +722,7 @@ packages:
     resolution: {integrity: sha512-WiBSI6JBIhC6LRIsB2Kwh8DsGTlbBU+mLRxJmAe3LjHTdkDpwIbEOZgoXBbZilk/vlfjK8i6nKRAvIRn1XaIMw==}
     dev: true
 
-  /@tailwindcss/typography/0.5.7_tailwindcss@3.1.7:
+  /@tailwindcss/typography/0.5.7_tailwindcss@3.1.8:
     resolution: {integrity: sha512-JTTSTrgZfp6Ki4svhPA4mkd9nmQ/j9EfE7SbHJ1cLtthKkpW2OxsFXzSmxbhYbEkfNIyAyhle5p4SYyKRbz/jg==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
@@ -731,7 +731,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.1.7_postcss@8.4.16
+      tailwindcss: 3.1.8_postcss@8.4.16
     dev: true
 
   /@tsconfig/node10/1.0.8:
@@ -4652,8 +4652,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tailwindcss/3.1.7_postcss@8.4.16:
-    resolution: {integrity: sha512-r7mgumZ3k0InfVPpGWcX8X/Ut4xBfv+1O/+C73ar/m01LxGVzWvPxF/w6xIUPEztrCoz7axfx0SMdh8FH8ZvRQ==}
+  /tailwindcss/3.1.8_postcss@8.4.16:
+    resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
