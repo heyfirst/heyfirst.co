@@ -3,9 +3,6 @@
  */
 const nextConfig = {
   swcMinify: true,
-  future: {
-    strictPostcssConfiguration: true,
-  },
   async headers() {
     return [
       {
