@@ -3,13 +3,9 @@
  */
 const nextConfig = {
   swcMinify: true,
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-    ];
+  headers: {
+    source: "/(.*)",
+    headers: securityHeaders,
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
@@ -19,20 +15,18 @@ const nextConfig = {
 
     return config;
   },
-  async redirects() {
-    return [
-      {
-        source: "/blog/2021-01-23-rule-of-three",
-        destination: "/blog/1-2-refactor",
-        permanent: true,
-      },
-      {
-        source: "/blog/2021-02-05-make-it-work-right-and-fast",
-        destination: "/blog/make-it-work-make-it-right-make-it-fast",
-        permanent: true,
-      },
-    ];
-  },
+  redirects: [
+    {
+      source: "/blog/2021-01-23-rule-of-three",
+      destination: "/blog/1-2-refactor",
+      permanent: true,
+    },
+    {
+      source: "/blog/2021-02-05-make-it-work-right-and-fast",
+      destination: "/blog/make-it-work-make-it-right-make-it-fast",
+      permanent: true,
+    },
+  ],
   images: {
     domains: ["webring.wonderful.software"],
   },
