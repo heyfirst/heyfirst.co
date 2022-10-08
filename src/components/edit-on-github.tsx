@@ -1,5 +1,5 @@
 import React from "react";
-import { FrontMatter } from "@/lib/mdx";
+import { FrontMatter } from "src/services/mdx";
 
 const editUrl = (slug: string) =>
   `https://github.com/heyfirst/heyfirst.co/edit/main/apps/heyfirst-co/content/blog/${slug}.mdx`;

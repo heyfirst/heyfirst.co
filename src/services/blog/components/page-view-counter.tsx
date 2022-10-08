@@ -1,6 +1,9 @@
 import { useEffect } from "react";
-import { useBlogPageView, useUpdateBlogPageView } from "src/entities/blog";
-import EyeIcon from "../icon/eye-icon";
+import {
+  useBlogPageView,
+  useUpdateBlogPageView,
+} from "src/services/blog/entities/blog-page-view";
+import EyeIcon from "../../../components/icon/eye-icon";
 
 type Props = { slug: string; shouldCount?: boolean };
 

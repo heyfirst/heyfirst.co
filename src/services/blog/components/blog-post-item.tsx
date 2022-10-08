@@ -1,8 +1,8 @@
-import { FrontMatter } from "src/lib/mdx";
+import { FrontMatter } from "src/services/mdx";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
-import Tag from "src/components/core/tag";
-import PageViewCounter from "../counter/page-view-counter";
+import Tag from "@/components/tag";
+import PageViewCounter from "./page-view-counter";
 
 const BlogPost: React.FC<FrontMatter> = ({ title, slug, date, tags }) => {
   const readableDate = format(parseISO(date), "MMMM dd, yyyy");

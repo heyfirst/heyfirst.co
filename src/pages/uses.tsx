@@ -1,8 +1,8 @@
 import React from "react";
-import Container from "@/components/core/container";
-import MDXComponents from "@/components/mdx/mdx-components";
+import Container from "@/components/container";
+import MDXComponents from "src/services/mdx/mdx-components";
 import { MDXRemote } from "next-mdx-remote";
-import { getFileBySlug, MDXFile } from "src/lib/mdx";
+import { getFileBySlug, MDXFile } from "src/services/mdx";
 import { GetStaticProps } from "next";
 
 const Uses: React.FC<MDXFile> = ({ mdxSource, frontMatter }) => {

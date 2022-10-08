@@ -1,11 +1,11 @@
 import { parseISO, format } from "date-fns";
-import Container from "@/components/core/container";
-import PageViewCounter from "@/components/counter/page-view-counter";
-import Giscus from "@/components/core/giscus";
-import { FrontMatter } from "src/lib/mdx";
+import Container from "@/components/container";
+import PageViewCounter from "src/services/blog/components/page-view-counter";
+import Giscus from "src/services/comments/giscus";
+import { FrontMatter } from "src/services/mdx";
 import React from "react";
-import Tag from "../core/tag";
-import EditOnGitHub from "../core/edit-on-github";
+import Tag from "../../../components/tag";
+import EditOnGitHub from "../../../components/edit-on-github";
 
 const BlogLayout: React.FC<
   React.PropsWithChildren<{ frontMatter: FrontMatter }>

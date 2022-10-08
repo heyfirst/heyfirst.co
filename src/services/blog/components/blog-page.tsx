@@ -2,10 +2,10 @@ import React from "react";
 import { useRouter } from "next/router";
 import Fuse from "fuse.js";
 
-import Container from "@/components/core/container";
-import BlogPostItem from "@/components/blog/blog-post-item";
-import { FrontMatter } from "src/lib/mdx";
-import Tag from "../core/tag";
+import Container from "@/components/container";
+import BlogPostItem from "src/services/blog/components/blog-post-item";
+import { FrontMatter } from "src/services/mdx";
+import Tag from "../../../components/tag";
 
 const options = {
   includeScore: true,

@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react";
+
 import Head from "next/head";
-import { useMounted } from "src/lib/use-mounted";
 
 const Giscus: React.FC = () => {
-  const mounted = useMounted();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return !mounted ? null : (
     <>

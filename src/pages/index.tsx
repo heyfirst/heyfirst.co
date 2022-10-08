@@ -1,9 +1,9 @@
 import React from "react";
-import Container from "@/components/core/container";
-import { getFileBySlug, MDXFile } from "src/lib/mdx";
+import Container from "@/components/container";
+import { getFileBySlug, MDXFile } from "src/services/mdx";
 import { MDXRemote } from "next-mdx-remote";
-import MDXComponents from "@/components/mdx/mdx-components";
-import WatercolorBGCanvas from "@/components/watercolor-bg-canvas/watercolor-bakcground-canvas";
+import MDXComponents from "src/services/mdx/mdx-components";
+import WatercolorBGCanvas from "src/services/drawing/watercolor-bg-drawing";
 import { GetStaticProps } from "next";
 
 const Home: React.FC<MDXFile> = ({ mdxSource }) => {

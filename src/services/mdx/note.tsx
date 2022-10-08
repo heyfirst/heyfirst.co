@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import InfoIcon from "../icon/info-icon";
-import WarningIcon from "../icon/warning-icon";
+import InfoIcon from "../../components/icon/info-icon";
+import WarningIcon from "../../components/icon/warning-icon";
 
 type Props = {
   type: "info" | "caution";

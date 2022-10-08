@@ -1,6 +1,6 @@
-import reactQueryClient from "@/lib/react-query";
+import reactQueryClient from "src/services/react-query/react-query";
 import { useMutation, useQuery } from "react-query";
-import numberWithCommas from "src/lib/numberWithCommas";
+import numberWithCommas from "src/services/blog/utils/numberWithCommas";
 
 const blogPageViewQueryId = (slug: string) => ["blog", "page_view", slug];
 
