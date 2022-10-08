@@ -21,7 +21,7 @@ const Uses: React.FC<MDXFile> = ({ mdxSource, frontMatter }) => {
         <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           /uses
         </h1>
-        <div className="mb-4 prose">{content}</div>
+        <div className="prose mb-4">{content}</div>
       </main>
     </Container>
   );

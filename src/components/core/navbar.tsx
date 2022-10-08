@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
   ));
 
   const webring = (
-    <div className="w-4 mr-3 text-sm">
+    <div className="mr-3 w-4 text-sm">
       <a
         href="https://webring.wonderful.software#heyfirst.co"
         title="วงแหวนเว็บ"
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="container flex items-center justify-between w-full py-4 mx-auto my-0 sticky-nav md:mt-6">
+    <nav className="sticky-nav container mx-auto my-0 flex w-full items-center justify-between py-4 md:mt-6">
       <div className="flex">
         {logo}
         {manu}

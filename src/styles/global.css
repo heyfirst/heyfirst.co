@@ -27,7 +27,7 @@
 }
 
 .prose strong {
-  @apply bg-yellow-100 font-normal p-0.5 -m-0.5;
+  @apply -m-0.5 bg-yellow-100 p-0.5 font-normal;
 }
 
 .prose a {
@@ -35,7 +35,7 @@
 }
 
 .prose :where(:not(pre)) code {
-  @apply px-1 py-0.5 border border-gray-100 rounded-md bg-gray-100 font-normal;
+  @apply rounded-md border border-gray-100 bg-gray-100 px-1 py-0.5 font-normal;
 }
 
 .prose > :first-child {
@@ -109,13 +109,12 @@ pre {
 }
 
 .remark-code-title {
-  @apply px-4 pt-4 pb-2 font-mono text-sm font-bold text-gray-300 bg-gray-700 rounded-t;
+  @apply rounded-t bg-gray-700 px-4 pt-4 pb-2 font-mono text-sm font-bold text-gray-300;
 }
 
 .remark-code-title + pre {
   @apply mt-0 rounded-t-none;
 }
-
 
 /* Remove Safari input shadow on mobile */
 input[type="text"],

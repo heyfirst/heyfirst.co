@@ -19,8 +19,8 @@ const BlogLayout: React.FC<
       type="article"
       tags={frontMatter.tags}
     >
-      <article className="flex flex-col items-start justify-center w-full mx-auto mb-8">
-        <div className="flex flex-row items-start justify-between w-full mb-2 text-sm text-gray-600 md:items-center">
+      <article className="mx-auto mb-8 flex w-full flex-col items-start justify-center">
+        <div className="mb-2 flex w-full flex-row items-start justify-between text-sm text-gray-600 md:items-center">
           <div className="flex items-center">
             {frontMatter.by}
             {format(parseISO(frontMatter.date), "MMMM dd, yyyy")}
@@ -35,7 +35,7 @@ const BlogLayout: React.FC<
         </h1>
         <p className="mb-2 text-sm text-gray-600">
           {frontMatter.draft && (
-            <span className="inline-block px-2 py-1 mr-2 italic text-white transition-all bg-yellow-400 border border-yellow-400 rounded-md cursor-not-allowed">
+            <span className="mr-2 inline-block cursor-not-allowed rounded-md border border-yellow-400 bg-yellow-400 px-2 py-1 italic text-white transition-all">
               draft
             </span>
           )}
@@ -43,14 +43,14 @@ const BlogLayout: React.FC<
             <Tag key={tag}>{tag}</Tag>
           ))}
         </p>
-        <div className="w-full mb-8 prose max-w-none">{children}</div>
+        <div className="prose mb-8 w-full max-w-none">{children}</div>
         <EditOnGitHub frontMatter={frontMatter} />
-        <div className="w-full py-4 text-xs italic text-gray-600 border-t">
+        <div className="w-full border-t py-4 text-xs italic text-gray-600">
           The views and opinions expressed in this article are purely mine and
           do not necessarily reflect the positions of any companies for which I
           have worked in the past, present, or future.
         </div>
-        <div className="w-full pt-4 mb-8 border-t">
+        <div className="mb-8 w-full border-t pt-4">
           <Giscus />
         </div>
       </article>

@@ -9,7 +9,7 @@ const ThanksPage: React.FC<MDXFile> = () => {
         <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
           Thank you!
         </h1>
-        <div className="mb-4 prose">
+        <div className="prose mb-4">
           <p>
             Thank you for subscribing, You are confirmed now. You can expect to
             receive emails as I create new content.

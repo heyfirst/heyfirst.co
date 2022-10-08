@@ -17,7 +17,7 @@ const Home: React.FC<MDXFile> = ({ mdxSource }) => {
           Hey! 👋🏻 <br />
           {`I'm Kanisorn Sutham`}
         </h1>
-        <div className="mb-4 prose">{content}</div>
+        <div className="prose mb-4">{content}</div>
       </main>
       <style jsx>{`
         .prose {

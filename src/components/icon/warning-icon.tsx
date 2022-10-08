@@ -5,7 +5,7 @@ const WarningIcon: React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-8 h-8"
+      className="h-8 w-8"
       viewBox="0 0 256 256"
       fill="currentColor"
     >

@@ -15,13 +15,13 @@ const Tag: React.FC<PropsWithChildren<Props>> = ({
     <span
       onClick={onClick}
       className={`
-        inline-block
-        px-2 py-1 mb-2 mr-2
-        transition-all
-        border rounded-md
+        mb-2
+        mr-2 inline-block rounded-md border
+        px-2
+        py-1 transition-all
         ${
           enableHover
-            ? `cursor-pointer hover:text-yellow-700 hover:border-yellow-700`
+            ? `cursor-pointer hover:border-yellow-700 hover:text-yellow-700`
             : "cursor-default"
         }
         ${className}

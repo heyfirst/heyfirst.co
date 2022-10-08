@@ -36,15 +36,13 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
       title="Blog | heyfirst.co"
       description="Thoughts on the software industry, programming, tech, videography, music, and my personal life."
     >
-      <div className="max-w-2xl mx-auto mb-8">
-        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
-          Blog
-        </h1>
-        <p className="mb-4 prose text-gray-600">
+      <div className="mx-auto mb-8 max-w-2xl">
+        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">Blog</h1>
+        <p className="prose mb-4 text-gray-600">
           I am writing about my life journey, technology & tools, web
           development, and software engineering practice I believe.
         </p>
-        <p className="mb-4 prose text-gray-600">
+        <p className="prose mb-4 text-gray-600">
           I have my old blog on{" "}
           <a
             href="https://medium.com/ks-journals"
@@ -53,14 +51,14 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
           >
             Medium
           </a>{" "}
-          and I decided to move to my personal website because I can deliver a better
-          experience. {`I've written`} <u>{posts.length}</u> articles on this
-          site.
+          and I decided to move to my personal website because I can deliver a
+          better experience. {`I've written`} <u>{posts.length}</u> articles on
+          this site.
         </p>
         <hr className="my-4" />
-        <div className="my-4 text-xs text-center text-gray-600">
+        <div className="my-4 text-center text-xs text-gray-600">
           <Tag
-            className={search === "" ? "text-yellow-700 border-yellow-700" : ""}
+            className={search === "" ? "border-yellow-700 text-yellow-700" : ""}
             enableHover
             onClick={() => onClickTag("")}
           >
@@ -71,7 +69,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
               key={tag}
               enableHover
               className={
-                search === tag ? "text-yellow-700 border-yellow-700" : ""
+                search === tag ? "border-yellow-700 text-yellow-700" : ""
               }
               onClick={() => onClickTag(tag)}
             >
@@ -80,7 +78,7 @@ const BlogPage: React.FC<{ posts: FrontMatter[]; tags: string[] }> = ({
           ))}
         </div>
         <hr className="my-4" />
-        <div className="w-full mb-4">
+        <div className="mb-4 w-full">
           {filteredPosts.map((frontMatter) => (
             <BlogPostItem key={frontMatter.title} {...frontMatter} />
           ))}

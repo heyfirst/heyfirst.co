@@ -61,10 +61,10 @@ const WatercolorBGCanvas: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute top-0 bottom-0 left-0 right-0 watercolor-bg-canvas-wrapper">
+    <div className="watercolor-bg-canvas-wrapper absolute top-0 bottom-0 left-0 right-0">
       <canvas
         id="watercolor-bg-canvas"
-        className="w-full h-full filter blur-xl contrast-150 brightness-125"
+        className="h-full w-full blur-xl brightness-125 contrast-150 filter"
       />
       <style jsx>{`
         .watercolor-bg-canvas-wrapper {
