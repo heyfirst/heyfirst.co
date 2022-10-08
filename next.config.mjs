@@ -3,10 +3,12 @@
  */
 const nextConfig = {
   swcMinify: true,
-  headers: {
-    source: "/(.*)",
-    headers: securityHeaders,
-  },
+  headers: () => [
+    {
+      source: "/(.*)",
+      headers: securityHeaders,
+    },
+  ],
   webpack: (config, { isServer }) => {
     if (isServer) {
       import("./scripts/generate-sitemap.mjs");
