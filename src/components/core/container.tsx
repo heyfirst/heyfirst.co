@@ -69,41 +69,81 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
   };
 
   return (
-    <div className="">
-      <Head>
-        <NextSeo
-          title={meta.title}
-          description={meta.description}
-          canonical={meta.url}
-          openGraph={{
-            url: meta.url,
-            title: meta.title,
-            description: meta.description,
-            images: [
-              {
-                url: meta.image,
-                alt: `meta.title Alt`,
-              },
-            ],
-            site_name: meta.name,
-            type: "article",
-            article: {
-              publishedTime: meta.date,
-              tags: meta.tags,
-            },
-          }}
-          twitter={{
-            handle: meta.twitter_id,
-            site: meta.twitter_id,
-            cardType: "summary_large_image",
-          }}
-          additionalMetaTags={[
+    <>
+      <NextSeo
+        title={meta.title}
+        description={meta.description}
+        canonical={meta.url}
+        openGraph={{
+          url: meta.url,
+          title: meta.title,
+          description: meta.description,
+          images: [
             {
-              property: "keywords",
-              content: meta.tags.join(", ") || "",
+              url: meta.image,
+              alt: `meta.title Alt`,
             },
-          ]}
-        />
+          ],
+          site_name: meta.name,
+          type: "article",
+          article: {
+            publishedTime: meta.date,
+            tags: meta.tags,
+          },
+        }}
+        twitter={{
+          handle: meta.twitter_id,
+          site: meta.twitter_id,
+          cardType: "summary_large_image",
+        }}
+        additionalLinkTags={[
+          {
+            rel: "manifest",
+            href: "/static/favicon/site.webmanifest",
+          },
+          {
+            rel: "apple-touch-icon",
+            type: "image/png",
+            sizes: "180x180",
+            href: "/static/favicon/apple-touch-icon.png",
+          },
+          {
+            rel: "icon",
+            type: "image/png",
+            sizes: "32x32",
+            href: "/static/favicon/favicon-32x32.png",
+          },
+          {
+            rel: "icon",
+            type: "image/png",
+            sizes: "16x16",
+            href: "/static/favicon/favicon-16x16.png",
+          },
+        ]}
+        additionalMetaTags={[
+          {
+            name: "keywords",
+            content: meta.tags.join(", ") || "",
+          },
+          {
+            name: "theme-color",
+            content: "#ffffff",
+          },
+          {
+            name: "msapplication-TileColor",
+            content: "#ffffff",
+          },
+          {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1",
+          },
+          {
+            httpEquiv: "content-type",
+            content: "text/html; charset=UTF-8",
+          },
+        ]}
+      />
+      <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -116,7 +156,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
         {children}
         <Footer />
       </main>
-    </div>
+    </>
   );
 };
 export default Container;

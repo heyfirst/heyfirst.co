@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const colors = require("tailwindcss/colors");
-const { spacing } = require("tailwindcss/defaultTheme");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
@@ -36,7 +35,7 @@ module.exports = {
               code: { color: theme("colors.yellow.600") },
             },
             "h2,h3,h4": {
-              "scroll-margin-top": spacing[32],
+              "scroll-margin-top": defaultTheme.spacing[32],
             },
             code: {
               color: theme("colors.pink.600"),

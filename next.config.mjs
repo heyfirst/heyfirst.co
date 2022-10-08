@@ -17,7 +17,7 @@ const nextConfig = {
 
     return config;
   },
-  redirects: [
+  redirects: async () => [
     {
       source: "/blog/2021-01-23-rule-of-three",
       destination: "/blog/1-2-refactor",
