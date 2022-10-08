@@ -3,8 +3,16 @@
   "extends": ["config:base"],
   "packageRules": [
     {
-      "matchDepTypes": ["devDependencies", "patch"],
-      "automerge": true
+      "matchPackagePatterns": ["*"],
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "allMinorPatch"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "all dev dependencies",
+      "groupSlug": "allMinorPatch"
     }
   ]
 }
