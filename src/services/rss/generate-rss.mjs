@@ -8,8 +8,9 @@ const DOMAIN_NAME = "https://heyfirst.co";
 
 async function generate() {
   const feed = new Feed({
-    title: "First Kanisorn Sutham",
-    description: "This is my personal feed!",
+    title: "First Sutham",
+    description:
+      "Software engineer, TypeScript enthusiast, writer, living in Helsinki, Finland",
     id: "https://heyfirst.co/",
     link: "https://heyfirst.co/",
     favicon: "https://heyfirst.co/static/favicon/favicon-32x32.png",
@@ -18,7 +19,7 @@ async function generate() {
       atom: "https://example.com/atom",
     },
     author: {
-      name: "Kanisorn Sutham",
+      name: "First Sutham",
       email: "kanisorns.k@gmail.com",
       link: "https://heyfirst.co/about",
     },

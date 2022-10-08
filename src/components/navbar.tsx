@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
       <a className="flex p-2 text-gray-600 transition hover:text-gray-900">
         <div className="mr-1">
           <Image
-            alt="Kanisorn Sutham"
+            alt="First Sutham"
             height={24}
             width={24}
             src="/avatar.jpeg"

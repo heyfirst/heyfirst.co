@@ -6,18 +6,18 @@ export const baseUrl = isProd ? "https://heyfirst.co" : "";
 export const baseEmail = "kanisorns.k@gmail.com";
 
 export const defaultSEO: DefaultSeoProps = {
-  title: "Kanisorn Sutham",
+  title: "First Sutham",
   description:
     "Software engineer, TypeScript enthusiast, writer, living in Helsinki, Finland",
   openGraph: {
     type: "website",
     locale: "en_FI",
     url: baseUrl,
-    site_name: "Kanisorn Sutham",
+    site_name: "First Sutham",
     images: [
       {
         url: `${baseUrl}/static/kanisorn_sutham.jpg`,
-        alt: "Kanisorn Sutham",
+        alt: "First Sutham",
       },
     ],
   },
@@ -63,14 +63,6 @@ export const defaultSEO: DefaultSeoProps = {
     {
       name: "msapplication-TileColor",
       content: "#ffffff",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1",
-    },
-    {
-      httpEquiv: "content-type",
-      content: "text/html; charset=UTF-8",
     },
   ],
 };
