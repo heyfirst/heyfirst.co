@@ -43,7 +43,7 @@
     "feed": "4.2.2",
     "globby": "13.1.2",
     "husky": "8.0.1",
-    "postcss": "8.4.16",
+    "postcss": "8.4.17",
     "postcss-import": "15.0.0",
     "postcss-nested": "6.0.0",
     "prettier": "2.7.1",
