@@ -4,10 +4,6 @@ import ActiveLink from "./active-link";
 
 const MANUES = [
   {
-    href: "/about",
-    label: "about",
-  },
-  {
     href: "/blog",
     label: "blog",
   },

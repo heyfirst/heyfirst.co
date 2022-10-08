@@ -10,7 +10,7 @@ async function generate() {
   const feed = new Feed({
     title: "First Sutham",
     description:
-      "Software engineer, TypeScript enthusiast, writer, living in Helsinki, Finland",
+      "A full-stack engineer, frontend enthusiast, writer, living in Helsinki, Finland",
     id: "https://heyfirst.co/",
     link: "https://heyfirst.co/",
     favicon: "https://heyfirst.co/static/favicon/favicon-32x32.png",

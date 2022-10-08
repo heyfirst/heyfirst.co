@@ -8,7 +8,7 @@ export const baseEmail = "kanisorns.k@gmail.com";
 export const defaultSEO: DefaultSeoProps = {
   title: "First Sutham",
   description:
-    "Software engineer, TypeScript enthusiast, writer, living in Helsinki, Finland",
+    "A full-stack engineer, frontend enthusiast, writer, living in Helsinki, Finland",
   openGraph: {
     type: "website",
     locale: "en_FI",
