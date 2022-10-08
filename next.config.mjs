@@ -11,8 +11,8 @@ const nextConfig = {
   ],
   webpack: (config, { isServer }) => {
     if (isServer) {
-      import("./scripts/generate-sitemap.mjs");
-      import("./scripts/generate-rss.mjs");
+      import("./src/services/seo/generate-sitemap.mjs");
+      import("./src/services/rss/generate-rss.mjs");
     }
 
     return config;
