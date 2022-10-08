@@ -5,7 +5,7 @@ import prettier from "prettier";
 (async () => {
   const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
   const pages = await globby([
-    "pages/*.tsx",
+    "pages/**/*.tsx",
     "content/**/*.mdx",
     "!pages/_*.tsx",
     "!pages/api",

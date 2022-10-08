@@ -26,10 +26,12 @@ async function generate() {
 
   feed.addCategory("Technologie");
 
-  const posts = readdirSync(join(process.cwd(), "content", "blog"));
+  const posts = readdirSync(join(process.cwd(), "src", "content", "blog"));
 
   posts.map((name) => {
-    const content = readFileSync(join(process.cwd(), "content", "blog", name));
+    const content = readFileSync(
+      join(process.cwd(), "src", "content", "blog", name)
+    );
     const {
       data: { title, date, summary, image, draft },
     } = matter(content);
