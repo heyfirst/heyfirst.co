@@ -10,12 +10,7 @@ const About: React.FC<MDXFile> = ({ mdxSource }) => {
 
   return (
     <Container>
-      <main className="mb-16">
-        <h1 className="mb-4 text-3xl font-bold text-black md:text-5xl">
-          About
-        </h1>
-        <div className="prose mb-4">{content}</div>
-      </main>
+      <main className="prose mb-4">{content}</main>
     </Container>
   );
 };

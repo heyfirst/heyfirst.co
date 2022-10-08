@@ -13,6 +13,10 @@
     }
   }
 
+  h1 {
+    @apply mb-4 text-3xl font-bold text-black md:text-5xl;
+  }
+
   h2,
   h3,
   h4 {

@@ -17,7 +17,7 @@ const ExternalLink: React.FC<React.PropsWithChildren<{ href: string }>> = ({
 
 const Footer: React.FC = () => {
   return (
-    <footer className="mx-auto mb-8 flex w-full flex-col items-start justify-center">
+    <footer className="mx-auto my-8 flex w-full flex-col items-start justify-center">
       <hr className="border-1 mb-8 w-full border-gray-200 " />
       <div className="grid w-full grid-cols-2 gap-4 pb-16 sm:grid-cols-3">
         <div className="flex flex-col space-y-4">
