@@ -1,0 +1,77 @@
+---
+title: "React Finland 2022: React Alternative (Part 1)"
+date: "2022-10-15"
+summary: "I recently attended React Finland 2022 and gave a presentation to share key takeaways from the conference. It would be nice to leave a permanent note on my personal blog as well."
+image: "/blog/react-finland-2022react-finland-2022-part-1-cover.png"
+tags: ["react", "javascript"]
+draft: false
+---
+
+I recently attended React Finland 2022 and gave a presentation to share key takeaways from the conference. It would be nice to leave a permanent note on my personal blog as well.
+
+I took notes for each talk, but the key takeaways today are mostly related to my current work. Some of the talks will not be included in the key takeaways, but you can watch them on YouTube, where they have two videos, day one and day two.
+
+I have 3 key takeaways, mainly focus on technical stuff.
+
+1. [Is React not good? Is this the React-alternative era (Part 1)](/blog/react-finland-2022-part-1-react-alternative)
+2. Managing your design system and test suites with Storybook and friends (Part 2)
+3. 2023 and beyond: rumors and prophecy. (Part 3)
+
+Today, we talk about the first one.
+
+---
+
+## Is React not good?
+
+More than 1/3 talks saying that React is lacking in many area. SolidJS talk saying that React rendering is not efficient and hard to keep it efficient as well (lot of useMemo, useCallback).
+
+Same as the weird things in React talk saying that typescript in React is super confusing, also same as useEffect which you need to read a superlong useEffect docs to understand the right way to use. Also, web component is more adopted nowadays.
+
+### SolidJS / The World Beyond Components
+
+— [talk + slide](https://react-finland.fi/schedule/#the-world-beyond-components) / [youtube](https://youtu.be/zE8PDM_7xoQ?t=5268)
+
+- SolidJS introduce another way of rendering, also provide you a similar interface same like you are writing React.
+- Basically, Reactive Programming concept is simple,
+  - Given that `A = B + C`, Therefore, `A` will be changed whenever `B` or `C` changes. SolidJS mainly use this reactive concept. (it's literally React hook)
+- SolidJS give you simple 3 Primitives, Signal, Memo, and Effect which if you familiar with React, you can easily onboard yourself into it
+- from another perspective, it makes SolidJS much simpler than React. GlobalState or ComponentState is define in the same way by use `createSignal` . Or if you need global store, use `createStore`
+
+### Web Components
+
+— [talk + slide](https://react-finland.fi/schedule/#web-components) / [youtube](https://youtu.be/rHjwZu0EmlQ?t=8436)
+
+- You need to understand this first, **Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data** ([React Docs](https://reactjs.org/docs/web-components.html)).
+- There are more web-component adopted companies such as [Adobe with Photoshop](https://web.dev/ps-on-the-web/), [SpaceX](https://www.reddit.com/r/spacex/comments/gxb7j1/comment/ft6bydt/), [Youtube](https://levelup.gitconnected.com/web-components-at-big-tech-companies-youtube-84266bb507fd), [GitHub](https://levelup.gitconnected.com/web-components-at-big-tech-companies-github-812e632e1650), and a lot more.
+- Shadow DOM provides a local, truly encapsulated DOM tree for your web element, Unlike React which is using Visual DOM.
+- SSR on web components is a thing today, to increase performance, more accessible because it works even user has disabled JS.
+- Some tools to check it out, such as [Rocket](https://rocket.modern-web.dev/) or a most-famous one [lit.dev](https://lit.dev/)
+
+### The weird things about React
+
+— [talk + slide](https://react-finland.fi/schedule/#the-weird-things-about-react) / [youtube](https://youtu.be/zE8PDM_7xoQ?t=17070)
+
+- There are many things that does not make any sense in React so far. (I agreed)
+- Versioning, it's 0.13.0, 0.14.0 then 15.0.0, 16.0.0 .... (what!) and now, we have 18.0.0
+- `flushSync`? do you know [this function](https://beta.reactjs.org/apis/react-dom/flushSync) before. Yeah, it's cool!
+- React vs NextJS? It always confuse people how should they start working with React. Unlike other tools, Solid, Svelte, or Vue have only one official way to start working.
+- Use `React.FC`, not `React.FunctionalComponent` it will break your app because it does not include `children` props anymore ([RFC](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/46691)). You need a `PropsWithChildren<>` type.
+- Just go to [beta.reactjs.org](https://beta.reactjs.org/) and read them all.
+
+> From now on, you will feel like is this a React conference? :sad: I guess you feel me now.
+
+---
+
+## My humble opinion.
+
+React won't die anyway (Yes! I'm a React fanboi). At least in next 5 years, React is now a mainstream, Most companies are using React in their codebase and it's huge now. Same like the day we use jQuery + PHP, Java Spring, or DotNet.
+
+As a developer, I believe...
+
+- You need to re-learn React by reading [beta.reactjs.org](https://beta.reactjs.org/) to really understand the current state of React. React core team work really hard to explain the right way and pitfall of each features.
+- At least we need to try and learn those new tools above. I mean both SolidJS and Web component with Lit or Rocket. Personally I recommend to just try it out for a couple hours, not too much and not too long. So you have a picture of them in mind.
+  - It because some of those might be change to be mainstream one day. Same like React/Angular did to jQuery.
+  - Also if you have some experiences, I believe you will find some interesting stuff inside the codebase, for example, I found some technique to apply on one of my current task while I reading this [createSignal](https://github.com/solidjs/solid/blob/main/packages/solid/src/reactive/signal.ts#L178) code.
+  - The more you read, the more inspiration you will have.
+
+Hope you got something or some ideas today! See you in part 2
