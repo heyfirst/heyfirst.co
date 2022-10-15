@@ -55,7 +55,7 @@ const Container: React.FC<React.PropsWithChildren<Meta>> = ({
   ...props
 }) => {
   const router = useRouter();
-  const meta = {
+  const meta: Meta = {
     tags: ["software", "tech", "developer"],
     url: `https://heyfirst.co${router.asPath}`,
     ...props,
