@@ -10,9 +10,10 @@
       "groupSlug": "allMinorPatch"
     },
     {
+      "matchPackagePatterns": ["*"],
       "matchDepTypes": ["devDependencies"],
       "groupName": "all dev dependencies",
-      "groupSlug": "allMinorPatch"
+      "groupSlug": "allDevs"
     }
   ]
 }
