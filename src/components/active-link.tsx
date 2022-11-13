@@ -52,7 +52,7 @@ const ActiveLink: React.FC<React.PropsWithChildren<Props>> = ({
   ]);
 
   return (
-    <Link {...props}>
+    <Link {...props} legacyBehavior>
       {React.cloneElement(child, {
         className: className || null,
       })}

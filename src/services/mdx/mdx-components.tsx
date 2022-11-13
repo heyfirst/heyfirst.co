@@ -9,8 +9,8 @@ const CustomLink: React.FC<PropsWithChildren<{ href: string }>> = (props) => {
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
-        <a {...props}>{props.children}</a>
+      <Link href={href} {...props}>
+        {props.children}
       </Link>
     );
   }

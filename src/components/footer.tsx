@@ -21,21 +21,21 @@ const Footer: React.FC = () => {
       <hr className="border-1 mb-8 w-full border-gray-200 " />
       <div className="grid w-full grid-cols-2 gap-4 pb-16 sm:grid-cols-3">
         <div className="flex flex-col space-y-4">
-          <Link href="/">
-            <a className="text-gray-600 transition hover:text-gray-600">Home</a>
+          <Link href="/" className="text-gray-600 transition hover:text-gray-600">
+            Home
           </Link>
-          <Link href="/about">
-            <a className="text-gray-600 transition hover:text-gray-600">
+          <Link href="/about" className="text-gray-600 transition hover:text-gray-600">
+            
               About
-            </a>
+            
           </Link>
-          <Link href="/blog">
-            <a className="text-gray-600 transition hover:text-gray-600">Blog</a>
+          <Link href="/blog" className="text-gray-600 transition hover:text-gray-600">
+            Blog
           </Link>
-          <Link href="/uses">
-            <a className="text-gray-600 transition hover:text-gray-600">
+          <Link href="/uses" className="text-gray-600 transition hover:text-gray-600">
+            
               /uses
-            </a>
+            
           </Link>
         </div>
         <div className="flex flex-col space-y-4">
