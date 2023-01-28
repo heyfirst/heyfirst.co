@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Navbar from "./components/navbar";
 import styles from "./styles/app.css";
 
 export const meta: MetaFunction = () => ({
@@ -27,7 +28,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Navbar />
+        <main className="container mx-auto flex flex-col">
+          <Outlet />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

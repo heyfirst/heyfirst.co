@@ -2,7 +2,16 @@
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        // one width, rule them all 💍
+        sm: "640px",
+        md: "640px",
+        lg: "640px",
+        xl: "640px",
+        "2xl": "640px",
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
