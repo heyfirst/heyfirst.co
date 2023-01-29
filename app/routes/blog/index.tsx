@@ -1,5 +1,7 @@
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import readingTime from "reading-time";
+import { parseISO, format } from "date-fns";
 import { getAllPosts } from "~/utils/mdx.server";
 
 export async function loader() {
@@ -35,7 +37,7 @@ const BlogList = () => {
         better experience. {`I've written`} <u>{posts.length}</u> articles on
         this site.
       </p>
-      <hr className="my-4" />
+      {/* <hr className="my-4" /> */}
       {/* // TODO: Add filter by tags */}
       {/* <div className="my-4 text-center text-xs text-gray-600">
         <Tag
@@ -64,19 +66,22 @@ const BlogList = () => {
           <Link key={post.slug} to={`/blog/${post.slug}`}>
             <div className="group relative mb-4 cursor-pointer bg-white">
               <div className="flex justify-between text-xs text-gray-600">
-                {/* // TODO: Add readingTime */}
-                {/* <div>{readableDate}</div> */}
+                <div className="flex items-center">
+                  {format(parseISO(post.date), "MMMM dd, yyyy")}
+                </div>
+                <div className="md:mt-0">{readingTime(post.content).text}</div>
               </div>
               <div className="flex flex-col justify-between md:flex-row">
                 <h2 className="w-full text-base font-medium text-gray-900 group-hover:underline md:text-xl">
                   {post.title}
                 </h2>
               </div>
-              <div className="mb-2 hidden text-xs text-gray-600 md:block">
-                {/* // TODO: Add tags */}
-                {/* {tags.sort().map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))} */}
+              <div className="mb-2 flex flex-row text-xs text-gray-600">
+                {post.tags.sort().map((tag) => (
+                  <div className="mr-1 rounded-lg border px-2 py-1" key={tag}>
+                    {tag}
+                  </div>
+                ))}
               </div>
             </div>
           </Link>

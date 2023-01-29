@@ -80,16 +80,28 @@ export const getAllPosts = async () => {
       const source = getMDXRawFileByFolder(folder);
 
       // TODO move images in public folder to contetns/blog folder
-      const { frontmatter } = await getMDX(folder, source);
+      const {
+        frontmatter,
+        matter: { content },
+      } = await getMDX(folder, source);
       return {
         title: frontmatter.title,
         slug: folder,
         draft: frontmatter.draft,
+        content: content,
+        date: frontmatter.date,
+        tags: frontmatter.tags,
       };
     })
   );
 
-  return blogposts.filter((post) => !post.draft).reverse();
+  return blogposts
+    .filter((post) => !post.draft)
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime();
+    });
 };
 
 export const getPostBySlug = async (slug: string) => {
