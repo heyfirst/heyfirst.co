@@ -1,25 +1,18 @@
-import fs from "fs";
-import path from "path";
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { bundleMDX } from "../../mdx.server";
+import { json, redirect } from "@remix-run/node";
+import { getPostBySlug } from "~/utils/mdx.server";
 import { getMDXComponent } from "mdx-bundler/client";
 import { useLoaderData } from "@remix-run/react";
 import React from "react";
 
 export const loader = async ({ params }: LoaderArgs) => {
   const { slug } = params;
-  const blogPath = [process.cwd(), "contents/blog"];
-  const source = fs.readFileSync(path.join(...blogPath, `${slug}.mdx`), {
-    encoding: "utf8",
-  });
 
-  const data = await bundleMDX<{
-    title: string;
-    tags: string[];
-    draft: boolean;
-  }>({ source });
-  return json(data);
+  if (!slug) {
+    return redirect("/blog");
+  }
+
+  return json(await getPostBySlug(slug));
 };
 
 const BlogPost = () => {

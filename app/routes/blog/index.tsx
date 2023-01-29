@@ -1,31 +1,9 @@
-import fs from "fs";
-import path from "path";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { bundleMDX } from "../../mdx.server";
+import { getAllPosts } from "~/utils/mdx.server";
 
 export async function loader() {
-  const blogPath = [process.cwd(), "contents/blog"];
-  const blogfiles = fs.readdirSync(path.join(...blogPath));
-
-  const blogposts = await Promise.all(
-    blogfiles.map(async (file) => {
-      const source = fs.readFileSync(path.join(...blogPath, file), {
-        encoding: "utf8",
-      });
-
-      // TODO move to mdx.server and add rehype plugins
-      // TODO move images in public folder to contetns/blog folder
-      const { frontmatter } = await bundleMDX({ source });
-      return {
-        title: frontmatter.title,
-        slug: file.replace(".mdx", ""),
-        draft: frontmatter.draft,
-      };
-    })
-  );
-
-  return json(blogposts.filter((post) => !post.draft).reverse());
+  return json(await getAllPosts());
 }
 
 const BlogList = () => {

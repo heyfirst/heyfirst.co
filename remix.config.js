@@ -1,8 +1,20 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   ignoredRouteFiles: ["**/.*"],
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "build/index.js",
-  // publicPath: "/build/",
+  // FIXME: here is a limitation of remix, that we can't import esm packages
+  // https://remix.run/docs/en/v1/pages/gotchas#importing-esm-packages
+  serverDependenciesToBundle: [
+    /^micromark.*/,
+    /^rehype.*/,
+    /^remark.*/,
+    /^unified.*/,
+    /^unist.*/,
+    /^mdast.*/,
+    /^hast-util.*/,
+    "ccount",
+    "decode-named-character-reference",
+    "character-entities",
+    "markdown-table",
+    "github-slugger",
+  ],
 };
