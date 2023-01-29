@@ -9,6 +9,7 @@ import {
 } from "@remix-run/react";
 import Navbar from "./components/navbar";
 import styles from "./styles/_generated.css";
+import highlightStyles from "highlight.js/styles/base16/classic-light.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -17,7 +18,10 @@ export const meta: MetaFunction = () => ({
 });
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }];
+  return [
+    { rel: "stylesheet", href: styles },
+    { rel: "stylesheet", href: highlightStyles },
+  ];
 }
 
 export default function App() {

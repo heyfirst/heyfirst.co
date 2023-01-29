@@ -16,5 +16,7 @@ module.exports = {
     "character-entities",
     "markdown-table",
     "github-slugger",
+    "lowlight",
+    "fault",
   ],
 };

@@ -1243,6 +1243,10 @@ video {
   transition-duration: 150ms;
 }
 
+.prose {
+  --tw-prose-pre-bg: #f5f5f5;
+}
+
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));

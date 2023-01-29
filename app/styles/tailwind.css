@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.prose {
+  --tw-prose-pre-bg: #f5f5f5;
+}

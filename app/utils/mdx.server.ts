@@ -5,6 +5,7 @@ import remarkMdxImages from "remark-mdx-images";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeHighlight from "rehype-highlight";
 
 interface IFrontmatter {
   title: string;
@@ -27,6 +28,7 @@ export const getMDX = async (folder: string, source: string) => {
     source,
     cwd: path.join(...blogPath, folder),
     mdxOptions: (options) => {
+      // TODO: add @codesandbox/sandpack to mdx
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
         remarkMdxImages,
@@ -50,23 +52,20 @@ export const getMDX = async (folder: string, source: string) => {
             },
           },
         ],
+        [rehypeHighlight, {}],
       ];
       return options;
     },
     esbuildOptions: (options) => {
-      // Set the `outdir` to a public location for this bundle.
-      options.outdir = path.resolve("public/build/_assets");
+      options.outdir = path.resolve("public/build/_assets"); // Set the `outdir` to a public location for this bundle.
       options.loader = {
         ...options.loader,
         ".png": "file",
         ".jpg": "file",
         ".jpeg": "file",
       };
-      // Set the public path to /img/about
-      options.publicPath = path.join("/build/_assets");
-
-      // Set write to true so that esbuild will output the files.
-      options.write = true;
+      options.publicPath = path.join("/build/_assets"); // Set the public path to /img/about
+      options.write = true; // Set write to true so that esbuild will output the files.
       return options;
     },
   });
