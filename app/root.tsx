@@ -6,10 +6,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useMatches,
 } from "@remix-run/react";
+import highlightStyles from "highlight.js/styles/base16/classic-light.css";
+import { useEffect, useRef } from "react";
 import Navbar from "./components/navbar";
 import styles from "./styles/_generated.css";
-import highlightStyles from "highlight.js/styles/base16/classic-light.css";
+import Fathom from "./utils/fathom";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -36,6 +39,7 @@ export default function App() {
         <main className="container mx-auto flex flex-col">
           <Outlet />
         </main>
+        <Fathom />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

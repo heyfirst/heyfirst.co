@@ -23,6 +23,12 @@ const BlogPost = () => {
     frontmatter,
     matter: { content },
   } = useLoaderData<typeof loader>();
+
+  let [isMounted, setMount] = React.useState(false);
+  React.useEffect(() => {
+    setMount(true);
+  }, []);
+
   const Component = React.useMemo(() => getMDXComponent(code), [code]);
 
   return (
@@ -37,11 +43,6 @@ const BlogPost = () => {
         {frontmatter.title}
       </h1>
       <div className="mb-2 text-sm text-gray-600">
-        {frontmatter.draft && (
-          <span className="mr-2 inline-block cursor-not-allowed rounded-md border border-yellow-400 bg-yellow-400 px-2 py-1 italic text-white transition-all">
-            draft
-          </span>
-        )}
         <div className="mb-2 flex flex-row text-xs text-gray-600">
           {frontmatter.tags.sort().map((tag) => (
             <div className="mr-1 rounded-lg border px-2 py-1" key={tag}>
@@ -59,8 +60,22 @@ const BlogPost = () => {
         worked in the past, present, or future.
       </div>
       <div className="mb-8 w-full border-t pt-4">
-        {/* // TODO: Add comments */}
-        {/* <Giscus /> */}
+        {isMounted && (
+          <script
+            src="https://giscus.app/client.js"
+            data-repo="heyfirst/heyfirst.co"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkyMjY1NjkxNTQ="
+            data-category="General"
+            data-category-id="DIC_kwDODYErws4B-QE2"
+            data-mapping="title"
+            data-reactions-enabled="1"
+            data-theme="light"
+            crossOrigin="anonymous"
+            async
+          />
+        )}
+        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
+        <div className="giscus" />
       </div>
     </article>
   );

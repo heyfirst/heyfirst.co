@@ -13,7 +13,6 @@ interface IFrontmatter {
   date: string;
   slug: string;
   tags: string[];
-  draft: boolean;
 }
 
 const blogPath = [process.cwd(), "contents/blog"];
@@ -35,20 +34,21 @@ export const getMDX = async (folder: string, source: string) => {
         remarkGfm,
       ];
 
-      // TODO(markdown): add this https://github.com/rehypejs/rehype-autolink-headings and custom styles too
       options.rehypePlugins = [
         rehypeSlug,
         [
           rehypeAutolinkHeadings,
           {
             behavior: "prepend",
+            properties: {
+              className: [
+                "no-underline absolute -ml-8 anchor opacity-0 transition ",
+              ],
+            },
             content: {
               type: "element",
-              tagName: "a",
-              properties: {
-                className: ["anchor-link no-underline"],
-              },
-              children: [],
+              tagName: "span",
+              children: [{ type: "text", value: "🔗" }],
             },
           },
         ],
@@ -87,7 +87,6 @@ export const getAllPosts = async () => {
       return {
         title: frontmatter.title,
         slug: folder,
-        draft: frontmatter.draft,
         content: content,
         date: frontmatter.date,
         tags: frontmatter.tags,
@@ -95,13 +94,11 @@ export const getAllPosts = async () => {
     })
   );
 
-  return blogposts
-    .filter((post) => !post.draft)
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime();
-    });
+  return blogposts.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
 };
 
 export const getPostBySlug = async (slug: string) => {

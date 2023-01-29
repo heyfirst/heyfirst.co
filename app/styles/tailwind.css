@@ -5,3 +5,7 @@
 .prose {
   --tw-prose-pre-bg: #f5f5f5;
 }
+
+.prose h2:hover a.anchor {
+  @apply opacity-100;
+}

@@ -14,16 +14,18 @@ specifiers:
   date-fns: 2.29.3
   eslint: 8.32.0
   eslint-plugin-tailwindcss: 3.8.2
+  fathom-client: 3.5.0
+  feed: 4.2.2
   fuse.js: 6.6.2
-  highlight.js: ^11.7.0
+  highlight.js: 11.7.0
   isbot: 3.6.5
   mdx-bundler: 9.2.1
   react: 18.2.0
   react-dom: 18.2.0
-  reading-time: ^1.5.0
+  reading-time: 1.5.0
   rehype-autolink-headings: 6.1.1
-  rehype-highlight: ^6.0.0
-  rehype-slug: ^5.1.0
+  rehype-highlight: 6.0.0
+  rehype-slug: 5.1.0
   remark-gfm: 3.0.1
   remark-mdx-images: 2.0.0
   tailwindcss: 3.2.4
@@ -35,6 +37,8 @@ dependencies:
   '@remix-run/serve': 1.11.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   date-fns: 2.29.3
+  fathom-client: 3.5.0
+  feed: 4.2.2
   fuse.js: 6.6.2
   highlight.js: 11.7.0
   isbot: 3.6.5
@@ -4209,10 +4213,21 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  /fathom-client/3.5.0:
+    resolution: {integrity: sha512-BiRDS9Q9a8Zma0H717FWC5cvf545K/CsxBpxKT22TcSl1EbRhhlHWIJgrdeiQUfdorBK2ppy09TwMOhRsbos/A==}
+    dev: false
+
   /fault/2.0.1:
     resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
     dependencies:
       format: 0.2.2
+
+  /feed/4.2.2:
+    resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      xml-js: 1.6.11
+    dev: false
 
   /fetch-blob/3.2.0:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
@@ -7544,6 +7559,10 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
+  /sax/1.2.4:
+    resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    dev: false
+
   /scheduler/0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
@@ -8602,6 +8621,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /xml-js/1.6.11:
+    resolution: {integrity: sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==}
+    hasBin: true
+    dependencies:
+      sax: 1.2.4
+    dev: false
 
   /xregexp/2.0.0:
     resolution: {integrity: sha512-xl/50/Cf32VsGq/1R8jJE5ajH1yMCQkpmoS10QbFZWl2Oor4H0Me64Pu2yxvsRWK3m6soJbmGfzSR7BYmDcWAA==}

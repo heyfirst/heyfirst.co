@@ -1,4 +1,3 @@
-import React from "react";
 import cx from "classnames";
 import { NavLink } from "@remix-run/react";
 
