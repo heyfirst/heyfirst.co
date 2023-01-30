@@ -18,7 +18,7 @@ export const loader = async () => {
     copyright: "All rights reserved 2019, First Sutham",
   });
 
-  feed.addCategory("Technologie");
+  feed.addCategory("Technologies");
 
   const posts = await getAllPosts();
 

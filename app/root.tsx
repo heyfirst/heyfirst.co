@@ -6,19 +6,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useMatches,
 } from "@remix-run/react";
 import highlightStyles from "highlight.js/styles/base16/classic-light.css";
-import { useEffect, useRef } from "react";
 import Navbar from "./components/navbar";
 import styles from "./styles/_generated.css";
 import Fathom from "./utils/fathom";
-
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
+import { description, rootUrl } from "./config";
 
 export function links() {
   return [
@@ -26,6 +19,28 @@ export function links() {
     { rel: "stylesheet", href: highlightStyles },
   ];
 }
+
+export const meta: MetaFunction = () => {
+  const title = "First Sutham";
+  return {
+    charset: "utf-8",
+    viewport: "width=device-width,initial-scale=1",
+    title,
+    description,
+    keywords: "Technologies",
+    "og:url": rootUrl,
+    "og:title": title,
+    "og:description": description,
+    // "og:image": image // TODO: add og:image my photo
+    // "twitter:image": "https://remix-jokes.lol/social.png",
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@heyfirst_",
+    "twitter:site": "@heyfirst_",
+    "twitter:title": "First Sutham",
+    "twitter:description": description,
+    "twitter:alt": title, // note: more about [Twitter Cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started)
+  };
+};
 
 export default function App() {
   return (

@@ -102,5 +102,5 @@ export const getAllPosts = async () => {
 export const getPostBySlug = async (slug: string) => {
   const source = getMDXRawFileByFolder(slug);
   const data = await getMDX(slug, source);
-  return data;
+  return { ...data, slug };
 };

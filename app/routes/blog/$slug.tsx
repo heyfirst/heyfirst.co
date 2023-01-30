@@ -1,11 +1,12 @@
 import React from "react";
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import readingTime from "reading-time";
 import { parseISO, format } from "date-fns";
 import { getPostBySlug } from "~/utils/mdx.server";
+import { rootUrl } from "~/config";
 
 export const loader = async ({ params }: LoaderArgs) => {
   const { slug } = params;
@@ -15,6 +16,28 @@ export const loader = async ({ params }: LoaderArgs) => {
   }
 
   return json(await getPostBySlug(slug));
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const title = data.frontmatter.title + " | First Sutham";
+  return {
+    charset: "utf-8",
+    viewport: "width=device-width,initial-scale=1",
+    title,
+    description: data.frontmatter.summary,
+    keywords: "Technologies",
+    "og:url": rootUrl + "/blog/" + data.slug,
+    "og:title": title,
+    "og:description": data.frontmatter.summary,
+    "og:image": rootUrl + data.frontmatter.image,
+    "twitter:image": rootUrl + data.frontmatter.image,
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@heyfirst_",
+    "twitter:site": "@heyfirst_",
+    "twitter:title": title,
+    "twitter:description": data.frontmatter.summary,
+    "twitter:alt": title, // note: more about [Twitter Cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started)
+  };
 };
 
 const BlogPost = () => {
