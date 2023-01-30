@@ -9,10 +9,10 @@ import rehypeHighlight from "rehype-highlight";
 
 interface IFrontmatter {
   title: string;
-  description: string;
+  summary: string;
   date: string;
-  slug: string;
   tags: string[];
+  image: string;
 }
 
 const blogPath = [process.cwd(), "contents/blog"];
@@ -85,11 +85,9 @@ export const getAllPosts = async () => {
         matter: { content },
       } = await getMDX(folder, source);
       return {
-        title: frontmatter.title,
-        slug: folder,
+        ...frontmatter,
         content: content,
-        date: frontmatter.date,
-        tags: frontmatter.tags,
+        slug: folder,
       };
     })
   );
