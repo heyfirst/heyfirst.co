@@ -1,26 +1,25 @@
 {
+  "include": ["./types", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "isolatedModules": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "jsx": "react-jsx",
+    "module": "es2022",
+    "target": "es2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "allowJs": true,
+    "importsNotUsedAsValues": "error",
+    "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/services/*": ["src/services/*"],
-      "@/styles/*": ["src/styles/*"]
+      "~/*": ["./app/*"],
+      "@/contents/*": ["./contents/*"]
     },
-    "incremental": true
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "noEmit": true
+  }
 }

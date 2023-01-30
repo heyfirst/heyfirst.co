@@ -1,35 +1,41 @@
-## 👏 heyfirst.co!
+# Welcome to Remix!
 
-My personal website has transformed over 10 years since **firstziiz.com**, **ks.in.th** and now is [heyfirst.co](https://heyfirst.co) - from [Wordpress](http://wordpress.org/), [Ghost 0.8.0](https://ghost.org/), [Medium](https://medium.com/), [Gatsby](gatsbyjs.com) and then now [NextJS](https://nextjs.org/) with [MDX](https://mdxjs.com/getting-started/next).
+- [Remix Docs](https://remix.run/docs)
 
-My purpose for this personal website is keeping everything about my experiences, my knowledges, my thoughts, my opinions, yay! And also try to experiment **every practice** I have into this web app!
+## Fly Setup
 
-### Disclaimer
+1. [Install `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
 
-This website cloned from [leerob.io](https://github.com/leerob/leerob.io), every nice portfolio website built by [@leerob](https://github.com/leerob), Head of DevRel ▲ vercel which has many good practice and technique to maximize NextJS superpowers.
-
-I have changed to my own UI + code styles, Javascript to TypeScript, adding some animation graphics, adding another sections!
-
-### Overview
-
-- `pages/blogs/*` - Static pre-rendered blog pages using MDX.
-- `pages/*` - All other static pages, e.g. home, about, etc...
-
-### Running Locally
+2. Sign up and log in to Fly
 
 ```sh
-$ git clone https://github.com/heyfirst/heyfirst.co.git
-$ cd heyfirst.co
-$ npm install
-$ npm run dev
+flyctl auth signup
 ```
 
-> Personally, I prefer NPM because many times I had conflict with global packages when using yarn and npm in the same machine. So keep it simple and use NPM!
+3. Setup Fly. It might ask if you want to deploy, say no since you haven't built the app yet.
 
-### Built Using
+```sh
+flyctl launch
+```
 
-- [React](https://reactjs.org/)
-- [NextJS](https://nextjs.org/)
-- [MDX](https://mdxjs.com/getting-started/next)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Giscus](https://github.com/laymonage/giscus)
+## Development
+
+From your terminal:
+
+```sh
+npm run dev
+```
+
+This starts your app in development mode, rebuilding assets on file changes.
+
+## Deployment
+
+If you've followed the setup instructions already, all you need to do is run this:
+
+```sh
+npm run deploy
+```
+
+You can run `flyctl info` to get the url and ip address of your server.
+
+Check out the [fly docs](https://fly.io/docs/getting-started/node/) for more information.
