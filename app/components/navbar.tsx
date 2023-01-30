@@ -14,7 +14,7 @@ const NavLinks = [
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="container mx-auto flex w-full items-center justify-between py-4 md:mt-6">
+    <nav className="container mx-auto flex w-full items-center justify-between p-4 md:mt-6">
       <div className="flex">
         <NavLink
           to="/"

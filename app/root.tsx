@@ -51,7 +51,7 @@ export default function App() {
       </head>
       <body>
         <Navbar />
-        <main className="container mx-auto flex flex-col">
+        <main className="container mx-auto flex flex-col px-4">
           <Outlet />
         </main>
         <Fathom />
