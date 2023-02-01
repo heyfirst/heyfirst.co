@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
+import { getJSON, setJSON } from "./redis.server";
 
 interface IFrontmatter {
   title: string;
@@ -73,6 +74,10 @@ export const getMDX = async (folder: string, source: string) => {
 };
 
 export const getAllPosts = async () => {
+  if (await getJSON("blogposts")) {
+    return await getJSON("blogposts");
+  }
+
   const folderlist = fs.readdirSync(path.join(...blogPath));
 
   const blogposts = await Promise.all(
@@ -92,11 +97,14 @@ export const getAllPosts = async () => {
     })
   );
 
-  return blogposts.sort((a, b) => {
+  const sortedBlogposts = blogposts.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateB.getTime() - dateA.getTime();
   });
+  await setJSON("blogposts", sortedBlogposts);
+
+  return sortedBlogposts;
 };
 
 export const getPostBySlug = async (slug: string) => {
