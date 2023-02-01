@@ -1,6 +1,16 @@
 import { RemixBrowser } from "@remix-run/react";
-import { startTransition, StrictMode } from "react";
+import { type DOMAttributes, startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
+
+import "giscus";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      ["giscus-widget"]: Partial<DOMAttributes<any> & Record<string, any>>;
+    }
+  }
+}
 
 function hydrate() {
   startTransition(() => {

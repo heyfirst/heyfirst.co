@@ -18,5 +18,8 @@ module.exports = {
     "github-slugger",
     "lowlight",
     "fault",
+    /^lit.*/,
+    /^@lit.*/,
+    "giscus",
   ],
 };

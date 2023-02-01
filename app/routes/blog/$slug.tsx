@@ -47,11 +47,6 @@ const BlogPost = () => {
     matter: { content },
   } = useLoaderData<typeof loader>();
 
-  let [isMounted, setMount] = React.useState(false);
-  React.useEffect(() => {
-    setMount(true);
-  }, []);
-
   const Component = React.useMemo(() => getMDXComponent(code), [code]);
 
   return (
@@ -83,22 +78,23 @@ const BlogPost = () => {
         worked in the past, present, or future.
       </div>
       <div className="mb-8 w-full border-t pt-4">
-        {isMounted && (
-          <script
-            src="https://giscus.app/client.js"
-            data-repo="heyfirst/heyfirst.co"
-            data-repo-id="MDEwOlJlcG9zaXRvcnkyMjY1NjkxNTQ="
-            data-category="General"
-            data-category-id="DIC_kwDODYErws4B-QE2"
-            data-mapping="title"
-            data-reactions-enabled="1"
-            data-theme="light"
-            crossOrigin="anonymous"
-            async
-          />
-        )}
-        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-        <div className="giscus" />
+        <giscus-widget
+          repo="heyfirst/heyfirst.co"
+          repoId="MDEwOlJlcG9zaXRvcnkyMjY1NjkxNTQ="
+          category="General"
+          categoryId="DIC_kwDODYErws4B-QE2"
+          mapping="title"
+          reactions-enabled="1"
+          theme="light"
+          crossOrigin="anonymous"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
+          lang="en"
+          loading="lazy"
+          strict="0"
+          host="https://giscus.app"
+        ></giscus-widget>
       </div>
     </article>
   );

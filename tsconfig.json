@@ -19,7 +19,6 @@
       "~/*": ["./app/*"],
       "@/contents/*": ["./contents/*"]
     },
-    "typeRoots": ["./types", "./node_modules/@types"],
     "noEmit": true
   }
 }
