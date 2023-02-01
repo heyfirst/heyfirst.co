@@ -74,6 +74,7 @@ export const getMDX = async (folder: string, source: string) => {
 };
 
 export const getAllPosts = async () => {
+  // TODO: backup plan if redis is down or not working properly (switch back to use fs)
   if (await getJSON("blogposts")) {
     return await getJSON("blogposts");
   }

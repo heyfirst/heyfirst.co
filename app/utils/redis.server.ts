@@ -1,5 +1,6 @@
 import Redis from "ioredis";
 
+// TODO: Add support local mode, No need to use redis in local mode
 const redis = new Redis({
   port: Number(process.env.REDIS_PORT) || 6379,
   host: process.env.REDIS_HOST ?? "127.0.0.1",
