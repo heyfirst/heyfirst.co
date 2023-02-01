@@ -1,6 +1,11 @@
 import Redis from "ioredis";
 
-const redis = new Redis(process.env.REDIS_HOST ?? "");
+const redis = new Redis({
+  port: Number(process.env.REDIS_PORT) ?? 6379,
+  host: process.env.REDIS_HOST ?? "127.0.0.1",
+  password: process.env.REDIS_PASSWORD ?? "",
+  family: 6,
+});
 
 const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
 
