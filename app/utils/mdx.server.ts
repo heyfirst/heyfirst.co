@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
-import { getJSON, setJSON } from "./redis.server";
+import frontmatter from "gray-matter";
 
 interface IFrontmatter {
   title: string;
@@ -14,6 +14,9 @@ interface IFrontmatter {
   date: string;
   tags: string[];
   image: string;
+  // meta
+  content: string;
+  slug: string;
 }
 
 const blogPath = [process.cwd(), "contents/blog"];
@@ -74,11 +77,6 @@ export const getMDX = async (folder: string, source: string) => {
 };
 
 export const getAllPosts = async () => {
-  // TODO: backup plan if redis is down or not working properly (switch back to use fs)
-  if (await getJSON("blogposts")) {
-    return await getJSON("blogposts");
-  }
-
   const folderlist = fs.readdirSync(path.join(...blogPath));
 
   const blogposts = await Promise.all(
@@ -86,15 +84,12 @@ export const getAllPosts = async () => {
       const source = getMDXRawFileByFolder(folder);
 
       // TODO move images in public folder to contetns/blog folder
-      const {
-        frontmatter,
-        matter: { content },
-      } = await getMDX(folder, source);
+      const { content, data } = frontmatter(source);
       return {
-        ...frontmatter,
-        content: content,
+        ...data,
+        content,
         slug: folder,
-      };
+      } as IFrontmatter;
     })
   );
 
@@ -103,7 +98,6 @@ export const getAllPosts = async () => {
     const dateB = new Date(b.date);
     return dateB.getTime() - dateA.getTime();
   });
-  await setJSON("blogposts", sortedBlogposts);
 
   return sortedBlogposts;
 };
