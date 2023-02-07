@@ -14,6 +14,7 @@ interface IFrontmatter {
   date: string;
   tags: string[];
   image: string;
+  published: boolean;
   // meta
   content: string;
   slug: string;
@@ -86,6 +87,7 @@ export const getAllPosts = async () => {
       // TODO move images in public folder to contetns/blog folder
       const { content, data } = frontmatter(source);
       return {
+        published: true,
         ...data,
         content,
         slug: folder,
@@ -93,11 +95,13 @@ export const getAllPosts = async () => {
     })
   );
 
-  const sortedBlogposts = blogposts.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateB.getTime() - dateA.getTime();
-  });
+  const sortedBlogposts = blogposts
+    .filter((post) => post.published)
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime();
+    });
 
   return sortedBlogposts;
 };

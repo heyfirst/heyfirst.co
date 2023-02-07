@@ -7,7 +7,7 @@ const NavLinks = [
     label: "📔 blog",
   },
   {
-    href: "/blog/uses",
+    href: "/uses",
     label: "💻 uses",
   },
 ];
