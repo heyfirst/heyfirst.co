@@ -1,24 +1,32 @@
 {
-  "include": ["./types", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "es2022",
-    "target": "es2020",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noUncheckedIndexedAccess": true,
-    "strict": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "importsNotUsedAsValues": "error",
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "~/*": ["./app/*"],
-      "@/contents/*": ["./contents/*"]
-    },
-    "noEmit": true
-  }
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/page.ทกป"
+  ],
+  "exclude": ["node_modules"]
 }

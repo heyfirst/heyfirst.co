@@ -1,0 +1,24 @@
+{
+  "include": ["./types", "**/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "es2022",
+    "target": "es2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "allowJs": true,
+    "importsNotUsedAsValues": "error",
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@/contents/*": ["./contents/*"]
+    },
+    "noEmit": true
+  }
+}
