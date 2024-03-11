@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import Counter from "../../components/Counter.svelte";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<h1>{entry.data.title}</h1>
+<Content />
+
+<Counter client:load />
