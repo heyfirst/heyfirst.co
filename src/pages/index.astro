@@ -1,24 +1,48 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import { dateFormat } from "../lib/date";
+import Layout from "../components/layout.astro";
 
 import { getCollection } from "astro:content";
 
 const blogEntries = await getCollection("blog", ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
-});
+}).then((entries) =>
+  entries
+    .sort((a, b) => b.data.time.valueOf() - a.data.time.valueOf())
+    .slice(0, 5)
+);
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
-    <h1>Home</h1>
-    <ol>
-      {
-        blogEntries.map((blog) => (
-          <li>
-            <a href={`/blog/${blog.slug}`}>{blog.data.title}</a>
-          </li>
-        ))
-      }
-    </ol>
+    <div>
+      <p class="prose">
+        Hi, I’m <i>a theme</i> for the Hexo blogging framework. I’m particularly
+        great for a personal web page with a simple blog. In this paragraph, you
+        can provide some information about yourself. Below, you’re most recent or
+        highlighted writings and projects are listed.
+      </p>
+    </div>
+    <div>
+      <h2 class="text-xl font-bold mt-12 mb-4">Latest Blog</h2>
+      <ul>
+        {
+          blogEntries.map((entry) => (
+            <li class="flex mb-2">
+              <div class="min-w-28 mr-4">
+                <time datetime={entry.data.time.toISOString()}>
+                  {dateFormat(entry.data.time)}
+                </time>
+              </div>
+              <div>
+                <a href={`/blog/${entry.slug}`} class="hover:underline">
+                  {entry.data.title}
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </main>
 </Layout>

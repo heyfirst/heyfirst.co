@@ -1,0 +1,18 @@
+---
+import config from "../config.json";
+---
+
+<footer class="mt-12 mb-4 flex justify-between">
+  <div class="text-sm">{config.footer}</div>
+  <ul class="flex text-sm">
+    {
+      config.menus.map((menu) => (
+        <li class="inline-block border-r border-dotted border-black mr-4 pr-4 last-of-type:border-r-0">
+          <a href={menu.url} class="hover:underline">
+            {menu.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</footer>

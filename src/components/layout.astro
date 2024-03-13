@@ -1,4 +1,7 @@
 ---
+import Header from "./header.astro";
+import Footer from "./footer.astro";
+
 interface Props {
   title: string;
 }
@@ -9,6 +12,12 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- TODO: Sitemap -->
+    <!-- TODO: Favicon -->
+    <!-- TODO: SEO tag -->
+    <!-- TODO: dark theme -->
+    <!-- TODO: JetBrain Mono for font-->
+    <!-- TODO: webring-->
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
@@ -16,7 +25,17 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="max-w-3xl w-full px-8 mx-auto">
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>
+
+<style>
+  html,
+  body {
+    font-size: 14px;
+    @apply font-mono antialiased;
+  }
+</style>

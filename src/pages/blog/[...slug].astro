@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Counter from "../../components/Counter.svelte";
+import Layout from "../../components/layout.astro";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
@@ -15,7 +15,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<h1>{entry.data.title}</h1>
-<Content />
-
-<Counter client:load />
+<Layout title="Welcome to Astro.">
+  <Content />
+</Layout>

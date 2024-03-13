@@ -1,4 +1,39 @@
 ---
-// No main blog page, redirect to home
-return Astro.redirect("/");
+import { dateFormat } from "../../lib/date";
+import Layout from "../../components/layout.astro";
+
+import { getCollection } from "astro:content";
+
+const blogEntries = await getCollection("blog", ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+}).then(
+  (entries) =>
+    entries.sort((a, b) => b.data.time.valueOf() - a.data.time.valueOf())
+  // TODO: add year header to list
+);
 ---
+
+<Layout title="Blog.">
+  <main>
+    <div>
+      <ul>
+        {
+          blogEntries.map((entry) => (
+            <li class="flex mb-2">
+              <div class="min-w-28 mr-4">
+                <time datetime={entry.data.time.toISOString()}>
+                  {dateFormat(entry.data.time)}
+                </time>
+              </div>
+              <div>
+                <a href={`/blog/${entry.slug}`} class="hover:underline">
+                  {entry.data.title}
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </main>
+</Layout>
