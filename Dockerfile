@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim AS base
+FROM node:22-bullseye-slim AS base
 
 RUN npm install --location=global pnpm
 
