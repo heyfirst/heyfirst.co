@@ -11,7 +11,7 @@ specifiers:
   '@types/react-dom': 18.0.10
   classnames: 2.3.2
   concurrently: 7.6.0
-  date-fns: 2.29.3
+  date-fns: 4.1.0
   eslint: 8.32.0
   eslint-plugin-tailwindcss: 3.8.2
   fathom-client: 3.5.0
@@ -38,7 +38,7 @@ dependencies:
   '@remix-run/react': 1.11.1_biqbaboplfbrettd7655fr4n2y
   '@remix-run/serve': 1.11.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
-  date-fns: 2.29.3
+  date-fns: 4.1.0
   fathom-client: 3.5.0
   feed: 4.2.2
   fuse.js: 6.6.2
@@ -3205,6 +3205,11 @@ packages:
   /date-fns/2.29.3:
     resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
     engines: {node: '>=0.11'}
+    dev: true
+
+  /date-fns/4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+    dev: false
 
   /deasync/0.1.28:
     resolution: {integrity: sha512-QqLF6inIDwiATrfROIyQtwOQxjZuek13WRYZ7donU5wJPLoP67MnYxA6QtqdvdBy2mMqv5m3UefBVdJjvevOYg==}
