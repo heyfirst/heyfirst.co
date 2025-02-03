@@ -16,7 +16,7 @@ specifiers:
   eslint-plugin-tailwindcss: 3.8.2
   fathom-client: 3.5.0
   feed: 4.2.2
-  fuse.js: 6.6.2
+  fuse.js: 7.1.0
   giscus: 1.2.6
   gray-matter: 4.0.3
   highlight.js: 11.7.0
@@ -41,7 +41,7 @@ dependencies:
   date-fns: 2.29.3
   fathom-client: 3.5.0
   feed: 4.2.2
-  fuse.js: 6.6.2
+  fuse.js: 7.1.0
   giscus: 1.2.6
   gray-matter: 4.0.3
   highlight.js: 11.7.0
@@ -4453,8 +4453,8 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /fuse.js/6.6.2:
-    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+  /fuse.js/7.1.0:
+    resolution: {integrity: sha512-trLf4SzuuUxfusZADLINj+dE8clK1frKdmqiJNb1Es75fmI5oY6X2mxLVUciLLjxqw/xr72Dhy+lER6dGd02FQ==}
     engines: {node: '>=10'}
     dev: false
 
