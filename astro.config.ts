@@ -103,11 +103,6 @@ export default defineConfig({
 			WEBMENTION_PINGBACK: envField.string({ context: "client", access: "public", optional: true }),
 		},
 	},
-	redirects: {
-    //
-		"/blog/[...slug]/": "/posts/[...slug]/",
-
-	},
 });
 
 function rawFonts(ext: string[]) {
