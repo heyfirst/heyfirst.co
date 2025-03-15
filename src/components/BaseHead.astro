@@ -1,5 +1,4 @@
 ---
-import { WEBMENTION_PINGBACK, WEBMENTION_URL } from "astro:env/client";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 import "@/styles/global.css";
@@ -73,15 +72,5 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <link href="/rss.xml" title="Blog" rel="alternate" type="application/rss+xml" />
 <!-- TODO(note): Add notes RSS feed once I have some notes -->
 <!-- <link href="/notes/rss.xml" title="Notes" rel="alternate" type="application/rss+xml" /> -->
-
-{/* Webmentions */}
-{
-	WEBMENTION_URL && (
-		<>
-			<link href={WEBMENTION_URL} rel="webmention" />
-			{WEBMENTION_PINGBACK && <link href={WEBMENTION_PINGBACK} rel="pingback" />}
-		</>
-	)
-}
 
 <meta content={Astro.generator} name="generator" />

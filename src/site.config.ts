@@ -14,7 +14,8 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Used as the default description meta property and webmanifest description
-	description: "A software engineer at Swarmia. Living in Helsinki, Finland. Previously, I worked at Unity.com, and Thoughtworks.",
+	description:
+		"A software engineer at Swarmia. Living in Helsinki, Finland. Previously, I worked at Unity.com, and Thoughtworks.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-US",
 	// Meta property, found in src/components/BaseHead.astro L:42
@@ -45,8 +46,8 @@ export const menuLinks: { path: string; title: string }[] = [
 	// 	path: "/notes/",
 	// 	title: "Notes",
 	// },
-  // TODO: Add /uses page.
-  // TODO: Add /projects page.
+	// TODO: Add /uses page.
+	// TODO: Add /projects page.
 ];
 
 // https://expressive-code.com/reference/configuration/
