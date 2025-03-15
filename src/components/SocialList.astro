@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-/** 
+/**
 	Uses https://www.astroicon.dev/getting-started/
 	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
 	Only installed pack is: @iconify-json/mdi
@@ -14,14 +14,29 @@ const socialLinks: {
 }[] = [
 	{
 		friendlyName: "Github",
-		link: "https://github.com/chrismwilliams/astro-cactus",
+		link: "https://github.com/heyfirst",
 		name: "mdi:github",
+	},
+	{
+		friendlyName: "Twitter",
+		link: "https://x.com/heyfirst_",
+		name: "mdi:twitter",
+	},
+	{
+		friendlyName: "LinkedIn",
+		link: "https://www.linkedin.com/in/first-sutham/",
+		name: "mdi:linkedin",
+	},
+	{
+		friendlyName: "Email",
+		link: "mailto:kanisorns.k@gmail.com",
+		name: "mdi:email",
 	},
 ];
 ---
 
 <div class="flex flex-wrap items-end gap-x-2">
-	<p>Find me on</p>
+	<p>You could also find me on</p>
 	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
 		{
 			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
@@ -32,7 +47,7 @@ const socialLinks: {
 						rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
 						target="_blank"
 					>
-						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+						<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name={name} />
 						<span class="sr-only">{friendlyName}</span>
 					</a>
 				</li>
