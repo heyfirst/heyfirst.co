@@ -1,24 +1,12 @@
 {
-  "include": ["./types", "**/*.ts", "**/*.tsx"],
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "es2022",
-    "target": "es2020",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noUncheckedIndexedAccess": true,
-    "strict": true,
-    "allowJs": true,
-    "importsNotUsedAsValues": "error",
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"],
-      "@/contents/*": ["./contents/*"]
-    },
-    "noEmit": true
-  }
+	"extends": "astro/tsconfigs/strictest",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"lib": ["es2022", "dom", "dom.iterable"],
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": [".astro/types.d.ts", "**/*"],
+	"exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }
