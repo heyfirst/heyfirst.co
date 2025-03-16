@@ -13,6 +13,7 @@ I've been a big fan of the Cactus theme since its Hugo days, and I'm thrilled to
 
 Someone might ask why I didn't create my own theme. Well, I've decided to step back from theme development for now. 🫠
 These days, my work _primarily_ revolves around backend systems, messaging, distributed systems, and high-performance PostgreSQL.
+
 Frontend skills have gradually become less central to my daily professional life.
 
 I may return to contribute to the frontend space someday, but not just yet! 🙂
