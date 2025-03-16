@@ -31,6 +31,8 @@ const post = defineCollection({
 				.string()
 				.optional()
 				.transform((str) => (str ? new Date(str) : undefined)),
+			// TODO(substack): implement substack backlinks
+			substackLink: z.string().optional(),
 		}),
 });
 
