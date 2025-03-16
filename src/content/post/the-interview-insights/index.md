@@ -7,6 +7,11 @@ coverImage:
   alt: "The interview insights"
 tags: ["hiring", "interview"]
 ---
+:::important
+This article has been published at Substack. Read the full article there and to join the discussion.
+
+[Read on Substack →](https://heyfirst.substack.com/p/the-interview-insights)
+:::
 
 When we search for interviews, people suggest how to prepare a resume, how to get picked up by a recruiter, how to prepare for an interview, what is the STAR method, or in the software engineering world, what are the most asked leet code questions. These are the most common you may find online, and I think they are useful.
 
