@@ -9,6 +9,7 @@ import webmanifest from "astro-webmanifest";
 import { defineConfig } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 import { siteConfig } from "./src/site.config";
+import vercel from '@astrojs/vercel';
 
 // Remark plugins
 import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
@@ -93,6 +94,12 @@ export default defineConfig({
 		},
 		plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
 	},
+  output: 'static',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    }
+  }),
 });
 
 function rawFonts(ext: string[]) {
