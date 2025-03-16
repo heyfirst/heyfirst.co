@@ -17,7 +17,9 @@ export default {
 							},
 						},
 						blockquote: {
-							borderLeftWidth: "0",
+							borderLeftWidth: "1",
+							borderLeftColor: "var(--color-accent)",
+							fontStyle: "normal",
 						},
 						code: {
 							border: "1px dotted #666",
