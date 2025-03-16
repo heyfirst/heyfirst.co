@@ -70,7 +70,7 @@ export async function GET(context: APIContext) {
 	const png = new Resvg(svg).render().asPng();
 	return new Response(png, {
 		headers: {
-			"Cache-Control": "public, max-age=31536000, immutable",
+			"Cache-Control": "no-cache, no-store, must-revalidate",
 			"Content-Type": "image/png",
 		},
 	});
