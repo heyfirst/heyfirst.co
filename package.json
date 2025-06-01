@@ -17,7 +17,7 @@
 		"@astrojs/markdown-remark": "^6.0.2",
 		"@astrojs/mdx": "4.0.5",
 		"@astrojs/rss": "4.0.11",
-		"@astrojs/sitemap": "3.2.1",
+		"@astrojs/sitemap": "3.4.0",
 		"@astrojs/vercel": "^8.1.2",
 		"@tailwindcss/vite": "4.0.0-beta.8",
 		"astro": "5.1.5",
