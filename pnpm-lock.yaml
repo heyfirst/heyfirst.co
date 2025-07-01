@@ -101,7 +101,7 @@ importers:
         version: 2.6.2
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.16(tailwindcss@4.0.0)
+        version: 0.5.16(tailwindcss@4.1.11)
       '@types/hast':
         specifier: ^3.0.4
         version: 3.0.4
@@ -127,8 +127,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       tailwindcss:
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 4.1.11
+        version: 4.1.11
       typescript:
         specifier: ^5.7.3
         version: 5.8.2
@@ -1161,6 +1161,7 @@ packages:
 
   '@vercel/edge@1.2.1':
     resolution: {integrity: sha512-1++yncEyIAi68D3UEOlytYb1IUcIulMWdoSzX2h9LuSeeyR7JtaIgR8DcTQ6+DmYOQn+5MCh6LY+UmK6QBByNA==}
+    deprecated: This package is deprecated. You should to use `@vercel/functions` instead.
 
   '@vercel/nft@0.29.2':
     resolution: {integrity: sha512-A/Si4mrTkQqJ6EXJKv5EYCDQ3NL6nJXxG8VGXePsaiQigsomHYQC9xSpX8qGk7AEZk4b1ssbYIqJ0ISQQ7bfcA==}
@@ -3266,11 +3267,11 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  tailwindcss@4.0.0:
-    resolution: {integrity: sha512-ULRPI3A+e39T7pSaf1xoi58AqqJxVCLg8F/uM5A3FadUbnyDTgltVnXJvdkTjwCOGA6NazqHVcwPJC5h2vRYVQ==}
-
   tailwindcss@4.0.0-beta.8:
     resolution: {integrity: sha512-21HmdRq9tHDLJZavb2cRBGJxBvRODpwb0/t3tRbMOl65hJE6zG6K6lD6lLS3IOC35u4SOjKjdZiJJi9AuWCf+Q==}
+
+  tailwindcss@4.1.11:
+    resolution: {integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -4598,13 +4599,13 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.0.0-beta.8
       '@tailwindcss/oxide-win32-x64-msvc': 4.0.0-beta.8
 
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.0.0)':
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.11)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0
+      tailwindcss: 4.1.11
 
   '@tailwindcss/vite@4.0.0-beta.8(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(yaml@2.7.0))':
     dependencies:
@@ -7426,9 +7427,9 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
 
-  tailwindcss@4.0.0: {}
-
   tailwindcss@4.0.0-beta.8: {}
+
+  tailwindcss@4.1.11: {}
 
   tapable@2.2.1: {}
 
