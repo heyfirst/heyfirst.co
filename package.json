@@ -18,7 +18,7 @@
 		"@astrojs/mdx": "4.0.5",
 		"@astrojs/rss": "4.0.11",
 		"@astrojs/sitemap": "3.2.1",
-		"@astrojs/vercel": "^8.1.2",
+		"@astrojs/vercel": "^8.2.4",
 		"@tailwindcss/vite": "4.0.0-beta.8",
 		"astro": "5.1.5",
 		"astro-expressive-code": "^0.39.0",
