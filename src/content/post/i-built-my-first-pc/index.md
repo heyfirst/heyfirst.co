@@ -20,35 +20,36 @@ In December of the same year, just 2 months after I arrived and started living a
 
 At that time, one suggested I maybe buy a Nintendo Switch — playing games might help a lot in Finland with this kind of depressing weather.
 
-I ended up buying it, and that was the right decision! A 399 Euro Nintendo Switch OLED. That was the first time I was really into gaming. It helped me get through the brutal Finnish winter.
+I ended up buying it, and that was the right decision! A 399 Euro [Nintendo Switch OLED](<https://nintendo.fandom.com/wiki/Nintendo_Switch_(OLED_Model)>). That was the first time I was really into gaming. It helped me get through the brutal Finnish winter.
 
 > a bit more context:
 >
-> I've been a Mac user since 2013, with a MacBook Air 2013, and ever since then, I never used Windows or played any games at all. Only coding as a hobby.
+> I've been a Mac user since 2013, with a [MacBook Air 2013](https://support.apple.com/en-us/111938), and ever since then, I never used Windows or played any games at all. Only coding as a hobby.
 
 ## Games I Love
 
 Not just any game or competitive gaming — I'm a selective person. I used to read a lot back then, and when it comes to games that immerse me, it's the (J)RPG or story-rich games.
 
-I worked at [Unity](https://unity.com) during that time in Helsinki, Finland. Everyone there really, really plays games. I got a lot of suggestions from colleagues, and there are 3 games that changed me forever:
+I worked at [Unity](https://unity.com) during that time in Helsinki, Finland. Everyone there really, really plays games. I got a lot of suggestions from colleagues, and there are 4 games that changed me forever:
 
-1. Octopath Traveler 1 and 2
-2. Witcher 3: Wild Hunt
-3. Zelda: Breath of the Wild
+1. [Octopath Traveler 1](https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/) and [Octopath Traveler 2](https://store.steampowered.com/app/1971650/OCTOPATH_TRAVELER_II/)
+2. [Persona 5 Royal](https://store.steampowered.com/app/1687950/Persona_5_Royal/)
+3. [Witcher 3: Wild Hunt](https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/)
+4. [Zelda: Breath of the Wild](https://zelda.fandom.com/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild)
 
 They're ordered by my favorite games of all time, and they all started from this Nintendo Switch in 2021.
 
 ## Upgrade?
 
-Fast forward to 2024-2025, there were more games I played, alone and with friends: the wave of Baldur's Gate 3, and recently, Clair Obscur: Expedition 33 (or E33), and Fortnite / Dota 2 with friends here in Helsinki.
+Fast forward to 2024-2025, there were more games I played, alone and with friends: the wave of [Baldur's Gate 3](https://store.steampowered.com/app/1086940/Baldurs_Gate_3/), and recently, [Clair Obscur: Expedition 33](https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33) (or E33), and Fortnite / Dota 2 with friends here in Helsinki.
 
 Fortunately, GeForce Now allowed me to play these 3 games through my MacBook Air M1 on a 4K monitor with smooth 120fps.
 
-But there's a downside to GeForce Now: It could play Baldur's Gate 3 very nicely as it's a turn-based game, but when it comes to E33 or Fortnite, a small input lag or network issue between me and the GeForce Now server could cause deadly penalties. Especially in E33 Act 3, where you're forced to "parry" only to win the game.
+But there's a downside to [GeForce Now](https://www.nvidia.com/en-us/geforce-now/)(Ultimate plan): It could play Baldur's Gate 3 very nicely as it's a turn-based game, but when it comes to E33 or Fortnite, a small input lag or network issue between me and the GeForce Now server could cause deadly penalties. Especially in E33 Act 3, where you're forced to "parry" only to win the game.
 
 That's when I started thinking about upgrading, and you know what? PC wasn't on the list at all.
 
-There were PS5 Slim Disc (519 Euro), Steam Deck (599 Euro), and Nintendo Switch 2 (569 Euro) on my list in March 2025. There were pros and cons for each one, but they were all affordable:
+There were PS5 Slim Disc (519 Euro), [Steam Deck](https://store.steampowered.com/steamdeck/) (599 Euro), and Nintendo Switch 2 (569 Euro) on my list in March 2025. There were pros and cons for each one, but they were all affordable:
 
 - **PS5** — They're powerful, ready to play at 4K/120FPS. I could be 100% sure that all games would work perfectly fine as they're optimized for this console. But I'd need to buy all the games I wanted again since some of my games are on Steam.
 
@@ -60,7 +61,7 @@ On July 5th, 1 month after Nintendo Switch 2 was released, I went to one of our 
 
 > At this moments, I play many games and I love many games so far including Personal 5 Royal, Xenoblade Chronicles 2 and 3, Chained Echoes, Zelda: Tears of the Kingdom, NieR: Automata, Sea of Stars, Unicorn Overlord, Death's Door, all the game I list here is my favorite games and they all have a really good story!
 >
-> Although, Octopath Traveler 2 is all-time my best and most-loved game 😬
+> Although, Octopath Traveler 2 is all-time my best and most-loved game 😬 and second place is Persona 5 Royal, these are only 2 games I have their soundtracks saved in Spotify.
 
 ## What? Where Did the PC Decision Come From? 😂
 
@@ -121,7 +122,7 @@ The difficulties came after assembly and installation, such as:
 
 I'm definitely happy with this build! It allows me to play all the games I want, and now I'm exploring many games in 4K at 120-240Hz. I even replayed Octopath Traveler 2 on PC because it can run at 4K with 120Hz, so all the skills and effects look absolutely amazing.
 
-I'm currently playing Ghost of Tsushima — a breathtakingly scenic game that's become my favorite of all time. It's like Witcher 3 + God of War (I played it for about 20 minutes on PS5 at the Unity office a while ago), and it's huge!
+I'm currently playing [Ghost of Tsushima](https://store.steampowered.com/app/2215430/Ghost_of_Tsushima_DIRECTORS_CUT/) — a breathtakingly scenic game that's become my favorite of all time. It's like Witcher 3 + God of War (I played it for about 20 minutes on PS5 at the Unity office a while ago), and it's huge!
 
 So overall, it's been a good decision so far 🙂
 
