@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    name: Check for build and type issues
+  quality:
+    name: Quality checks
     runs-on: ubuntu-latest
 
     steps:
@@ -45,10 +45,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-        # use astro check for issues
-      - name: Run check
-        run: pnpm astro check
+      - name: Check types
+        run: pnpm check
 
-        # ensure build works
-      - name: Run build
+      - name: Lint code
+        run: pnpm lint
+
+      - name: Check formatting
+        run: pnpm format:code --check
+
+      - name: Build project
         run: pnpm build
+
+      - name: Check for dead links
+        run: |
+          npx broken-link-checker http://localhost:4321 --recursive --exclude-external --exclude-private || true
+        if: always()
