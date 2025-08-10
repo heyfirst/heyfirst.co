@@ -24,13 +24,13 @@ I'll show you how to use stacktraces to get the actual callsite, integrate them 
 
 Most developers only see (or use) stacktraces when something breaks. You get an error, you see the red text, you fix the bug, and that's it. But stacktraces are actually way more versatile than that.
 
-I was debugging a performance issue the other day. The app wasn't broken tho - it was just slow. No errors, no crashes, just... sluggish. I needed to find out where the bottleneck was, but I didn't know where to start.
+I was debugging a performance issue the other day. The app wasn't broken tho — it was just slow. No errors, no crashes, just... sluggish. I needed to find out where the bottleneck was, but I didn't know where to start.
 
 That's when I found: **stacktraces aren't just for errors!**
 
 ## Getting the Callsite 💡
 
-The key insight is that you don't need the entire stacktrace tree. You just need the **callsite** - the actual function that called your code. Here's how to extract it:
+The key insight is that you don't need the entire stacktrace tree. You just need the **callsite**, the actual function that called your code. Here's how to extract it:
 
 ```ts
 function getCallSite(): string {
@@ -55,7 +55,7 @@ function processUser(userId: string) {
 }
 ```
 
-This is much more useful than the full stacktrace because you get exactly what you need - the function that called your code.
+This is much more useful than the full stacktrace because you get exactly what you need, the function that called your code.
 
 ## Logging with Callsite ✨
 
@@ -238,7 +238,7 @@ Now you can create Grafana dashboards showing which functions are causing the mo
 
 You might be thinking: "Why not just use Sentry, New Relic, or OpenTelemetry?"
 
-Well, those tools actually work similarly to what we're doing here - they capture stacktraces and call information. But they're pretty strict and hard to customize. Plus, you need to wrap your code with `startTransaction` or spin up complex infrastructure like Jaeger.
+Well, those tools actually work similarly to what we're doing here, they capture stacktraces and call information. But they're pretty strict and hard to customize. Plus, you need to wrap your code with `startTransaction` or spin up complex infrastructure like Jaeger.
 
 Our approach is lightweight and gives you the same benefits without the complexity:
 
@@ -302,7 +302,9 @@ function handleOrderCompleted(event: MessageEvent) {
 }
 ```
 
-This makes debugging event chains much easier. Instead of guessing where messages come from, you can trace the entire flow from the original publisher through all the handlers. You'll see something like `['processOrder', 'handleOrderCompleted', 'sendNotification']` - the complete journey of your message!
+This makes debugging event chains much easier. Instead of guessing where messages come from, you can trace the entire flow from the original publisher through all the handlers.
+
+You'll see something like `['processOrder', 'handleOrderCompleted', 'sendNotification']`. the complete journey of your message!
 
 ## Pino Logger Integration 🎯
 
@@ -353,13 +355,13 @@ This gives you structured logging with detailed callsite information including f
 Here's the difference between these two approaches:
 
 ```ts
-// Console.trace - good for quick debugging
+// Console.trace — good for quick debugging
 function debugFunction() {
 	console.trace("Function called from:");
 	// Outputs the full stacktrace to console
 }
 
-// Error().stack - better for programmatic use
+// Error().stack — better for programmatic use
 function getStackInfo() {
 	const stack = new Error().stack;
 	const lines = stack?.split("\n") || [];
@@ -378,15 +380,15 @@ Use `console.trace()` when you want to quickly see the call stack in the console
 
 So there you have it! Stacktraces are not just for errors anymore. They're powerful tools for:
 
-- **Getting the callsite** - Extract the actual calling function
-- **Enhanced logging** - Include callsite in your log objects
-- **Database monitoring** - Track slow queries with function names
-- **Metrics integration** - Prometheus with function-level insights
-- **Production debugging** - Structured logging with Pino
-- **Event-driven tracing** - Track message chains through your system
-- **Lightweight APM** - Get the same benefits as heavy tools without the complexity
+- **Getting the callsite**: Extract the actual calling function
+- **Enhanced logging**: Include callsite in your log objects
+- **Database monitoring**: Track slow queries with function names
+- **Metrics integration**: Prometheus with function-level insights
+- **Production debugging**: Structured logging with Pino
+- **Event-driven tracing**: Track message chains through your system
+- **Lightweight APM**: Get the same benefits as heavy tools without the complexity
 
-The key insight is that you don't need the entire stacktrace tree - just the callsite (position -1) gives you exactly what you need to debug effectively. You also don't need complex APM setups when a simple `getCallSite()` function can give you the same debugging power.
+The key insight is that you don't need the entire stacktrace tree — just the callsite (position -1) gives you exactly what you need to debug effectively. You also don't need complex APM setups when a simple `getCallSite()` function can give you the same debugging power.
 
 The next time you're debugging something tricky, remember: **stacktraces** can help even when there's no error!
 
