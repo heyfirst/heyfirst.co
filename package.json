@@ -63,6 +63,9 @@
 			"@biomejs/biome",
 			"esbuild",
 			"sharp"
+		],
+		"ignoredBuiltDependencies": [
+			"@tailwindcss/oxide"
 		]
 	}
 }
