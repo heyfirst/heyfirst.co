@@ -11,11 +11,16 @@ const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
+const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 ---
 
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>{siteTitle}</title>
+
+{/* Theme color */}
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
 
 {/* Icons */}
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
@@ -40,7 +45,7 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <meta content={siteConfig.author} name="author" />
 
 {/* Open Graph / Facebook */}
-<meta content={articleDate ? "article" : "website"} property="og:type" />
+<meta content={isArticle ? "article" : "website"} property="og:type" />
 <meta content={title} property="og:title" />
 <meta content={description} property="og:description" />
 <meta content={canonicalURL} property="og:url" />
@@ -49,6 +54,7 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <meta content={socialImageURL} property="og:image" />
 <meta content="1200" property="og:image:width" />
 <meta content="630" property="og:image:height" />
+<meta content={title} property="og:image:alt" />
 {
 	articleDate && (
 		<>
@@ -64,6 +70,8 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <meta content={title} property="twitter:title" />
 <meta content={description} property="twitter:description" />
 <meta content={socialImageURL} property="twitter:image" />
+<meta content={siteConfig.title} property="twitter:site" />
+<meta content={siteConfig.author} property="twitter:creator" />
 
 {/* Sitemap */}
 <link href="/sitemap-index.xml" rel="sitemap" />
@@ -74,3 +82,51 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <!-- <link href="/notes/rss.xml" title="Notes" rel="alternate" type="application/rss+xml" /> -->
 
 <meta content={Astro.generator} name="generator" />
+
+{/* JSON-LD Structured Data */}
+<script type="application/ld+json" set:html={JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": siteConfig.title,
+	"url": siteConfig.url,
+	"description": siteConfig.description,
+	"author": {
+		"@type": "Person",
+		"name": siteConfig.author,
+		"url": siteConfig.url
+	},
+	"publisher": {
+		"@type": "Person",
+		"name": siteConfig.author
+	}
+})} />
+
+{isArticle && articleDate && (
+	<script type="application/ld+json" set:html={JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"headline": title,
+		"description": description,
+		"author": {
+			"@type": "Person",
+			"name": siteConfig.author,
+			"url": siteConfig.url
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": siteConfig.author
+		},
+		"datePublished": articleDate,
+		"dateModified": articleDate,
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": canonicalURL
+		},
+		"image": {
+			"@type": "ImageObject",
+			"url": socialImageURL,
+			"width": 1200,
+			"height": 630
+		}
+	})} />
+)}
