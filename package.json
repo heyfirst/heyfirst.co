@@ -16,7 +16,7 @@
 	"dependencies": {
 		"@astrojs/markdown-remark": "6.3.5",
 		"@astrojs/mdx": "4.3.3",
-		"@astrojs/rss": "4.0.12",
+		"@astrojs/rss": "4.0.13",
 		"@astrojs/sitemap": "3.4.2",
 		"@astrojs/vercel": "8.2.5",
 		"@tailwindcss/vite": "4.0.0-beta.8",
