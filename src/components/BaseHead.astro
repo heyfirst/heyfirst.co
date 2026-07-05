@@ -86,12 +86,20 @@ const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 {/* Umami analytics */}
 {
 	import.meta.env.PROD && (
-		<script
-			is:inline
-			defer
-			src="https://cloud.umami.is/script.js"
-			data-website-id="e3bf6fa1-1b2c-4b36-98e3-2934d4a22baa"
-		/>
+		<Fragment>
+			<script
+				is:inline
+				defer
+				src="https://umami.heyfirst.co/widget.js"
+				data-website-id="df6c623c-e7f0-4933-8a43-1f6cb5043c9e"
+			/>
+			<script
+				is:inline
+				defer
+				src="https://umami.heyfirst.co/recorder.js"
+				data-website-id="df6c623c-e7f0-4933-8a43-1f6cb5043c9e"
+			/>
+		</Fragment>
 	)
 }
 
