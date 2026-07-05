@@ -11,7 +11,7 @@ const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
-const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
+const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 ---
 
 <meta charset="utf-8" />
@@ -96,49 +96,59 @@ const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 }
 
 {/* JSON-LD Structured Data */}
-<script is:inline type="application/ld+json" set:html={JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "WebSite",
-	"name": siteConfig.title,
-	"url": siteConfig.url,
-	"description": siteConfig.description,
-	"author": {
-		"@type": "Person",
-		"name": siteConfig.author,
-		"url": siteConfig.url
-	},
-	"publisher": {
-		"@type": "Person",
-		"name": siteConfig.author
-	}
-})} />
-
-{isArticle && articleDate && (
-	<script is:inline type="application/ld+json" set:html={JSON.stringify({
+<script
+	is:inline
+	type="application/ld+json"
+	set:html={JSON.stringify({
 		"@context": "https://schema.org",
-		"@type": "BlogPosting",
-		"headline": title,
-		"description": description,
-		"author": {
+		"@type": "WebSite",
+		name: siteConfig.title,
+		url: siteConfig.url,
+		description: siteConfig.description,
+		author: {
 			"@type": "Person",
-			"name": siteConfig.author,
-			"url": siteConfig.url
+			name: siteConfig.author,
+			url: siteConfig.url,
 		},
-		"publisher": {
+		publisher: {
 			"@type": "Person",
-			"name": siteConfig.author
+			name: siteConfig.author,
 		},
-		"datePublished": articleDate,
-		"dateModified": articleDate,
-		"mainEntityOfPage": {
-			"@type": "WebPage",
-			"@id": canonicalURL
-		},
-		"image": {
-			"@type": "ImageObject",
-			"url": socialImageURL,
-			"width": 1200,
-			"height": 630
-		}
-	})} />
-)}
+	})}
+/>
+
+{
+	isArticle && articleDate && (
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "BlogPosting",
+				headline: title,
+				description: description,
+				author: {
+					"@type": "Person",
+					name: siteConfig.author,
+					url: siteConfig.url,
+				},
+				publisher: {
+					"@type": "Person",
+					name: siteConfig.author,
+				},
+				datePublished: articleDate,
+				dateModified: articleDate,
+				mainEntityOfPage: {
+					"@type": "WebPage",
+					"@id": canonicalURL,
+				},
+				image: {
+					"@type": "ImageObject",
+					url: socialImageURL,
+					width: 1200,
+					height: 630,
+				},
+			})}
+		/>
+	)
+}

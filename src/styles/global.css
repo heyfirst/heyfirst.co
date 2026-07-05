@@ -13,7 +13,7 @@
 	--color-link: oklch(60.44% 0.12 145.69);
 	--color-accent: oklch(55.44% 0.15 145.69);
 	--color-accent-2: oklch(18.15% 0 0);
-	--color-quote: oklch(35.44% 0.10 145.69);
+	--color-quote: oklch(35.44% 0.1 145.69);
 }
 
 @layer base {
