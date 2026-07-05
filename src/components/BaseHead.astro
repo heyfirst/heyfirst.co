@@ -83,6 +83,17 @@ const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 
 <meta content={Astro.generator} name="generator" />
 
+{/* Umami analytics */}
+{
+	import.meta.env.PROD && (
+		<script
+			defer
+			src="https://cloud.umami.is/script.js"
+			data-website-id="e3bf6fa1-1b2c-4b36-98e3-2934d4a22baa"
+		/>
+	)
+}
+
 {/* JSON-LD Structured Data */}
 <script type="application/ld+json" set:html={JSON.stringify({
 	"@context": "https://schema.org",

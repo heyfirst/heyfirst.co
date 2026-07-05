@@ -8,7 +8,7 @@
 		"postbuild": "pagefind --site .vercel/output/static",
 		"preview": "astro preview",
 		"lint": "biome lint .",
-		"format": "pnpm run format:code && pnpm run format:imports",
+		"format": "bun run format:code && bun run format:imports",
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
 		"check": "astro check"
@@ -58,14 +58,9 @@
 		"tailwindcss": "4.1.11",
 		"typescript": "5.9.2"
 	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@biomejs/biome",
-			"esbuild",
-			"sharp"
-		],
-		"ignoredBuiltDependencies": [
-			"@tailwindcss/oxide"
-		]
-	}
+	"trustedDependencies": [
+		"@biomejs/biome",
+		"esbuild",
+		"sharp"
+	]
 }

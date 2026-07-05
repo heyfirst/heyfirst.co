@@ -18,44 +18,23 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: install node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: install bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: pnpm install
+        run: bun install --frozen-lockfile
 
       - name: Check types
-        run: pnpm check
+        run: bun run check
 
       - name: Lint code
-        run: pnpm lint
+        run: bun run lint
 
       - name: Check formatting
-        run: pnpm format:code --check
+        run: bun run format:code --check
 
       - name: Build project
-        run: pnpm build
+        run: bun run build
 
       - name: Check for dead links
         run: |
