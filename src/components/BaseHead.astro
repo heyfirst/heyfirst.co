@@ -87,6 +87,7 @@ const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 {
 	import.meta.env.PROD && (
 		<script
+			is:inline
 			defer
 			src="https://cloud.umami.is/script.js"
 			data-website-id="e3bf6fa1-1b2c-4b36-98e3-2934d4a22baa"
@@ -95,7 +96,7 @@ const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 }
 
 {/* JSON-LD Structured Data */}
-<script type="application/ld+json" set:html={JSON.stringify({
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
 	"@context": "https://schema.org",
 	"@type": "WebSite",
 	"name": siteConfig.title,
@@ -113,7 +114,7 @@ const isArticle = articleDate && Astro.url.pathname.startsWith('/posts/');
 })} />
 
 {isArticle && articleDate && (
-	<script type="application/ld+json" set:html={JSON.stringify({
+	<script is:inline type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "BlogPosting",
 		"headline": title,
