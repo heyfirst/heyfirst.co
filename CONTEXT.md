@@ -8,12 +8,15 @@ First Sutham's personal blog/portfolio, built with Astro (Astro Cactus theme). P
 A long-form, tagged article in the `post` content collection (`src/content/post/`), rendered at `/posts/[slug]`. Has a cover image, description, publish/updated dates, and reading time.
 _Avoid_: article, blog entry, blog post (fine in prose, but use "Post" as the canonical collection/type name).
 
-**Note**:
-A short-form, untagged entry in the `note` content collection (`src/content/note/`), rendered at `/notes/[slug]`. Lighter-weight than a Post — no cover image, no tags, no reading time.
-_Avoid_: micro-post, snippet.
+**Snippet**:
+A short-form, untagged entry in the `snippet` content collection (`src/content/snippet/`), rendered at `/snippets/[slug]`. Lighter-weight than a Post — no cover image, no tags, no reading time. Formerly called "Note" (renamed as part of the First Light rebrand, see `docs/adr/0001-first-light-rebrand-deviations.md`); the old `note` collection/route no longer exist.
+_Avoid_: micro-post, note.
+
+**Project**:
+An entry in the `project` content collection (`src/content/project/`), listed on the homepage and at `/projects/`. Has `name`, `stack`, `description`, `status` (`Live` | `Active` | `Maintained`), optional `url` and `order`. Introduced by the First Light rebrand; starts empty.
 
 **Collection**:
-An Astro content collection (`post` or `note`) defined in `src/content.config.ts`, each with its own Zod schema. This is Astro's own term — use it as-is.
+An Astro content collection (`post`, `snippet`, or `project`) defined in `src/content.config.ts`, each with its own Zod schema. This is Astro's own term — use it as-is.
 
 **Frontmatter**:
 The Zod-validated metadata block at the top of a Post/Note's Markdown file (title, description, publishDate, tags, etc.), defined by `baseSchema` and the per-collection schema extensions in `src/content.config.ts`.
