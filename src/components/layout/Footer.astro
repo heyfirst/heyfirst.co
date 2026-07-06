@@ -1,4 +1,5 @@
 ---
+import CoffeeBean from "@/components/CoffeeBean.astro";
 import { menuLinks, siteConfig } from "@/site.config";
 
 const year = new Date().getFullYear();
@@ -7,9 +8,10 @@ const year = new Date().getFullYear();
 <footer
 	class="mt-auto flex w-full flex-col items-center justify-center gap-y-2 pt-20 pb-4 text-center align-top font-semibold text-gray-600 sm:flex-row sm:justify-between sm:text-xs dark:text-gray-400"
 >
-	<div class="me-0 sm:me-4">
-		&copy; {siteConfig.author}
-		{year}.<span class="inline-block">&nbsp;🚀&nbsp;Astro Cactus</span>
+	<div class="me-0 flex items-center justify-center gap-1 sm:me-4">
+		<span>&copy; {siteConfig.author} {year}.</span>
+		<CoffeeBean class="h-3.5 w-3.5" />
+		<span>heyfirst.co</span>
 	</div>
 	<nav
 		aria-labelledby="footer_links"

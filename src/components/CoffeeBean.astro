@@ -1,0 +1,31 @@
+---
+import { beanGeometry } from "@/utils/brand-mark";
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+const { ellipse, stem, neck, leafLeft, leafRight } = beanGeometry;
+---
+
+<svg
+	aria-hidden="true"
+	class:list={["inline-block", className]}
+	focusable="false"
+	viewBox="0 0 100 100"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<ellipse
+		cx={ellipse.cx}
+		cy={ellipse.cy}
+		rx={ellipse.rx}
+		ry={ellipse.ry}
+		fill="none"
+		stroke="currentColor"
+		stroke-width="4"></ellipse>
+	<path d={stem} fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+	<path d={neck} fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+	<path d={leafLeft} fill="currentColor"></path>
+	<path d={leafRight} fill="currentColor"></path>
+</svg>

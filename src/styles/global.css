@@ -6,14 +6,51 @@
 /* use a selector-based strategy for dark mode */
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* you could refactor below to use light-dark(), depending on your target audience */
+/* ─────────────────────────────────────────────────────────────────────────
+   FIRST LIGHT — palette + motion tokens
+   ───────────────────────────────────────────────────────────────────────── */
 @theme {
-	--color-global-bg: oklch(98.48% 0 0);
-	--color-global-text: oklch(26.99% 0.0096 235.05);
-	--color-link: oklch(60.44% 0.12 145.69);
-	--color-accent: oklch(55.44% 0.15 145.69);
-	--color-accent-2: oklch(18.15% 0 0);
-	--color-quote: oklch(35.44% 0.1 145.69);
+	/* type */
+	--font-body: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		"Liberation Mono", "Courier New", monospace;
+
+	/* core (light) — same six token names as before, re-hued */
+	--color-global-bg: #f1f2e8;
+	--color-global-text: #2a3320;
+	--color-link: #2e6b41;
+	--color-accent: #2e6b41;
+	--color-accent-2: #22301a;
+	--color-quote: #6b7a3a;
+
+	/* brand ramp (new) */
+	--color-leaf: #3e8a50;
+	--color-fern: #2e6b41;
+	--color-olive: #7c8a3e;
+	--color-espresso: #3b2a1e;
+	--color-paper: #eff1e7;
+	--color-danger: #b0492f;
+
+	/* post-tag hues */
+	--color-tag-engineering: #3e8a50;
+	--color-tag-life: #8a9a3f;
+	--color-tag-career: #b06a3c;
+
+	/* ── motion primitives (drive the soft press-down) ── */
+	--ease-om: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--om-settle: 0.3s; /* slow rise back to rest */
+	--om-press: 0.09s; /* quick engage on press  */
+	--radius-md: 10px;
+
+	/* button edge/shadow colors (light) */
+	--btn-primary-edge: #1e4a2c;
+	--btn-primary-amb: rgba(46, 107, 65, 0.32);
+	--btn-soft-edge: #d9dfc9;
+	--btn-danger-edge: #7e3020;
+	--focus-ring: rgba(62, 138, 80, 0.4);
+
+	/* card surface + hairline (not specified by the handoff, added to match its §5 card spec) */
+	--surface: #ffffff;
+	--border: rgba(42, 51, 32, 0.12);
 }
 
 @layer base {
@@ -27,12 +64,24 @@
 
 		&[data-theme="dark"] {
 			color-scheme: dark;
-			--color-global-bg: oklch(23.64% 0.0045 248);
-			--color-global-text: oklch(83.54% 0 264);
-			--color-link: oklch(70.44% 0.15 145.69);
-			--color-accent: oklch(65.91% 0.18 145.69);
-			--color-accent-2: oklch(94.66% 0 0);
-			--color-quote: oklch(75.8% 0.12 145.69);
+			--color-global-bg: #20261b;
+			--color-global-text: #d3dac5;
+			--color-link: #6fbe7e;
+			--color-accent: #7fc98d;
+			--color-accent-2: #eaf0de;
+			--color-quote: #a6b45a;
+
+			--color-olive: #a6b45a;
+			--color-espresso: #e8dccb;
+
+			--btn-primary-edge: #16351f;
+			--btn-primary-amb: rgba(10, 20, 8, 0.5);
+			--btn-soft-edge: #3a4230;
+			--btn-danger-edge: #5e2417;
+			--focus-ring: rgba(127, 201, 141, 0.45);
+
+			--surface: #2a3320;
+			--border: rgba(211, 218, 197, 0.14);
 		}
 	}
 }
@@ -44,6 +93,10 @@
 
 	.title {
 		@apply text-accent-2 text-2xl font-semibold;
+	}
+
+	.card {
+		@apply bg-(--surface) border-(--border) rounded-[10px] border px-4 py-3;
 	}
 
 	.admonition {
@@ -110,6 +163,152 @@
 				mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath d='M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z'%3E%3C/path%3E%3C/svg%3E");
 			}
 		}
+	}
+
+	/* ─────────────────────────────────────────────────────────────────────
+	   FIRST LIGHT — the signature "soft press-down" button + shared motifs.
+	   ───────────────────────────────────────────────────────────────────── */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		white-space: nowrap;
+		font-family: var(--font-body);
+		font-weight: 700;
+		line-height: 1;
+		border: 0;
+		cursor: pointer;
+		border-radius: var(--radius-md);
+		-webkit-tap-highlight-color: transparent;
+		user-select: none;
+		box-shadow: var(--om-rest);
+		transition:
+			transform var(--om-settle) var(--ease-om),
+			box-shadow var(--om-settle) var(--ease-om),
+			filter 0.18s ease;
+		will-change: transform;
+	}
+	.btn:hover {
+		filter: brightness(1.04);
+	}
+	.btn:active {
+		transform: translateY(var(--om-sink, 4px)); /* sinks */
+		box-shadow: var(--om-press-sh); /* shadow compresses */
+		transition-duration: var(--om-press); /* quick engage */
+	}
+	.btn:focus-visible {
+		outline: none;
+		box-shadow: var(--om-rest), 0 0 0 3px var(--focus-ring);
+	}
+	.btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		filter: none;
+	}
+
+	/* sizes */
+	.btn-sm {
+		padding: 10px 16px;
+		font-size: 13px;
+	}
+	.btn-md {
+		padding: 13px 22px;
+		font-size: 15px;
+	}
+	.btn-lg {
+		padding: 16px 28px;
+		font-size: 17px;
+	}
+	.btn-full {
+		width: 100%;
+	}
+
+	/* variants — each sets its own two-layer rest/press shadow + sink depth */
+	.btn-primary {
+		--om-sink: 4px;
+		--om-rest: 0 4px 0 var(--btn-primary-edge), 0 8px 18px var(--btn-primary-amb);
+		--om-press-sh: 0 1px 0 var(--btn-primary-edge), 0 2px 7px var(--btn-primary-amb);
+		background: var(--color-accent);
+		color: var(--color-paper);
+	}
+	.btn-soft {
+		--om-sink: 4px;
+		--om-rest: 0 4px 0 var(--btn-soft-edge), 0 8px 16px rgba(40, 60, 30, 0.1);
+		--om-press-sh: 0 1px 0 var(--btn-soft-edge), 0 2px 6px rgba(40, 60, 30, 0.1);
+		background: #fff;
+		color: var(--color-accent-2);
+	}
+	.btn-danger {
+		--om-sink: 4px;
+		--om-rest: 0 4px 0 var(--btn-danger-edge), 0 8px 16px rgba(176, 73, 47, 0.3);
+		--om-press-sh: 0 1px 0 var(--btn-danger-edge), 0 2px 6px rgba(176, 73, 47, 0.26);
+		background: var(--color-danger);
+		color: #fff;
+	}
+	.btn-ghost {
+		--om-sink: 2px;
+		--om-rest: inset 0 0 0 1.5px rgba(74, 84, 54, 0.4);
+		--om-press-sh: inset 0 0 0 1.5px rgba(74, 84, 54, 0.4);
+		background: transparent;
+		color: var(--color-accent-2);
+	}
+
+	/* lightweight press feel for non-button tappables (chips, cards, rows) */
+	.om-press {
+		transition:
+			transform 0.3s var(--ease-om),
+			box-shadow 0.3s var(--ease-om);
+		cursor: pointer;
+	}
+	.om-press:active {
+		transform: translateY(2px) scale(0.985);
+		transition-duration: var(--om-press);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.btn,
+	.om-press {
+		transition: none !important;
+	}
+}
+
+/* ── view transitions (smooth page changes) ── */
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+}
+@keyframes fade-out {
+	to {
+		opacity: 0;
+	}
+}
+@keyframes slide-from-right {
+	from {
+		transform: translateX(30px);
+	}
+}
+@keyframes slide-to-left {
+	to {
+		transform: translateX(-30px);
+	}
+}
+::view-transition-old(root) {
+	animation:
+		0.25s var(--ease-om) both fade-out,
+		0.25s var(--ease-om) both slide-to-left;
+}
+::view-transition-new(root) {
+	animation:
+		0.25s var(--ease-om) both fade-in,
+		0.25s var(--ease-om) both slide-from-right;
+}
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none !important;
 	}
 }
 

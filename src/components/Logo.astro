@@ -1,0 +1,29 @@
+---
+import { brandMarkMarkup } from "@/utils/brand-mark";
+
+type Size = "sm" | "md" | "lg";
+
+interface Props {
+	size?: Size;
+	class?: string;
+}
+
+const sizeClasses: Record<Size, string> = {
+	sm: "h-8 w-8",
+	md: "h-10 w-9 sm:h-16 sm:w-16",
+	lg: "h-16 w-16",
+};
+
+const { size = "md", class: className } = Astro.props;
+
+const markup = `<title>heyfirst.co</title>${brandMarkMarkup("logoSky", { clipId: "logoSq", includeTint: true })}`;
+---
+
+<svg
+	aria-hidden="true"
+	class:list={[sizeClasses[size], className]}
+	focusable="false"
+	viewBox="0 0 240 240"
+	xmlns="http://www.w3.org/2000/svg"
+	set:html={markup}
+></svg>

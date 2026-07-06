@@ -1,0 +1,30 @@
+---
+type Variant = "primary" | "soft" | "danger" | "ghost";
+type Size = "sm" | "md" | "lg";
+
+interface Props {
+	variant?: Variant;
+	size?: Size;
+	full?: boolean;
+	href?: string;
+	class?: string;
+}
+
+const { variant = "primary", size = "md", full = false, href, class: className } = Astro.props;
+
+const classes = ["btn", `btn-${variant}`, `btn-${size}`, full && "btn-full", className]
+	.filter(Boolean)
+	.join(" ");
+---
+
+{
+	href ? (
+		<a class={classes} href={href}>
+			<slot />
+		</a>
+	) : (
+		<button class={classes} type="button">
+			<slot />
+		</button>
+	)
+}
