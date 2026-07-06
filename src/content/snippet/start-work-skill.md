@@ -167,4 +167,4 @@ And here's what a worklog produced by it looks like, end to end — a session st
 - [ ] Blocker: none — deploy went out clean, watching error rate for the next hour
 ```
 
-No `/stop-work` — the file just stays open and gets a new one-line bullet whenever something meaningful lands.
+No `/stop-work`, the file just stays open and gets a new one-line bullet whenever something meaningful lands!
