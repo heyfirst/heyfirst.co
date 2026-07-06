@@ -4,12 +4,12 @@ import FormattedDate from "@/components/FormattedDate.astro";
 import type { HTMLTag, Polymorphic } from "astro/types";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
-	note: CollectionEntry<"note">;
+	snippet: CollectionEntry<"snippet">;
 	isPreview?: boolean | undefined;
 };
 
-const { as: Tag = "div", note, isPreview = false } = Astro.props;
-const { Content } = await render(note);
+const { as: Tag = "div", snippet, isPreview = false } = Astro.props;
+const { Content } = await render(snippet);
 ---
 
 <article
@@ -21,11 +21,11 @@ const { Content } = await render(note);
 	<Tag class="title" class:list={{ "text-base": isPreview }}>
 		{
 			isPreview ? (
-				<a class="cactus-link" href={`/notes/${note.id}/`}>
-					{note.data.title}
+				<a class="cactus-link" href={`/snippets/${snippet.id}/`}>
+					{snippet.data.title}
 				</a>
 			) : (
-				<>{note.data.title}</>
+				<>{snippet.data.title}</>
 			)
 		}
 	</Tag>
@@ -37,7 +37,7 @@ const { Content } = await render(note);
 			month: "2-digit",
 			day: "2-digit",
 		}}
-		date={note.data.publishDate}
+		date={snippet.data.publishDate}
 	/>
 	<div
 		class="prose prose-sm prose-cactus mt-4 max-w-none [&>p:last-of-type]:mb-0"
