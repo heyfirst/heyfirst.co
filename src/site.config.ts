@@ -32,22 +32,19 @@ export const menuLinks: { path: string; title: string }[] = [
 		path: "/",
 		title: "Home",
 	},
-	// TODO: Add about page (if needed)
-	// {
-	// 	path: "/about/",
-	// 	title: "About",
-	// },
+	{
+		path: "/about/",
+		title: "About",
+	},
 	{
 		path: "/posts/",
 		title: "Blog",
 	},
-	// TODO(note): Add notes page (if I think I could make it different from the blog)
-	// {
-	// 	path: "/notes/",
-	// 	title: "Notes",
-	// },
+	{
+		path: "/snippets/",
+		title: "Snippets",
+	},
 	// TODO: Add /uses page.
-	// TODO: Add /projects page.
 ];
 
 // https://expressive-code.com/reference/configuration/

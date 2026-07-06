@@ -1,8 +1,10 @@
 ---
+import SocialList from "@/components/SocialList.astro";
 import PageLayout from "@/layouts/Base.astro";
+import { siteConfig } from "@/site.config";
 
 const meta = {
-	description: "I'm a starter theme for Astro.build",
+	description: siteConfig.description,
 	title: "About",
 };
 ---
@@ -11,26 +13,24 @@ const meta = {
 	<h1 class="title mb-6">About</h1>
 	<div class="prose prose-sm prose-cactus max-w-none">
 		<p>
-			Hi, I’m a starter Astro. I’m particularly great for getting you started with your own blogging
-			website.
+			I'm a software engineer at <a href="https://swarmia.com">Swarmia</a>, living in Helsinki,
+			Finland. Born and raised in Chiang Mai, Thailand. {" "}
+      Before moving to Finland, I worked at <a href="https://unity.com">Unity</a> and{" "}
+			<a href="https://thoughtworks.com">Thoughtworks</a>.
 		</p>
-		<p>Here are my some of my awesome built in features:</p>
-		<ul class="list-inside list-disc" role="list">
-			<li>I'm ultra fast as I'm a static site</li>
-			<li>I'm fully responsive</li>
-			<li>I come with a light and dark mode</li>
-			<li>I'm easy to customise and add additional content</li>
-			<li>I have Tailwind CSS styling</li>
-			<li>Shiki code syntax highlighting</li>
-			<li>Satori for auto generating OG images for blog posts</li>
-		</ul>
 		<p>
-			Clone or fork my <a
-				class="cactus-link inline-block"
-				href="https://github.com/chrismwilliams/astro-cactus"
-				rel="noreferrer"
-				target="_blank">repo</a
-			> if you like me!
+			My day-to-day work centers on web (full stack) development, from frontend to backend to database to infrastructure,
+      including messaging, distributed systems, and high-performance PostgreSQL. On this site I write about the same territory,
+      as well as my personal projects and experiments. I loves exploring new technologies, and I enjoy sharing my
+      findings with the community. such as Sveltekit, Clickhouse, Self-hosted stuff, and other stuff.
 		</p>
+		<p>
+			Outside of work, I'm generally tinkering with something — my first PC build is one of the posts here.
+      I enjoy hiking, bouldering and I also like to explore new cities and countries.
+      I also enjoy reading, especially non-fiction books about autography, travel journey and yes, of course, technology.
+		</p>
+	</div>
+	<div class="mt-8">
+		<SocialList />
 	</div>
 </PageLayout>
