@@ -22,6 +22,14 @@ const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
 
+{/* Fonts */}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+	rel="stylesheet"
+/>
+
 {/* Icons */}
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
 {
@@ -78,8 +86,7 @@ const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 
 {/* RSS auto-discovery */}
 <link href="/rss.xml" title="Blog" rel="alternate" type="application/rss+xml" />
-<!-- TODO(note): Add notes RSS feed once I have some notes -->
-<!-- <link href="/notes/rss.xml" title="Notes" rel="alternate" type="application/rss+xml" /> -->
+<link href="/snippets/rss.xml" title="Snippets" rel="alternate" type="application/rss+xml" />
 
 <meta content={Astro.generator} name="generator" />
 
