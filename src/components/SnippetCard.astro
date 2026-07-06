@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	snippet: CollectionEntry<"snippet">;
+}
+
+const { snippet } = Astro.props;
+---
+
+<li class="card">
+	<a class="cactus-link" href={`/snippets/${snippet.id}/`}>
+		{
+			snippet.data.lang && (
+				<span class="text-accent mr-2 font-mono text-xs uppercase">{snippet.data.lang}</span>
+			)
+		}
+		<span class="font-semibold">{snippet.data.title}</span>
+	</a>
+	{
+		snippet.data.description && (
+			<p class="mt-1 line-clamp-1 text-sm text-gray-600 dark:text-gray-400">
+				{snippet.data.description}
+			</p>
+		)
+	}
+</li>

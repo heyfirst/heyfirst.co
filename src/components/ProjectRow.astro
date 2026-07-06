@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { projectStatusColor } from "@/utils/project";
+
+interface Props {
+	project: CollectionEntry<"project">;
+}
+
+const { project } = Astro.props;
+---
+
+<li class="card flex items-center gap-3">
+	<span
+		class:list={["h-2.5 w-2.5 shrink-0 rounded-sm", projectStatusColor[project.data.status]]}
+		aria-hidden="true"
+	/>
+	<div class="min-w-0 flex-1">
+		{
+			project.data.url ? (
+				<a class="cactus-link font-semibold" href={project.data.url} rel="noreferrer" target="_blank">
+					{project.data.name}
+				</a>
+			) : (
+				<span class="font-semibold">{project.data.name}</span>
+			)
+		}
+		<span class="text-gray-600 dark:text-gray-400"> — {project.data.stack}</span>
+		<p class="line-clamp-1 text-sm text-gray-600 dark:text-gray-400">{project.data.description}</p>
+	</div>
+	<span class="shrink-0 text-sm text-gray-600 dark:text-gray-400">{project.data.status}</span>
+</li>

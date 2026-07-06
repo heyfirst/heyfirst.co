@@ -2,22 +2,28 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import SocialList from "@/components/SocialList.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
+import ProjectList from "@/components/ProjectList.astro";
+import SnippetCard from "@/components/SnippetCard.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
+import { sortProjectsByOrder } from "@/utils/project";
 
-// Posts
+// Writing
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
 	.sort(collectionDateSort)
 	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
-// Notes
-const MAX_NOTES = 5;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
+// Snippets
+const MAX_SNIPPETS = 5;
+const allSnippets = await getCollection("snippet");
+const latestSnippets = allSnippets.sort(collectionDateSort).slice(0, MAX_SNIPPETS);
+
+// Projects
+const allProjects = await getCollection("project");
+const sortedProjects = sortProjectsByOrder(allProjects);
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -31,8 +37,9 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 		</p>
 		<SocialList />
 	</section>
+
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Writing</a></h2>
 		<ul class="space-y-4" role="list">
 			{
 				allPostsByDate.map((p) => (
@@ -43,20 +50,30 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 			}
 		</ul>
 	</section>
+
 	{
-		latestNotes.length > 0 && (
+		latestSnippets.length > 0 && (
 			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
+				<h2 class="title text-accent text-xl">
+					<a href="/snippets/">Snippets</a>
 				</h2>
-				<ul class="space-y-4" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
+				<p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+					Short-form code notes and things I picked up along the way.
+				</p>
+				<ul class="grid gap-4 sm:grid-cols-2" role="list">
+					{latestSnippets.map((snippet) => (
+						<SnippetCard snippet={snippet} />
 					))}
 				</ul>
 			</section>
 		)
 	}
+
+	<section class="mt-16">
+		<h2 class="title text-accent text-xl">
+			<a href="/projects/">Projects</a>
+		</h2>
+		<p class="mb-6 text-sm text-gray-600 dark:text-gray-400">Things I've built and maintain.</p>
+		<ProjectList projects={sortedProjects} />
+	</section>
 </PageLayout>

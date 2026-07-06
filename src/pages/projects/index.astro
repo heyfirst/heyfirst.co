@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import ProjectList from "@/components/ProjectList.astro";
+import PageLayout from "@/layouts/Base.astro";
+import { sortProjectsByOrder } from "@/utils/project";
+
+const allProjects = await getCollection("project");
+const sortedProjects = sortProjectsByOrder(allProjects);
+
+const meta = {
+	description: "Things I've built and maintain",
+	title: "Projects",
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-6">Projects</h1>
+	<ProjectList projects={sortedProjects} />
+</PageLayout>

@@ -50,4 +50,18 @@ const snippet = defineCollection({
 	}),
 });
 
-export const collections = { post, snippet };
+const project = defineCollection({
+	loader: glob({ base: "./src/content/project", pattern: "**/*.{md,mdx}" }),
+	// Deliberately doesn't extend baseSchema: projects are named entities (`name`), not
+	// written pieces with a `title`, so the two schemas aren't meant to converge.
+	schema: z.object({
+		name: z.string(),
+		stack: z.string(),
+		description: z.string(),
+		status: z.enum(["Live", "Active", "Maintained"]),
+		url: z.string().optional(),
+		order: z.number().optional(),
+	}),
+});
+
+export const collections = { post, snippet, project };
