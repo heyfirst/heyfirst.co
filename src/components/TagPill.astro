@@ -1,0 +1,17 @@
+---
+interface Props {
+	tag: string;
+	/** Adds a data-pagefind-filter attribute so Pagefind can facet search results by tag. */
+	filterable?: boolean;
+}
+
+const { tag, filterable = false } = Astro.props;
+---
+
+<a
+	class="border-accent text-accent rounded-full border px-2.5 py-0.5 text-sm hover:underline"
+	data-pagefind-filter={filterable ? `tag:${tag}` : undefined}
+	href={`/tags/${tag}/`}
+>
+	<span class="sr-only">View posts with the tag&nbsp;</span>#{tag}
+</a>
