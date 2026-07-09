@@ -295,19 +295,21 @@
 		transform: translateX(-30px);
 	}
 }
+/* biome-ignore lint/correctness/noUnknownTypeSelector: valid View Transitions API pseudo-element Biome doesn't recognize */
 ::view-transition-old(root) {
 	animation:
 		0.25s var(--ease-om) both fade-out,
 		0.25s var(--ease-om) both slide-to-left;
 }
+/* biome-ignore lint/correctness/noUnknownTypeSelector: valid View Transitions API pseudo-element Biome doesn't recognize */
 ::view-transition-new(root) {
 	animation:
 		0.25s var(--ease-om) both fade-in,
 		0.25s var(--ease-om) both slide-from-right;
 }
 @media (prefers-reduced-motion: reduce) {
-	::view-transition-old(root),
-	::view-transition-new(root) {
+	/* biome-ignore lint/correctness/noUnknownTypeSelector: valid View Transitions API pseudo-elements Biome doesn't recognize */
+	::view-transition-old(root), ::view-transition-new(root) {
 		animation: none !important;
 	}
 }
