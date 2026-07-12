@@ -21,7 +21,7 @@ This guide does **not** include the touristy Finland like Santa Village and Rova
 ## Before you land
 
 - **Cashless city** Finland is basically cashless society, do not need to prepare or exchange cash, just bring your travel card or credit card is enough.
-- **the HSL app** Dowload this app before you arrive (more on this in Transportation).
+- **the HSL app** Download this app before you arrive (more on this in Transportation).
 - **eSIM / roaming:** You can buy at the airport, internet here is extremely fast and stable, and surprisingly unlimited 5G package is cheaper than Thailand.
 - **Weather:** summer Helsinki and winter Helsinki are two different planets. June–August you get near-endless daylight, November-December you get almost none of the sun. Pack & plan accordingly.
 - **Sauna**: You must do sauna, sauna originally from Finland, and you should bring swimsuit with you for sauna and ready to dip yourself on the Baltic sea or lakes.
@@ -55,7 +55,7 @@ There are also some luxury hotels if budget allows:
 
 - **[Oodi Library](https://www.google.com/maps/search/?api=1&query=Oodi+Helsinki+Central+Library)**; the library that you might wanna have a local to explains why it is so cool and worth the taxes!
 - **[Esplanadi](https://www.google.com/maps/search/?api=1&query=Esplanadi+Park+Helsinki)**; the road where every shop is there, nice in summer, a way to the market hall.
-- **[Helsinki Cathedral](https://www.google.com/maps/search/?api=1&query=Helsinki+Cathedral)**; the white church, most famous church in Helsinki, lutheric church.
+- **[Helsinki Cathedral](https://www.google.com/maps/search/?api=1&query=Helsinki+Cathedral)**; the white church, most famous church in Helsinki, Lutheran church.
 - **[Uspenski Cathedral](https://www.google.com/maps/search/?api=1&query=Uspenski+Cathedral+Helsinki)**; the red-brick orthodox church, 5 minutes from the white one. I called it Russian church.
 - **[Helsinki University Library](https://www.google.com/maps/search/?api=1&query=Helsinki+University+Library+Kaisa)**; I think it's crowded by the students the most, so if you want real-authentic library and how local doing in real library, here is for you to see people.
 - **[Cafe Regatta](https://www.google.com/maps/search/?api=1&query=Cafe+Regatta+Helsinki)**; tiny red cottage by the water, you can grill sausage here, and it is nice both summer and winter.
@@ -83,7 +83,7 @@ There are also some luxury hotels if budget allows:
 > Budget-wise: expect lunch around 13–16€, coffee 3-6€. Weekday lunch are the cheapest than dinner and weekends.
 
 > Funfact:
-> Finland does not have the culture like other countries that provide food as a company benefits or have a kitchen within company, so Finland have lunch-benefits, so local can have lunch outside in affortable price, the weekday lunch price are pretty strict and lower than dinner and weekend price by default, I believe it subsidice by public section. So if you spend time here during weekdays, you can try many-many restuerants with cheaper price, e.g. Fisken på Disken sell salmon soup at 25euro in dinner and weekends but only 19eurs in lunch weekday!
+> Finland does not have the culture like other countries that provide food as a company benefits or have a kitchen within company, so Finland have lunch-benefits, so local can have lunch outside in affordable price, the weekday lunch price are pretty strict and lower than dinner and weekend price by default, I believe it subsidized by public sector. So if you spend time here during weekdays, you can try many-many restaurants with cheaper price, e.g. Fisken på Disken sell salmon soup at 25euro in dinner and weekends but only 19eurs in lunch weekday!
 
 ### Transportation
 
@@ -99,15 +99,15 @@ They get rid of the physical transportation card recently, so the app is the way
 
 ### Shopping
 
-Finland is not a shopping destination. Don't expect much, and that's kind of the point, nobody here wears anything flashy as well. no brand names, if you found who wear flashy cloths, bags, watches, assume they are tourists.
+Finland is not a shopping destination. Don't expect much, and that's kind of the point, nobody here wears anything flashy as well. no brand names, if you found who wear flashy clothes, bags, watches, assume they are tourists.
 
 But doesn't mean you can't shopping here tho!
 
-- Marimekko, it's originally from here, by the designer... <name>, and she ...
+- Marimekko, it's originally from here, founded by Armi Ratia, and she built it into the brand that defines Finnish design abroad.
 - Moomin
 - Kyro; best Gin in my opinion, you must give it a try, just Gin tonic or Gin soda, that's it! I bought it back to Thailand every single time for my dad & mom, it's refreshing.
 
-But if you plan to buy loads of alcohol, drinks A LOT, Finland is not for you, we have alcohol tax and it get real expensive, one pine of beer could cost you 8-12euro easily.
+But if you plan to buy loads of alcohol, drinks A LOT, Finland is not for you, we have alcohol tax and it get real expensive, one pint of beer could cost you 8-12euro easily.
 
 But if you want drinking, you must visit another city of Finland, which is...
 
@@ -130,7 +130,7 @@ You book the ferry. There are technically 3 lines, but I recommend only 2:
 
 Both depart from our famous **[West Terminal 2](https://www.google.com/maps/search/?api=1&query=West+Terminal+2+Helsinki)**. (The third line, Viking, departs from [Katajanokka](https://www.google.com/maps/search/?api=1&query=Katajanokka+Terminal+Helsinki) on the other side of town; don't mix up the terminals.)
 
-Tips: prices vary a lot by date and time, so book early. And bring your passport or EU ID; no border check inside Schengen, but the ferry company or security guard may want to see ID. We have our Estonian friend who forget his passport once when visiting Finland, it did not end well, he is in jail for an hour before they send him back to Estonia end of the day.
+Tips: prices vary a lot by date and time, so book early. And bring your passport or EU ID; no border check inside Schengen, but the ferry company or security guard may want to see ID. We have our Estonian friend who forgot his passport once when visiting Finland, it did not end well, he is in jail for an hour before they send him back to Estonia end of the day.
 
 <!-- ![Tallink ferry crossing the Gulf of Finland](./tallink-ferry.jpg) -->
 
@@ -164,8 +164,8 @@ Tips: prices vary a lot by date and time, so book early. And bring your passport
 - **[Pub Kompressor](https://www.google.com/maps/search/?api=1&query=Pub+Kompressor+Tallinn)** — arguably local food. I like it, but Estonians disagree 😂
 - **[Peppersack](https://www.google.com/maps/search/?api=1&query=Peppersack+Tallinn)** — medieval-themed, best restaurant so far, touristy but real tasty compared to other touristy places around Tallinn, you must order Garlic bread and their honey beer and herb beer, they dont sell anywhere.
 - **[mitch matcha & more](https://www.google.com/maps/search/?api=1&query=mitch+matcha+Tallinn)** — best matcha in town. It's literally the only matcha specialty cafe in town, but still, best.
-- **[Pelm](https://www.google.com/maps/search/?api=1&query=Pelm+Tallinn)** — I love Slavic dumpling and borscht soup in this place so much, warm fresh-made dumpling with a lot of sour cream is really fulfil me.
-- **[Estonian Burger Factory](https://www.google.com/maps/search/?api=1&query=Estonian+Burger+Factory+Tallinn)** — I like it, I think it's pretty good burger with some beer spot in Tallinn. I regularly visit when I wamt something tasty and reliable.
+- **[Pelm](https://www.google.com/maps/search/?api=1&query=Pelm+Tallinn)** — I love Slavic dumpling and borscht soup in this place so much, warm fresh-made dumpling with a lot of sour cream really satisfies me.
+- **[Estonian Burger Factory](https://www.google.com/maps/search/?api=1&query=Estonian+Burger+Factory+Tallinn)** — I like it, I think it's pretty good burger with some beer spot in Tallinn. I regularly visit when I want something tasty and reliable.
 
 ### Transport
 
@@ -202,9 +202,9 @@ This is the plan I usually recommend:
 | Day | City     | Plan                                                                                                                                                               |
 | --- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 1   | Helsinki | Land, drop bags. City walk day, Esplanadi → Market Square → Helsinki Cathedral → Uspenski Cathedral → Suomenlinna → Dinner in the center.                          |
-| 2   | Helsinki | Morning at Oodi → then walk up to Cafe Regatta → Selibus Momument → Lunch and Sauna at Loyly in the afternoon.                                                     |
+| 2   | Helsinki | Morning at Oodi → then walk up to Cafe Regatta → Sibelius Monument → Lunch and Sauna at Löyly in the afternoon.                                                    |
 | 3   | Tallinn  | Morning Tallink ferry → Walk the Old Town, hit all 3 viewpoints → Lunch at Peppersack → Kadriorg park → Dinner in Telliskivi. Sleep in one night Tallinn.          |
-| 4   | Tallinn  | Grab the cinamon bun in ROST in the morning, walkaround the old towns one last time → Visit matcha at mitch → Lunch and buy some souvenir → afternoon ferry back . |
+| 4   | Tallinn  | Grab the cinnamon bun in RØST in the morning, walk around the old towns one last time → Visit matcha at mitch → Lunch and buy some souvenir → afternoon ferry back. |
 | 5   | Helsinki | Last day in Helsinki, you maybe visit the places, try some food that you did not try                                                                               |
 
 You will cover 70–80% of what local would do.
