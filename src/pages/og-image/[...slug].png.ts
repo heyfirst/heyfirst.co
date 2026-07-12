@@ -14,12 +14,12 @@ const brandMark = __unsafeHTML(
 );
 
 const markup = (title: string, pubDate: string) =>
-	html`<div tw="flex flex-col w-full h-full bg-[#EFF1E7] text-[#22301A]">
-			<div tw="flex flex-col flex-1 w-full p-10 justify-center">
+	html`<div tw="flex flex-col w-full h-full bg-[#EFF1E7] text-[#22301A] p-16">
+			<div tw="flex flex-col flex-1 w-full justify-center">
 				<p tw="text-2xl mb-6 text-[#6B7A3A]">${pubDate}</p>
 				<h1 tw="text-6xl font-bold leading-snug text-[#22301A]">${title}</h1>
 			</div>
-			<div tw="flex items-center justify-between w-full p-10 border-t-4 border-[#2E6B41] text-xl">
+			<div tw="flex items-center justify-between w-full pt-10 border-t-4 border-[#2E6B41] text-xl">
 				<div tw="flex items-center">
 					${brandMark}
 					<p tw="ml-3 font-semibold">${siteConfig.title}</p>
