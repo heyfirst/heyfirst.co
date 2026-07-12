@@ -99,6 +99,14 @@
 		@apply bg-(--surface) border-(--border) rounded-[10px] border px-4 py-3;
 	}
 
+	.post-footer {
+		@apply border-(--border) mt-8 border-t pt-4 text-xs opacity-70;
+
+		p {
+			@apply m-0!;
+		}
+	}
+
 	.admonition {
 		--admonition-color: var(--tw-prose-quotes);
 		@apply my-4 border-s-2 border-(--admonition-color) py-4 ps-4;
