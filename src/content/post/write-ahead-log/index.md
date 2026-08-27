@@ -25,13 +25,9 @@ A write-ahead log. The same thing Postgres has been doing since forever, holding
 
 That's it. That's the whole thing.
 
-Say you're about to deploy a new self-hosted app on your mini PC / homelab. You need to create an environment for it, pull the new image, run the database migration, point the reverse proxy at the new container, and restart it. Four steps, and a couple of them you really don't want to do twice by accident.
+Say you're deploying a new app on your homelab: pull the image, run the migration, repoint the proxy, restart. Halfway through, your SSH session drops. Did the migration run? You're reconstructing what past-you did five minutes ago.
 
-Halfway through, your SSH session drops. Did the migration run? Is the proxy pointing at the old container or the new one? You're now poking around trying to reconstruct what past-you did five minutes ago.
-
-So instead, you keep a note as you go, and you write each line _before_ you run the command, "running the migration now", then run it. Session dies, you read the note, and you know exactly which step you were on. Worst case you redo one step you'd already finished.
-
-That note is the write-ahead log. The "ahead" part is the whole point — the line goes down _before_ the real change, not after.
+Instead, write each step down _before_ you run it — "running the migration now" — then run it. Session dies, you read the note, and you know exactly where you were. That note is the write-ahead log. The "ahead" part is the whole point: the line goes down _before_ the real change, not after.
 
 ```mermaid
 flowchart LR
@@ -42,15 +38,11 @@ flowchart LR
 
 ## It's not only about safety
 
-The part I'd never really thought about: the log isn't just insurance, it's also what makes the database _fast_.
+The log isn't just insurance — it's also what makes the database _fast_.
 
-Your real data lives in pages scattered all over a file. A single transaction might touch a handful of them in completely different places. Flushing all of that to disk, safely, on every commit — that's a lot of separate writes to a lot of separate places, and you have to wait for each one to actually land.
+Your data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, each of which has to land. The log is append-only — one file, always writing at the end — so a commit becomes: append a small record, flush that, done. One `fsync` instead of many. Ten transactions committing at roughly the same moment can even share a single flush (Postgres calls this group commit), so ten commits cost about as much as one. The data pages get updated later, in the background, in bulk.
 
-The log is append-only. One file, always writing at the end. So a commit becomes: append a small record, flush _that_, done. One `fsync` on one file instead of many scattered ones. Better still, if ten transactions commit at roughly the same moment, the database can batch them into a single flush — Postgres calls this group commit — so ten commits cost about as much as one.
-
-The data pages get updated later, in the background, in bulk, when it's convenient.
-
-Log now, apply later. You get durability _and_ speed, which is not a trade you usually get to make.
+Log now, apply later. Durability _and_ speed — not a trade you usually get to make.
 
 ## The rule that makes it work
 
@@ -64,26 +56,22 @@ Cursor states their version of the rule about as bluntly as you can:
 
 ## One more concept: the checkpoint
 
-If you only ever append, the log grows forever.
+If you only ever append, the log grows forever. So periodically the database says: everything up to _here_ is safely in the data file now — those log records aren't needed anymore, so they get truncated or recycled. That's a checkpoint.
 
-So periodically the database says: everything up to _here_ is safely in the data file now. Those log records aren't needed for recovery anymore, so they get truncated or recycled. That's a checkpoint.
-
-Keep this one in mind — it's the piece everybody skips when they build this pattern themselves.
+It's the piece everybody skips when they build this pattern themselves.
 
 ## You've already been using this
 
-- **Postgres** — the `pg_wal/` directory. That same log also feeds streaming replicas and point-in-time recovery, which is a nice bonus: once you have an ordered log of every change, "replay it somewhere else" and "replay it up to 3:47pm yesterday" both fall out for free.
+- **Postgres** — the `pg_wal/` directory. The same log feeds streaming replicas and point-in-time recovery — once you have an ordered log of every change, "replay it somewhere else" and "replay it up to 3:47pm yesterday" fall out for free.
 - **SQLite** — `PRAGMA journal_mode=WAL`, and the `-wal` sidecar file next to your database. Most people flip this on because readers stop blocking writers, without ever asking _why_.
 - **ext4, NTFS** — they call it journaling. A close cousin rather than the same thing: by default they journal filesystem _metadata_, not your file contents, so what you get is "the filesystem stays consistent," not "your data survives."
 - **Kafka** — arguably just "what if the log _was_ the database." Hold that thought.
 
 ## Now the part I actually care about
 
-Does this apply to normal application code? The stuff that touches end users?
+Does this apply to normal application code? Yes. Same shape, different name.
 
-Yes. Same shape, different name.
-
-At the app level the "crash" isn't a power cut — it's a process dying, a pod getting evicted, a timeout, a 500 halfway through a request. And the "data file" is often some external system you have no way to roll back.
+At the app level the "crash" is a process dying, a pod getting evicted, a timeout, a 500 halfway through a request — and the "data file" is often an external system you can't roll back.
 
 ### First, what "durable" means
 
@@ -96,7 +84,7 @@ The trap is all the layers that _look_ durable and aren't:
 - Written to a file, sitting in the OS page cache → still gone on power loss. `write()` returned, but the disk never saw it.
 - `COMMIT` returned successfully → durable. The database did the `fsync` for you.
 
-For application code the practical rule is simple: **durable means the database transaction committed.** Until `await tx.commit()` returns, you have nothing. That's the D in ACID.
+For application code: **durable means the database transaction committed.** Until `await tx.commit()` returns, you have nothing — that's the D in ACID.
 
 (With the usual asterisks — that assumes default `synchronous_commit`, and hardware that isn't lying to you about its write cache. Both are worth checking once, then mostly forgetting.)
 
@@ -148,28 +136,13 @@ for (const row of rows) {
 
 `FOR UPDATE` takes a row lock on everything it selected; `SKIP LOCKED` makes a worker that hits an already-locked row skip past it instead of waiting. Two workers polling at the same moment each get a different batch — no duplicates, no queueing. (Run the poll inside a transaction, or the locks release before you've published.)
 
-```mermaid
-flowchart TB
-    subgraph DW["Dual write — two failure points"]
-        direction LR
-        H["Handler<br/>two separate calls"] --> DB["Database"]
-        H -.->|"crash here:<br/>message lost forever"| MB["Message broker"]
-    end
-    subgraph OB["Transactional outbox — one commit"]
-        direction LR
-        TX["One database transaction<br/>orders.status = paid<br/>+ outbox row"] --> W["Relay worker<br/>polls unpublished rows"]
-        W --> MB2["Message broker"]
-    end
-    DW ~~~ OB
-```
-
 | Where the crash lands | Dual write | Outbox |
 | --- | --- | --- |
 | Between the two writes | Message lost forever, no trace | Row sits unpublished; next poll picks it up |
 | During the publish | Half-sent, unknown state | Relay retries until it's marked |
 | Delivery guarantee | Best-effort — messages can vanish | At-least-once — messages can duplicate |
 
-You didn't remove the risk, you moved it somewhere recoverable. And the new failure mode is duplication, not loss: the relay might publish, then die before marking the row published, and publish again on the next poll. So consumers have to be idempotent.
+You didn't remove the risk, you moved it: the new failure mode is duplication, not loss. The relay might publish, then die before marking the row published, and publish again — so consumers have to be idempotent.
 
 Now the harder case.
 
@@ -219,17 +192,9 @@ Same shape, different mechanism. And the difference is exactly the part that pag
 
 The practical version: **replay is the normal case, not the exception.** Design for it up front, not after the first duplicate charge.
 
-## Same pattern, other names
-
-Once you see it, it's everywhere:
-
-- **Job queues** — enqueueing _is_ writing ahead. The job row is the log entry; running it is applying it.
-- **Sagas / state machines** — persist each step's state before attempting it, so you know where to resume or what to compensate.
-- **Offline-first mobile apps** — append mutations to a local queue, show the result optimistically, drain the queue when connectivity comes back. Literally a WAL in IndexedDB.
-
 ## Don't forget the checkpoint
 
-The database truncates its log once the data file has caught up. Your `outbox` and `payment_attempts` tables need the equivalent, and this is the part people skip — you ship the happy path, it works, and six months later there's a table with forty million rows in it and a handful of silent orphans nobody ever looked at.
+Your `outbox` and `payment_attempts` tables need the equivalent, and this is the part people skip: you ship the happy path, and six months later there's a table with forty million rows in it and a handful of silent orphans.
 
 The retry worker is not optional. Minimum viable version:
 
@@ -244,7 +209,7 @@ FOR UPDATE SKIP LOCKED
 LIMIT 100;
 ```
 
-One caveat worth knowing: at `READ COMMITTED`, an `ORDER BY` combined with a locking clause can hand you rows slightly out of order, because a row that changed while another session held it gets re-evaluated after the sort. For a retry worker that doesn't matter — oldest-first is a nicety, not a guarantee you're relying on — but don't build anything that needs strict ordering on top of this query.
+(One caveat: a locking clause combined with `ORDER BY` at `READ COMMITTED` can return rows slightly out of order — harmless for a retry worker, but don't build anything that needs strict ordering on this query.)
 
 Checklist for anything you build in this shape:
 
@@ -276,7 +241,7 @@ So maybe the Kafka joke isn't a joke. Once the log is durable, ordered, and comp
 
 The question that matters isn't _"did this succeed?"_ It's _"do I have a durable record of what I intended, and can I safely do it again?"_
 
-Concretely, for Monday: go find your dual writes. Grep for every place you write to your database and then call something else — a payment provider, a message broker, an email service, another team's API. Each one is a place where a crash in between leaves you inconsistent with no way to find out.
+Concretely, for Monday: go find your dual writes — every place you write to your database and then call something else, a payment provider, a broker, an email service. Each is a place where a crash in between leaves you inconsistent with no way to find out.
 
 You probably can't fix all of them. But you can list them, and then you at least know where the bodies are.
 
