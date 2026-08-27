@@ -58,7 +58,29 @@ export default defineConfig({
 		icon(),
 		sitemap(),
 		mdx(),
-		robotsTxt(),
+		robotsTxt({
+			policy: [
+				{ userAgent: "*", allow: "/" },
+				// AI crawlers — explicitly welcome
+				{ userAgent: "GPTBot", allow: "/" },
+				{ userAgent: "OAI-SearchBot", allow: "/" },
+				{ userAgent: "ChatGPT-User", allow: "/" },
+				{ userAgent: "ClaudeBot", allow: "/" },
+				{ userAgent: "Claude-Web", allow: "/" },
+				{ userAgent: "Claude-SearchBot", allow: "/" },
+				{ userAgent: "anthropic-ai", allow: "/" },
+				{ userAgent: "Google-Extended", allow: "/" },
+				{ userAgent: "CCBot", allow: "/" },
+				{ userAgent: "PerplexityBot", allow: "/" },
+				{ userAgent: "Perplexity-User", allow: "/" },
+				{ userAgent: "Amazonbot", allow: "/" },
+				{ userAgent: "Applebot-Extended", allow: "/" },
+				{ userAgent: "meta-externalagent", allow: "/" },
+				{ userAgent: "Bytespider", allow: "/" },
+				{ userAgent: "YouBot", allow: "/" },
+				{ userAgent: "cohere-ai", allow: "/" },
+			],
+		}),
 		webmanifest({
 			// See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
 			name: siteConfig.title,
