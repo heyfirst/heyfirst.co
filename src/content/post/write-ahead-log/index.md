@@ -40,7 +40,7 @@ flowchart LR
 
 The log isn't just insurance — it's also what makes the database _fast_.
 
-Your data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, each of which has to land. The log is append-only — one file, always writing at the end — so a commit becomes: append a small record, flush that, done. One `fsync` instead of many. Ten transactions committing at roughly the same moment can even share a single flush (Postgres calls this group commit), so ten commits cost about as much as one. The data pages get updated later, in the background, in bulk.
+Your data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, each of which has to land. The log is append-only — one file, always writing at the end — so a commit becomes: append a small record, flush that, done. One `fsync` instead of many. Ten transactions committing at roughly the same moment can even share a single flush (Postgres calls this [group commit](https://www.postgresql.org/docs/current/wal-configuration.html)), so ten commits cost about as much as one. The data pages get updated later, in the background, in bulk.
 
 Log now, apply later. Durability _and_ speed — not a trade you usually get to make.
 
@@ -57,6 +57,8 @@ Cursor states their version of the rule about as bluntly as you can:
 ## One more concept: the checkpoint
 
 If you only ever append, the log grows forever. So periodically the database says: everything up to _here_ is safely in the data file now — those log records aren't needed anymore, so they get truncated or recycled. That's a checkpoint.
+
+"Recycled" only when nothing still needs it, though: a lagging replica holding a replication slot, or a failing `archive_command`, pins WAL in place until `pg_wal` fills the disk — the classic "the log grew forever anyway" incident.
 
 It's the piece everybody skips when they build this pattern themselves.
 
@@ -86,7 +88,7 @@ The trap is all the layers that _look_ durable and aren't:
 
 For application code: **durable means the database transaction committed.** Until `await tx.commit()` returns, you have nothing — that's the D in ACID.
 
-(With the usual asterisks — that assumes default `synchronous_commit`, and hardware that isn't lying to you about its write cache. Both are worth checking once, then mostly forgetting.)
+(With the usual asterisks: `synchronous_commit=off` means a crash can lose the last few commits — annoying, but the database stays consistent. `fsync=off` can corrupt it outright. Check both once, then mostly forget.)
 
 This is why the WAL rule is "the log entry must be durable before the side effect." It's not _before_ in the order your code reads. It's before in the order things land on disk.
 
@@ -142,7 +144,9 @@ for (const row of rows) {
 | During the publish | Half-sent, unknown state | Relay retries until it's marked |
 | Delivery guarantee | Best-effort — messages can vanish | At-least-once — messages can duplicate |
 
-You didn't remove the risk, you moved it: the new failure mode is duplication, not loss. The relay might publish, then die before marking the row published, and publish again — so consumers have to be idempotent.
+You didn't remove the risk, you moved it: the new failure mode is duplication, not loss. The relay might publish, then die before marking the row published, and publish again — so consumers have to be idempotent. That ordering is deliberate: mark first, and you'd trade duplicates for losses — the one failure you can't recover from.
+
+(And if polling a table offends you, the alternative is tailing Postgres' own WAL with logical decoding — Debezium, essentially — for lower latency, at the price of coupling your delivery pipeline to database internals. Polling is boring and portable. Start there.)
 
 Now the harder case.
 
@@ -178,9 +182,9 @@ await db.paymentAttempts.update({
 });
 ```
 
-Crash after step 1? The retry worker finds the `pending` row and retries. The idempotency key means Stripe returns the _original_ charge instead of billing someone twice.
+Crash after step 1? The retry worker finds the `pending` row and retries. The idempotency key means Stripe returns the _original_ charge instead of billing someone twice. (Keys don't live forever, though — Stripe's expire after about 24 hours, so a retry that outlives the window bills twice. One more reason the retry cap matters.)
 
-That key is your "I already replayed this entry" marker — doing roughly the job an LSN does in a real WAL.
+That key is your "I already replayed this entry" marker — doing roughly the job an LSN does in a real WAL: during redo, Postgres compares a record's LSN against the target page's to ask "already applied?" It's a position check, not a transaction-ID check.
 
 ### Where the analogy gets thin
 
