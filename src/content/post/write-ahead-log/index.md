@@ -25,7 +25,7 @@ A write-ahead log. The same thing Postgres has been doing since forever, holding
 
 That's it. That's the whole thing.
 
-Some example: you're about to deploy a new self-hosted app on your mini PC / homelab. You need to create an environment for it, pull the new image, run the database migration, point the reverse proxy at the new container, and restart it. Four steps, and a couple of them you really don't want to do twice by accident.
+Say you're about to deploy a new self-hosted app on your mini PC / homelab. You need to create an environment for it, pull the new image, run the database migration, point the reverse proxy at the new container, and restart it. Four steps, and a couple of them you really don't want to do twice by accident.
 
 Halfway through, your SSH session drops. Did the migration run? Is the proxy pointing at the old container or the new one? You're now poking around trying to reconstruct what past-you did five minutes ago.
 
@@ -48,7 +48,7 @@ Your real data lives in pages scattered all over a file. A single transaction mi
 
 The log is append-only. One file, always writing at the end. So a commit becomes: append a small record, flush _that_, done. One `fsync` on one file instead of many scattered ones. Better still, if ten transactions commit at roughly the same moment, the database can batch them into a single flush — Postgres calls this group commit — so ten commits cost about as much as one.
 
-The actual data pages get updated later, in the background, in bulk, when it's convenient.
+The data pages get updated later, in the background, in bulk, when it's convenient.
 
 Log now, apply later. You get durability _and_ speed, which is not a trade you usually get to make.
 
@@ -68,7 +68,7 @@ If you only ever append, the log grows forever.
 
 So periodically the database says: everything up to _here_ is safely in the data file now. Those log records aren't needed for recovery anymore, so they get truncated or recycled. That's a checkpoint.
 
-Remember this one. It's the piece everybody skips when they build this pattern themselves, and I'll come back to it.
+Keep this one in mind — it's the piece everybody skips when they build this pattern themselves.
 
 ## You've already been using this
 
@@ -81,11 +81,11 @@ Remember this one. It's the piece everybody skips when they build this pattern t
 
 Does this apply to normal application code? The stuff that touches end users?
 
-I think yes. Same shape, different name.
+Yes. Same shape, different name.
 
 At the app level the "crash" isn't a power cut — it's a process dying, a pod getting evicted, a timeout, a 500 halfway through a request. And the "data file" is often some external system you have no way to roll back.
 
-### First, what "durable" actually means
+### First, what "durable" means
 
 Durable means: **it survives the process dying right now.** Not "I called the function." The bytes are somewhere they'll still be after a hard power loss.
 
@@ -104,7 +104,7 @@ This is why the WAL rule is "the log entry must be durable before the side effec
 
 ### The problem: dual writes
 
-Two systems can't share a transaction. That's the whole difficulty in one sentence. (Two-phase commit exists, technically — and approximately nobody reaches for it, least of all against someone else's payment API.)
+Two systems can't share a transaction. (Two-phase commit exists, technically — and approximately nobody reaches for it, least of all against someone else's payment API.)
 
 ```ts
 await db.orders.update({ where: { id }, data: { status: "paid" } }); // system A
@@ -124,13 +124,29 @@ await db.$transaction(async (tx) => {
 	await tx.orders.update({ where: { id }, data: { status: "paid" } });
 	await tx.outbox.create({ data: { topic: "order.paid", payload: { id } } });
 });
-
-// Elsewhere, a separate worker:
-//   SELECT ... FROM outbox WHERE published_at IS NULL
-//   → publish → mark published
 ```
 
 Both rows live in the same database, so one `COMMIT` makes them atomic. Either both exist or neither does. There is no in-between state to crash into.
+
+```ts
+// Elsewhere: the relay worker, on a timer.
+const rows = await db.$queryRaw`
+	SELECT * FROM outbox
+	WHERE published_at IS NULL
+	ORDER BY created_at
+	LIMIT 100
+	FOR UPDATE SKIP LOCKED`;
+
+for (const row of rows) {
+	await kafka.publish(row.topic, row.payload);
+	await db.outbox.update({
+		where: { id: row.id },
+		data: { published_at: new Date() },
+	});
+}
+```
+
+`FOR UPDATE` takes a row lock on everything it selected; `SKIP LOCKED` makes a worker that hits an already-locked row skip past it instead of waiting. Two workers polling at the same moment each get a different batch — no duplicates, no queueing. (Run the poll inside a transaction, or the locks release before you've published.)
 
 ```mermaid
 flowchart TB
@@ -147,11 +163,15 @@ flowchart TB
     DW ~~~ OB
 ```
 
-Notice what you actually traded. You didn't remove the risk — you moved it somewhere recoverable. Before: crash, message gone, and you never find out. After: crash, and the outbox row is just sitting there unpublished until the worker picks it up.
+| Where the crash lands | Dual write | Outbox |
+| --- | --- | --- |
+| Between the two writes | Message lost forever, no trace | Row sits unpublished; next poll picks it up |
+| During the publish | Half-sent, unknown state | Relay retries until it's marked |
+| Delivery guarantee | Best-effort — messages can vanish | At-least-once — messages can duplicate |
 
-The cost is that publishing is now asynchronous and **at-least-once**. The relay might publish, then die before marking the row published, and publish again on the next poll. So consumers have to be idempotent.
+You didn't remove the risk, you moved it somewhere recoverable. And the new failure mode is duplication, not loss: the relay might publish, then die before marking the row published, and publish again on the next poll. So consumers have to be idempotent.
 
-Which brings me to the harder case.
+Now the harder case.
 
 ### When the second system is one you don't control
 
@@ -185,17 +205,17 @@ await db.paymentAttempts.update({
 });
 ```
 
-Crash after step 1? A sweeper finds the `pending` row and retries. The idempotency key means Stripe returns the _original_ charge instead of billing someone twice.
+Crash after step 1? The retry worker finds the `pending` row and retries. The idempotency key means Stripe returns the _original_ charge instead of billing someone twice.
 
 That key is your "I already replayed this entry" marker — doing roughly the job an LSN does in a real WAL.
 
 ### Where the analogy gets thin
 
-I'll be honest about the part someone will point out in the comments, because it's the bit that took me longest to get straight.
+Now the part that took me longest to get straight.
 
 A database WAL is idempotent _by construction_. Postgres owns the log and the data file, so replaying a record twice is defined to be safe — one system, one authority, no negotiation. Your outbox has no such luxury. The side effect lives in someone else's system, so replay is only safe if _they_ cooperate, via an idempotency key you have to remember to pass. The safety isn't given to you by the pattern. It's homework.
 
-So: same shape, in my opinion. Different mechanism. And the difference is exactly the part that pages you at 3am.
+Same shape, different mechanism. And the difference is exactly the part that pages you at 3am.
 
 The practical version: **replay is the normal case, not the exception.** Design for it up front, not after the first duplicate charge.
 
@@ -203,18 +223,15 @@ The practical version: **replay is the normal case, not the exception.** Design 
 
 Once you see it, it's everywhere:
 
-- **Transactional outbox** — write the "send welcome email" row in the same transaction as the user row. No more "user created, email never sent."
 - **Job queues** — enqueueing _is_ writing ahead. The job row is the log entry; running it is applying it.
 - **Sagas / state machines** — persist each step's state before attempting it, so you know where to resume or what to compensate.
 - **Offline-first mobile apps** — append mutations to a local queue, show the result optimistically, drain the queue when connectivity comes back. Literally a WAL in IndexedDB.
 
 ## Don't forget the checkpoint
 
-Told you I'd come back to it.
-
 The database truncates its log once the data file has caught up. Your `outbox` and `payment_attempts` tables need the equivalent, and this is the part people skip — you ship the happy path, it works, and six months later there's a table with forty million rows in it and a handful of silent orphans nobody ever looked at.
 
-The reaper is not optional. Minimum viable version:
+The retry worker is not optional. Minimum viable version:
 
 ```sql
 -- Find stuck intents, safely, across multiple workers.
@@ -227,9 +244,7 @@ FOR UPDATE SKIP LOCKED
 LIMIT 100;
 ```
 
-`FOR UPDATE SKIP LOCKED` is what stops two workers from grabbing the same row and racing each other.
-
-One caveat worth knowing: at `READ COMMITTED`, an `ORDER BY` combined with a locking clause can hand you rows slightly out of order, because a row that changed while another session held it gets re-evaluated after the sort. For a reaper that doesn't matter — oldest-first is a nicety, not a guarantee you're relying on — but don't build anything that needs strict ordering on top of this query.
+One caveat worth knowing: at `READ COMMITTED`, an `ORDER BY` combined with a locking clause can hand you rows slightly out of order, because a row that changed while another session held it gets re-evaluated after the sort. For a retry worker that doesn't matter — oldest-first is a nicety, not a guarantee you're relying on — but don't build anything that needs strict ordering on top of this query.
 
 Checklist for anything you build in this shape:
 
@@ -241,11 +256,11 @@ Checklist for anything you build in this shape:
 
 ## And then Cursor takes it further
 
-Here's what actually made me want to write this up.
+Here's what made me want to write this up.
 
-In a normal database, the data file is the truth and the log protects it. Cursor inverted that. Their WAL lives in S3, and _that's_ the source of truth — the actual Git repositories on local NVMe disks are, in their words, **"warm caches."**
+In a normal database, the data file is the truth and the log protects it. Cursor inverted that. Their WAL lives in S3, and _that's_ the source of truth — the Git repositories on local NVMe disks are, in their words, **"warm caches."**
 
-Once the log is the truth, a pile of hard problems just… stop being problems. There's no leader election, because there's no special server to elect:
+Once the log is the truth, a pile of hard problems disappear. There's no leader election, because there's no special server to elect:
 
 > There's no state and no consensus here. Any server can be the primary.
 
@@ -253,13 +268,13 @@ Any replica can be rebuilt by replaying the log. Losing a machine stops being an
 
 > Since every push is in the WAL, we can look at every state a repository has ever been in.
 
-That's the same "replay it somewhere else, replay it up to yesterday" bonus Postgres gets from `pg_wal/`, just at a completely different altitude.
+That's the same "replay it somewhere else, replay it up to yesterday" bonus Postgres gets from `pg_wal/`, just at a different altitude.
 
 So maybe the Kafka joke isn't a joke. Once the log is durable, ordered, and complete, the "real" data structure is only ever a convenient projection of it. You can throw it away and rebuild it.
 
 ## What I'm taking away
 
-Stop asking _"did this succeed?"_ and start asking _"do I have a durable record of what I intended, and can I safely do it again?"_
+The question that matters isn't _"did this succeed?"_ It's _"do I have a durable record of what I intended, and can I safely do it again?"_
 
 Concretely, for Monday: go find your dual writes. Grep for every place you write to your database and then call something else — a payment provider, a message broker, an email service, another team's API. Each one is a place where a crash in between leaves you inconsistent with no way to find out.
 
