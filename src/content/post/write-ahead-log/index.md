@@ -1,6 +1,6 @@
 ---
 title: "WAL: a write-ahead log, or writing it down before I do it"
-description: "A write-ahead log is just writing down the step before I run it. Same trick shows up in Postgres, in my Slack bot, and in how Cursor hosts Git."
+description: "A write-ahead log is just writing down the step before I run it. Same trick shows up in Postgres, and in how Cursor hosts Git."
 publishDate: "29 August 2026"
 tags: ["databases", "distributed systems", "postgres", "architecture"]
 draft: false
@@ -11,7 +11,7 @@ We were talking at the office this week about [Cursor's post on hosting Git at a
 > The core primitive behind it is a write-ahead log, which we store in S3-compatible object storage.
 
 Hmmmm, a write-ahead log. I know Postgres has been doing this since forever. And now it holds up Git hosting for millions of repositories.
-So I spent an evening reading about it again. This post is my note to relearn it.
+So I spent a few evenings reading about it again. This post is my note to relearn it.
 
 ## The one-line idea
 
@@ -48,7 +48,7 @@ Clever hah?
 
 > "What is the data page?"
 >
-> A data page is the fixed-size block a database does all its I/O in. Postgres uses 8KB pages, and every row lives inside one.
+> A data page is the fixed-size block a database does all its I/O in. Postgres uses 8KB pages, and every row lives inside one. (Most rows, and oversized values get TOASTed out-of-line.)
 >
 > Updating a row means reading that page, modifying it in memory, and writing the whole page back later. So a transaction touching rows on 5 pages means 5 scattered writes. That is exactly the cost the WAL collapses into 1 append.
 
@@ -116,13 +116,13 @@ The checkpoint trims the _head_ of the log. But anything pinning the _tail_ wins
 
 It's the piece everybody skips when they build this pattern themselves. I haven't had to handle this myself yet. But it's worth learning anyway.
 
-## We use it everyday
+## WAL is already everywhere
 
 WAL is in our everyday life more than we notice.
 
 - **Postgres**: the `pg_wal/` directory. As we mentioned above, Postgres uses WAL to feed replicas and for point-in-time recovery. We can ask it to replay up to 3:45pm yesterday. Just like that.
 - **SQLite**: `PRAGMA journal_mode=WAL`, and the `-wal` sidecar file next to the database. Most people flip this on because readers stop blocking writers, without ever asking _why_. So now we know!
-- **ext4, NTFS**: I was surprised too when I learned this. They call it _journaling_, but it is more a close cousin than the same thing. By default they journal filesystem _metadata_, not file contents. So what we get is "the filesystem stays consistent", not "our data survives".
+- **ext4, NTFS**: I was surprised too when I learned this. They call it _journaling_, but it is more a close cousin than the same thing. By default they journal filesystem _metadata_, not file contents. So what we get is "the filesystem stays consistent", not "our data survives". (ext4's default `data=ordered` does flush file data before the metadata commit, so we never get a half-garbage file but un-synced writes can still be lost. 🤯)
 - **Kafka**: fundamentally a distributed write-ahead log. Consumers basically read the log directly.
 
 ## How do we use WAL in daily life?
@@ -153,15 +153,15 @@ The trap is all the layers that _look_ durable and aren't:
 
 For application code: **durable means the database transaction committed.** Until `await tx.commit()` returns, we have nothing. That's the D in ACID.
 
-> Q: ACID what?
+> "ACID what?"
 >
-> A: Atomicity, Consistency, Isolation, and Durability
+> Atomicity, Consistency, Isolation, and Durability.
 
 This is why the WAL rule is "the log entry must be durable before the side effect". It's not _before_ in the order my code reads. It's before in the order things land on disk.
 
 ### The problem: dual writes
 
-This is when two systems cannot share a transaction. (Two-phase commit exists. But nobody actually reaches for it, least of all against someone else's API.)
+This is when 2 systems cannot share a transaction. (Two-phase commit exists. But it is rarely worth reaching for it, least of all against someone else's API.)
 
 ```ts
 await db.orders.update({ where: { id }, data: { status: "shipped" } }); // system A
@@ -210,7 +210,7 @@ for (const row of rows) {
 
 - `FOR UPDATE` takes a row lock on everything it selected.
 - `SKIP LOCKED` makes a worker that hits an already-locked row skip past it instead of waiting.
-- Two workers polling at the same moment each get a different batch. No duplicates, no double publishing. (Run the poll inside a transaction, or the locks release before we publish.)
+- Two workers polling at the same moment each get a different batch, no duplicates between concurrent workers. (Crash-retry duplicates are still possible tho if run the poll inside a transaction, or the locks release before we publish.)
 
 One more trade-off worth naming. `SKIP LOCKED` gives us at-least-once delivery, not _ordering_:
 
@@ -226,18 +226,17 @@ One more trade-off worth naming. `SKIP LOCKED` gives us at-least-once delivery, 
 
 We didn't remove the risk, we moved it. The new failure mode is duplication, not loss. The relay might post, then die before marking the row published, and post again.
 
-So the receiving end has to be **idempotent**. A Kafka consumer dedupes. A Slack channel just sees the ping twice. The order here is deliberate. Mark first, and we trade duplicates for losses. And loss is the one failure we cannot recover from.
+So the receiving end has to be **idempotent**. A Slack channel just sees the ping twice. The order here is deliberate. Mark first, and we trade duplicates for losses. And loss is the one failure we cannot recover from.
 
 (And if polling a table offends us, there is another way. Tail Postgres' own WAL with logical decoding. Debezium, essentially. Lower latency, but we couple our delivery pipeline to database internals. Polling is boring and portable. Start there.)
 
 Now the harder case.
 
-> Q: Is this a queue? why call outbox, never heard of it
+> "Is this a queue? Why 'outbox', I never heard of it"
 >
-> A: When reading online, I found a cool Reddit thread: "Unpopular opinion: Queues are just specialised databases, and the Outbox pattern IS using a database as a queue"
-> Or "it's just a database with a specific API on top". And I agreed. But we can call it whatever we like, as long as we're on the same page about what problem we're solving.
+> When reading online, I found a cool Reddit thread: "Unpopular opinion: Queues are just specialised databases, and the Outbox pattern IS using a database as a queue" and inside the Reddit post, top comment say "it's just a database with a specific API on top". And yes, I agreed. But we can call it whatever we like, as long as we're on the same page about what problem we're solving.
 >
-> r: https://www.reddit.com/r/dotnet/comments/1g9lit2/unpopular_opinion_queues_are_just_specialised/
+> (The thread: [r/dotnet](https://www.reddit.com/r/dotnet/comments/1g9lit2/unpopular_opinion_queues_are_just_specialised/))
 
 ### When the 2nd system is a 3rd-party service
 
@@ -245,28 +244,28 @@ Take the Slack notification from the relay above. A duplicate ping is not a doub
 
 Okie, same shape of thought: LOG the intent, DO the post, APPLY the mark. We already have all 3 steps in the relay worker. The interesting part is what happens when the retry posts again. And that part is not ours to decide. It depends on whether the other side cooperates:
 
-Slack does not cooperate. I checked the API docs for `chat.postMessage`. The args are `channel`, `text`, `blocks`, `metadata`, and friends. No idempotency key, no dedupe, nothing. So a crash between the post and the mark will double-post eventually. All I can do is make the duplicate harmless:
+Slack does not cooperate. I use `chat.postMessage` in the Slack app that args: `channel`, `text`, `blocks`, `metadata`, and friends. No idempotency key, no dedupe, nothing. So a crash between the post and the mark will double-post eventually. All I can do is make the duplicate harmless:
 
 - Keep the text deterministic, so a repeat at least says the same thing.
 - Tag retries, so the channel knows it's a resend.
 - Or just accept it. Chat tolerates a repeat.
 
-My approach: I hash the whole text and store it with a **unique index**. The same exact message never publishes twice. That's my way, and I can accept the loss. But let's be honest about what that loss is:
+My current workaround approach: I write the text hash down _first_ under a **unique index** and only then call Slack API. If the send fails and something retries, the retry hits the unique index and stops right there.
+
+The same exact message never publishes twice. Closer to exactly-once, and I can accept the loss. But let's be honest about what that loss is:
 
 - Not just "a repeat does not happen".
 - Also "a genuine event with identical text gets dropped". Two identical orders seconds apart? The second ping vanishes.
 - Fine for chat. For anything near accounting, key on the event ID, not the text.
 
-#### Q: What about payment? A double charge feels scarier than a duplicate ping
+> "What about payment? A double charge feels scarier than a duplicate ping"
 
 Same 3 steps. But here the other side cooperates, if we ask properly:
 
 - **Idempotency key.** We generate it on the LOG step, before the side effect. Stripe (and Square, Adyen, PayPal, all the same shape) saves the first result for that key. So a retry gets the original charge, not a second one.
-- **It's my "I already replayed this entry" marker.** Roughly the job an LSN does in a real WAL. The position check from earlier: compare the record's position with the page's to ask "already applied?". Not a transaction-ID check.
+- **It's my "I already replayed this entry" marker.** Same job an LSN does in a real WAL. Asking if it "already applied?" but a blunter, it set membership, not the position check. So it closer LSN analogue but not the same.
 - **Keys expire.** [Stripe's](https://docs.stripe.com/api/idempotent_requests) after about 24 hours, [Adyen's](https://docs.adyen.com/development-resources/api-idempotency/) at least 7 days. So a retry that outlives the window charges twice. One more reason the retry cap matters.
 - **APPLY usually arrives as a webhook.** The gateway calls us with `payment_intent.succeeded`. The retry worker is just the fallback for when webhooks are down. Which I find funny. The gateway's event log is a WAL too, and our webhook handler is the replay.
-
-(The token I remembered from the gateway flow, Stripe's `pm_...`, is a different thing. That's the card itself, tokenized on the client side so raw card data never touches our server. Not a retry marker.)
 
 ### Where the analogy gets thin
 
@@ -321,7 +320,7 @@ Cursor's answer (the system is called Continuity):
 
 ```mermaid
 flowchart LR
-    P["git push"] --> O["1 · Store the push as an<br/>immutable object in S3"]
+    P["git push"] --> O["1 · Write the packfile to disk and<br/>upload it to S3 simultaneously"]
     O --> I["2 · Rewrite the tiny<br/>WAL index file"]
     I --> W{"3 · Compare-and-swap<br/>on the index"}
     W -->|won the race| OK["Push is visible<br/>acknowledge the client"]
@@ -329,11 +328,14 @@ flowchart LR
 ```
 
 - Each push is an **immutable object**. The order lives in one tiny **WAL index file**.
-- The rewrite is an atomic compare-and-swap (CAS). S3's [conditional writes](https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-s3-functionality-conditional-writes/) make the `PUT` fail if someone else won the race. So two servers cannot publish at the same position. The loser re-reads and retries.
+- The rewrite is an atomic compare-and-swap (CAS): a conditional `PUT` with `If-Match` on the index object's ETag ([S3 conditional writes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-writes.html))
+- The write fails if someone else won the race. Two servers cannot publish at the same position. The loser re-reads and retries.
 - The CAS _is_ the consensus.
 - Replicas use the same trick for reads. A conditional `GET` with the ETag they expect (the object's version tag). A 304 means "nothing changed, serve from cache". A 200 means "catch up from the log first".
 
-So the strict order is not a property of the storage. It is enforced at one point, the index object, on top of storage that is just a pile of immutable bytes. The 2024 `If-None-Match` feature, and its `If-Match` read-modify-write sibling, quietly turned object storage into a consensus primitive.
+So the strict order is not a property of the storage. It is enforced at one point, the index object, on top of storage that is just a pile of immutable bytes.
+
+S3's conditional writes quietly turned object storage into a consensus primitive: `If-None-Match` means "create only if absent", `If-Match` means "overwrite only if it is still the version I saw" and that second one is what a rewritten index file needs.
 
 Once the log is the truth, a pile of hard problems disappear. There's no leader election, because there's no special server to elect:
 
@@ -360,12 +362,19 @@ Cool, right! 😆
 
 ## What I'm taking away
 
-I think personally, it's good once in a while when a tech company writes a take-away or summary blog post on what they have done. It's a huge effort from many engineers involved, and I love to read it.
+I personally love that when a tech company writes a summary post about what they built. It's a huge effort from many engineers, and it always sends me back to the fundamentals of systems we already have.
 
-It also triggers me to look back at the fundamentals of systems we already have in the world and learn from them.
+WAL (write-ahead log) is something I surely never learned at school or university (bechelor level). It was all pretty high-level there. this Cursor blog made me go through a deep hole. I read how Postgres works, asking Claude to teach me the concept over days, experimenting locally, digging into the log files.
 
-WAL (write-ahead log) is something I surely never learned in school or university (bachelor level). It was all pretty high-level there. But this Cursor blog made me go through a deep hole. Reading how Postgres works. Asking Claude to teach me the concept days over days. Experimenting locally. Digging into the log files.
+Pretty valuable experience, IMHO. So yeah, few evenings well spent.
 
-Pretty valuable experience, IMHO. So yeah, seems like the evening well-spent.
+Nice to meet you guys who read til this point. if I missed something (I'm sure I did), please let me know and I'll update the post.
 
-Thanks everyone who read til this point. And yep, if I missed something (I'm sure I did), please let me know and I'll update the post.
+### Worth checking out.
+
+Some blog I found nice to read along the way.
+
+- Postgres (WAL Write-Ahead Log): https://www.postgresql.org/docs/current/wal-intro.html
+- Object Storage as a Queue: https://deveshshetty.com/blog/object-storage-queue/
+- Conditional Writes Without a Compare-and-Swap Store: https://www.seaweedfs.com/blog/conditional-writes/
+- Simon's blog about AWS S3 conditional writes https://simonwillison.net/2024/Nov/26/s3-conditional-writes/
