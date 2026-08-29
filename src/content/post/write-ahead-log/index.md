@@ -2,32 +2,28 @@
 title: "WAL: a write-ahead log, or writing it down before you do it"
 description: "A write-ahead log is just writing down the step before you run it. Same trick shows up in Postgres, in your payment handler, and in how Cursor hosts Git."
 publishDate: "24 August 2026"
-tags:
-  [
-    "databases",
-    "distributed systems",
-    "postgres",
-    "reliability",
-    "architecture",
-  ]
+tags: ["databases", "distributed systems", "postgres", "architecture"]
 draft: true
 ---
 
-We were talking at the office today about [Cursor's post on hosting Git at any scale](https://cursor.com/blog/git-at-any-scale), and one line stuck with me:
+We were talking at the office this week about [Cursor's post on hosting Git at any scale](https://cursor.com/blog/git-at-any-scale), and one line stuck with me:
 
 > The core primitive behind it is a write-ahead log, which we store in S3-compatible object storage.
 
-A write-ahead log. The same thing Postgres has been doing since forever, holding up Git hosting for millions of repositories. So I went down the hole for an evening, and this is what I came back with.
+Hmmmm, A write-ahead log. The same thing I know that Postgres has been doing since forever, holding up Git hosting for millions of repositories.
+So I went sitting just read about this again for an evening, and this is a note for myself to relearn this once again.
 
 ## The one-line idea
 
-**Before you change your stuff, first write down what you're about to do.**
+**Before change stuff, first write down what you're about to do.**
 
-That's it. That's the whole thing.
+That's the whole idea. Simple as that.
 
-Say you're deploying a new app on your homelab: pull the image, run the migration, repoint the proxy, restart. Halfway through, your SSH session drops. Did the migration run? You're reconstructing what past-you did five minutes ago.
+Say I'm deploying a new app on my homelab: pull the image, run the db migration, repoint the proxy, restart. Halfway through, my SSH session drops. Did the migration run? I'm reconstructing what past-me did five minutes ago.
 
-Instead, write each step down _before_ you run it — "running the migration now" — then run it. Session dies, you read the note, and you know exactly where you were. That note is the write-ahead log. The "ahead" part is the whole point: the line goes down _before_ the real change, not after.
+Instead, I write each step down _before_ I run it — "running the migration now" — then run it. Session dies, I read my note, and I know exactly where I were.
+
+That note is the write-ahead log. The "ahead" part is the whole point: the line goes down _before_ the real change, not after.
 
 ```mermaid
 flowchart LR
@@ -38,29 +34,52 @@ flowchart LR
 
 ## It's not only about safety
 
-The log isn't just insurance — it's also what makes the database _fast_.
+The log is not just for safety, it's also what makes the database _fast_ as well
 
-Your data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, each of which has to land. The log is append-only — one file, always writing at the end — so a commit becomes: append a small record, flush that, done. One `fsync` instead of many. Ten transactions committing at roughly the same moment can even share a single flush (Postgres calls this [group commit](https://www.postgresql.org/docs/current/wal-configuration.html)), so ten commits cost about as much as one. The data pages get updated later, in the background, in bulk.
+So now my data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, right?
 
-Log now, apply later. Durability _and_ speed — not a trade you usually get to make.
+Imagine what if we utilize this append-only log? So one file, always writing at the end, so a transaction commit becomes: append a small record, flush that as batch, done.
+
+And now One `fsync` instead of many, 10 transactions committing at roughly the same moment can share a single flush (So Postgres calls this [group commit](https://www.postgresql.org/docs/current/wal-configuration.html)), and
+10 commits cost about as much as 1. The data pages get updated later, in the background, in bulk.
+
+Log now and apply later. This is durability and speed, not just a safety-net alone anymore.
+
+Clever hah?
+
+> "What is the data page?"
+>
+> A data page is the fixed-size block a database does all its I/O in. Postgres uses 8KB pages, and every row lives inside one.
+>
+> Updating a row means reading that page, modifying it in memory, and writing the whole page back later — so a transaction touching rows on 5 pages means 5 scattered writes, which is exactly the cost the WAL collapses into 1 append.
 
 ## The rule that makes it work
 
 The log record has to physically hit the disk **before** the data page does.
 
-Break that ordering and you've built nothing. You'd have a half-changed data file and no note explaining what was supposed to happen — which is strictly worse than not having a log at all, because now you also think you're safe.
+If we break the order, there is no point of WAL. We'll have a half-baked data file and no note explaining what was supposed to happen. and this is strictly bad-bad than not having a log at all, because I might think I are safe but I am not.
 
-Cursor states their version of the rule about as bluntly as you can:
+In the Cursor blog, they say one of the rule and we will talk about it next.
 
 > We never acknowledge a push until it has been fully persisted.
 
-## One more concept: the checkpoint
+## The checkpoint
 
-If you only ever append, the log grows forever. So periodically the database says: everything up to _here_ is safely in the data file now — those log records aren't needed anymore, so they get truncated or recycled. That's a checkpoint.
+If I keep appending, the log grows forever, this is not ideally good. Periodically checking the database and mark it as "everything up to this point is safely in the data file now, these log record aren't needed anymore", then we truncated or recycled them.
 
-"Recycled" only when nothing still needs it, though: a lagging replica holding a replication slot, or a failing `archive_command`, pins WAL in place until `pg_wal` fills the disk — the classic "the log grew forever anyway" incident.
+That's **the checkpoint**.
 
-It's the piece everybody skips when they build this pattern themselves.
+Another one worth mentioned is "Recycled," though, only once nothing still needs it and it's not just the data files that need it. A lagging replica, or a failing `archive_command`, can pin the log in place:
+
+> "What is the replica?"
+>
+> A 2+ Postgres instances that stays a live copy by replaying the log as it arrives, it's for crash-recovery, or it's for availability, multiple zone. in this context, we talk about that it marks its position on the log file with "replication slot" a bookmark telling the main server that don't recycle the past yet, I'm reading!
+
+If we kill the replica and forget it, and the bookmark freezes. Postgres keeps its promise: every segment since piles up in `pg_wal` until the disk fills and the database stop working.
+
+Because the checkpoint trims the _head_ of the log but anything pinning the _tail_ win it. This is the classic "the log grew forever anyway" incident.
+
+It's the piece everybody skips when they build this pattern themselves. So I myself haven't have chance handle this myself yet but worth learning anyway
 
 ## You've already been using this
 
@@ -138,11 +157,11 @@ for (const row of rows) {
 
 `FOR UPDATE` takes a row lock on everything it selected; `SKIP LOCKED` makes a worker that hits an already-locked row skip past it instead of waiting. Two workers polling at the same moment each get a different batch — no duplicates, no queueing. (Run the poll inside a transaction, or the locks release before you've published.)
 
-| Where the crash lands | Dual write | Outbox |
-| --- | --- | --- |
-| Between the two writes | Message lost forever, no trace | Row sits unpublished; next poll picks it up |
-| During the publish | Half-sent, unknown state | Relay retries until it's marked |
-| Delivery guarantee | Best-effort — messages can vanish | At-least-once — messages can duplicate |
+| Where the crash lands  | Dual write                        | Outbox                                      |
+| ---------------------- | --------------------------------- | ------------------------------------------- |
+| Between the two writes | Message lost forever, no trace    | Row sits unpublished; next poll picks it up |
+| During the publish     | Half-sent, unknown state          | Relay retries until it's marked             |
+| Delivery guarantee     | Best-effort — messages can vanish | At-least-once — messages can duplicate      |
 
 You didn't remove the risk, you moved it: the new failure mode is duplication, not loss. The relay might publish, then die before marking the row published, and publish again — so consumers have to be idempotent. That ordering is deliberate: mark first, and you'd trade duplicates for losses — the one failure you can't recover from.
 
