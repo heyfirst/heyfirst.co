@@ -10,18 +10,18 @@ We were talking at the office this week about [Cursor's post on hosting Git at a
 
 > The core primitive behind it is a write-ahead log, which we store in S3-compatible object storage.
 
-Hmmmm, A write-ahead log. The same thing I know that Postgres has been doing since forever, holding up Git hosting for millions of repositories.
-So I went sitting just read about this again for an evening, and this is a note for myself to relearn this once again.
+Hmmmm, a write-ahead log. I know Postgres has been doing this since forever. And now it holds up Git hosting for millions of repositories.
+So I spent an evening reading about it again. This post is my note to relearn it.
 
 ## The one-line idea
 
-**Before change stuff, first write down what I'm about to do.**
+**Before changing stuff, write down what I'm about to do first.**
 
 That's the whole idea. Simple as that.
 
 Say I'm deploying a new app on my homelab: pull the image, run the db migration, repoint the proxy, restart. Halfway through, my SSH session drops. Did the migration run? I'm reconstructing what past-me did five minutes ago.
 
-Instead, I write each step down _before_ I run it, "running the migration now", then run it. Session dies, I read my note, and I know exactly where I were.
+Instead, I write each step down _before_ I run it, "running the migration now", then run it. Session dies, I read my note, and I know exactly where I was.
 
 That note is the write-ahead log. The "ahead" part is the whole point: the line goes down _before_ the real change, not after.
 
@@ -34,16 +34,15 @@ flowchart LR
 
 ## It's not only about safety
 
-The log is not just for safety, it's also what makes the database _fast_ as well
+The log is not just for safety. It also makes the database _fast_.
 
 So now my data lives in pages scattered all over a file, and one transaction might touch a handful of them. Flushing all of that safely on every commit means many separate writes, right?
 
-Imagine what if we utilize this append-only log? So one file, always writing at the end, so a transaction commit becomes: append a small record, flush that as batch, done.
+What if we use an append-only log? One file. Always write at the end. So a transaction commit becomes: append a small record, flush it, done.
 
-And now One `fsync` instead of many, 10 transactions committing at roughly the same moment can share a single flush (So Postgres calls this [group commit](https://www.postgresql.org/docs/current/wal-configuration.html)), and
-10 commits cost about as much as 1. The data pages get updated later, in the background, in bulk.
+Now it's one `fsync` (the "really write to disk now" call) instead of many. 10 transactions committing around the same time can share a single flush. Postgres calls this [group commit](https://www.postgresql.org/docs/current/wal-configuration.html). So 10 commits cost about the same as 1. The data pages get updated later, in the background, in bulk.
 
-Log now and apply later. This is durability and speed, not just a safety-net alone anymore.
+Log now, apply later. That's durability and speed, not just a safety net anymore.
 
 Clever hah?
 
@@ -51,63 +50,106 @@ Clever hah?
 >
 > A data page is the fixed-size block a database does all its I/O in. Postgres uses 8KB pages, and every row lives inside one.
 >
-> Updating a row means reading that page, modifying it in memory, and writing the whole page back later, so a transaction touching rows on 5 pages means 5 scattered writes, which is exactly the cost the WAL collapses into 1 append.
+> Updating a row means reading that page, modifying it in memory, and writing the whole page back later. So a transaction touching rows on 5 pages means 5 scattered writes. That is exactly the cost the WAL collapses into 1 append.
 
 ## The rule that makes it work
 
 The log record has to physically hit the disk **before** the data page does.
 
-If we break the order, there is no point of WAL. We'll have a half-baked data file and no note explaining what was supposed to happen. and this is strictly bad-bad than not having a log at all, because I might think I are safe but I am not.
+If we break the order, the WAL is pointless. We get a half-baked data file, and no note explaining what was supposed to happen. That is worse than not having a log at all. Because now I think I'm safe, but I'm not.
 
-In the Cursor blog, they say one of the rule and we will talk about it next.
+The Cursor blog says one of the rules like this:
 
 > We never acknowledge a push until it has been fully persisted.
 
+There is one more subtlety inside that rule. Replaying the log is called **redo**. And a page write can be **torn**:
+
+```mermaid
+flowchart LR
+    A["Power fails<br/>in the middle of a write"] --> B["Only half of the<br/>8KB page lands on disk"]
+    B --> C["WAL record says<br/>'add row to page 42'"]
+    C --> D["But redo assumes page 42<br/>was in a good state already"]
+    D --> E["Garbage, not recovery"]
+```
+
+So Postgres goes further with [`full_page_writes`](https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-FULL-PAGE-WRITES):
+
+- Right after a checkpoint, the _first_ change to every page writes the whole page image into the log.
+- Later changes to the same page can be small diffs again.
+- It makes the log fat right after a checkpoint. That is one reason checkpoint spacing is a tuning knob.
+- But it is what makes "replay the log" actually sound.
+
+And how does replay know what is already applied? Every WAL record and every page carry their position in the log. The **LSN (Log Sequence Number)**. During redo, Postgres just compares the two:
+
+```mermaid
+flowchart LR
+    R["Replay a WAL record"] --> Q{"Page LSN already at<br/>or past the record's?"}
+    Q -->|yes| S["Already applied<br/>skip it"]
+    Q -->|no| P["Apply the change"]
+```
+
+A position check, not a transaction-ID check. Remember this trick. It comes back later in this post.
+
 ## The checkpoint
 
-If I keep appending, the log grows forever, this is not ideally good. Periodically checking the database and mark it as "everything up to this point is safely in the data file now, these log record aren't needed anymore", then we truncated or recycled them.
+If I keep appending, the log grows forever. Not ideal. So once in a while, the database marks a point: "everything up to here is safely in the data file now, these log records are not needed anymore". Then it truncates or recycles them.
 
 That's **the checkpoint**.
 
-Another one worth mentioned is "Recycled," though, only once nothing still needs it and it's not just the data files that need it. A lagging replica, or a failing `archive_command`, can pin the log in place:
+One thing worth mentioning: "recycled" only happens once nothing still needs the segment. And it's not just the data files that need it. A lagging replica, or a failing `archive_command`, can pin the log in place:
 
 > "What is the replica?"
 >
-> A 2+ Postgres instances that stays a live copy by replaying the log as it arrives, it's for crash-recovery, or it's for availability, multiple zone. in this context, we talk about that it marks its position on the log file with "replication slot" a bookmark telling the main server that don't recycle the past yet, I'm reading!
+> Two or more Postgres instances. One stays a live copy by replaying the log as it arrives. It's for availability across zones, or just for read scaling. In this context, the replica marks its position in the log with a "replication slot". A bookmark telling the main server: "don't recycle the past yet, I'm still reading!"
 
-If we kill the replica and forget it, and the bookmark freezes. Postgres keeps its promise: every segment since piles up in `pg_wal` until the disk fills and the database stop working.
+If we kill the replica and forget to drop its slot:
 
-Because the checkpoint trims the _head_ of the log but anything pinning the _tail_ win it. This is the classic "the log grew forever anyway" incident.
+```mermaid
+flowchart LR
+    A["Replica dies,<br/>slot forgotten"] --> B["Bookmark freezes"]
+    B --> C["Postgres keeps its promise<br/>every segment since stays"]
+    C --> D["pg_wal piles up<br/>until the disk is full"]
+    D --> E["Database stops working"]
+```
 
-It's the piece everybody skips when they build this pattern themselves. So I myself haven't have chance handle this myself yet but worth learning anyway
+The checkpoint trims the _head_ of the log. But anything pinning the _tail_ wins. This is the classic "the log grew forever anyway" incident.
 
-## We use it everyday.
+It's the piece everybody skips when they build this pattern themselves. I haven't had to handle this myself yet. But it's worth learning anyway.
 
-It's pretty common that WAL are in our everyday life and we might know that already.
+## We use it everyday
 
-- **Postgres**: the `pg_wal/` directory. and as we mentioned this thing above already, Postgres uses WAL for feed replicas and use it for point-in-time recovery, e.g. we can ask it to replay up to 3:45pm yesterday, just simple as that.
+WAL is in our everyday life more than we notice.
+
+- **Postgres**: the `pg_wal/` directory. As we mentioned above, Postgres uses WAL to feed replicas and for point-in-time recovery. We can ask it to replay up to 3:45pm yesterday. Just like that.
 - **SQLite**: `PRAGMA journal_mode=WAL`, and the `-wal` sidecar file next to the database. Most people flip this on because readers stop blocking writers, without ever asking _why_. So now we know!
-- **ext4, NTFS**: in this filesystem, I'm surprised too when I learned this. they call it _journaling_. but more like a close cousin rather than the same thing and by default, they journal filesystem _metadata_, not the file contents, so what we will get is "the filesystem stays consistent," not "our data survives."
-- **Kafka**: fundamentally distributed write-ahead log (WAL) and consumer basically read log directly.
+- **ext4, NTFS**: I was surprised too when I learned this. They call it _journaling_, but it is more a close cousin than the same thing. By default they journal filesystem _metadata_, not file contents. So what we get is "the filesystem stays consistent", not "our data survives".
+- **Kafka**: fundamentally a distributed write-ahead log. Consumers basically read the log directly.
 
-## How we use WAL in daily-life?
+## How do we use WAL in daily life?
 
-Because WAL is a concept we may see on the library, database, something in the depth level but it does not mean we can not apply it, right?
+WAL is a concept we usually see at the library or database level, deep down. But that does not mean we cannot apply it ourselves, right?
 
 And we might be surprised that this kind of pattern already exists in the normal application level. Same shape but different name. We might already use it too.
 
-So at the app level, the "crash" is a process dying, a pod getting evicted, a timeout, a 500 on the request, something loss along the network way or OOM (out-of-memory) occurs.
+At the app level, the "crash" can be many things:
+
+- A process dying.
+- A pod getting evicted.
+- A timeout.
+- A 500 on the request.
+- Something lost on the network.
+- Or an OOM (out-of-memory) kill.
 
 ### First, what "durable" means
 
-Durable means: **it survives the process dying right now.** Not "I called the function." The bytes are somewhere they'll still be after a hard power loss.
+Durable means: **it survives the process dying right now.** Not "I called the function". The bytes are somewhere that survives a hard power loss.
 
 The trap is all the layers that _look_ durable and aren't:
 
-- A variable in memory → they gone on crash.
+- A variable in memory → gone on crash.
 - An `INSERT` sent, transaction not committed → gone.
 - Written to a file, sitting in the OS page cache → still gone on power loss. `write()` returned, but the disk never saw it.
-- `COMMIT` returned successfully → durable. The database did the `fsync` for us.
+- `COMMIT` returned successfully → durable. The database did the `fsync` for us. (Pedantic, in Postgres: true as long as nobody turned `synchronous_commit` off.)
 
 For application code: **durable means the database transaction committed.** Until `await tx.commit()` returns, we have nothing. That's the D in ACID.
 
@@ -115,11 +157,11 @@ For application code: **durable means the database transaction committed.** Unti
 >
 > A: Atomicity, Consistency, Isolation, and Durability
 
-This is why the WAL rule is "the log entry must be durable before the side effect." It's not _before_ in the order my code reads. It's before in the order things land on disk.
+This is why the WAL rule is "the log entry must be durable before the side effect". It's not _before_ in the order my code reads. It's before in the order things land on disk.
 
 ### The problem: dual writes
 
-When two systems can't share a transaction. (2-phase commit exists, technically nobody reaches for it, least of all against someone else's API.)
+This is when two systems cannot share a transaction. (Two-phase commit exists. But nobody actually reaches for it, least of all against someone else's API.)
 
 ```ts
 await db.orders.update({ where: { id }, data: { status: "shipped" } }); // system A
@@ -131,7 +173,7 @@ await slack.chat.postMessage({
 
 Two independent failure points, no atomicity. The order says `shipped`, but the #fulfillment channel never hears about it. Nobody packs the box, nobody ships it. Nobody finds out until the customer asks us where the order is.
 
-And we can't reorder a way out of it. And then we try swapping the 2 lines, it just moves the bug and now we announce a shipment we never recorded. 😂
+We cannot reorder our way out of it either. Swap the two lines, and the bug just moves. Now we announce a shipment we never recorded. 😂
 
 ### The fix: make it a single write
 
@@ -146,7 +188,7 @@ await db.$transaction(async (tx) => {
 });
 ```
 
-So now both rows live in the same database, so one `COMMIT` makes them atomic. Either both exist or neither does. There is no in-between state to crash into.
+Both rows now live in the same database. One `COMMIT` makes them atomic.
 
 ```ts
 // Somewhere: the relay worker, on a cron.
@@ -168,7 +210,13 @@ for (const row of rows) {
 
 - `FOR UPDATE` takes a row lock on everything it selected.
 - `SKIP LOCKED` makes a worker that hits an already-locked row skip past it instead of waiting.
-- Two workers polling at the same moment each get a different batch, get no duplicates, no outboxing on database. (Run the poll inside a transaction, or the locks release before we've published.)
+- Two workers polling at the same moment each get a different batch. No duplicates, no double publishing. (Run the poll inside a transaction, or the locks release before we publish.)
+
+One more trade-off worth naming. `SKIP LOCKED` gives us at-least-once delivery, not _ordering_:
+
+- Two workers running in parallel can publish out of order. The ping for order 42 might land before order 41.
+- For notifications, that's fine.
+- For anything order-sensitive (payment events, state transitions), serialize per entity, or rebuild the sequence on the consumer side.
 
 | Where the crash lands  | Dual write                       | Outbox                                      |
 | ---------------------- | -------------------------------- | ------------------------------------------- |
@@ -176,52 +224,56 @@ for (const row of rows) {
 | During the publish     | Half-sent, unknown state         | Relay retries until it's marked             |
 | Delivery guarantee     | Best-effort: messages can vanish | At-least-once: messages can duplicate       |
 
-We didn't remove the risk, we moved it: the new failure mode is duplication, not loss. The relay might post, then die before marking the row published, and post again.
+We didn't remove the risk, we moved it. The new failure mode is duplication, not loss. The relay might post, then die before marking the row published, and post again.
 
-So the receiving end has to be **idempotent**. A Kafka consumer dedupes. A Slack channel just sees the ping twice. That ordering is deliberate: mark first, and we'd trade duplicates for losses, the one failure we can't recover from.
+So the receiving end has to be **idempotent**. A Kafka consumer dedupes. A Slack channel just sees the ping twice. The order here is deliberate. Mark first, and we trade duplicates for losses. And loss is the one failure we cannot recover from.
 
-(And if polling a table offends us, the alternative is tailing Postgres' own WAL with logical decoding (Debezium, essentially) for lower latency, at the price of coupling our delivery pipeline to database internals. Polling is boring and portable. Start there.)
+(And if polling a table offends us, there is another way. Tail Postgres' own WAL with logical decoding. Debezium, essentially. Lower latency, but we couple our delivery pipeline to database internals. Polling is boring and portable. Start there.)
 
 Now the harder case.
 
 > Q: Is this a queue? why call outbox, never heard of it
 >
-> A: When I read online, I found one cool reddit saying that "Unpopular opinion: Queues are just specialised databases, and the Outbox pattern IS using a database as a queue"
-> Or "it's just a database with a specific API on top" and I agreed. But we can call it whatever we like, as long as we are the same page on what problem we're solving.
+> A: When reading online, I found a cool Reddit thread: "Unpopular opinion: Queues are just specialised databases, and the Outbox pattern IS using a database as a queue"
+> Or "it's just a database with a specific API on top". And I agreed. But we can call it whatever we like, as long as we're on the same page about what problem we're solving.
 >
 > r: https://www.reddit.com/r/dotnet/comments/1g9lit2/unpopular_opinion_queues_are_just_specialised/
 
 ### When the 2nd system is a 3rd-party service
 
-For example, the Slack notification from the relay above. A duplicate ping is not a double charge, but if it's too annoy, surely it gets muted, and the muted channel is where the real alert gets missed and we do not build the Slack notification for just get muted right?
+Take the Slack notification from the relay above. A duplicate ping is not a double charge. But if it gets too annoying, the channel gets muted. And a muted channel is where the real alert gets missed. We don't build Slack notifications just to get them muted, right?
 
-Okie, same shape of thought: LOG the intent, DO the post, APPLY the mark. We already have all 3 steps in the relay worker. The interesting part is what happens when the retry posts again, and that part is not ours to decide. It depends on whether the other side cooperates:
+Okie, same shape of thought: LOG the intent, DO the post, APPLY the mark. We already have all 3 steps in the relay worker. The interesting part is what happens when the retry posts again. And that part is not ours to decide. It depends on whether the other side cooperates:
 
-Slack does not cooperate. I checked the API docs for `chat.postMessage`: the args are `channel`, `text`, `blocks`, `metadata`, and friends. No idempotency key, no dedupe, nothing. So a crash between the post and the mark will double-post eventually. All I can do is make the duplicate harmless:
+Slack does not cooperate. I checked the API docs for `chat.postMessage`. The args are `channel`, `text`, `blocks`, `metadata`, and friends. No idempotency key, no dedupe, nothing. So a crash between the post and the mark will double-post eventually. All I can do is make the duplicate harmless:
 
 - Keep the text deterministic, so a repeat at least says the same thing.
 - Tag retries, so the channel knows it's a resend.
 - Or just accept it. Chat tolerates a repeat.
 
-With my approach, I hash the whole text and save it as a idempotent key, so we don't publish same exact message twice and that's my way. I can accept the loss.
+My approach: I hash the whole text and store it with a **unique index**. The same exact message never publishes twice. That's my way, and I can accept the loss. But let's be honest about what that loss is:
+
+- Not just "a repeat does not happen".
+- Also "a genuine event with identical text gets dropped". Two identical orders seconds apart? The second ping vanishes.
+- Fine for chat. For anything near accounting, key on the event ID, not the text.
 
 #### Q: What about payment? A double charge feels scarier than a duplicate ping
 
-A: Same 3 steps, but here the other side cooperates, if we ask properly:
+Same 3 steps. But here the other side cooperates, if we ask properly:
 
-- **Idempotency key.** We generate it on the LOG step, before the side effect. Stripe (and Square, Adyen, PayPal, all the same shape) saves the first result for that key, so a retry gets the original charge instead of a second one.
-- **It's my "I already replayed this entry" marker**, roughly the job an LSN does in a real WAL: during redo, Postgres compares a record's LSN against the target page's to ask "already applied?", a position check, not a transaction-ID check.
-- **Keys expire.** Stripe's after about 24 hours, Adyen's 7 to 14 days, so a retry that outlives the window charges twice. One more reason the retry cap matters.
-- **APPLY usually arrives as a webhook**: the gateway calls us with `payment_intent.succeeded`, and the retry worker is just the fallback for when webhooks are down. Which I find funny, the gateway's event log is a WAL too, and our webhook handler is the replay.
+- **Idempotency key.** We generate it on the LOG step, before the side effect. Stripe (and Square, Adyen, PayPal, all the same shape) saves the first result for that key. So a retry gets the original charge, not a second one.
+- **It's my "I already replayed this entry" marker.** Roughly the job an LSN does in a real WAL. The position check from earlier: compare the record's position with the page's to ask "already applied?". Not a transaction-ID check.
+- **Keys expire.** [Stripe's](https://docs.stripe.com/api/idempotent_requests) after about 24 hours, [Adyen's](https://docs.adyen.com/development-resources/api-idempotency/) at least 7 days. So a retry that outlives the window charges twice. One more reason the retry cap matters.
+- **APPLY usually arrives as a webhook.** The gateway calls us with `payment_intent.succeeded`. The retry worker is just the fallback for when webhooks are down. Which I find funny. The gateway's event log is a WAL too, and our webhook handler is the replay.
 
-(The token I remembered from the gateway flow, Stripe's `pm_...`, is a different thing: that's the card itself, tokenized on the client side so raw card data never touches our server. Not a retry marker.)
+(The token I remembered from the gateway flow, Stripe's `pm_...`, is a different thing. That's the card itself, tokenized on the client side so raw card data never touches our server. Not a retry marker.)
 
 ### Where the analogy gets thin
 
 Now the part that took me longest to get straight.
 
-- A database WAL is idempotent **by construction**: Postgres owns both the log and the data file, one system, one authority, no negotiation. Replaying twice is defined to be safe.
-- The outbox has no such luxury. The side effect lives in someone else's system, so replay is only safe if _they_ cooperate: Stripe cooperates if I remember to pass the key, Slack can't cooperate at all.
+- A database WAL is idempotent **by construction**. Postgres owns both the log and the data file. One system, one authority, no negotiation. Replaying twice is safe by definition.
+- The outbox has no such luxury. The side effect lives in someone else's system. So replay is only safe if _they_ cooperate. Stripe cooperates if I remember to pass the key. Slack cannot cooperate at all.
 
 The safety isn't given to me by the pattern. It's homework.
 
@@ -231,7 +283,7 @@ Same shape, different mechanism. And the difference is exactly the part that pag
 
 ## Don't forget the checkpoint
 
-My `outbox` table needs the equivalent, and this is the part people skip: I ship the happy path, and six months later there's a table with forty million rows in it and a handful of silent orphans.
+My `outbox` table needs the equivalent. And this is the part people skip. I ship the happy path, and six months later there's a table with forty million rows in it and a handful of silent orphans.
 
 The retry worker is not optional. Minimum viable version:
 
@@ -246,21 +298,42 @@ FOR UPDATE SKIP LOCKED
 LIMIT 100;
 ```
 
-(One caveat: a locking clause combined with `ORDER BY` at `READ COMMITTED` can return rows slightly out of order, harmless for a retry worker, but don't build anything that needs strict ordering on this query.)
+(One caveat: a locking clause with `ORDER BY` at `READ COMMITTED` can return rows slightly out of order. Harmless for a retry worker. But don't build anything that needs strict ordering on this query.)
 
 Checklist for anything I build in this shape:
 
 - **Idempotency key** on every entry, generated _before_ the side effect, when the target supports one.
 - **A retry worker**, with backoff and a cap on attempts.
+- **A unique index on the idempotency key**, so two workers can't publish the same entry twice.
 - **A terminal state**: `failed` after N tries, so rows can't retry forever.
 - **Cleanup** of completed entries, or the table grows without limit.
 - **An alert** on anything `pending` longer than it should be. This is the one that tells me the pattern is broken before a customer does.
 
 ## And then Cursor takes it further
 
-Aha, finally, out of the WAL topic and come back to the Cursor blog.
+Aha, finally done with the WAL basics. Back to the Cursor blog.
 
-So in a normal database, the data file is the truth and the log protects it. Cursor inverted that. Their WAL lives in S3, and _that's_ the source of truth: the Git repositories on local NVMe disks are, in their words, **"warm caches."**
+In a normal database, the data file is the truth, and the log protects it. Cursor inverted that. Their WAL lives in S3, and _that's_ the source of truth. The Git repositories on local NVMe disks (fast SSDs), in their words, are **"warm caches."**
+
+Now the question I had to sit with. A WAL needs one strict, total order. But S3 has no `append()`. You cannot extend an object in place. Every write is a whole new object. So where does the order come from?
+
+Cursor's answer (the system is called Continuity):
+
+```mermaid
+flowchart LR
+    P["git push"] --> O["1 · Store the push as an<br/>immutable object in S3"]
+    O --> I["2 · Rewrite the tiny<br/>WAL index file"]
+    I --> W{"3 · Compare-and-swap<br/>on the index"}
+    W -->|won the race| OK["Push is visible<br/>acknowledge the client"]
+    W -->|lost the race| L["Re-read the index<br/>and retry"]
+```
+
+- Each push is an **immutable object**. The order lives in one tiny **WAL index file**.
+- The rewrite is an atomic compare-and-swap (CAS). S3's [conditional writes](https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-s3-functionality-conditional-writes/) make the `PUT` fail if someone else won the race. So two servers cannot publish at the same position. The loser re-reads and retries.
+- The CAS _is_ the consensus.
+- Replicas use the same trick for reads. A conditional `GET` with the ETag they expect (the object's version tag). A 304 means "nothing changed, serve from cache". A 200 means "catch up from the log first".
+
+So the strict order is not a property of the storage. It is enforced at one point, the index object, on top of storage that is just a pile of immutable bytes. The 2024 `If-None-Match` feature, and its `If-Match` read-modify-write sibling, quietly turned object storage into a consensus primitive.
 
 Once the log is the truth, a pile of hard problems disappear. There's no leader election, because there's no special server to elect:
 
@@ -270,20 +343,29 @@ Once the log is the truth, a pile of hard problems disappear. There's no leader 
 
 > Since every push is in the WAL, we can look at every state a repository has ever been in.
 
-That's the same "replay it somewhere else, replay it up to yesterday" bonus Postgres gets from `pg_wal/`, just at a different altitude.
+That's the same "replay it somewhere else, replay it up to yesterday" bonus Postgres gets from `pg_wal/`. Just at a different altitude.
 
-Once the log is durable, ordered, and complete, the "real" data structure is only ever a convenient projection of it. We can throw it away and rebuild it.
+Once the log is durable, ordered, and complete, the "real" data structure is just a projection of it. We can throw it away and rebuild it.
+
+And this shape is escaping into the wild now. [walgit](https://github.com/tobi/walgit), Tobi Lütke's Rust implementation of the same architecture:
+
+- One binary in front of an S3/GCS bucket.
+- No database, no leader, no local state that matters.
+- Even fresh clones get served as static bundle files straight from the bucket.
+- In their words: "Every machine that runs walgit is a disposable cache; the bucket is the repository."
+
+Same idea, same WAL, all the way down.
 
 Cool, right! 😆
 
 ## What I'm taking away
 
-I think personally, It's good once in a while a tech company write a take-away or summary blog post on what they have done. It's a huge effort from many engineers involve and I love to read it.
+I think personally, it's good once in a while when a tech company writes a take-away or summary blog post on what they have done. It's a huge effort from many engineers involved, and I love to read it.
 
-It also trigger me as well to look back the fundamental and design system of what we already had in the world and learn from it.
+It also triggers me to look back at the fundamentals of systems we already have in the world and learn from them.
 
-WAL (write-ahead log) is something I am surely not learn from school or university (bechelor level), since they are all pretty high-level and yet, this Cursor blog make me go through to deep hole, reading how Postgres works, ask Claude to teach me the concept days over days and experiment it locally, dig into the log file.
+WAL (write-ahead log) is something I surely never learned in school or university (bachelor level). It was all pretty high-level there. But this Cursor blog made me go through a deep hole. Reading how Postgres works. Asking Claude to teach me the concept days over days. Experimenting locally. Digging into the log files.
 
-It's pretty valuable experience, IMHO, so yeah seems like the evening well-spent.
+Pretty valuable experience, IMHO. So yeah, seems like the evening well-spent.
 
-Thanks everyone who read til this point and yep, if I miss something in the blog and I surely am, please let me know and I am sure updating it.
+Thanks everyone who read til this point. And yep, if I missed something (I'm sure I did), please let me know and I'll update the post.
