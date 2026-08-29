@@ -1,9 +1,9 @@
 ---
 title: "WAL: a write-ahead log, or writing it down before I do it"
 description: "A write-ahead log is just writing down the step before I run it. Same trick shows up in Postgres, in my Slack bot, and in how Cursor hosts Git."
-publishDate: "24 August 2026"
+publishDate: "29 August 2026"
 tags: ["databases", "distributed systems", "postgres", "architecture"]
-draft: true
+draft: false
 ---
 
 We were talking at the office this week about [Cursor's post on hosting Git at any scale](https://cursor.com/blog/git-at-any-scale), and one line stuck with me:
