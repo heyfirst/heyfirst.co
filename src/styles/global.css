@@ -13,6 +13,8 @@
 	/* type */
 	--font-body: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 		"Liberation Mono", "Courier New", monospace;
+	--text-base: 0.875rem;
+	--text-base--line-height: 1.7142857;
 
 	/* core (light) — same six token names as before, re-hued */
 	--color-global-bg: #f1f2e8;
