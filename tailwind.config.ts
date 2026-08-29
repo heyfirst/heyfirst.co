@@ -77,14 +77,6 @@ export default {
 						},
 					},
 				},
-				sm: {
-					css: {
-						code: {
-							fontSize: "var(--text-sm)",
-							fontWeight: "400",
-						},
-					},
-				},
 			}),
 		},
 	},
