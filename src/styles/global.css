@@ -99,6 +99,61 @@
 		@apply bg-(--surface) border-(--border) rounded-[10px] border px-4 py-3;
 	}
 
+	/* Mermaid diagrams (astro-mermaid renders them client-side into <pre class="mermaid">).
+	   Mermaid scopes its own generated CSS by SVG id — `#mermaid-1 .node rect` — which
+	   outranks any plain class selector, so re-skinning it needs !important. We only
+	   override the handful of properties that make a diagram look native to the site;
+	   layout and everything else is left to mermaid's own light/dark theme.
+	   Colors come from theme tokens that flip under [data-theme="dark"], so the
+	   diagrams follow the toggle without a second set of rules. */
+	.mermaid {
+		@apply my-8 overflow-x-auto text-center;
+	}
+
+	.mermaid svg {
+		@apply mx-auto h-auto max-w-full;
+		font-family: var(--font-body) !important;
+	}
+
+	/* Node bodies: site surface, accent outline. */
+	.mermaid .node rect,
+	.mermaid .node polygon,
+	.mermaid .node circle,
+	.mermaid .node path {
+		fill: var(--surface) !important;
+		stroke: var(--color-accent) !important;
+		stroke-width: 1.5px !important;
+	}
+
+	/* Subgraph containers: hairline only, no fill competing with the nodes inside. */
+	.mermaid .cluster rect {
+		fill: transparent !important;
+		stroke: var(--border) !important;
+	}
+
+	.mermaid .nodeLabel,
+	.mermaid .edgeLabel,
+	.mermaid .cluster-label,
+	.mermaid .label {
+		color: var(--color-global-text) !important;
+		fill: var(--color-global-text) !important;
+	}
+
+	/* Edge labels sit on top of their line, so they need the page background behind them. */
+	.mermaid .edgeLabel {
+		background: var(--color-global-bg) !important;
+	}
+
+	.mermaid .flowchart-link,
+	.mermaid .edgePath .path {
+		stroke: var(--color-quote) !important;
+	}
+
+	.mermaid .marker {
+		fill: var(--color-quote) !important;
+		stroke: var(--color-quote) !important;
+	}
+
 	.post-footer {
 		@apply border-(--border) mt-8 border-t pt-4 text-xs opacity-70;
 

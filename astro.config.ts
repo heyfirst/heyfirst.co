@@ -1,26 +1,24 @@
 import fs from "node:fs";
+// Rehype plugins
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import mermaid from "astro-mermaid";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
-import { defineConfig } from "astro/config";
-import { expressiveCodeOptions } from "./src/site.config";
-import { siteConfig } from "./src/site.config";
-import vercel from "@astrojs/vercel";
-
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 // Remark plugins
 import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
 import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
-
-// Rehype plugins
-import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeUnwrapImages from "rehype-unwrap-images";
+import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -48,11 +46,41 @@ export default defineConfig({
 		}),
 	},
 	integrations: [
+		// Must come BEFORE expressiveCode, otherwise ```mermaid blocks are claimed by
+		// the syntax highlighter and never become <pre class="mermaid"> elements.
+		mermaid({
+			autoTheme: true,
+			mermaidConfig: {
+				flowchart: { curve: "basis" },
+			},
+		}),
 		expressiveCode(expressiveCodeOptions),
 		icon(),
 		sitemap(),
 		mdx(),
-		robotsTxt(),
+		robotsTxt({
+			policy: [
+				{ userAgent: "*", allow: "/" },
+				// AI crawlers — explicitly welcome
+				{ userAgent: "GPTBot", allow: "/" },
+				{ userAgent: "OAI-SearchBot", allow: "/" },
+				{ userAgent: "ChatGPT-User", allow: "/" },
+				{ userAgent: "ClaudeBot", allow: "/" },
+				{ userAgent: "Claude-Web", allow: "/" },
+				{ userAgent: "Claude-SearchBot", allow: "/" },
+				{ userAgent: "anthropic-ai", allow: "/" },
+				{ userAgent: "Google-Extended", allow: "/" },
+				{ userAgent: "CCBot", allow: "/" },
+				{ userAgent: "PerplexityBot", allow: "/" },
+				{ userAgent: "Perplexity-User", allow: "/" },
+				{ userAgent: "Amazonbot", allow: "/" },
+				{ userAgent: "Applebot-Extended", allow: "/" },
+				{ userAgent: "meta-externalagent", allow: "/" },
+				{ userAgent: "Bytespider", allow: "/" },
+				{ userAgent: "YouBot", allow: "/" },
+				{ userAgent: "cohere-ai", allow: "/" },
+			],
+		}),
 		webmanifest({
 			// See: https://github.com/alextim/astro-lib/blob/main/packages/astro-webmanifest/README.md
 			name: siteConfig.title,
