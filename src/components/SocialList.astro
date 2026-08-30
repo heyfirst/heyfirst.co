@@ -40,7 +40,14 @@ const socialLinks: {
 		{
 			socialLinks.map(({ friendlyName, link, name }) => (
 				<li class="flex">
-					<a class="hover:text-link inline-block" href={link} rel={`noreferrer`} target="_blank">
+					<a
+						class="hover:text-link inline-block"
+						href={link}
+						rel={`noreferrer`}
+						target="_blank"
+						data-umami-event="social-click"
+						data-umami-event-platform={friendlyName}
+					>
 						<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name={name} />
 						<span class="sr-only">{friendlyName}</span>
 					</a>

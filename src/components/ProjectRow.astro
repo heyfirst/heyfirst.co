@@ -17,7 +17,14 @@ const { project } = Astro.props;
 	<div class="min-w-0 flex-1">
 		{
 			project.data.url ? (
-				<a class="cactus-link font-semibold" href={project.data.url} rel="noreferrer" target="_blank">
+				<a
+					class="cactus-link font-semibold"
+					href={project.data.url}
+					rel="noreferrer"
+					target="_blank"
+					data-umami-event="project-link-click"
+					data-umami-event-project={project.data.name}
+				>
 					{project.data.name}
 				</a>
 			) : (
