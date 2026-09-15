@@ -1,0 +1,4 @@
+{
+	"name": "heyfirst",
+	"script": "astro:dev"
+}

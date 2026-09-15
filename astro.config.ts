@@ -123,6 +123,9 @@ export default defineConfig({
 			exclude: ["@resvg/resvg-js"],
 		},
 		plugins: [tailwindcss(), rawFonts([".ttf", ".woff"])],
+		server: {
+			allowedHosts: ["heyfirst.localhost"],
+		},
 	},
 	output: "static",
 	adapter: vercel({
