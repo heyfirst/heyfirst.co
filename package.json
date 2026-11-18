@@ -13,7 +13,8 @@
 		"format": "bun run format:code && bun run format:imports",
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
-		"check": "astro check"
+		"check": "astro check",
+		"prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "7.2.1",

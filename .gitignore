@@ -25,3 +25,9 @@ pnpm-debug.log*
 .cache
 .astro
 teaching
+
+# local secrets and uploads
+.env.*
+!.env.example
+.kamal/secrets
+uploads/
