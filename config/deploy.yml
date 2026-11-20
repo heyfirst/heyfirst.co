@@ -1,0 +1,65 @@
+# Every host, user, endpoint and origin comes from .env (see .env.example); nothing private is committed.
+service: heyfirst-co
+image: <%= ENV.fetch("REGISTRY_USER") %>/heyfirst-co
+
+servers:
+  web:
+    hosts:
+      - <%= ENV.fetch("DEPLOY_HOST") %>
+    # EmDash only needs more than a few seconds while someone is co-editing.
+    stop_timeout: 30
+    options:
+      memory: 768m
+      memory-swap: 768m
+      cpus: 1
+      pids-limit: 256
+
+proxy:
+  ssl: true
+  host: <%= ENV.fetch("PROXY_HOST") %>
+  app_port: 3000
+  forward_headers: true
+  healthcheck:
+    path: /up
+    interval: 3
+    timeout: 3
+
+registry:
+  server: ghcr.io
+  username: <%= ENV.fetch("REGISTRY_USER") %>
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: arm64
+  args:
+    SITE_URL: <%= ENV.fetch("DEPLOY_SITE_URL") %>
+    STAGING_ORIGIN: <%= ENV.fetch("DEPLOY_STAGING_ORIGIN") %>
+    GIT_SHA: <%= ENV.fetch("GIT_SHA") %>
+
+# The first start applies 99 migrations on an empty database in a few seconds.
+deploy_timeout: 60
+drain_timeout: 30
+
+volumes:
+  - "heyfirst-uploads:/data/uploads"
+
+env:
+  clear:
+    HOST: 0.0.0.0
+    PORT: 3000
+    PGHOST: <%= ENV.fetch("PGHOST") %>
+    PGPORT: <%= ENV.fetch("PGPORT") %>
+    PGUSER: <%= ENV.fetch("PGUSER") %>
+    PGDATABASE: <%= ENV.fetch("PGDATABASE") %>
+    PGSSLMODE: <%= ENV.fetch("PGSSLMODE") %>
+    EMDASH_MIGRATIONS_MODE: check
+    EMDASH_EXPECTED_FINGERPRINT: <%= ENV.fetch("EMDASH_EXPECTED_FINGERPRINT", "") %>
+    EMDASH_FIRST_MIGRATE: <%= ENV.fetch("EMDASH_FIRST_MIGRATE", "") %>
+    OTEL_SERVICE_NAME: heyfirst-co
+    DEPLOYMENT_ENVIRONMENT: <%= ENV.fetch("DEPLOYMENT_ENVIRONMENT", "staging") %>
+    GIT_SHA: <%= ENV.fetch("GIT_SHA") %>
+    OTEL_EXPORTER_OTLP_ENDPOINT: <%= ENV.fetch("OTLP_ENDPOINT") %>
+  secret:
+    - PGPASSWORD
+    - HYPERDX_API_KEY
