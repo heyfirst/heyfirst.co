@@ -1,0 +1,331 @@
+{
+	"version": "1",
+	"taxonomies": [
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["post"],
+			"terms": [
+				{
+					"slug": "emdash",
+					"label": "emdash"
+				},
+				{
+					"slug": "sample",
+					"label": "sample"
+				},
+					{
+						"slug": "software-development",
+						"label": "software development"
+					}
+			]
+		}
+	],
+	"content": {
+		"post": [
+			{
+				"id": "sample-post",
+				"slug": "hello-from-emdash",
+				"status": "published",
+				"data": {
+					"title": "Hello from EmDash",
+					"description": "A sample post so the index is not empty.",
+					"publish_date": "2026-01-15T09:00:00.000Z",
+					"body": [
+						{
+							"_type": "block",
+							"_key": "a",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "as",
+									"text": "First heading",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "a2",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "a2s",
+									"text": "First heading",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "bs",
+									"text": "This post lives in the EmDash database, not in git.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "c",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "cs",
+									"text": "Second heading",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "d",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ds",
+									"text": "Delete it from the admin when you have real writing.",
+									"marks": []
+								}
+							]
+						},
+						{
+							"_type": "admonition",
+							"_key": "adm",
+							"kind": "tip",
+							"title": "Tip",
+							"body": [
+								{
+									"_type": "block",
+									"_key": "adb",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "adbs",
+											"text": "Admonitions render from custom blocks.",
+											"marks": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "code",
+							"_key": "cod",
+							"language": "ts",
+							"code": "const answer = 42;",
+							"meta": "title=\"answer.ts\""
+						},
+						{
+							"_type": "table",
+							"_key": "tab",
+							"rows": [
+								{
+									"_key": "r1",
+									"cells": [
+										{
+											"_type": "block",
+											"_key": "c1",
+											"style": "normal",
+											"markDefs": [],
+											"children": [
+												{
+													"_type": "span",
+													"_key": "c1s",
+													"text": "Name",
+													"marks": []
+												}
+											]
+										},
+										{
+											"_type": "block",
+											"_key": "c2",
+											"style": "normal",
+											"markDefs": [],
+											"children": [
+												{
+													"_type": "span",
+													"_key": "c2s",
+													"text": "Value",
+													"marks": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"_key": "r2",
+									"cells": [
+										{
+											"_type": "block",
+											"_key": "c3",
+											"style": "normal",
+											"markDefs": [],
+											"children": [
+												{
+													"_type": "span",
+													"_key": "c3s",
+													"text": "answer",
+													"marks": []
+												}
+											]
+										},
+										{
+											"_type": "block",
+											"_key": "c4",
+											"style": "normal",
+											"markDefs": [],
+											"children": [
+												{
+													"_type": "span",
+													"_key": "c4s",
+													"text": "42",
+													"marks": []
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "fnb",
+							"style": "normal",
+							"markDefs": [
+								{
+									"_type": "footnote",
+									"_key": "f1",
+									"text": "The footnote text."
+								}
+							],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "fnbs",
+									"text": "A sentence with a footnote.",
+									"marks": []
+								},
+								{
+									"_type": "span",
+									"_key": "fnbm",
+									"text": "[1]",
+									"marks": ["f1"]
+								}
+							]
+						},
+						{
+							"_type": "footer",
+							"_key": "foot",
+							"body": [
+								{
+									"_type": "block",
+									"_key": "fb",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "fbs",
+											"text": "Posted from the sample seed.",
+											"marks": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"tag": ["emdash", "sample", "software-development"]
+				}
+			},
+			{
+				"id": "sample-draft",
+				"slug": "unpublished-draft",
+				"status": "draft",
+				"data": {
+					"title": "Unpublished draft",
+					"description": "Must never render publicly.",
+					"publish_date": "2026-01-16T09:00:00.000Z",
+					"body": [
+						{
+							"_type": "block",
+							"_key": "a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "as",
+									"text": "Draft body.",
+									"marks": []
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"snippet": [
+			{
+				"id": "sample-snippet",
+				"slug": "hello-snippet",
+				"status": "published",
+				"data": {
+					"title": "Hello snippet",
+					"lang": "ts",
+					"description": "A sample snippet.",
+					"publish_date": "2026-01-17T09:00:00.000Z",
+					"body": [
+						{
+							"_type": "block",
+							"_key": "a",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "as",
+									"text": "A short note.",
+									"marks": []
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"project": [
+			{
+				"id": "sample-project",
+				"slug": "sample-project",
+				"status": "published",
+				"data": {
+					"name": "Sample project",
+					"stack": "Bun, Astro",
+					"description": "A sample project.",
+					"project_status": "Live",
+					"sort_order": 1
+				}
+			}
+		]
+	}
+}
