@@ -5,13 +5,10 @@ import "@/styles/global.css";
 
 type Props = SiteMeta;
 
-const { articleDate, description, ogImage, title } = Astro.props;
+const { title } = Astro.props;
 
 const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
-const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 ---
 
 <meta charset="utf-8" />
@@ -44,45 +41,15 @@ const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 	)
 }
 
-{/* Canonical URL */}
-<link href={canonicalURL} rel="canonical" />
-
-{/* Primary Meta Tags */}
 <meta content={siteTitle} name="title" />
-<meta content={description} name="description" />
 <meta content={siteConfig.author} name="author" />
-
-{/* Open Graph / Facebook */}
-<meta content={isArticle ? "article" : "website"} property="og:type" />
-<meta content={title} property="og:title" />
-<meta content={description} property="og:description" />
-<meta content={canonicalURL} property="og:url" />
-<meta content={siteConfig.title} property="og:site_name" />
-<meta content={siteConfig.ogLocale} property="og:locale" />
-<meta content={socialImageURL} property="og:image" />
 <meta content="1200" property="og:image:width" />
 <meta content="630" property="og:image:height" />
 <meta content={title} property="og:image:alt" />
-{
-	articleDate && (
-		<>
-			<meta content={siteConfig.author} property="article:author" />
-			<meta content={articleDate} property="article:published_time" />
-		</>
-	)
-}
-
-{/* Twitter */}
-<meta content="summary_large_image" property="twitter:card" />
-<meta content={canonicalURL} property="twitter:url" />
-<meta content={title} property="twitter:title" />
-<meta content={description} property="twitter:description" />
-<meta content={socialImageURL} property="twitter:image" />
-<meta content={siteConfig.title} property="twitter:site" />
-<meta content={siteConfig.author} property="twitter:creator" />
+<meta content={siteConfig.ogLocale} property="og:locale" />
 
 {/* Sitemap */}
-<link href="/sitemap-index.xml" rel="sitemap" />
+<link href="/sitemap.xml" rel="sitemap" />
 
 {/* RSS auto-discovery */}
 <link href="/rss.xml" title="Blog" rel="alternate" type="application/rss+xml" />
@@ -98,64 +65,7 @@ const isArticle = articleDate && Astro.url.pathname.startsWith("/posts/");
 			defer
 			src="https://umami.heyfirst.co/widget.js"
 			data-website-id="df6c623c-e7f0-4933-8a43-1f6cb5043c9e"
-		/>
-	)
-}
-
-{/* JSON-LD Structured Data */}
-<script
-	is:inline
-	type="application/ld+json"
-	set:html={JSON.stringify({
-		"@context": "https://schema.org",
-		"@type": "WebSite",
-		name: siteConfig.title,
-		url: siteConfig.url,
-		description: siteConfig.description,
-		author: {
-			"@type": "Person",
-			name: siteConfig.author,
-			url: siteConfig.url,
-		},
-		publisher: {
-			"@type": "Person",
-			name: siteConfig.author,
-		},
-	})}
-/>
-
-{
-	isArticle && articleDate && (
-		<script
-			is:inline
-			type="application/ld+json"
-			set:html={JSON.stringify({
-				"@context": "https://schema.org",
-				"@type": "BlogPosting",
-				headline: title,
-				description: description,
-				author: {
-					"@type": "Person",
-					name: siteConfig.author,
-					url: siteConfig.url,
-				},
-				publisher: {
-					"@type": "Person",
-					name: siteConfig.author,
-				},
-				datePublished: articleDate,
-				dateModified: articleDate,
-				mainEntityOfPage: {
-					"@type": "WebPage",
-					"@id": canonicalURL,
-				},
-				image: {
-					"@type": "ImageObject",
-					url: socialImageURL,
-					width: 1200,
-					height: 630,
-				},
-			})}
+			data-domains="heyfirst.co"
 		/>
 	)
 }

@@ -1,31 +1,27 @@
 ---
-import { getCollection } from "astro:content";
-
+import SnippetsIndex from "@/components/snippet/SnippetsIndex.astro";
 import Snippet from "@/components/snippet/Snippet.astro";
+import { getAllSnippets, getSnippet } from "@/data/snippet";
 import PageLayout from "@/layouts/Base.astro";
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { paginate, parsePageNumber } from "@/utils/paginate";
 
-// if you're using an adaptor in SSR mode, getStaticPaths wont work -> https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
-export const getStaticPaths = (async () => {
-	const allSnippets = await getCollection("snippet");
-	return allSnippets.map((snippet) => ({
-		params: { slug: snippet.id },
-		props: { snippet },
-	}));
-}) satisfies GetStaticPaths;
+const { slug } = Astro.params;
+const isIndex = !slug || /^\d+$/.test(slug);
+const page = isIndex ? paginate(await getAllSnippets(), parsePageNumber(slug), "/snippets/") : null;
+const snippet = isIndex || !slug ? null : await getSnippet(slug);
 
-export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+if (!page && !snippet) return Astro.rewrite("/404");
 
-const { snippet } = Astro.props;
-
-const meta = {
-	description:
-		snippet.data.description ||
-		`Read about my snippet posted on: ${snippet.data.publishDate.toLocaleDateString()}`,
-	title: snippet.data.title,
-};
+const meta = snippet
+	? {
+			description:
+				snippet.data.description ||
+				`Read about my snippet posted on: ${snippet.data.publishDate.toLocaleDateString()}`,
+			title: snippet.data.title,
+		}
+	: { description: "Read my collection of snippets", title: "Snippets" };
 ---
 
 <PageLayout meta={meta}>
-	<Snippet as="h1" snippet={snippet} />
+	{page ? <SnippetsIndex page={page} /> : snippet && <Snippet as="h1" snippet={snippet} />}
 </PageLayout>

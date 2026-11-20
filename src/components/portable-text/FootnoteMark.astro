@@ -1,0 +1,9 @@
+---
+interface Props {
+	node: { markDef: { _key: string; domId?: string } };
+}
+
+const { _key, domId = _key } = Astro.props.node.markDef;
+---
+
+<sup class="footnote-ref"><a href={`#fn-${domId}`} id={`fnref-${domId}`} aria-label="Footnote"><slot /></a></sup>

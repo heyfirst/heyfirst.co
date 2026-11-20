@@ -1,24 +1,34 @@
 ---
-import { render } from "astro:content";
-import { getAllPosts } from "@/data/post";
+import PostsIndex from "@/components/blog/PostsIndex.astro";
+import Body from "@/components/portable-text/Body.astro";
+import PageLayout from "@/layouts/Base.astro";
 import PostLayout from "@/layouts/BlogPost.astro";
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { getPost, getPostsPage } from "@/data/post";
+import { parsePageNumber } from "@/utils/paginate";
 
-// if you're using an adaptor in SSR mode, getStaticPaths wont work -> https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
-export const getStaticPaths = (async () => {
-	const blogEntries = await getAllPosts();
-	return blogEntries.map((post) => ({
-		params: { slug: post.id },
-		props: { post },
-	}));
-}) satisfies GetStaticPaths;
+const { slug } = Astro.params;
+const isIndex = !slug || /^\d+$/.test(slug);
+const index = isIndex ? await getPostsPage(parsePageNumber(slug)) : null;
+const post = isIndex || !slug ? null : await getPost(slug);
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+if (!index && !post) return Astro.rewrite("/404");
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const meta = {
+	description: "Read my collection of posts and the things that interest me",
+	title: "Posts",
+};
 ---
 
-<PostLayout post={post}>
-	<Content />
-</PostLayout>
+{
+	index ? (
+		<PageLayout meta={meta}>
+			<PostsIndex {...index} />
+		</PageLayout>
+	) : (
+		post && (
+			<PostLayout post={post}>
+				<Body value={post.body} />
+			</PostLayout>
+		)
+	)
+}

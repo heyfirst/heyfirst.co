@@ -1,10 +1,8 @@
-import { siteConfig } from "@/site.config";
-import { brandMarkMarkup } from "@/utils/brand-mark";
-import { ogOptions } from "@/utils/satori-options";
-import { Resvg } from "@resvg/resvg-js";
-import satori from "satori";
 import { html } from "satori-html";
 import { __unsafeHTML } from "ultrahtml";
+import { siteConfig } from "@/site.config";
+import { brandMarkMarkup } from "@/utils/brand-mark";
+import { renderOgPng } from "@/utils/satori-options";
 
 const brandMark = __unsafeHTML(
 	`<svg width="60" height="60" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">${brandMarkMarkup("ogSky")}</svg>`,
@@ -22,11 +20,9 @@ const markup = html`<div tw="flex flex-col w-full h-full bg-[#EFF1E7] text-[#223
 </div>`;
 
 export async function GET() {
-	const svg = await satori(markup, ogOptions);
-	const png = new Resvg(svg).render().asPng();
-	return new Response(new Uint8Array(png), {
+	return new Response(await renderOgPng(markup), {
 		headers: {
-			"Cache-Control": "public, max-age=31536000, immutable",
+			"Cache-Control": "public, max-age=86400, s-maxage=604800",
 			"Content-Type": "image/png",
 		},
 	});

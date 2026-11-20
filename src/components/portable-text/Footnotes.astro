@@ -1,0 +1,24 @@
+---
+import type { Footnote } from "@/data/body";
+
+interface Props {
+	notes: Footnote[];
+}
+
+const { notes } = Astro.props;
+---
+
+{
+	notes.length > 0 && (
+		<section class="footnotes">
+			<h2 class="sr-only">Footnotes</h2>
+			<ol>
+				{notes.map(({ id, text }) => (
+					<li id={`fn-${id}`}>
+						{text} <a href={`#fnref-${id}`} aria-label="Back to the reference">↩</a>
+					</li>
+				))}
+			</ol>
+		</section>
+	)
+}

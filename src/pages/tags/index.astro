@@ -20,10 +20,10 @@ const meta = {
 					<a
 						class="cactus-link inline-block"
 						data-astro-prefetch
-						href={`/tags/${tag}/`}
-						title={`View posts with the tag: ${tag}`}
+						href={`/tags/${tag.slug}/`}
+						title={`View posts with the tag: ${tag.label}`}
 					>
-						&#35;{tag}
+						&#35;{tag.label}
 					</a>
 					<span class="inline-block">
 						- {val} Post{val > 1 && "s"}

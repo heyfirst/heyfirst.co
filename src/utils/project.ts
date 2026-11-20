@@ -1,11 +1,11 @@
-import type { CollectionEntry } from "astro:content";
+import type { Project } from "@/data/project";
 
-export const projectStatusColor: Record<CollectionEntry<"project">["data"]["status"], string> = {
+export const projectStatusColor: Record<Project["data"]["status"], string> = {
 	Live: "bg-leaf",
 	Active: "bg-olive",
 	Maintained: "bg-tag-career",
 };
 
-export function sortProjectsByOrder(projects: CollectionEntry<"project">[]) {
+export function sortProjectsByOrder(projects: Project[]) {
 	return projects.sort((a, b) => (a.data.order ?? Infinity) - (b.data.order ?? Infinity));
 }

@@ -1,0 +1,13 @@
+---
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import { components } from "./components";
+
+interface Props {
+	node: { body: PortableTextBlock[] };
+}
+
+const { body } = Astro.props.node;
+---
+
+<footer class="post-footer"><PortableText components={components} value={body} /></footer>

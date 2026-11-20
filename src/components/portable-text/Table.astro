@@ -1,0 +1,43 @@
+---
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import { components } from "./components";
+
+interface Props {
+	node: { rows: { _key: string; cells: PortableTextBlock[] }[] };
+}
+
+const [header, ...rows] = Astro.props.node.rows;
+---
+
+<table>
+	{
+		header && (
+			<thead>
+				<tr>
+					{header.cells.map((cell) => (
+						<th><PortableText components={components} value={[cell]} /></th>
+					))}
+				</tr>
+			</thead>
+		)
+	}
+	<tbody>
+		{
+			rows.map((row) => (
+				<tr>
+					{row.cells.map((cell) => (
+						<td><PortableText components={components} value={[cell]} /></td>
+					))}
+				</tr>
+			))
+		}
+	</tbody>
+</table>
+
+<style is:global>
+	td > p,
+	th > p {
+		margin: 0;
+	}
+</style>

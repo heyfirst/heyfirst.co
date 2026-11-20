@@ -1,0 +1,16 @@
+---
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import { components } from "./components";
+
+interface Props {
+	node: { kind: string; title?: string; body: PortableTextBlock[] };
+}
+
+const { kind, title = kind, body } = Astro.props.node;
+---
+
+<aside aria-label={title} class="admonition" data-admonition-type={kind}>
+	<p class="admonition-title" aria-hidden="true">{title}</p>
+	<div class="admonition-content"><PortableText components={components} value={body} /></div>
+</aside>

@@ -1,16 +1,19 @@
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 // Rehype plugins
 import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel";
+import node from "@astrojs/node";
+import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import mermaid from "astro-mermaid";
-import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
+import emdash, { local } from "emdash/astro";
+import { postgres } from "emdash/db";
+import { loadEnv } from "vite";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
@@ -20,9 +23,18 @@ import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add adm
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
+// Bun loads .env for itself but not for the node process that runs astro, so read it here too.
+const env = { ...loadEnv(process.env.NODE_ENV ?? "production", process.cwd(), ""), ...process.env };
+const databaseUrl = env.DATABASE_URL;
+const siteUrl = env.SITE_URL;
+const stagingOrigin = env.STAGING_ORIGIN;
+const allowedDomains = [siteUrl, stagingOrigin]
+	.filter((url): url is string => Boolean(url))
+	.map((url) => ({ hostname: new URL(url).hostname }));
+
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.url,
+	site: siteUrl ?? siteConfig.url,
 	markdown: {
 		processor: unified({
 			rehypePlugins: [
@@ -56,29 +68,26 @@ export default defineConfig({
 		}),
 		expressiveCode(expressiveCodeOptions),
 		icon(),
-		sitemap(),
 		mdx(),
-		robotsTxt({
-			policy: [
-				{ userAgent: "*", allow: "/" },
-				// AI crawlers — explicitly welcome
-				{ userAgent: "GPTBot", allow: "/" },
-				{ userAgent: "OAI-SearchBot", allow: "/" },
-				{ userAgent: "ChatGPT-User", allow: "/" },
-				{ userAgent: "ClaudeBot", allow: "/" },
-				{ userAgent: "Claude-Web", allow: "/" },
-				{ userAgent: "Claude-SearchBot", allow: "/" },
-				{ userAgent: "anthropic-ai", allow: "/" },
-				{ userAgent: "Google-Extended", allow: "/" },
-				{ userAgent: "CCBot", allow: "/" },
-				{ userAgent: "PerplexityBot", allow: "/" },
-				{ userAgent: "Perplexity-User", allow: "/" },
-				{ userAgent: "Amazonbot", allow: "/" },
-				{ userAgent: "Applebot-Extended", allow: "/" },
-				{ userAgent: "meta-externalagent", allow: "/" },
-				{ userAgent: "Bytespider", allow: "/" },
-				{ userAgent: "YouBot", allow: "/" },
-				{ userAgent: "cohere-ai", allow: "/" },
+		react(),
+		emdash({
+			database: postgres({ ...(databaseUrl && { connectionString: databaseUrl }) }),
+			storage: local({
+				directory: env.UPLOADS_DIR ?? "./uploads",
+				baseUrl: "/_emdash/api/media/file",
+			}),
+			...(siteUrl && { siteUrl }),
+			allowedOrigins: stagingOrigin ? [stagingOrigin] : [],
+			trustedProxyHeaders: ["cf-connecting-ip"],
+			toolbar: "client",
+			middleware: { outer: "./src/observability/request-span.ts" },
+			plugins: [
+				{
+					id: "search-sync",
+					version: "1.0.0",
+					entrypoint: fileURLToPath(new URL("./src/emdash-plugins/search-sync.ts", import.meta.url)),
+					format: "native",
+				},
 			],
 		}),
 		webmanifest({
@@ -127,12 +136,12 @@ export default defineConfig({
 			allowedHosts: ["heyfirst.localhost"],
 		},
 	},
-	output: "static",
-	adapter: vercel({
-		webAnalytics: {
-			enabled: true,
-		},
-	}),
+	output: "server",
+	adapter: node({ mode: "standalone" }),
+	security: { allowedDomains },
+	redirects: {
+		"/blog/[...slug]": { status: 301, destination: "/posts/[...slug]" },
+	},
 });
 
 function rawFonts(ext: string[]) {

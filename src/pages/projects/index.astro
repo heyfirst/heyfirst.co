@@ -1,11 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import ProjectList from "@/components/ProjectList.astro";
+import { getAllProjects } from "@/data/project";
 import PageLayout from "@/layouts/Base.astro";
 import { sortProjectsByOrder } from "@/utils/project";
 
-const allProjects = await getCollection("project");
-const sortedProjects = sortProjectsByOrder(allProjects);
+const sortedProjects = sortProjectsByOrder(await getAllProjects());
 
 const meta = {
 	description: "Things I've built and maintain",

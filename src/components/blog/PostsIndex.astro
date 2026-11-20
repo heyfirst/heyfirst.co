@@ -1,0 +1,87 @@
+---
+import Pagination from "@/components/Paginator.astro";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import TagIcon from "@/components/TagIcon.astro";
+import TagPill from "@/components/TagPill.astro";
+import { type Post, type PostTag, groupPostsByYear } from "@/data/post";
+import type { Paged } from "@/utils/paginate";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	page: Paged<Post>;
+	uniqueTags: PostTag[];
+}
+
+const { page, uniqueTags } = Astro.props;
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
+};
+
+const groupedByYear = groupPostsByYear(page.data);
+const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
+---
+
+<div class="mb-6 flex items-center gap-3">
+	<h1 class="title">Posts</h1>
+	<a class="text-accent" href="/rss.xml" target="_blank">
+		<span class="sr-only">RSS feed</span>
+		<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
+	</a>
+</div>
+<div class="grid sm:grid-cols-[3fr_1fr] sm:gap-x-8 sm:gap-y-16">
+	<div>
+		{
+			descYearKeys.map((yearKey) => (
+				<section aria-labelledby={`year-${yearKey}`}>
+					<h2 id={`year-${yearKey}`} class="title text-lg">
+						<span class="sr-only">Posts in</span>
+						{yearKey}
+					</h2>
+					<ul class="mt-5 mb-16 space-y-4 text-start">
+						{groupedByYear[yearKey]?.map((p) => (
+							<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">
+								<PostPreview post={p} />
+							</li>
+						))}
+					</ul>
+				</section>
+			))
+		}
+		<Pagination {...paginationProps} />
+	</div>
+	{
+		!!uniqueTags.length && (
+			<aside>
+				<h2 class="title mb-4 flex items-center gap-2 text-lg">
+					Tags
+					<TagIcon class="h-6 w-6" />
+				</h2>
+				<ul class="flex flex-wrap gap-2">
+					{uniqueTags.map((tag) => (
+						<li>
+							<TagPill tag={tag} />
+						</li>
+					))}
+				</ul>
+				<span class="mt-4 block sm:text-end">
+					<a class="hover:text-link" href="/tags/">
+						View all <span aria-hidden="true">→</span>
+						<span class="sr-only">blog tags</span>
+					</a>
+				</span>
+			</aside>
+		)
+	}
+</div>

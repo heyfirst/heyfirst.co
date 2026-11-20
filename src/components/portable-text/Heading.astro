@@ -1,0 +1,10 @@
+---
+interface Props {
+	node: { style?: unknown; headingId?: string };
+}
+
+const { style, headingId } = Astro.props.node;
+const Tag = String(style) as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+---
+
+<Tag id={headingId}><slot /></Tag>

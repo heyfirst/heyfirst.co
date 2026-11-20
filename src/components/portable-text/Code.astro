@@ -1,0 +1,11 @@
+---
+import { Code } from "astro-expressive-code/components";
+
+interface Props {
+	node: { code: string; language?: string; meta?: string };
+}
+
+const { code, language = "text", meta = "" } = Astro.props.node;
+---
+
+<Code code={code} lang={language} meta={meta} />

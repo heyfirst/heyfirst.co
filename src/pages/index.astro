@@ -1,29 +1,24 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
 import SocialList from "@/components/SocialList.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import ProjectList from "@/components/ProjectList.astro";
 import SnippetCard from "@/components/SnippetCard.astro";
 import { getAllPosts } from "@/data/post";
+import { getAllProjects } from "@/data/project";
+import { getAllSnippets } from "@/data/snippet";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
 import { sortProjectsByOrder } from "@/utils/project";
 
 // Writing
 const MAX_POSTS = 10;
-const allPosts = await getAllPosts();
-const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+const allPostsByDate = (await getAllPosts()).slice(0, MAX_POSTS);
 
 // Snippets
 const MAX_SNIPPETS = 5;
-const allSnippets = await getCollection("snippet");
-const latestSnippets = allSnippets.sort(collectionDateSort).slice(0, MAX_SNIPPETS);
+const latestSnippets = (await getAllSnippets()).slice(0, MAX_SNIPPETS);
 
 // Projects
-const allProjects = await getCollection("project");
-const sortedProjects = sortProjectsByOrder(allProjects);
+const sortedProjects = sortProjectsByOrder(await getAllProjects());
 ---
 
 <PageLayout meta={{ title: "Home" }}>

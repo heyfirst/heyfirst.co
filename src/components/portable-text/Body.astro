@@ -1,0 +1,19 @@
+---
+import { prepareBody } from "@/data/body";
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import Footnotes from "./Footnotes.astro";
+import { components } from "./components";
+
+interface Props {
+	value: PortableTextBlock[];
+	/** Makes footnote ids unique when several documents share a page. */
+	scope?: string;
+}
+
+const { value, scope } = Astro.props;
+const { body, footnotes } = prepareBody(value, scope);
+---
+
+<PortableText components={components} value={body} />
+<Footnotes notes={footnotes} />

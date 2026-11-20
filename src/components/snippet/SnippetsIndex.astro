@@ -1,0 +1,47 @@
+---
+import Pagination from "@/components/Paginator.astro";
+import Snippet from "@/components/snippet/Snippet.astro";
+import type { Snippet as SnippetEntry } from "@/data/snippet";
+import type { Paged } from "@/utils/paginate";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	page: Paged<SnippetEntry>;
+}
+
+const { page } = Astro.props;
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
+};
+---
+
+<section>
+	<h1 class="title mb-6 flex items-center gap-3">
+		Snippets <a class="text-accent" href="/snippets/rss.xml" target="_blank">
+			<span class="sr-only">RSS feed</span>
+			<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
+		</a>
+	</h1>
+	<ul class="mt-6 space-y-8 text-start">
+		{
+			page.data.map((snippet) => (
+				<li class="">
+					<Snippet snippet={snippet} as="h2" isPreview />
+				</li>
+			))
+		}
+	</ul>
+	<Pagination {...paginationProps} />
+</section>

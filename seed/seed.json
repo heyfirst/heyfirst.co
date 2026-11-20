@@ -1,0 +1,154 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "heyfirst.co"
+	},
+	"collections": [
+		{
+			"slug": "post",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"supports": ["drafts", "revisions", "seo"],
+			"urlPattern": "/posts/{slug}",
+			"titleField": "title",
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "publish_date",
+					"label": "Publish date",
+					"type": "datetime",
+					"required": true,
+					"indexed": true
+				},
+				{
+					"slug": "description",
+					"label": "Description",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "body",
+					"label": "Body",
+					"type": "portableText"
+				},
+				{
+					"slug": "cover_image",
+					"label": "Cover image",
+					"type": "image"
+				},
+				{
+					"slug": "og_image",
+					"label": "OG image path",
+					"type": "string"
+				},
+				{
+					"slug": "updated_date",
+					"label": "Updated date",
+					"type": "datetime"
+				}
+			],
+			"dateField": "publish_date"
+		},
+		{
+			"slug": "snippet",
+			"label": "Snippets",
+			"labelSingular": "Snippet",
+			"supports": ["drafts", "revisions", "seo"],
+			"urlPattern": "/snippets/{slug}",
+			"titleField": "title",
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "publish_date",
+					"label": "Publish date",
+					"type": "datetime",
+					"required": true,
+					"indexed": true
+				},
+				{
+					"slug": "description",
+					"label": "Description",
+					"type": "text"
+				},
+				{
+					"slug": "lang",
+					"label": "Language badge",
+					"type": "string"
+				},
+				{
+					"slug": "body",
+					"label": "Body",
+					"type": "portableText"
+				}
+			],
+			"dateField": "publish_date"
+		},
+		{
+			"slug": "project",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"routable": false,
+			"supports": ["drafts"],
+			"titleField": "name",
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "stack",
+					"label": "Stack",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "description",
+					"label": "Description",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "project_status",
+					"label": "Status",
+					"type": "select",
+					"required": true,
+					"validation": {
+						"options": ["Live", "Active", "Maintained"]
+					}
+				},
+				{
+					"slug": "url",
+					"label": "URL",
+					"type": "url"
+				},
+				{
+					"slug": "sort_order",
+					"label": "Order",
+					"type": "integer"
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["post"]
+		}
+	]
+}

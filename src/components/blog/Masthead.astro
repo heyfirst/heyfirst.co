@@ -1,12 +1,12 @@
 ---
-import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import TagIcon from "@/components/TagIcon.astro";
 import TagPill from "@/components/TagPill.astro";
+import type { Post } from "@/data/post";
+import { Image } from "emdash/ui";
 
 interface Props {
-	content: CollectionEntry<"post">;
+	content: Post;
 	readingTime: string;
 }
 
@@ -23,17 +23,10 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 {
 	data.coverImage && (
 		<div class="mb-6 aspect-video">
-			<Image
-				alt={data.coverImage.alt}
-				class="rounded-md object-cover"
-				fetchpriority="high"
-				loading="eager"
-				src={data.coverImage.src}
-			/>
+			<Image class="rounded-md object-cover" image={data.coverImage} priority />
 		</div>
 	)
 }
-{data.draft ? <span class="text-base text-red-500">(Draft)</span> : null}
 <h1 class="title">
 	{data.title}
 </h1>
@@ -55,7 +48,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	!!data.tags?.length && (
 		<div class="mt-2 flex flex-wrap items-center gap-2">
 			<TagIcon class="inline-block h-6 w-6" />
-			{data.tags.map((tag) => <TagPill tag={tag} filterable />)}
+			{data.tags.map((tag) => <TagPill tag={tag} />)}
 		</div>
 	)
 }

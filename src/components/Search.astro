@@ -39,31 +39,54 @@ import "@/styles/blocks/search.css";
 				class="ms-auto cursor-pointer rounded-md bg-zinc-200 p-2 font-semibold dark:bg-zinc-700"
 				data-close-modal>Close</button
 			>
-			{
-				import.meta.env.DEV ? (
-					<div class="mx-auto text-center">
-						<p>
-							Search is only available in production builds. <br />
-							Try building and previewing the site to test it out locally.
-						</p>
-					</div>
-				) : (
-					<div class="search-container">
-						<div id="cactus__search" />
-					</div>
-				)
-			}
+			<div class="search-container flex flex-col gap-4">
+				<input
+					class="bg-global-bg w-full rounded-md border border-zinc-400 px-3 py-2"
+					autocomplete="off"
+					aria-label="Search posts and snippets"
+					data-search-input
+					placeholder="Search posts and snippets"
+					type="search"
+				/>
+				<div class="flex flex-wrap gap-2" data-search-tags></div>
+				<p aria-live="polite" class="text-sm" data-search-status></p>
+				<ul class="flex flex-col gap-4" id="site-search-results" data-search-results></ul>
+			</div>
 		</div>
 	</dialog>
 </site-search>
 
 <script>
+	type SearchTag = { slug: string; label: string };
+	type SearchResponse = {
+		results: { url: string; title: string; excerpt: string; tags: SearchTag[] }[];
+		tags: (SearchTag & { count: number })[];
+	};
+
+	function renderHit(hit: SearchResponse["results"][number]) {
+		const item = document.createElement("li");
+		const link = document.createElement("a");
+		link.className = "cactus-link";
+		link.href = hit.url;
+		link.textContent = hit.title;
+		const excerpt = document.createElement("p");
+		excerpt.className = "text-sm";
+		// The server escapes the text and adds only <mark> tags.
+		excerpt.innerHTML = hit.excerpt;
+		item.append(link, excerpt);
+		return item;
+	}
+
 	class SiteSearch extends HTMLElement {
 		#closeBtn: HTMLButtonElement | null;
 		#dialog: HTMLDialogElement | null;
 		#dialogFrame: HTMLDivElement | null;
 		#openBtn: HTMLButtonElement | null;
 		#controller: AbortController;
+		#input: HTMLInputElement | null;
+		#tag: string | undefined;
+		#timer: ReturnType<typeof setTimeout> | undefined;
+		#request: AbortController | undefined;
 
 		constructor() {
 			super();
@@ -95,18 +118,10 @@ import "@/styles/blocks/search.css";
 				console.warn("Dialog not found");
 			}
 
-			// only add pagefind in production
-			if (import.meta.env.DEV) return;
-			const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-			onIdle(async () => {
-				const { PagefindUI } = await import("@pagefind/default-ui");
-				new PagefindUI({
-					baseUrl: import.meta.env.BASE_URL,
-					bundlePath: import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
-					element: "#cactus__search",
-					showImages: false,
-					showSubResults: true,
-				});
+			this.#input = this.querySelector<HTMLInputElement>("[data-search-input]");
+			this.#input?.addEventListener("input", () => {
+				this.#tag = undefined;
+				this.#schedule();
 			});
 		}
 
@@ -126,12 +141,61 @@ import "@/styles/blocks/search.css";
 			}
 
 			this.#dialog.showModal();
-			this.querySelector("input")?.focus();
+			this.#input?.focus();
 			event?.stopPropagation();
 			window.addEventListener("click", this.onWindowClick, { signal: this.#controller.signal });
 		};
 
 		closeModal = () => this.#dialog?.close();
+
+		#schedule() {
+			clearTimeout(this.#timer);
+			this.#timer = setTimeout(() => void this.#search(), 150);
+		}
+
+		async #search() {
+			const query = this.#input?.value.trim() ?? "";
+			const results = this.querySelector<HTMLUListElement>("[data-search-results]");
+			const tags = this.querySelector<HTMLElement>("[data-search-tags]");
+			const status = this.querySelector<HTMLElement>("[data-search-status]");
+			if (!results || !tags || !status) return;
+			this.#request?.abort();
+			if (!query) {
+				results.replaceChildren();
+				tags.replaceChildren();
+				status.textContent = "";
+				return;
+			}
+			this.#request = new AbortController();
+			const params = new URLSearchParams({ q: query });
+			if (this.#tag) params.set("tag", this.#tag);
+			try {
+				const response = await fetch(`/api/search?${params}`, { signal: this.#request.signal });
+				if (!response.ok) throw new Error(String(response.status));
+				const data: SearchResponse = await response.json();
+				status.textContent = data.results.length ? "" : "No results";
+				results.replaceChildren(...data.results.map(renderHit));
+				tags.replaceChildren(...data.tags.map((tag) => this.#renderTag(tag)));
+			} catch (error) {
+				if ((error as Error).name === "AbortError") return;
+				status.textContent = "Search is unavailable right now";
+			}
+		}
+
+		#renderTag(tag: { slug: string; label: string; count: number }) {
+			const button = document.createElement("button");
+			button.type = "button";
+			button.className =
+				"cursor-pointer rounded-full border px-2.5 py-0.5 text-sm " +
+				(this.#tag === tag.slug ? "border-accent bg-accent text-global-bg" : "border-accent text-accent");
+			button.setAttribute("aria-pressed", String(this.#tag === tag.slug));
+			button.textContent = `#${tag.label} (${tag.count})`;
+			button.addEventListener("click", () => {
+				this.#tag = this.#tag === tag.slug ? undefined : tag.slug;
+				void this.#search();
+			});
+			return button;
+		}
 
 		onWindowClick = (event: MouseEvent) => {
 			// check if it's a link

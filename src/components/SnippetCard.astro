@@ -1,8 +1,8 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { Snippet } from "@/data/snippet";
 
 interface Props {
-	snippet: CollectionEntry<"snippet">;
+	snippet: Snippet;
 }
 
 const { snippet } = Astro.props;

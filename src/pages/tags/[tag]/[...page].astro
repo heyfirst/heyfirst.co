@@ -1,36 +1,21 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import Pagination from "@/components/Paginator.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
-import { getAllPosts, getUniqueTags } from "@/data/post";
+import { getPostsPage } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
-import type { GetStaticPaths, Page } from "astro";
+import { parsePageNumber } from "@/utils/paginate";
 
-export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
-	const allPosts = await getAllPosts();
-	const sortedPosts = allPosts.sort(collectionDateSort);
-	const uniqueTags = getUniqueTags(sortedPosts);
-
-	return uniqueTags.flatMap((tag) => {
-		const filterPosts = sortedPosts.filter((post) => post.data.tags.includes(tag));
-		return paginate(filterPosts, {
-			pageSize: 10,
-			params: { tag },
-		});
-	});
-};
-
-interface Props {
-	page: Page<CollectionEntry<"post">>;
+const { tag: tagParam, page: pageParam } = Astro.params;
+const result = tagParam ? await getPostsPage(parsePageNumber(pageParam), tagParam) : null;
+if (!result?.tag || !result.page.data.length) return Astro.rewrite("/404");
+const { page, tag } = result;
+if (tagParam !== tag.slug) {
+	return Astro.redirect(`/tags/${tag.slug}/${pageParam ?? ""}`, 301);
 }
 
-const { page } = Astro.props;
-const { tag } = Astro.params;
-
 const meta = {
-	description: `View all posts with the tag - ${tag}`,
-	title: `Tag: ${tag}`,
+	description: `View all posts with the tag - ${tag.label}`,
+	title: `Tag: ${tag.label}`,
 };
 
 const paginationProps = {
@@ -51,13 +36,13 @@ const paginationProps = {
 
 <PageLayout meta={meta}>
 	<div class="mb-6 flex items-center">
-		<h1 class="sr-only">Posts with the tag {tag}</h1>
+		<h1 class="sr-only">Posts with the tag {tag.label}</h1>
 		<a class="title text-accent" href="/tags/"><span class="sr-only">All {" "}</span>Tags</a>
 		<span aria-hidden="true" class="ms-2 me-3 text-xl">→</span>
-		<span aria-hidden="true" class="text-xl">#{tag}</span>
+		<span aria-hidden="true" class="text-xl">#{tag.label}</span>
 	</div>
-	<section aria-labelledby={`tags-${tag}`}>
-		<h2 id={`tags-${tag}`} class="sr-only">Post List</h2>
+	<section aria-labelledby={`tags-${tag.slug}`}>
+		<h2 id={`tags-${tag.slug}`} class="sr-only">Post List</h2>
 		<ul class="space-y-4">
 			{
 				page.data.map((p) => (

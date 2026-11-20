@@ -1,9 +1,9 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { Project } from "@/data/project";
 import { projectStatusColor } from "@/utils/project";
 
 interface Props {
-	project: CollectionEntry<"project">;
+	project: Project;
 }
 
 const { project } = Astro.props;
