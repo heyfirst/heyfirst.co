@@ -5,7 +5,7 @@ gitleaks git --staged --redact --config .gitleaks.toml --no-banner
 
 denylist="${HEYFIRST_DENYLIST:-}"
 if [ -z "$denylist" ]; then
-  echo "pre-commit: HEYFIRST_DENYLIST is unset; denylist check skipped (CI is the backstop)" >&2
+  echo "pre-commit: HEYFIRST_DENYLIST is unset; denylist check skipped (the pre-push hook is the backstop)" >&2
   exit 0
 fi
 if [ ! -f "$denylist" ] || [ ! -r "$denylist" ]; then

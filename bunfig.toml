@@ -1,0 +1,2 @@
+[test]
+pathIgnorePatterns = ["**/*.db.test.ts", "**/*.http.test.ts"]

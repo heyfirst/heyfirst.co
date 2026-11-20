@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+zero=0000000000000000000000000000000000000000
+remote="${1:-origin}"
+
+denylist="${HEYFIRST_DENYLIST:-}"
+scan_denylist=1
+if [ -z "$denylist" ]; then
+  echo "pre-push: HEYFIRST_DENYLIST is unset; denylist check skipped" >&2
+  scan_denylist=0
+elif [ ! -f "$denylist" ] || [ ! -r "$denylist" ]; then
+  echo "pre-push: HEYFIRST_DENYLIST is set but is not a readable file" >&2
+  exit 1
+fi
+
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+patterns="$work/patterns"
+added="$work/added"
+grep -v '^[[:space:]]*$' "${denylist:-/dev/null}" > "$patterns" || true
+
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  if [ "$local_sha" = "$zero" ]; then
+    continue
+  fi
+  if [ "$remote_sha" = "$zero" ]; then
+    range="$local_sha --not --remotes=$remote"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+  gitleaks git --redact --config .gitleaks.toml --no-banner --log-opts="$range"
+
+  if [ "$scan_denylist" = 1 ]; then
+    # shellcheck disable=SC2086
+    git log -p --no-color --unified=0 --format= $range | { grep -E '^\+' || true; } | { grep -vE '^\+\+\+ ' || true; } > "$added"
+    status=0
+    grep -qiEf "$patterns" "$added" || status=$?
+    case "$status" in
+      0)
+        echo "pre-push: an added line in the pushed commits matches the private denylist" >&2
+        exit 1
+        ;;
+      1) ;;
+      *)
+        echo "pre-push: denylist scan failed (exit $status)" >&2
+        exit 1
+        ;;
+    esac
+  fi
+done
