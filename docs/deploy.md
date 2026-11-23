@@ -9,8 +9,8 @@ Every real value lives in `.env` (see `.env.example` for the key names); `bin/k`
 - `SITE_URL` (the FINAL domain, from `DEPLOY_SITE_URL`) and `STAGING_ORIGIN` (from
   `DEPLOY_STAGING_ORIGIN`) are build arguments, because EmDash bakes them in. So is the uploads path.
 - The build gets no database setting. The container reads `PGHOST`, `PGPORT`, `PGUSER`,
-  `PGPASSWORD`, `PGDATABASE` and `PGSSLMODE` at run time. Use `PGSSLMODE=require` unless the link is
-  a private encrypted network.
+  `PGPASSWORD` and `PGDATABASE` at run time. `config/deploy.yml` sets `PGSSLMODE=disable`: the link is
+  the private encrypted tailnet.
 - The entrypoint runs `emdash migrate` (guarded, see below), then `scripts/migrate.ts` (search), then starts the server.
   The server does not listen until both are done, so `/up` returning 200 means a migrated database.
 - Uploads live in the `heyfirst-uploads` volume and survive redeploys.
@@ -37,29 +37,27 @@ bun run deploy:check  # the same, then renders the kamal config to /dev/null
 
 Never paste the rendered kamal config anywhere.
 
-## First deploy: create the admin before the real name routes
+## First deploy: staging is the site URL for now
 
-EmDash's setup wizard lets whoever reaches it first create the admin. So the first deploy answers
-only to a throwaway name, and that name's certificate is requested only in the same sitting as the
-admin creation, so the open window is minutes.
+`DEPLOY_SITE_URL`, `DEPLOY_STAGING_ORIGIN` and `PROXY_HOST` all name the staging host for now, so
+passkeys bind to it. At cutover (ticket 08) the site URL moves to the final domain with EmDash's
+Change domain flow, and the admin registers a passkey again there.
 
-The certificate for the throwaway host is public in certificate-transparency logs the moment it is
-issued. Anyone watching those logs can find the host. The unguessable label does not hide it; the
-short window does.
+There is no throwaway host. The staging name's DNS record exists before the container does, and
+EmDash's setup wizard lets whoever reaches it first create the admin. The staging name is already
+public, so the only protection is a short window: do steps 1 to 4 in one sitting, with the passkey
+device at hand. A Cloudflare Access rule on `/_emdash/*` closes the window completely if you want one.
 
-1. Do steps 1 to 5 in one sitting. Have the passkey device at hand before you start.
-2. In `.env` set `PROXY_HOST` to a throwaway host under the final domain (passkeys bind to the final
-   domain, so it must be a subdomain) and `DEPLOY_STAGING_ORIGIN=https://<that host>`. Set
-   `EMDASH_FIRST_MIGRATE=1`. Leave `EMDASH_TOKEN` empty. Create the DNS record only now.
-3. `bun run deploy:check`, then `bin/k setup`. The certificate is requested here; the window opens.
-4. Open `https://<throwaway host>/_emdash/admin`, finish the setup wizard, register a passkey, then
-   create an API token. Put it in `.env` as `EMDASH_TOKEN` with `EMDASH_URL=https://<that host>`.
-5. Run `bun run check:admin`. It asks the setup status and the user list: setup must be complete and
-   exactly one admin must exist. Do not continue if it fails.
-6. Only after it passes, switch `PROXY_HOST` and `DEPLOY_STAGING_ORIGIN` to the real staging name,
-   point `EMDASH_URL` at it, pin `EMDASH_EXPECTED_FINGERPRINT` from the first run's output, remove
-   `EMDASH_FIRST_MIGRATE`, and run `bin/k deploy`. The image is rebuilt because the origin is a build
-   argument. Remove the throwaway DNS record, then `bun run import` and `bun run verify:content`.
+1. `.env` has `EMDASH_FIRST_MIGRATE=1`, `EMDASH_TOKEN` empty, and `bun run deploy:check` passes.
+2. `bin/k setup`. The container starts and the window opens.
+3. Open `https://<staging host>/_emdash/admin`, finish the setup wizard, register a passkey, then
+   create an API token (Settings, API tokens). Put it in `.env` as `EMDASH_TOKEN`, with
+   `EMDASH_URL=https://<staging host>`.
+4. `bun run check:admin`. Setup must be complete and exactly one admin must exist. Do not continue
+   if it fails.
+5. Copy the fingerprint the first run printed into `EMDASH_EXPECTED_FINGERPRINT` in `.env`, remove
+   `EMDASH_FIRST_MIGRATE`, and run `bin/k deploy`.
+6. `bun run import`, then `bun run verify:content`.
 
 ## Run the image locally against the compose Postgres
 
