@@ -52,9 +52,12 @@ function visit(node: unknown, found: Collected): unknown {
 	if (Array.isArray(node)) return node.map((child) => visit(child, found));
 	if (typeof node !== "object" || node === null) return node;
 	const depth = headingDepth(node);
-	const text = blockText(node);
-	const headingId = depth ? uniqueId(baseId(text), found.used) : undefined;
-	if (headingId) found.headings.push({ depth, text, slug: headingId });
+	let headingId: string | undefined;
+	if (depth) {
+		const text = blockText(node);
+		headingId = uniqueId(baseId(text), found.used);
+		found.headings.push({ depth, text, slug: headingId });
+	}
 	const own = withFootnoteIds(node, found);
 	const entries = Object.entries(own).map(([key, value]) => [key, visit(value, found)]);
 	const copy = Object.fromEntries(entries);

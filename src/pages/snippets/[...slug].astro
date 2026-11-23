@@ -3,10 +3,10 @@ import SnippetsIndex from "@/components/snippet/SnippetsIndex.astro";
 import Snippet from "@/components/snippet/Snippet.astro";
 import { getAllSnippets, getSnippet } from "@/data/snippet";
 import PageLayout from "@/layouts/Base.astro";
-import { paginate, parsePageNumber } from "@/utils/paginate";
+import { isPageParam, paginate, parsePageNumber } from "@/utils/paginate";
 
 const { slug } = Astro.params;
-const isIndex = !slug || /^\d+$/.test(slug);
+const isIndex = isPageParam(slug);
 const page = isIndex ? paginate(await getAllSnippets(), parsePageNumber(slug), "/snippets/") : null;
 const snippet = isIndex || !slug ? null : await getSnippet(slug);
 

@@ -35,7 +35,7 @@ export async function searchEntries(
 	const tsquery = sql`websearch_to_tsquery('english', ${text})`;
 	const tagFilter = tag ? sql`AND tags @> ${JSON.stringify([{ slug: tag }])}::jsonb` : sql``;
 
-	const hits = await sql<{
+	const hitsQuery = sql<{
 		collection: string;
 		slug: string;
 		title: string;
@@ -51,13 +51,14 @@ export async function searchEntries(
 		LIMIT ${capped}
 	`.execute(db);
 
-	const facets = await sql<{ slug: string; label: string; count: string }>`
+	const facetsQuery = sql<{ slug: string; label: string; count: string }>`
 		SELECT tag ->> 'slug' AS slug, tag ->> 'label' AS label, count(*) AS count
 		FROM search.search_index, jsonb_array_elements(tags) AS tag
 		WHERE document @@ ${tsquery}
 		GROUP BY 1, 2
 		ORDER BY count(*) DESC, 1
 	`.execute(db);
+	const [hits, facets] = await Promise.all([hitsQuery, facetsQuery]);
 
 	return {
 		results: hits.rows.map((row) => ({

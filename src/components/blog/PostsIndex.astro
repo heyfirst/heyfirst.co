@@ -4,7 +4,7 @@ import PostPreview from "@/components/blog/PostPreview.astro";
 import TagIcon from "@/components/TagIcon.astro";
 import TagPill from "@/components/TagPill.astro";
 import { type Post, type PostTag, groupPostsByYear } from "@/data/post";
-import type { Paged } from "@/utils/paginate";
+import { type Paged, paginationLinks } from "@/utils/paginate";
 import { Icon } from "astro-icon/components";
 
 interface Props {
@@ -14,20 +14,7 @@ interface Props {
 
 const { page, uniqueTags } = Astro.props;
 
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: "← Previous Page",
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: "Next Page →",
-			url: page.url.next,
-		},
-	}),
-};
+const paginationProps = paginationLinks(page.url, "Page");
 
 const groupedByYear = groupPostsByYear(page.data);
 const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);

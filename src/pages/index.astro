@@ -11,14 +11,16 @@ import { sortProjectsByOrder } from "@/utils/project";
 
 // Writing
 const MAX_POSTS = 10;
-const allPostsByDate = (await getAllPosts()).slice(0, MAX_POSTS);
-
-// Snippets
 const MAX_SNIPPETS = 5;
-const latestSnippets = (await getAllSnippets()).slice(0, MAX_SNIPPETS);
 
-// Projects
-const sortedProjects = sortProjectsByOrder(await getAllProjects());
+const [posts, snippets, projects] = await Promise.all([
+	getAllPosts(),
+	getAllSnippets(),
+	getAllProjects(),
+]);
+const allPostsByDate = posts.slice(0, MAX_POSTS);
+const latestSnippets = snippets.slice(0, MAX_SNIPPETS);
+const sortedProjects = sortProjectsByOrder(projects);
 ---
 
 <PageLayout meta={{ title: "Home" }}>

@@ -4,10 +4,10 @@ import Body from "@/components/portable-text/Body.astro";
 import PageLayout from "@/layouts/Base.astro";
 import PostLayout from "@/layouts/BlogPost.astro";
 import { getPost, getPostsPage } from "@/data/post";
-import { parsePageNumber } from "@/utils/paginate";
+import { isPageParam, parsePageNumber } from "@/utils/paginate";
 
 const { slug } = Astro.params;
-const isIndex = !slug || /^\d+$/.test(slug);
+const isIndex = isPageParam(slug);
 const index = isIndex ? await getPostsPage(parsePageNumber(slug)) : null;
 const post = isIndex || !slug ? null : await getPost(slug);
 

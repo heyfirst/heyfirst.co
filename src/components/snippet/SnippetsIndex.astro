@@ -2,7 +2,7 @@
 import Pagination from "@/components/Paginator.astro";
 import Snippet from "@/components/snippet/Snippet.astro";
 import type { Snippet as SnippetEntry } from "@/data/snippet";
-import type { Paged } from "@/utils/paginate";
+import { type Paged, paginationLinks } from "@/utils/paginate";
 import { Icon } from "astro-icon/components";
 
 interface Props {
@@ -11,20 +11,7 @@ interface Props {
 
 const { page } = Astro.props;
 
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: "← Previous Page",
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: "Next Page →",
-			url: page.url.next,
-		},
-	}),
-};
+const paginationProps = paginationLinks(page.url, "Page");
 ---
 
 <section>

@@ -21,3 +21,14 @@ export function paginate<T>(items: T[], pageNumber: number, base: string): Paged
 export function parsePageNumber(param: string | undefined): number {
 	return param ? Number(param) : 1;
 }
+
+export function isPageParam(param: string | undefined): boolean {
+	return !param || /^\d+$/.test(param);
+}
+
+export function paginationLinks(url: Paged<unknown>["url"], noun: string) {
+	return {
+		...(url.prev && { prevUrl: { text: `← Previous ${noun}`, url: url.prev } }),
+		...(url.next && { nextUrl: { text: `Next ${noun} →`, url: url.next } }),
+	};
+}

@@ -72,12 +72,8 @@ export async function getPost(slug: string): Promise<Post | null> {
 	return post ?? null;
 }
 
-export function plainText(body: PortableTextBlock[]): string {
-	return extractPlainText(body);
-}
-
 export function getReadingTime(body: PortableTextBlock[]): string {
-	return readingTime(plainText(body)).text;
+	return readingTime(extractPlainText(body)).text;
 }
 
 /** groups posts by year (based on publishDate), using the year as the key */
@@ -92,15 +88,10 @@ export function groupPostsByYear(posts: Post[]) {
 	}, {});
 }
 
-/** returns all tags created from posts (inc duplicate tags) */
-export function getAllTags(posts: Post[]) {
-	return posts.flatMap((post) => post.data.tags);
-}
-
 /** returns a count of each unique tag, most used first */
 export function getUniqueTagsWithCount(posts: Post[]): [PostTag, number][] {
 	const counts = new Map<string, [PostTag, number]>();
-	for (const tag of getAllTags(posts)) {
+	for (const tag of posts.flatMap((post) => post.data.tags)) {
 		const [, count] = counts.get(tag.slug) ?? [tag, 0];
 		counts.set(tag.slug, [tag, count + 1]);
 	}

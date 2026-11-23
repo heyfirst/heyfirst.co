@@ -1,5 +1,10 @@
 import type { Kysely } from "kysely";
-import { type Migration, type MigrationProvider, Migrator } from "kysely/migration";
+import {
+	type Migration,
+	type MigrationProvider,
+	type MigrationResultSet,
+	Migrator,
+} from "kysely/migration";
 import * as createSearchIndex from "./migrations/0001_create_search_index";
 
 const migrations: Record<string, Migration> = {
@@ -18,14 +23,15 @@ function migrator(db: Kysely<unknown>) {
 	});
 }
 
-export async function migrateUp(db: Kysely<unknown>): Promise<string[]> {
-	const { error, results } = await migrator(db).migrateToLatest();
+function migrationNames({ error, results }: MigrationResultSet): string[] {
 	if (error) throw error;
 	return (results ?? []).map((result) => result.migrationName);
 }
 
+export async function migrateUp(db: Kysely<unknown>): Promise<string[]> {
+	return migrationNames(await migrator(db).migrateToLatest());
+}
+
 export async function migrateDown(db: Kysely<unknown>): Promise<string[]> {
-	const { error, results } = await migrator(db).migrateDown();
-	if (error) throw error;
-	return (results ?? []).map((result) => result.migrationName);
+	return migrationNames(await migrator(db).migrateDown());
 }

@@ -3,7 +3,7 @@ import Pagination from "@/components/Paginator.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import { getPostsPage } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { parsePageNumber } from "@/utils/paginate";
+import { paginationLinks, parsePageNumber } from "@/utils/paginate";
 
 const { tag: tagParam, page: pageParam } = Astro.params;
 const result = tagParam ? await getPostsPage(parsePageNumber(pageParam), tagParam) : null;
@@ -18,20 +18,7 @@ const meta = {
 	title: `Tag: ${tag.label}`,
 };
 
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: "← Previous Tags",
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: "Next Tags →",
-			url: page.url.next,
-		},
-	}),
-};
+const paginationProps = paginationLinks(page.url, "Tags");
 ---
 
 <PageLayout meta={meta}>
