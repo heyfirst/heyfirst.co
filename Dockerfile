@@ -11,7 +11,7 @@ COPY . .
 # No database setting belongs here: the connection comes from PG* variables at runtime.
 ARG SITE_URL
 ARG STAGING_ORIGIN=""
-ENV SITE_URL=${SITE_URL} STAGING_ORIGIN=${STAGING_ORIGIN} UPLOADS_DIR=/data/uploads
+ENV SITE_URL=${SITE_URL} STAGING_ORIGIN=${STAGING_ORIGIN} UPLOADS_DIR=/data/uploads SESSION_DIR=/data/sessions
 RUN test -n "$SITE_URL" && bun --bun run build
 
 FROM oven/bun:${BUN_VERSION}-slim AS deps
@@ -31,7 +31,7 @@ COPY docker-entrypoint.sh docker-preload.ts ./
 COPY scripts/migrate.ts ./scripts/migrate.ts
 COPY src/search ./src/search
 COPY src/observability ./src/observability
-RUN mkdir -p /data/uploads && chown bun:bun /data/uploads && chmod +x docker-entrypoint.sh
+RUN mkdir -p /data/uploads /data/sessions && chown bun:bun /data/uploads /data/sessions && chmod +x docker-entrypoint.sh
 USER bun
 EXPOSE 3000
 ENTRYPOINT ["./docker-entrypoint.sh"]

@@ -6,7 +6,7 @@ import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
+import { defineConfig, sessionDrivers } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import mermaid from "astro-mermaid";
@@ -32,9 +32,14 @@ const allowedDomains = [siteUrl, stagingOrigin]
 	.filter((url): url is string => Boolean(url))
 	.map((url) => ({ hostname: new URL(url).hostname }));
 
+// The Node adapter keeps sessions under node_modules/.astro, which the non-root container user cannot
+// write; without a session the admin cannot sign in after registering its passkey.
+const sessionDir = env.SESSION_DIR ?? fileURLToPath(new URL("./node_modules/.astro/sessions", import.meta.url));
+
 // https://astro.build/config
 export default defineConfig({
 	site: siteUrl ?? siteConfig.url,
+	session: { driver: sessionDrivers.fsLite({ base: sessionDir }) },
 	markdown: {
 		processor: unified({
 			rehypePlugins: [
