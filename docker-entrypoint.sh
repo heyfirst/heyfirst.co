@@ -22,16 +22,19 @@ fi
 
 emdash="bun --bun ./node_modules/.bin/emdash"
 
+target_fingerprint() {
+  $emdash migrate --check --json 2>/dev/null |
+    bun -e 'process.stdout.write(JSON.parse(await Bun.stdin.text()).target.fingerprint)'
+}
+
 # The pinned fingerprint is what the operator reviewed; never one read from this same run.
 if [ -n "${EMDASH_EXPECTED_FINGERPRINT:-}" ]; then
   $emdash migrate --expected-target-fingerprint "$EMDASH_EXPECTED_FINGERPRINT"
 elif [ "${EMDASH_FIRST_MIGRATE:-}" = "1" ]; then
-  $emdash migrate --expected-target-fingerprint "$($emdash migrate --check --json 2>/dev/null |
-    bun -e 'process.stdout.write(JSON.parse(await Bun.stdin.text()).target.fingerprint)')"
+  $emdash migrate --expected-target-fingerprint "$(target_fingerprint)"
 else
   echo "migrate refused: EMDASH_EXPECTED_FINGERPRINT is not set." >&2
-  echo "current target fingerprint: $($emdash migrate --check --json 2>/dev/null |
-    bun -e 'process.stdout.write(JSON.parse(await Bun.stdin.text()).target.fingerprint)')" >&2
+  echo "current target fingerprint: $(target_fingerprint)" >&2
   echo "next step: first deploy only, set EMDASH_FIRST_MIGRATE=1, deploy, then pin the printed fingerprint as EMDASH_EXPECTED_FINGERPRINT and unset EMDASH_FIRST_MIGRATE." >&2
   exit 1
 fi

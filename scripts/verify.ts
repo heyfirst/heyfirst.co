@@ -26,7 +26,7 @@ async function databaseAnswers() {
 const onlyFast = process.argv.includes("--fast");
 const withDatabase = !onlyFast && (await databaseAnswers());
 const steps = withDatabase ? [...fast, ...full] : fast;
-const skipped = onlyFast ? "" : withDatabase ? "" : " | db and http suites skipped: no database";
+const skipped = onlyFast || withDatabase ? "" : " | db and http suites skipped: no database";
 
 async function run({ name, cmd }: (typeof steps)[number]) {
 	const start = performance.now();

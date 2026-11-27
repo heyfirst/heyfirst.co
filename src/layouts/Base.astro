@@ -17,11 +17,13 @@ const {
 	meta: { articleDate, content, description = siteConfig.description, ogImage, title },
 } = Astro.props;
 
+const siteTitle = `${title} • ${siteConfig.title}`;
+
 const page = createPublicPageContext({
 	url: Astro.url,
 	kind: content ? "content" : "custom",
 	pageType: articleDate ? "article" : "website",
-	title: `${title} • ${siteConfig.title}`,
+	title: siteTitle,
 	pageTitle: title,
 	description,
 	canonical: new URL(Astro.url.pathname, Astro.site).href,
@@ -34,7 +36,7 @@ const page = createPublicPageContext({
 
 <html class="scroll-smooth" lang={siteConfig.lang}>
 	<head>
-		<BaseHead title={title} />
+		<BaseHead siteTitle={siteTitle} title={title} />
 		<EmDashHead page={page} />
 	</head>
 	<body

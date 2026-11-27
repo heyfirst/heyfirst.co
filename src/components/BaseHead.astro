@@ -1,14 +1,13 @@
 ---
 import { siteConfig } from "@/site.config";
-import type { SiteMeta } from "@/types";
 import "@/styles/global.css";
 
-type Props = SiteMeta;
+interface Props {
+	siteTitle: string;
+	title: string;
+}
 
-const { title } = Astro.props;
-
-const titleSeparator = "•";
-const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
+const { siteTitle, title } = Astro.props;
 ---
 
 <meta charset="utf-8" />

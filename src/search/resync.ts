@@ -1,4 +1,4 @@
-import { Kysely, PostgresDialect, sql } from "kysely";
+import { Kysely, PostgresDialect, sql, type Transaction } from "kysely";
 import pg from "pg";
 
 export type SearchTag = { slug: string; label: string };
@@ -33,16 +33,17 @@ export async function closeSearchDb(): Promise<void> {
 
 const INDEX_LOCK_KEY = 7_283_950_113;
 
-type Transaction = Parameters<Parameters<ReturnType<Database["transaction"]>["execute"]>[0]>[0];
-
-async function inLock<T>(db: Database, work: (trx: Transaction) => Promise<T>): Promise<T> {
+async function inLock<T>(
+	db: Database,
+	work: (trx: Transaction<unknown>) => Promise<T>,
+): Promise<T> {
 	return db.transaction().execute(async (trx) => {
 		await sql`SELECT pg_advisory_xact_lock(${INDEX_LOCK_KEY})`.execute(trx);
 		return work(trx);
 	});
 }
 
-async function upsert(trx: Transaction, entry: IndexEntry): Promise<void> {
+async function upsert(trx: Transaction<unknown>, entry: IndexEntry): Promise<void> {
 	await sql`
 		INSERT INTO search.search_index
 			(collection, entry_id, slug, title, description, body, tags, published_at)

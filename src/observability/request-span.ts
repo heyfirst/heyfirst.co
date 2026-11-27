@@ -5,11 +5,7 @@ import { queryStats } from "./query-stats.ts";
 
 const REQUEST_ID = /^[A-Za-z0-9-]{1,64}$/;
 const UNTRACED_PATHS = new Set(["/up"]);
-const COLLECTION_BY_PREFIX: Record<string, string> = {
-	posts: "posts",
-	snippets: "snippets",
-	projects: "projects",
-};
+const CONTENT_PREFIXES = new Set(["posts", "snippets", "projects"]);
 
 interface RequestContext {
 	request: Request;
@@ -59,8 +55,8 @@ export const tracedRequest = async (
 	if (host) span.setAttribute("server.address", host);
 	const requestId = request.headers.get("x-request-id");
 	if (requestId && REQUEST_ID.test(requestId)) span.setAttribute("app.request_id", requestId);
-	const collection = COLLECTION_BY_PREFIX[route.split("/")[1] ?? ""];
-	if (collection && params.slug) {
+	const collection = route.split("/")[1] ?? "";
+	if (CONTENT_PREFIXES.has(collection) && params.slug) {
 		span.setAttribute("app.content.collection", collection);
 		span.setAttribute("app.content.slug", params.slug);
 	}

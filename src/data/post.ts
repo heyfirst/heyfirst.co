@@ -3,11 +3,12 @@ import {
 	getEmDashCollection,
 	getEmDashEntry,
 	getTermsForEntries,
+	type ImageValue,
 	type PortableTextBlock,
 } from "emdash";
 import readingTime from "reading-time";
 import { paginate } from "@/utils/paginate";
-import { type ContentImage, type DbEntry, type Entry, type Row, toDate } from "./entry";
+import { type DbEntry, type Entry, type Row, toDate } from "./entry";
 
 type PostFields = {
 	title: string;
@@ -16,7 +17,7 @@ type PostFields = {
 	updated_date?: string | null;
 	body?: PortableTextBlock[] | null;
 	og_image?: string | null;
-	cover_image?: ContentImage | null;
+	cover_image?: ImageValue | null;
 };
 
 export type PostTag = { slug: string; label: string };
@@ -28,7 +29,7 @@ export type PostData = {
 	updatedDate: Date | undefined;
 	tags: PostTag[];
 	ogImage: string | undefined;
-	coverImage: ContentImage | undefined;
+	coverImage: ImageValue | undefined;
 };
 
 export type Post = Entry<PostData> & { entryId: string; body: PortableTextBlock[] };
