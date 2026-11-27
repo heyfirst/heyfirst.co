@@ -1,4 +1,4 @@
-import { htmlCacheControl } from "@/utils/cache-policy";
+import { htmlCacheControl, imageCacheControl } from "@/utils/cache-policy";
 import { defineMiddleware } from "astro:middleware";
 
 const SECURITY_HEADERS = {
@@ -20,6 +20,8 @@ export const onRequest = defineMiddleware(async ({ request, url, cookies, locals
 	if (!response.headers.has("Content-Security-Policy")) {
 		response.headers.set("Content-Security-Policy", FRAME_ANCESTORS_CSP);
 	}
+	const imageCache = imageCacheControl(url.pathname, response.status);
+	if (imageCache) response.headers.set("Cache-Control", imageCache);
 	if (url.pathname.startsWith("/_emdash/") || response.headers.has("Cache-Control")) {
 		return response;
 	}
