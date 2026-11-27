@@ -32,6 +32,7 @@ registry:
 
 builder:
   arch: arm64
+  remote: ssh://heyfirst-internal
   args:
     SITE_URL: <%= ENV.fetch("DEPLOY_SITE_URL") %>
     STAGING_ORIGIN: <%= ENV.fetch("DEPLOY_STAGING_ORIGIN") %>
