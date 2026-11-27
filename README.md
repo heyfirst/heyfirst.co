@@ -1,8 +1,22 @@
-<div align="center">
-  <img alt="Astro Cactus logo" src="https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/85aa0d3c-ef6a-44e2-954d-ef035b4f4315" width="70" />
-</div>
-<h1 align="center">
-  Astro Cactus — First Sutham
-</h1>
+# heyfirst.co
 
-Hi there, I moved the blog from Remix to Astro!
+First Sutham's blog: [Astro](https://astro.build) on [EmDash](https://github.com/emdash-cms/emdash), running on Bun with Postgres, deployed with [Kamal](https://kamal-deploy.org).
+
+## Develop
+
+```sh
+cp .env.example .env     # fill in the keys
+bun install
+bun run dev
+bun run verify           # check, lint, unit, database and HTTP tests
+```
+
+`verify` needs a Postgres reachable through `DATABASE_URL`; `compose.yaml` starts one.
+
+## Deploy
+
+See [docs/deploy.md](docs/deploy.md).
+
+## License
+
+[MIT](LICENSE)
