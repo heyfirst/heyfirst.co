@@ -56,6 +56,15 @@ test("attributes use the stable names and never carry parameter values", async (
 	expect(JSON.stringify(sql?.attributes)).not.toContain("secret-value");
 });
 
+test("a failing query leaves no parameter value or error text on the span", async () => {
+	exporter.reset();
+	await pool.query("select $1::int as v", ["secret-value"]).catch(() => undefined);
+	const [sql] = sqlSpans();
+	expect(sql?.status.code).toBe(2);
+	expect(JSON.stringify([sql?.status, sql?.events, sql?.attributes])).not.toContain("secret-value");
+	expect(sql?.status.message).toBeUndefined();
+});
+
 test("a logger line shares the trace id with its SQL span", async () => {
 	exporter.reset();
 	const printed: string[] = [];

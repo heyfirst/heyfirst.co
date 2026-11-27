@@ -6,6 +6,7 @@ import { resourceFromAttributes } from "@opentelemetry/resources";
 import {
 	BatchSpanProcessor,
 	SimpleSpanProcessor,
+	type ReadableSpan,
 	type SpanExporter,
 	type SpanProcessor,
 } from "@opentelemetry/sdk-trace-base";
@@ -49,7 +50,7 @@ export const startTracing = (env: Env, exporter?: SpanExporter): Tracing | undef
 	if (!processor) return undefined;
 	const provider = new NodeTracerProvider({
 		resource: resourceFromAttributes(resourceAttributes(env)),
-		spanProcessors: [processor, queryStats],
+		spanProcessors: [scrubErrors, processor, queryStats],
 	});
 	provider.register();
 	return {
@@ -59,6 +60,23 @@ export const startTracing = (env: Env, exporter?: SpanExporter): Tracing | undef
 			trace.disable();
 		},
 	};
+};
+
+const SENSITIVE_EVENT_ATTRIBUTES = ["exception.message", "exception.stacktrace"];
+
+// Error text can carry a query parameter or a row value, so only the error type leaves the process.
+// It runs before the exporting processor, which is why it is first in the provider's list.
+export const scrubErrors: SpanProcessor = {
+	onStart() {},
+	onEnd(span: ReadableSpan) {
+		const mutable = span as { status: ReadableSpan["status"] };
+		mutable.status = { code: span.status.code };
+		for (const event of span.events) {
+			for (const key of SENSITIVE_EVENT_ATTRIBUTES) delete event.attributes?.[key];
+		}
+	},
+	forceFlush: () => Promise.resolve(),
+	shutdown: () => Promise.resolve(),
 };
 
 export const pgInstrumentation = (): PgInstrumentation => {

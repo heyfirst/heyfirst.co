@@ -29,7 +29,8 @@ export async function searchEntries(
 	db: Kysely<unknown>,
 	{ query, tag, limit = DEFAULT_LIMIT }: SearchOptions,
 ): Promise<SearchResponse> {
-	const text = query.trim();
+	// Postgres rejects a NUL byte in text, which would be a 500 for a request anyone can send.
+	const text = query.replaceAll("\0", "").trim();
 	if (!text) return { results: [], tags: [] };
 	const capped = Math.min(Math.max(Math.trunc(limit), 1), MAX_LIMIT);
 	const tsquery = sql`websearch_to_tsquery('english', ${text})`;

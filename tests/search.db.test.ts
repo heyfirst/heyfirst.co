@@ -142,6 +142,14 @@ test("a word deep in the body is found, with a marked excerpt", async () => {
 	expect(hit?.excerpt).toContain("<mark>quokka</mark>");
 });
 
+test("a NUL byte in the query is dropped instead of failing the request", async () => {
+	await resyncSearchIndex(db, [
+		entry({ entryId: "nul", title: "Nul post", body: "quokka lives here" }),
+	]);
+	const [hit] = (await searchEntries(db, { query: "quo\0kka" })).results;
+	expect(hit?.slug).toBe("nul");
+});
+
 test("tag filter narrows results and the facet lists tags of all matches", async () => {
 	const web = { slug: "web", label: "Web" };
 	const databases = { slug: "databases", label: "Databases" };
