@@ -7,4 +7,6 @@ const { style, headingId } = Astro.props.node;
 const Tag = String(style) as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 ---
 
-<Tag id={headingId}><slot /></Tag>
+<Tag id={headingId}>
+	{headingId ? <a class="not-prose" href={`#${headingId}`}><slot /></a> : <slot />}
+</Tag>

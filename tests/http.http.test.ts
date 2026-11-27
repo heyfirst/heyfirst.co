@@ -158,13 +158,39 @@ test("the index lists the published post, snippet and project, not the draft", a
 
 test("robots.txt hides /_emdash/ and the sitemap names the real URLs", async () => {
 	expect(await (await get("/robots.txt")).text()).toContain("Disallow: /_emdash/");
-	const index = await (await get("/sitemap.xml")).text();
-	const children = [...index.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1] ?? "");
-	const urls = (
-		await Promise.all(children.map(async (loc) => (await get(new URL(loc).pathname)).text()))
-	).join("\n");
-	expect(urls).toContain(`${origin}/posts/hello-from-emdash`);
+	const urls = await (await get("/sitemap.xml")).text();
+	for (const path of [
+		"/",
+		"/about/",
+		"/posts/",
+		"/snippets/",
+		"/tags/",
+		"/tags/emdash/",
+		"/posts/hello-from-emdash/",
+	]) {
+		expect(urls).toContain(`<loc>${origin}${path}</loc>`);
+	}
 	expect(urls).not.toContain("unpublished-draft");
+});
+
+test("the page carries the twitter site, creator and url tags", async () => {
+	const html = await (await get("/posts/hello-from-emdash/")).text();
+	expect(html).toContain('property="twitter:creator"');
+	expect(html).toContain('property="twitter:site"');
+	expect(html).toContain(`content="${origin}/posts/hello-from-emdash/" property="twitter:url"`);
+});
+
+test("the old sitemap URLs redirect permanently to /sitemap.xml", async () => {
+	for (const path of ["/sitemap-index.xml", "/sitemap-0.xml"]) {
+		const res = await fetch(`${origin}${path}`, { redirect: "manual" });
+		expect(res.status).toBe(301);
+		expect(res.headers.get("location")).toContain("/sitemap.xml");
+	}
+});
+
+test("a heading links to its own anchor", async () => {
+	const html = await (await get("/posts/hello-from-emdash/")).text();
+	expect(html).toMatch(/<h2 id="([^"]+)"><a class="not-prose" href="#\1">/);
 });
 
 test("an unknown slug, a draft and an unknown tag are real, uncached 404s", async () => {
@@ -196,14 +222,9 @@ test("the OG image and the social card are real PNGs", async () => {
 });
 
 async function sitemapUrls() {
-	const index = await get("/sitemap.xml");
-	expect(index.headers.get("cache-control")).toBe("no-store");
-	const children = [...(await index.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(
-		(m) => m[1] ?? "",
-	);
-	const pages = await Promise.all(children.map((loc) => get(new URL(loc).pathname)));
-	for (const page of pages) expect(page.headers.get("cache-control")).toBe("no-store");
-	return (await Promise.all(pages.map((page) => page.text()))).join("\n");
+	const sitemap = await get("/sitemap.xml");
+	expect(sitemap.headers.get("cache-control")).toBe("no-store");
+	return sitemap.text();
 }
 
 test("a post published while the server runs is in the sitemap on the next request", async () => {

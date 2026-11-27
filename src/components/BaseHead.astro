@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { siteTitle, title } = Astro.props;
+const pageURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
@@ -46,6 +47,9 @@ const { siteTitle, title } = Astro.props;
 <meta content="630" property="og:image:height" />
 <meta content={title} property="og:image:alt" />
 <meta content={siteConfig.ogLocale} property="og:locale" />
+<meta content={pageURL} property="twitter:url" />
+<meta content={siteConfig.title} property="twitter:site" />
+<meta content={siteConfig.author} property="twitter:creator" />
 
 {/* Sitemap */}
 <link href="/sitemap.xml" rel="sitemap" />

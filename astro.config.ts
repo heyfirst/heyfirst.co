@@ -34,7 +34,8 @@ const allowedDomains = [siteUrl, stagingOrigin]
 
 // The Node adapter keeps sessions under node_modules/.astro, which the non-root container user cannot
 // write; without a session the admin cannot sign in after registering its passkey.
-const sessionDir = env.SESSION_DIR ?? fileURLToPath(new URL("./node_modules/.astro/sessions", import.meta.url));
+const sessionDir =
+	env.SESSION_DIR ?? fileURLToPath(new URL("./node_modules/.astro/sessions", import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
@@ -90,7 +91,9 @@ export default defineConfig({
 				{
 					id: "search-sync",
 					version: "1.0.0",
-					entrypoint: fileURLToPath(new URL("./src/emdash-plugins/search-sync.ts", import.meta.url)),
+					entrypoint: fileURLToPath(
+						new URL("./src/emdash-plugins/search-sync.ts", import.meta.url),
+					),
 					format: "native",
 				},
 			],
@@ -146,6 +149,8 @@ export default defineConfig({
 	security: { allowedDomains },
 	redirects: {
 		"/blog/[...slug]": { status: 301, destination: "/posts/[...slug]" },
+		"/sitemap-index.xml": { status: 301, destination: "/sitemap.xml" },
+		"/sitemap-0.xml": { status: 301, destination: "/sitemap.xml" },
 	},
 });
 
