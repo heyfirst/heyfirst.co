@@ -5,7 +5,7 @@
 		"astro:dev": "astro dev",
 		"dev": "portless",
 		"migrate": "bun scripts/migrate.ts",
-		"start": "astro build && bun scripts/migrate.ts && bun dist/server/entry.mjs",
+		"start": "bun --bun run build && bun scripts/migrate.ts && bun dist/server/entry.mjs",
 		"seed:sample": "bun scripts/seed-sample.ts",
 		"import": "bun scripts/import-content.ts",
 		"verify:content": "bun scripts/verify-content.ts",
@@ -72,9 +72,7 @@
 		"remark-mdx": "3.1.1",
 		"remark-parse": "11.0.0",
 		"satori": "0.16.2",
-		"satori-html": "0.3.2",
 		"sharp": "0.34.3",
-		"ultrahtml": "1.6.0",
 		"unified": "11.0.5",
 		"unist-util-visit": "5.0.0",
 		"yaml": "2.9.1"

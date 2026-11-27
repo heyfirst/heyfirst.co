@@ -10,14 +10,24 @@ import baseSeed from "../seed/seed.json";
 const adminUrl = process.env.DATABASE_URL;
 const root = join(import.meta.dir, "..");
 const BUILD_INPUTS = ["src", "public", "seed", "scripts"];
-const BUILD_FILES = ["astro.config.ts", "package.json", "bun.lock", "tsconfig.json", "tailwind.config.ts", "emdash-env.d.ts"];
+const BUILD_FILES = [
+	"astro.config.ts",
+	"package.json",
+	"bun.lock",
+	"tsconfig.json",
+	"tailwind.config.ts",
+	"emdash-env.d.ts",
+];
 
 // The build bakes in DATABASE_URL and SITE_URL, so the database name and the port come from the
 // input hash too: an unchanged tree reuses dist/http-test-<hash>, any source change rebuilds.
 function inputsHash(): string {
 	const hasher = new Bun.CryptoHasher("sha256");
+	hasher.update(adminUrl ?? "");
 	const paths = BUILD_INPUTS.flatMap((dir) =>
-		[...new Bun.Glob("**/*").scanSync({ cwd: join(root, dir), onlyFiles: true })].map((f) => join(dir, f)),
+		[...new Bun.Glob("**/*").scanSync({ cwd: join(root, dir), onlyFiles: true })].map((f) =>
+			join(dir, f),
+		),
 	);
 	for (const path of [...paths, ...BUILD_FILES].sort()) {
 		hasher.update(path);
@@ -75,7 +85,10 @@ beforeAll(async () => {
 		for (const stale of readdirSync(join(root, "dist")).filter((n) => n.startsWith("http-test-"))) {
 			rmSync(join(root, "dist", stale), { recursive: true, force: true });
 		}
-		const build = Bun.spawnSync(["bun", "run", "build", "--outDir", outDir], { cwd: root, env });
+		const build = Bun.spawnSync(["bun", "--bun", "run", "build", "--outDir", outDir], {
+			cwd: root,
+			env,
+		});
 		if (!build.success) throw new Error(`build failed: ${build.stderr.toString()}`);
 	}
 	await seedSample(databaseUrl, "update");
@@ -167,13 +180,19 @@ test("an unknown slug, a draft and an unknown tag are real, uncached 404s", asyn
 	}
 });
 
-test("tag pages, RSS and the OG image render from EmDash", async () => {
+test("tag pages and RSS render from EmDash", async () => {
 	expect(await (await get("/tags/emdash/")).text()).toContain("Hello from EmDash");
 	expect(await (await get("/rss.xml")).text()).toContain("hello-from-emdash");
-	const og = await get("/og-image/hello-from-emdash.png");
-	expect(og.headers.get("content-type")).toBe("image/png");
-	expect(og.headers.get("cache-control")).toBe("public, max-age=86400, s-maxage=604800");
-	expect((await get("/social-card.png")).status).toBe(200);
+});
+
+test("the OG image and the social card are real PNGs", async () => {
+	for (const path of ["/og-image/hello-from-emdash.png", "/social-card.png"]) {
+		const res = await get(path);
+		expect(res.status).toBe(200);
+		expect(res.headers.get("content-type")).toBe("image/png");
+		expect(res.headers.get("cache-control")).toBe("public, max-age=86400, s-maxage=604800");
+		expect((await res.arrayBuffer()).byteLength).toBeGreaterThan(5_000);
+	}
 });
 
 async function sitemapUrls() {
