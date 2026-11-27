@@ -1,0 +1,3 @@
+#!/bin/sh
+# Removes the build cache of the remote builder. It never fails a deploy: a missing builder is fine.
+docker buildx prune --builder kamal-remote-ssh---heyfirst-internal --all --force > /dev/null 2>&1 || true
