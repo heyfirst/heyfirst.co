@@ -48,10 +48,10 @@ env:
   clear:
     HOST: 0.0.0.0
     PORT: 3000
-    PGHOST: <%= ENV.fetch("PGHOST") %>
-    PGPORT: <%= ENV.fetch("PGPORT") %>
-    PGUSER: <%= ENV.fetch("PGUSER") %>
-    PGDATABASE: <%= ENV.fetch("PGDATABASE") %>
+    PGHOST: <%= ENV.fetch("DEPLOY_PGHOST") %>
+    PGPORT: <%= ENV.fetch("DEPLOY_PGPORT") %>
+    PGUSER: <%= ENV.fetch("DEPLOY_PGUSER") %>
+    PGDATABASE: <%= ENV.fetch("DEPLOY_PGDATABASE") %>
     PGSSLMODE: disable
     EMDASH_MIGRATIONS_MODE: check
     EMDASH_EXPECTED_FINGERPRINT: "<%= ENV.fetch("EMDASH_EXPECTED_FINGERPRINT", "") %>"
