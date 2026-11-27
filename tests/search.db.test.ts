@@ -142,6 +142,21 @@ test("a word deep in the body is found, with a marked excerpt", async () => {
 	expect(hit?.excerpt).toContain("<mark>quokka</mark>");
 });
 
+test("a partial word matches as a prefix, one letter at a time", async () => {
+	await resyncSearchIndex(db, [
+		entry({ entryId: "hel", title: "A Helsinki guide", body: "Tallinn is a short ferry away" }),
+		entry({ entryId: "other", title: "Write ahead log", body: "durability before commit" }),
+	]);
+	for (const query of ["h", "he", "hel", "helsinki", "tall fer", "Helsinki!", "ferries"]) {
+		const slugs = (await searchEntries(db, { query })).results.map((hit) => hit.slug);
+		expect(slugs).toContain("hel");
+	}
+	expect((await searchEntries(db, { query: "hel" })).results.map((hit) => hit.slug)).not.toContain(
+		"other",
+	);
+	expect((await searchEntries(db, { query: "!!!" })).results).toEqual([]);
+});
+
 test("a NUL byte in the query is dropped instead of failing the request", async () => {
 	await resyncSearchIndex(db, [
 		entry({ entryId: "nul", title: "Nul post", body: "quokka lives here" }),

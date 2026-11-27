@@ -33,7 +33,14 @@ export async function searchEntries(
 	const text = query.replaceAll("\0", "").trim();
 	if (!text) return { results: [], tags: [] };
 	const capped = Math.min(Math.max(Math.trunc(limit), 1), MAX_LIMIT);
-	const tsquery = sql`websearch_to_tsquery('english', ${text})`;
+	// Every word matches as a prefix, so "hel" finds "helsinki" while the reader is still typing.
+	// The simple config keeps stop words like "he" and the half-typed word as written; the
+	// english config also matches the stemmed words the index stores.
+	const words = text.match(/[\p{L}\p{N}]+/gu);
+	if (!words) return { results: [], tags: [] };
+	const prefixOf = (word: string) =>
+		sql`(to_tsquery('simple', ${`${word}:*`}) || to_tsquery('english', ${`${word}:*`}))`;
+	const tsquery = sql`(${sql.join(words.map(prefixOf), sql` && `)})`;
 	const tagFilter = tag ? sql`AND tags @> ${JSON.stringify([{ slug: tag }])}::jsonb` : sql``;
 
 	const hitsQuery = sql<{
