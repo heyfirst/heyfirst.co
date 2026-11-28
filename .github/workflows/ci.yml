@@ -31,12 +31,7 @@ jobs:
         run: bun run lint
 
       - name: Check formatting
-        run: bun run format:code --check
+        run: bun run format:check
 
       - name: Build project
         run: bun run build
-
-      - name: Check for dead links
-        run: |
-          npx broken-link-checker http://localhost:4321 --recursive --exclude-external --exclude-private || true
-        if: always()

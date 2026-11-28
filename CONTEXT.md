@@ -1,6 +1,6 @@
 # heyfirst.co
 
-First Sutham's personal blog/portfolio, built with Astro (Astro Cactus theme) and served by EmDash CMS on Postgres. Publishes long-form technical writing and short snippets. Content lives in the EmDash database and is edited in the admin; the repo holds the theme and the deploy.
+First Sutham's personal blog/portfolio, built with Astro and served by EmDash CMS on Postgres. Publishes long-form technical writing and short snippets. Content lives in the EmDash database and is edited in the admin; the repo holds the theme and the deploy.
 
 ## Language
 
