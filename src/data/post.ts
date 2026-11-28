@@ -22,7 +22,7 @@ type PostFields = {
 
 export type PostTag = { slug: string; label: string };
 
-export type PostData = {
+type PostData = {
 	title: string;
 	description: string;
 	publishDate: Date;
@@ -101,7 +101,7 @@ export function getUniqueTagsWithCount(posts: Post[]): [PostTag, number][] {
 }
 
 /** old URLs used the tag label (`/tags/software development/`); new ones use the slug */
-export function findTag(tags: PostTag[], param: string): PostTag | undefined {
+function findTag(tags: PostTag[], param: string): PostTag | undefined {
 	const wanted = param.toLowerCase();
 	return (
 		tags.find((tag) => tag.slug === param) ?? tags.find((tag) => tag.label.toLowerCase() === wanted)

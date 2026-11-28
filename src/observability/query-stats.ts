@@ -1,6 +1,6 @@
 import type { ReadableSpan, SpanProcessor } from "@opentelemetry/sdk-trace-base";
 
-export interface QueryStats {
+interface QueryStats {
 	count: number;
 	ms: number;
 }
@@ -8,7 +8,7 @@ export interface QueryStats {
 const MAX_TRACES = 1_000;
 const KEY = Symbol.for("heyfirst.queryStats");
 
-export class QueryStatsProcessor implements SpanProcessor {
+class QueryStatsProcessor implements SpanProcessor {
 	private readonly byTrace = new Map<string, QueryStats>();
 
 	get size(): number {

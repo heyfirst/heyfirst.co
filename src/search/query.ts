@@ -1,7 +1,7 @@
 import { type Kysely, sql } from "kysely";
 import type { SearchTag } from "./resync";
 
-export type SearchHit = {
+type SearchHit = {
 	collection: string;
 	slug: string;
 	url: string;

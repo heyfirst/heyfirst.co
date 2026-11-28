@@ -20,7 +20,7 @@ export interface Tracing {
 	shutdown: () => Promise<void>;
 }
 
-export interface OtlpConfig {
+interface OtlpConfig {
 	endpoint: string;
 	headers: Record<string, string>;
 }
@@ -66,7 +66,7 @@ const SENSITIVE_EVENT_ATTRIBUTES = ["exception.message", "exception.stacktrace"]
 
 // Error text can carry a query parameter or a row value, so only the error type leaves the process.
 // It runs before the exporting processor, which is why it is first in the provider's list.
-export const scrubErrors: SpanProcessor = {
+const scrubErrors: SpanProcessor = {
 	onStart() {},
 	onEnd(span: ReadableSpan) {
 		const mutable = span as { status: ReadableSpan["status"] };
@@ -106,7 +106,7 @@ const spanProcessor = (env: Env, exporter?: SpanExporter): SpanProcessor | undef
 	);
 };
 
-export const parseHeaders = (raw: string | undefined): Record<string, string> => {
+const parseHeaders = (raw: string | undefined): Record<string, string> => {
 	const headers: Record<string, string> = {};
 	for (const pair of raw?.split(",") ?? []) {
 		const at = pair.indexOf("=");

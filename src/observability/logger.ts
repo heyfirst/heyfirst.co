@@ -2,7 +2,7 @@ import { trace } from "@opentelemetry/api";
 import { type Env, otlpConfig, resourceAttributes } from "./otel.ts";
 
 type Send = (url: string, init?: RequestInit) => Promise<Response>;
-export type Log = (line: string) => void;
+type Log = (line: string) => void;
 type Fields = Record<string, unknown>;
 
 export interface Telemetry {

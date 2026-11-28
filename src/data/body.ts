@@ -5,7 +5,7 @@ export type Heading = { depth: number; slug: string; text: string };
 
 export type Footnote = { id: string; text: string };
 
-export type PreparedBody = {
+type PreparedBody = {
 	body: PortableTextBlock[];
 	headings: Heading[];
 	footnotes: Footnote[];
