@@ -24,4 +24,3 @@ export interface SiteMeta {
 	ogImage?: string | undefined;
 	title: string;
 }
-

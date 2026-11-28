@@ -48,7 +48,9 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	!!data.tags?.length && (
 		<div class="mt-2 flex flex-wrap items-center gap-2">
 			<TagIcon class="inline-block h-6 w-6" />
-			{data.tags.map((tag) => <TagPill tag={tag} />)}
+			{data.tags.map((tag) => (
+				<TagPill tag={tag} />
+			))}
 		</div>
 	)
 }

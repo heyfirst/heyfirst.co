@@ -26,9 +26,10 @@ if (status.needsSetup) {
 }
 
 const ADMIN_ROLE = 50;
-const users = await get<{ items: { role: number; disabled: boolean }[]; nextCursor?: string | null }>(
-	"/_emdash/api/admin/users?limit=100",
-);
+const users = await get<{
+	items: { role: number; disabled: boolean }[];
+	nextCursor?: string | null;
+}>("/_emdash/api/admin/users?limit=100");
 const admins = users.items.filter((user) => user.role >= ADMIN_ROLE && !user.disabled);
 if (admins.length !== 1 || users.items.length !== 1 || users.nextCursor) {
 	console.error(

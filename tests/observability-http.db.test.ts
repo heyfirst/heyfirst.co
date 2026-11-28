@@ -67,7 +67,9 @@ test("root span uses the route template and carries content and query attributes
 	expect(root?.attributes["app.content.slug"]).toBe("hello-world");
 	expect(root?.attributes["app.db.query_count"]).toBe(2);
 	expect(Number(root?.attributes["app.db.time_ms"])).toBeGreaterThan(0);
-	const children = spans.filter((span) => span.parentSpanContext?.spanId === root?.spanContext().spanId);
+	const children = spans.filter(
+		(span) => span.parentSpanContext?.spanId === root?.spanContext().spanId,
+	);
 	expect(children).toHaveLength(2);
 	expect(children[0]?.name).toBe("SELECT information_schema.tables");
 });
@@ -85,8 +87,12 @@ test("no cookie, auth, forwarded-for or query string on any span", async () => {
 });
 
 test("x-request-id is kept only when it matches the pattern", async () => {
-	expect(rootOf(await get("/posts/a", { "x-request-id": "req-123" }))?.attributes["app.request_id"]).toBe("req-123");
-	expect(rootOf(await get("/posts/a", { "x-request-id": "bad id;drop" }))?.attributes).not.toHaveProperty("app.request_id");
+	expect(
+		rootOf(await get("/posts/a", { "x-request-id": "req-123" }))?.attributes["app.request_id"],
+	).toBe("req-123");
+	expect(
+		rootOf(await get("/posts/a", { "x-request-id": "bad id;drop" }))?.attributes,
+	).not.toHaveProperty("app.request_id");
 });
 
 test("only 5xx is an error", async () => {
@@ -104,7 +110,9 @@ test("a failing request records the exception and logs with the trace ids", asyn
 	const root = rootOf(await get("/posts/boom"));
 	spy.mockRestore();
 	expect(root?.events.map((event) => event.name)).toContain("exception");
-	const entry = lines.map((line) => JSON.parse(line)).find((line) => line.event === "request.error");
+	const entry = lines
+		.map((line) => JSON.parse(line))
+		.find((line) => line.event === "request.error");
 	expect(entry).toMatchObject({
 		route: "/posts/{slug}",
 		error: "Error",

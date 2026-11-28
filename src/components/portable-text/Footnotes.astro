@@ -15,7 +15,10 @@ const { notes } = Astro.props;
 			<ol>
 				{notes.map(({ id, text }) => (
 					<li id={`fn-${id}`}>
-						{text} <a href={`#fnref-${id}`} aria-label="Back to the reference">↩</a>
+						{text}{" "}
+						<a href={`#fnref-${id}`} aria-label="Back to the reference">
+							↩
+						</a>
 					</li>
 				))}
 			</ol>

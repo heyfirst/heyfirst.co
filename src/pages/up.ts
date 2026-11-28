@@ -14,7 +14,8 @@ export const GET: APIRoute = async () => {
 	try {
 		await sql`select 1 from _emdash_migrations limit 1`.execute(await getDb());
 	} catch (error) {
-		if (!failing) log({ event: "up.failed", error: error instanceof Error ? error.name : "unknown" });
+		if (!failing)
+			log({ event: "up.failed", error: error instanceof Error ? error.name : "unknown" });
 		failing = true;
 		return new Response("database unavailable", { status: 503, headers: HEADERS });
 	}

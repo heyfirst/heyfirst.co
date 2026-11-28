@@ -11,8 +11,9 @@
    ───────────────────────────────────────────────────────────────────────── */
 @theme {
 	/* type */
-	--font-body: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-		"Liberation Mono", "Courier New", monospace;
+	--font-body:
+		"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
 	--text-base: 0.875rem;
 	--text-base--line-height: 1.7142857;
 
@@ -98,11 +99,11 @@
 	}
 
 	.card {
-		@apply bg-(--surface) border-(--border) rounded-[10px] border px-4 py-3;
+		@apply rounded-[10px] border border-(--border) bg-(--surface) px-4 py-3;
 	}
 
 	.post-footer {
-		@apply border-(--border) mt-8 border-t pt-4 text-xs opacity-70;
+		@apply mt-8 border-t border-(--border) pt-4 text-xs opacity-70;
 
 		p {
 			@apply m-0!;
@@ -209,7 +210,9 @@
 	}
 	.btn:focus-visible {
 		outline: none;
-		box-shadow: var(--om-rest), 0 0 0 3px var(--focus-ring);
+		box-shadow:
+			var(--om-rest),
+			0 0 0 3px var(--focus-ring);
 	}
 	.btn:disabled {
 		opacity: 0.5;
@@ -319,7 +322,11 @@
 }
 @media (prefers-reduced-motion: reduce) {
 	/* biome-ignore lint/correctness/noUnknownTypeSelector: valid View Transitions API pseudo-elements Biome doesn't recognize */
-	::view-transition-old(root), ::view-transition-new(root) {
+	::view-transition-old(root) {
+		animation: none !important;
+	}
+	/* biome-ignore lint/correctness/noUnknownTypeSelector: valid View Transitions API pseudo-elements Biome doesn't recognize */
+	::view-transition-new(root) {
 		animation: none !important;
 	}
 }
