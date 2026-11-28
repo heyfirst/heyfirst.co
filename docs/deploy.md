@@ -9,7 +9,7 @@ Every real value lives in `.env` (see `.env.example` for the key names); `bin/k`
 - `SITE_URL` (the FINAL domain, from `DEPLOY_SITE_URL`) and `STAGING_ORIGIN` (from
   `DEPLOY_STAGING_ORIGIN`) are build arguments, because EmDash bakes them in. So is the uploads path.
 - The build gets no database setting. The container reads `PGHOST`, `PGPORT`, `PGUSER`,
-  `PGPASSWORD` and `PGDATABASE` at run time. In `.env` they are `DEPLOY_PGHOST` and so on: the prefix keeps them out of local
+  `PGPASSWORD` and `PGDATABASE` at run time, as Kamal secrets (`.kamal/secrets` maps them from `.env`, so they stay out of `kamal config` output and the deploy logs). In `.env` they are `DEPLOY_PGHOST` and so on: the prefix keeps them out of local
   runs, because Bun loads `.env` into every command and a bare `PGHOST` would point tests at the shared server. `config/deploy.yml` sets `PGSSLMODE=disable`: the link is
   the private encrypted tailnet.
 - The entrypoint runs `emdash migrate` (guarded, see below), then `scripts/migrate.ts` (search), then starts the server.
