@@ -16,10 +16,10 @@
 					"slug": "sample",
 					"label": "sample"
 				},
-					{
-						"slug": "software-development",
-						"label": "software development"
-					}
+				{
+					"slug": "software-development",
+					"label": "software development"
+				}
 			]
 		}
 	],

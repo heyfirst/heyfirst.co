@@ -6,3 +6,6 @@ node_modules
 
 pnpm-lock.yaml
 dist
+# Kamal config is ERB, not plain YAML
+config/
+.kamal/

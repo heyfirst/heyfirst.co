@@ -1,0 +1,4 @@
+#!/bin/sh
+# Caps the remote builder's build cache at 3 GB, least recently used first, so the dependency
+# layers stay warm and the cache cannot fill the host's small disk. A missing builder is fine.
+docker buildx prune --builder kamal-remote-ssh---heyfirst-internal --max-used-space 3GB --force > /dev/null 2>&1 || true

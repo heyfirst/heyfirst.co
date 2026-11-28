@@ -15,7 +15,10 @@ async function databaseAnswers() {
 	if (!url) return false;
 	try {
 		const sql = new Bun.SQL(url, { max: 1, connectionTimeout: 1 });
-		await Promise.race([sql`select 1`, Bun.sleep(1000).then(() => Promise.reject(new Error("timeout")))]);
+		await Promise.race([
+			sql`select 1`,
+			Bun.sleep(1000).then(() => Promise.reject(new Error("timeout"))),
+		]);
 		await sql.close();
 		return true;
 	} catch {
@@ -44,7 +47,9 @@ const results = await Promise.all(steps.map(run));
 for (const r of results.filter((r) => r.code !== 0)) {
 	console.error(`--- ${r.name} failed (exit ${r.code})\n${r.output}`);
 }
-const parts = results.map((r) => `${r.name} ${r.code === 0 ? "ok" : "FAIL"} ${r.seconds.toFixed(1)}s`);
+const parts = results.map(
+	(r) => `${r.name} ${r.code === 0 ? "ok" : "FAIL"} ${r.seconds.toFixed(1)}s`,
+);
 const total = ((performance.now() - started) / 1000).toFixed(1);
 console.log(`verify: ${parts.join(" | ")} | total ${total}s${skipped}`);
 process.exit(results.some((r) => r.code !== 0) ? 1 : 0);

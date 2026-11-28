@@ -24,5 +24,3 @@ export interface SiteMeta {
 	ogImage?: string | undefined;
 	title: string;
 }
-
-export type AdmonitionType = "tip" | "note" | "important" | "caution" | "warning";

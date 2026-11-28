@@ -67,3 +67,28 @@ test("the input body is not mutated", () => {
 	prepareBody(input, "s");
 	expect(JSON.stringify(input)).toBe(before);
 });
+
+test("quotes curl in prose across mark boundaries, and inline code is left alone", () => {
+	const block = {
+		_type: "block",
+		_key: "a",
+		style: "normal",
+		markDefs: [],
+		children: [
+			{ _type: "span", _key: "1", text: 'She said "it', marks: [] },
+			{ _type: "span", _key: "2", text: "'s fine", marks: ["strong"] },
+			{ _type: "span", _key: "3", text: '"', marks: [] },
+			{ _type: "span", _key: "4", text: "don't 'x'\nnext...", marks: ["code"] },
+			{ _type: "span", _key: "5", text: " the '90s and\nmore", marks: [] },
+		],
+	};
+	const { body: out } = prepareBody(body(block));
+	const texts = (out[0] as unknown as { children: { text: string }[] }).children.map((c) => c.text);
+	expect(texts).toEqual([
+		"She said “it",
+		"’s fine",
+		"”",
+		"don't 'x'\nnext...",
+		" the ’90s and more",
+	]);
+});

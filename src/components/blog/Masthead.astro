@@ -11,7 +11,7 @@ interface Props {
 }
 
 const {
-	content: { data },
+	content: { data, edit },
 	readingTime,
 } = Astro.props;
 
@@ -27,7 +27,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</div>
 	)
 }
-<h1 class="title">
+<h1 class="title" {...edit?.title}>
 	{data.title}
 </h1>
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -48,7 +48,9 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 	!!data.tags?.length && (
 		<div class="mt-2 flex flex-wrap items-center gap-2">
 			<TagIcon class="inline-block h-6 w-6" />
-			{data.tags.map((tag) => <TagPill tag={tag} />)}
+			{data.tags.map((tag) => (
+				<TagPill tag={tag} />
+			))}
 		</div>
 	)
 }

@@ -187,7 +187,9 @@ import "@/styles/blocks/search.css";
 			button.type = "button";
 			button.className =
 				"cursor-pointer rounded-full border px-2.5 py-0.5 text-sm " +
-				(this.#tag === tag.slug ? "border-accent bg-accent text-global-bg" : "border-accent text-accent");
+				(this.#tag === tag.slug
+					? "border-accent bg-accent text-global-bg"
+					: "border-accent text-accent");
 			button.setAttribute("aria-pressed", String(this.#tag === tag.slug));
 			button.textContent = `#${tag.label} (${tag.count})`;
 			button.addEventListener("click", () => {

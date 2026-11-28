@@ -1,4 +1,11 @@
-import { context, type Span, SpanKind, SpanStatusCode, TraceFlags, trace } from "@opentelemetry/api";
+import {
+	context,
+	type Span,
+	SpanKind,
+	SpanStatusCode,
+	TraceFlags,
+	trace,
+} from "@opentelemetry/api";
 import type { MiddlewareHandler } from "astro";
 import { log } from "./index.ts";
 import { queryStats } from "./query-stats.ts";

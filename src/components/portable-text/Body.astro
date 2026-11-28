@@ -1,6 +1,7 @@
 ---
 import { prepareBody } from "@/data/body";
 import type { PortableTextBlock } from "emdash";
+import { getEditMeta } from "emdash";
 import { PortableText } from "emdash/ui";
 import Footnotes from "./Footnotes.astro";
 import { components } from "./components";
@@ -12,7 +13,9 @@ interface Props {
 }
 
 const { value, scope } = Astro.props;
-const { body, footnotes } = prepareBody(value, scope);
+// In edit mode the body carries the editor metadata; prepareBody would copy it away.
+const editing = getEditMeta(value) !== undefined;
+const { body, footnotes } = editing ? { body: value, footnotes: [] } : prepareBody(value, scope);
 ---
 
 <PortableText components={components} value={body} />

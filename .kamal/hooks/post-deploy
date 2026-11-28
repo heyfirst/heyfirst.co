@@ -1,0 +1,3 @@
+#!/bin/sh
+# Free the build cache as soon as the image is pushed.
+exec "$(dirname "$0")/prune-builder"

@@ -1,0 +1,4 @@
+#!/bin/sh
+# The build host also runs other services and its disk is small. Bound the cache before building,
+# which also clears what a failed deploy left behind.
+exec "$(dirname "$0")/prune-builder"

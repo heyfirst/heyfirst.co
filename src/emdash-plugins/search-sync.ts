@@ -112,8 +112,10 @@ export function createPlugin() {
 		booted = await resyncAll(ctx);
 	};
 
-	const changed = (event: { content: Record<string, unknown>; collection: string }, ctx: PluginContext) =>
-		enqueue(() => syncEntry(ctx, event.collection, String(event.content.id)));
+	const changed = (
+		event: { content: Record<string, unknown>; collection: string },
+		ctx: PluginContext,
+	) => enqueue(() => syncEntry(ctx, event.collection, String(event.content.id)));
 
 	return definePlugin({
 		id: "search-sync",
