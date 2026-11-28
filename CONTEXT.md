@@ -9,7 +9,7 @@ A long-form, tagged article in the EmDash `post` collection, rendered at `/posts
 _Avoid_: article, blog entry, blog post (fine in prose, but use "Post" as the canonical collection/type name).
 
 **Snippet**:
-A short-form entry in the EmDash `snippet` collection, rendered at `/snippets/[slug]`. Lighter-weight than a Post: no cover image, no tags, no reading time. Formerly called "Note" (renamed as part of the First Light rebrand, see `docs/adr/0001-first-light-rebrand-deviations.md`).
+A short-form entry in the EmDash `snippet` collection, rendered at `/snippets/[slug]`. Lighter-weight than a Post: no cover image, no tags, no reading time. Formerly called "Note" (renamed as part of the First Light rebrand).
 _Avoid_: micro-post, note.
 
 **Project**:

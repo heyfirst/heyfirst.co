@@ -2,17 +2,11 @@
 .github
 .githooks
 .claude
-.cursor
-.notes
-.vercel
 .astro
 .emdash
 dist
 node_modules
 uploads
-__legacy
-teaching
-docs
 tests
 .env
 .env.*

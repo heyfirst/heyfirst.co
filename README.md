@@ -15,7 +15,7 @@ bun run verify           # check, lint, unit, database and HTTP tests
 
 ## Deploy
 
-See [docs/deploy.md](docs/deploy.md).
+`bin/k` wraps Kamal. Every deploy value lives in `.env`; `.env.example` lists the keys. `bun run deploy:check` validates the config.
 
 ## License
 
