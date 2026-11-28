@@ -1,26 +1,15 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-// Rehype plugins
-import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
-import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, sessionDrivers } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import mermaid from "astro-mermaid";
 import webmanifest from "astro-webmanifest";
 import emdash, { local } from "emdash/astro";
 import { postgres } from "emdash/db";
 import { loadEnv } from "vite";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeUnwrapImages from "rehype-unwrap-images";
-// Remark plugins
-import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
-import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
 // Bun loads .env for itself but not for the node process that runs astro, so read it here too.
@@ -41,40 +30,9 @@ const sessionDir =
 export default defineConfig({
 	site: siteUrl ?? siteConfig.url,
 	session: { driver: sessionDrivers.fsLite({ base: sessionDir }) },
-	markdown: {
-		processor: unified({
-			rehypePlugins: [
-				rehypeHeadingIds,
-				[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
-				[
-					rehypeExternalLinks,
-					{
-						rel: ["noreferrer", "noopener"],
-						target: "_blank",
-					},
-				],
-				rehypeUnwrapImages,
-			],
-			remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
-			remarkRehype: {
-				footnoteLabelProperties: {
-					className: [""],
-				},
-			},
-		}),
-	},
 	integrations: [
-		// Must come BEFORE expressiveCode, otherwise ```mermaid blocks are claimed by
-		// the syntax highlighter and never become <pre class="mermaid"> elements.
-		mermaid({
-			autoTheme: true,
-			mermaidConfig: {
-				flowchart: { curve: "basis" },
-			},
-		}),
 		expressiveCode(expressiveCodeOptions),
 		icon(),
-		mdx(),
 		react(),
 		emdash({
 			database: postgres({ ...(databaseUrl && { connectionString: databaseUrl }) }),

@@ -58,7 +58,7 @@ device at hand. A Cloudflare Access rule on `/_emdash/*` closes the window compl
    if it fails.
 5. Copy the fingerprint the first run printed into `EMDASH_EXPECTED_FINGERPRINT` in `.env`, remove
    `EMDASH_FIRST_MIGRATE`, and run `bin/k deploy`.
-6. `bun run import`, then `bun run verify:content`.
+6. Write or paste content in the admin.
 
 ## Run the image locally against the compose Postgres
 

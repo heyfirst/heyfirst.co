@@ -25,4 +25,3 @@ export interface SiteMeta {
 	title: string;
 }
 
-export type AdmonitionType = "tip" | "note" | "important" | "caution" | "warning";
