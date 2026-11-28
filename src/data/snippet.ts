@@ -9,7 +9,7 @@ type SnippetFields = {
 	body?: PortableTextBlock[] | null;
 };
 
-export type SnippetData = {
+type SnippetData = {
 	title: string;
 	publishDate: Date;
 	description: string | undefined;

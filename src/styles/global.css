@@ -47,8 +47,6 @@
 	/* button edge/shadow colors (light) */
 	--btn-primary-edge: #1e4a2c;
 	--btn-primary-amb: rgba(46, 107, 65, 0.32);
-	--btn-soft-edge: #d9dfc9;
-	--btn-danger-edge: #7e3020;
 	--focus-ring: rgba(62, 138, 80, 0.4);
 
 	/* card surface + hairline (not specified by the handoff, added to match its §5 card spec) */
@@ -79,8 +77,6 @@
 
 			--btn-primary-edge: #16351f;
 			--btn-primary-amb: rgba(10, 20, 8, 0.5);
-			--btn-soft-edge: #3a4230;
-			--btn-danger-edge: #5e2417;
 			--focus-ring: rgba(127, 201, 141, 0.45);
 
 			--surface: #2a3320;
@@ -221,20 +217,9 @@
 	}
 
 	/* sizes */
-	.btn-sm {
-		padding: 10px 16px;
-		font-size: 13px;
-	}
 	.btn-md {
 		padding: 13px 22px;
 		font-size: 15px;
-	}
-	.btn-lg {
-		padding: 16px 28px;
-		font-size: 17px;
-	}
-	.btn-full {
-		width: 100%;
 	}
 
 	/* variants — each sets its own two-layer rest/press shadow + sink depth */
@@ -245,44 +230,10 @@
 		background: var(--color-accent);
 		color: var(--color-paper);
 	}
-	.btn-soft {
-		--om-sink: 4px;
-		--om-rest: 0 4px 0 var(--btn-soft-edge), 0 8px 16px rgba(40, 60, 30, 0.1);
-		--om-press-sh: 0 1px 0 var(--btn-soft-edge), 0 2px 6px rgba(40, 60, 30, 0.1);
-		background: #fff;
-		color: var(--color-accent-2);
-	}
-	.btn-danger {
-		--om-sink: 4px;
-		--om-rest: 0 4px 0 var(--btn-danger-edge), 0 8px 16px rgba(176, 73, 47, 0.3);
-		--om-press-sh: 0 1px 0 var(--btn-danger-edge), 0 2px 6px rgba(176, 73, 47, 0.26);
-		background: var(--color-danger);
-		color: #fff;
-	}
-	.btn-ghost {
-		--om-sink: 2px;
-		--om-rest: inset 0 0 0 1.5px rgba(74, 84, 54, 0.4);
-		--om-press-sh: inset 0 0 0 1.5px rgba(74, 84, 54, 0.4);
-		background: transparent;
-		color: var(--color-accent-2);
-	}
-
-	/* lightweight press feel for non-button tappables (chips, cards, rows) */
-	.om-press {
-		transition:
-			transform 0.3s var(--ease-om),
-			box-shadow 0.3s var(--ease-om);
-		cursor: pointer;
-	}
-	.om-press:active {
-		transform: translateY(2px) scale(0.985);
-		transition-duration: var(--om-press);
-	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.btn,
-	.om-press {
+	.btn {
 		transition: none !important;
 	}
 }

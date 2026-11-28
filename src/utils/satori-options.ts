@@ -5,7 +5,7 @@ import JetBrainsMonoBold from "@/assets/jetbrains-mono-700.ttf";
 import JetBrainsMono from "@/assets/jetbrains-mono-regular.ttf";
 import { brandMarkMarkup } from "@/utils/brand-mark";
 
-export const ogOptions: SatoriOptions = {
+const ogOptions: SatoriOptions = {
 	fonts: [
 		{
 			data: Buffer.from(JetBrainsMono),
@@ -41,7 +41,7 @@ export function h(type: string, tw: string, ...children: OgChild[]): OgElement {
 }
 
 /** satori accepts plain element objects at runtime but types its input as ReactNode. */
-export async function renderOgPng(markup: OgElement): Promise<Uint8Array<ArrayBuffer>> {
+async function renderOgPng(markup: OgElement): Promise<Uint8Array<ArrayBuffer>> {
 	const svg = await satori(markup as unknown as ReactNode, ogOptions);
 	return new Uint8Array(new Resvg(svg).render().asPng());
 }

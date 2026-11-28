@@ -10,9 +10,9 @@ type ProjectFields = {
 	sort_order?: number | null;
 };
 
-export type ProjectStatus = "Live" | "Active" | "Maintained";
+type ProjectStatus = "Live" | "Active" | "Maintained";
 
-export type ProjectData = {
+type ProjectData = {
 	name: string;
 	stack: string;
 	description: string;
