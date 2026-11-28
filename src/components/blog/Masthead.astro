@@ -11,7 +11,7 @@ interface Props {
 }
 
 const {
-	content: { data },
+	content: { data, edit },
 	readingTime,
 } = Astro.props;
 
@@ -27,7 +27,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</div>
 	)
 }
-<h1 class="title">
+<h1 class="title" {...edit?.title}>
 	{data.title}
 </h1>
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2">

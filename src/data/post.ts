@@ -40,8 +40,9 @@ async function toPosts(entries: DbEntry<PostFields>[]): Promise<Post[]> {
 		entries.map((entry) => entry.data.id),
 		"tag",
 	);
-	return entries.map(({ id, data }) => ({
+	return entries.map(({ id, data, edit }) => ({
 		id,
+		edit,
 		entryId: data.id,
 		body: data.body ?? [],
 		data: {
