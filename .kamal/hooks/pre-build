@@ -1,4 +1,4 @@
 #!/bin/sh
-# The build host also runs other services and its disk is small, so start every build with no cache.
-# A failed deploy never reaches post-deploy, and this clears what it left behind.
+# The build host also runs other services and its disk is small. Bound the cache before building,
+# which also clears what a failed deploy left behind.
 exec "$(dirname "$0")/prune-builder"

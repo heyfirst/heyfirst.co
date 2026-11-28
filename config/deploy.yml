@@ -41,6 +41,8 @@ builder:
 
 # The first start applies 99 migrations on an empty database in a few seconds.
 deploy_timeout: 60
+# The running container plus one fallback. The default of 5 keeps four old 1.2 GB images on a 40 GB host.
+retain_containers: 2
 drain_timeout: 30
 
 volumes:
